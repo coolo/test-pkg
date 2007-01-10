@@ -1,0 +1,374 @@
+-------------------------------------------------------------------
+Tue Jan  9 23:02:26 CET 2007 - sndirsch@suse.de
+
+- disabled build of sis DRI driver on i64 to fix build
+
+-------------------------------------------------------------------
+Sat Dec  2 22:13:17 CET 2006 - sndirsch@suse.de
+
+- updated to Mesa 6.5.2
+  * New features
+    - New DRI memory manager system. Currently used by the i915tex 
+      driver. Other DRI drivers will be updated to use the new memory
+      manager in coming months. To use the new driver you'll need the
+      most recent DRM library and drivers (version 2.2 or later) and a
+      recent xf86-video-intel driver module from X.org. New features
+      resulting from this work include: 
+      * EXT_framebuffer_objects, render to texture 
+      * ARB_pixel_buffer_objects 
+      * Accelerated CopyTexSubimage, DrawPixels, ReadPixels, CopyPixels
+      * Accelerated texture uploads from pixel buffer objects 
+      * Potentially texturing directly from the pixel buffer object
+        (zero copy texturing). 
+    - New Intel i965 DRI driver 
+    - New minstall script to replace normal install program 
+    - Faster fragment program execution in software 
+    - Added (or fixed) support for GLX_SGI_make_current_read to the
+      following drivers:
+      * radeon
+      * savage
+      * mga
+      * tdfx
+    - Added support for ARB_occlusion_query to the tdfx driver
+      (Ian Romanick).
+  * Bug fixes
+    - fixed invalid memory read while rendering textured points (bug 8320) 
+    - fixed problems with freebsd-dri configuration (bug 8344) 
+    - Mesa's fake glxGetCurrentContext() wasn't thread-aware 
+    - OPTION NV_position_invariant didn't work in NV vertex programs 
+    - glDrawPixels into a user-created framebuffer object could crash Xlib driver 
+    - Line clipping was broken in some circumstances 
+    - fragment.fogcoord register didn't always contain the correct value 
+    - RGBA logicops didn't work reliably in some DRI drivers 
+    - Fixed broken RGBA LogicOps in Intel DRI drivers 
+    - Fixed some fragment program bugs in Intel i915 DRI driver 
+    - Fixed glGetVertexAttribfvARB bug 8883 
+    - Implemented glGetUniform[fi]vARB() functions 
+    - Fixed glDrawPixels(GL_COLOR_INDEX, GL_BITMAP) segfault (bug 9044) 
+    - Fixed some gluBuild2DMipmaps() bugs (Greg McGarragh) 
+    - Fixed broken "mgl" name mangling 
+    - Indirect rending was broken for glMap* functions (bug 8899)
+  * Internal code changes
+    - The device driver functions ResizeBuffers and GetBufferSize have
+      been decprecated. 
+    - OpenGL 2.0 and 2.1 support is nearly done. We need to do quite a
+      bit more testing of the shading language functions. 
+
+-------------------------------------------------------------------
+Thu Nov 23 23:40:15 CET 2006 - sndirsch@suse.de
+
+- enabled build of i965 DRI driver on x86_64
+
+-------------------------------------------------------------------
+Fri Nov 10 15:04:00 CET 2006 - sndirsch@suse.de
+
+- fixed typos (Bug #219732) 
+
+-------------------------------------------------------------------
+Wed Oct 18 14:00:35 CEST 2006 - sndirsch@suse.de
+
+- added static libGLU to Mesa-devel-static package (Bug #212532)
+
+-------------------------------------------------------------------
+Tue Oct 10 10:06:09 CEST 2006 - sndirsch@suse.de
+
+- fixed build on s390x 
+
+-------------------------------------------------------------------
+Mon Oct  9 20:16:59 CEST 2006 - sndirsch@suse.de
+
+- i915-crossbar.diff:
+  * fixes ARB_texture_env_crossbar extension (X.Org Bug #8292)
+
+-------------------------------------------------------------------
+Mon Sep 18 15:47:21 CEST 2006 - sndirsch@suse.de
+
+- updated to Mesa 6.5.1:
+  New:
+     * Intel i965 DRI driver
+     * GL_APPLE_vertex_array_object extension (Ian Romanick)
+     * GL_EXT_texture_sRGB extension
+     * GL_EXT_gpu_program_parameters (Ian Romanick)
+     * "engine" demo
+     * updated fbdev driver and GLUT for fbdev (Sean D'Epagnier)
+     * many updates to the DRI drivers
+  Changes:
+     * The glVertexAttribARB functions no longer alias the
+       conventional vertex attributes.
+     * glxinfo program prints more info with -l option
+     * GL_FRAGMENT_PROGRAM_NV and GL_FRAGMENT_PROGRAM_ARB are now
+       compatible, in terms of glBindProgramARB()
+     * The GL_ARB_vertex_program attribute vertex.weight is now
+       accepted by the parser, even though the GL_ARB_vertex_blend and
+       GL_EXT_vertex_weighting extensions aren't supported. Allows Warcraft
+       to run.
+  Bug fixes:
+     * fixed broken texture border handling for depth textures (bug 6498)
+     * removed the test for duplicated framebuffer attachments, per
+       version 117 of the GL_EXT_framebuffer_object specification
+     * fixed a few render-to-texture bugs, including render to depth
+       texture
+     * clipping of lines against user-defined clip planes was broken
+       (6512)
+     * assembly language dispatch for SPARC was broken (bug 6484)
+     * assorted compilation fixes on various Unix platforms (Dan Schikore)
+     * glPopAttrib could restore an invalid value for GL_DRAW_BUFFER
+     * assorted minor fixes for 16 and 32 bit/channel modes
+     * fixed assorted bugs in texture compression paths
+     * fixed indirect rendering vertex array crashes (bug 6863)
+     * glDrawPixels GL_INDEX_OFFSET didn't always work
+     * fixed convolution memory leak (bug 7077)
+     * rectangular depth textures didn't work
+     * invalid mode to glBegin didn't generate an error (bug 7142)
+     * 'normalized' parameter to glVertexAttribPointerARB didn't work
+     * disable bogus GLX_SGI_video_sync extension in xlib driver
+     * fixed R128 driver locking bug (Martijn van Oosterhout)
+     * using evaluators with vertex programs caused crashes (bug 7564)
+     * fragment.position wasn't set correctly for point/line primitives
+     * fixed parser bug for scalar sources for GL_NV_fragment_program
+     * max fragment program length was incorrectly 128, now 1024
+     * writes to result.depth in fragment programs weren't clamped to
+       [0,1]
+     * fixed potential dangling pointer bug in glBindProgram()
+     * fixed some memory leaks (and potential crashes) in Xlib driver
+
+-------------------------------------------------------------------
+Sat Sep  9 10:28:30 CEST 2006 - sndirsch@suse.de
+
+- removed two source files with imcompatible license from Mesa 
+  tarball (Bug #204110)
+- added a check to specfile to make sure that these will not be 
+  reintroduced with the next Mesa update again (Bug #204110)
+
+-------------------------------------------------------------------
+Mon Aug 21 14:33:25 CEST 2006 - sndirsch@suse.de
+
+- moved via profile.d scripts from x11-tools to this package
+
+-------------------------------------------------------------------
+Thu Aug 17 15:04:18 CEST 2006 - sndirsch@suse.de
+
+- dri_driver_dir.diff:
+  * DEFAULT_DRIVER_DIR is set during make call in specfile
+    (Bug #199958)
+- disabled build of GLw (extra package MesaGLw)
+
+-------------------------------------------------------------------
+Mon Jul 31 16:07:25 CEST 2006 - sndirsch@suse.de
+
+- updated to Mesa 6.5_20060712; required by xorg-server 1.1.99.3
+- cleanup 
+
+-------------------------------------------------------------------
+Wed Jul 19 17:04:39 CEST 2006 - ro@suse.de
+
+- adapt to /usr/lib move 
+
+-------------------------------------------------------------------
+Sun Jun 25 19:10:51 CEST 2006 - sndirsch@suse.de
+
+- fixed build for X.Org 7.1 
+
+-------------------------------------------------------------------
+Wed Jun 21 21:41:05 CEST 2006 - sndirsch@suse.de
+
+- udpated to Mesa 6.5
+  * obsoletes
+    - Mesa-glx-x11-render-texture-2.diff
+    - Mesa-radeon-large-textures-1.diff
+    - Mesa_945GM.patch
+    - mesa-6.4.2-dri-copy-sub-buffer-2.patch
+    - mesa-6.4.2-scissor-fix-1.patch
+- cleanup: removed no longer used sources/patches
+  * missing-headers.diff
+  * missing-headers.tar.bz2
+  * glidelibs-i386.tar.gz
+
+-------------------------------------------------------------------
+Mon Jun 19 10:47:49 CEST 2006 - sndirsch@suse.de
+
+- added missing manual pages (Bug #185707)
+
+-------------------------------------------------------------------
+Fri Jun 16 15:00:25 CEST 2006 - dreveman@suse.de
+
+- Fix issue in copy-sub-buffer patch. Extension was not
+  enabled on all radeon cards. (bnc 174839)
+- Add radeon large texture patch (back port from latest stable
+  release of Mesa). (bnc 174839)
+
+-------------------------------------------------------------------
+Tue May 23 09:34:12 CEST 2006 - sndirsch@suse.de
+
+- no longer remove NVIDIA installer in %pre 
+
+-------------------------------------------------------------------
+Mon May 22 22:30:52 CEST 2006 - sndirsch@suse.de
+
+- reverted Mesa/MesaGLU split
+- fixed libGLcore.so.1 (e.g. soname); required to create a
+  non-conflicting package for the NVIDIA driver (Bug #175683)
+
+-------------------------------------------------------------------
+Tue May 16 16:31:53 CEST 2006 - sndirsch@suse.de
+
+- splitted off MesaGLU/MesaGLU-devel
+- added ldconfig to %postun
+
+-------------------------------------------------------------------
+Sat Apr 22 09:23:18 CEST 2006 - sndirsch@suse.de
+
+- licensefix.patch:
+  * fixed incompatible GPL license (Bug #133238, Mesa Bug #6490)
+
+-------------------------------------------------------------------
+Thu Apr 13 11:18:55 CEST 2006 - sndirsch@suse.de
+
+- added /usr/X11R6/%{_lib}/modules/dri/updates/README.updates to
+  document DRI driver update mechanism
+
+-------------------------------------------------------------------
+Wed Apr 12 17:54:52 CEST 2006 - sndirsch@suse.de
+
+- enhanced search path for DRI driver updates (FATE #300553)
+
+-------------------------------------------------------------------
+Mon Apr  3 22:53:04 CEST 2006 - sndirsch@suse.de
+
+- mesa-6.4.2-dri-copy-sub-buffer-1.patch:
+  * needed for open source drivers to work with Xgl (David Reveman)
+
+-------------------------------------------------------------------
+Wed Mar 15 18:15:23 CET 2006 - mhopf@suse.de
+
+- Fix for bug #157051, issue 1:
+  On intel the graphics is only displayed correctly after a scissor region
+  other than full screen is specified.
+
+-------------------------------------------------------------------
+Mon Feb  6 15:33:41 CET 2006 - sndirsch@suse.de
+
+- update to Mesa 6.4.2 (obsoletes tnl_init.diff)
+  * New items:
+    - added OSMesaColorClamp() function/feature
+    - added wglGetExtensionStringARB() function
+  * Bug fixes:
+    - fixed some problems when building on Windows
+    - GLw header files weren't installed by installmesa script (bug 5396)
+    - GL/glfbdev.h file was missing from tarballs
+    - fixed TNL initialization bug which could lead to crash (bug 5791)
+
+-------------------------------------------------------------------
+Mon Feb  6 10:19:14 CET 2006 - sndirsch@suse.de
+
+- tnl_init.diff (Mesa Bug #5791):
+  * fixes TNL initialization bug which could lead to crash
+    (CVS changelog: use calloc instead of malloc so try_codegen
+     field is initialized to zero)
+
+-------------------------------------------------------------------
+Mon Jan 30 20:18:50 CET 2006 - sndirsch@suse.de
+
+- glxext-sgi-hyperpipe.patch:
+  * GLX_SGIX_hyperpipe_group -> GLX_SGIX_hyperpipe (Bug #146646)
+
+-------------------------------------------------------------------
+Wed Jan 25 21:33:43 CET 2006 - mls@suse.de
+
+- converted neededforbuild to BuildRequires
+
+-------------------------------------------------------------------
+Fri Jan 20 13:11:32 CET 2006 - sndirsch@suse.de
+
+- Mesa_945GM.patch:
+  * 945GM support by Charles Johnson (FATE #151391)
+
+-------------------------------------------------------------------
+Wed Dec 28 16:02:35 CET 2005 - sndirsch@suse.de
+
+- moved header files and libGL.so from Mesa-devel to Mesa to make
+  uninstallation of nvidia driver in %pre of Mesa-devel obsolete
+
+-------------------------------------------------------------------
+Wed Nov 30 23:25:44 CET 2005 - sndirsch@suse.de
+
+- update to Mesa 6.4.1
+
+-------------------------------------------------------------------
+Fri Nov 18 11:37:30 CET 2005 - sndirsch@suse.de
+
+- updated to Mesa 6.4 branch (2005-11-18)
+- added static libGL (new Mesa-devel-static package)
+- removed glut headers from installation (we use freeglut!)
+
+-------------------------------------------------------------------
+Tue Nov 15 16:18:27 CET 2005 - sndirsch@suse.de
+
+- updated to Mesa 6.4 branch (2005-11-12)
+
+-------------------------------------------------------------------
+Wed Nov  9 18:21:49 CET 2005 - sndirsch@suse.de
+
+- fixed libOSMesa build 
+
+-------------------------------------------------------------------
+Tue Nov  8 18:03:24 CET 2005 - sndirsch@suse.de
+
+- added build of libOSMesa, e.g. required by tulip package
+
+-------------------------------------------------------------------
+Tue Nov  8 08:16:52 CET 2005 - sndirsch@suse.de
+
+- added include files for SGI's OpenGL Xt/Motif widgets, e.g. 
+  required by z88 package
+  * GLwMDrawA.h
+  * GLwDrawAP.h
+  * GLwMDrawAP.h
+  * GLwDrawA.h 
+- enabled Motif support in libGLw, also required by z88 package
+
+-------------------------------------------------------------------
+Mon Nov  7 10:56:52 CET 2005 - sndirsch@suse.de
+
+- use glx headers from xorg-x11-devel package
+
+-------------------------------------------------------------------
+Fri Oct 28 16:13:41 CEST 2005 - sndirsch@suse.de
+
+- Mesa-glx-x11-render-texture-2.diff/missing-headers.diff:
+  * new MESA_render_texture extension for Xgl (dreveman/mhopf)
+
+-------------------------------------------------------------------
+Tue Oct 25 19:38:16 CEST 2005 - sndirsch@suse.de
+
+- fixed DRI driver path for 64bit platforms 
+
+-------------------------------------------------------------------
+Tue Oct 25 04:40:34 CEST 2005 - sndirsch@suse.de
+
+- update to Mesa 6.4 
+
+-------------------------------------------------------------------
+Mon Oct 24 22:43:24 CEST 2005 - sndirsch@suse.de
+
+- build DRI compatible libGL 
+
+-------------------------------------------------------------------
+Fri Oct 21 06:09:53 CEST 2005 - sndirsch@suse.de
+
+- added dummy nvidia libGLcore.so.1 for applications, which are
+  still linked against libGL.so.1 of older nvidia driver releases
+- duplicate libGL (located in /usr/lib/GL) to make workarounds
+  like LD_PRELOAD possible if nvidia driver is installed and its
+  libGl does not work
+
+-------------------------------------------------------------------
+Wed Oct 19 12:53:49 CEST 2005 - sndirsch@suse.de
+
+- no longer install libglide (disables 3Dfx DRI support) 
+
+-------------------------------------------------------------------
+Sun Oct  2 22:15:48 CEST 2005 - sndirsch@suse.de
+
+- created package 
+
