@@ -1,0 +1,357 @@
+-------------------------------------------------------------------
+Fri Jul 14 14:58:53 CEST 2006 - mskibbe@suse.de
+
+- merged in patches from poeml (mruecker@suse.de)
+- rediffed patches for -p0 (mruecker@suse.de)
+- update to version 4.3.2 which (mruecker@suse.de)
+  o fix two minor build problems
+  o contains initial support for multibyte characters in the shell's line editor
+- only require libcap for build on 10.0 and older (mruecker@suse.de)
+
+-------------------------------------------------------------------
+Wed Jan 25 21:43:48 CET 2006 - mls@suse.de
+
+- converted neededforbuild to BuildRequires
+
+-------------------------------------------------------------------
+Sat Jan 14 21:04:55 CET 2006 - schwab@suse.de
+
+- Don't strip binaries.
+
+-------------------------------------------------------------------
+Mon Dec  5 17:40:53 CET 2005 - hvogel@suse.de
+
+- clean up specfile
+- document profiling builds
+
+-------------------------------------------------------------------
+Mon Dec  5 16:27:20 CET 2005 - mmj@suse.de
+
+- Fix typo
+
+-------------------------------------------------------------------
+Mon Dec  5 14:33:02 CET 2005 - mmj@suse.de
+
+- Update to 4.2.6
+
+-------------------------------------------------------------------
+Wed Apr  6 14:15:06 CEST 2005 - mmj@suse.de
+
+- Update to 4.2.5
+
+-------------------------------------------------------------------
+Tue Mar 15 18:22:19 CET 2005 - mmj@suse.de
+
+- Fix Makefile completion by using the _make from an older zsh
+  version [#72875]
+
+-------------------------------------------------------------------
+Thu Feb 17 19:41:35 CET 2005 - poeml@suse.de
+
+- update yast2 completion to also complete *.ycp files
+
+-------------------------------------------------------------------
+Thu Feb  3 13:28:24 CET 2005 - mmj@suse.de
+
+- Update to 4.2.4
+
+-------------------------------------------------------------------
+Mon Jan 31 15:40:16 CET 2005 - ro@suse.de
+
+- adapt to texi2html changes 
+
+-------------------------------------------------------------------
+Wed Jan 26 13:45:16 CET 2005 - uli@suse.de
+
+- run configure with --with-tcsetpgrp as suggested by the fail log
+  (fixes s390*)
+
+-------------------------------------------------------------------
+Sat Jan 15 10:06:14 CET 2005 - mmj@suse.de
+
+- Update to zsh-4.2.3 which is a bugfix release not really affecting
+  us, but better keep up to date
+
+-------------------------------------------------------------------
+Wed Jan 12 15:57:01 CET 2005 - mmj@suse.de
+
+- Update to zsh-4.2.2
+
+-------------------------------------------------------------------
+Mon Dec 20 13:48:49 CET 2004 - poeml@suse.de
+
+- fix yast2 completion to work without /sbin in PATH [#49374]
+- fix yast2 and SuSEconfig completion to not show files from
+  working directory
+- update hwinfo completion
+
+-------------------------------------------------------------------
+Fri Aug 13 13:53:30 CEST 2004 - mmj@suse.de
+
+- Update to zsh-4.2.1
+
+-------------------------------------------------------------------
+Wed Jul 28 01:40:02 CEST 2004 - ro@suse.de
+
+- fix build of helpfiles after groff update
+
+-------------------------------------------------------------------
+Fri Mar 19 13:22:58 CET 2004 - mmj@suse.de
+
+- Update to zsh-4.2.0 final release
+
+-------------------------------------------------------------------
+Mon Mar  8 12:54:07 CET 2004 - mmj@suse.de
+
+- Update to zsh-4.2.0-pre-3
+
+-------------------------------------------------------------------
+Thu Feb 26 23:29:26 CET 2004 - mmj@suse.de
+
+- Update to zsh-4.2.0-pre-1
+
+-------------------------------------------------------------------
+Fri Jan 16 12:14:53 CET 2004 - mmj@suse.de
+
+- Use -fprofile-arcs when linking and -fno-strict-aliasing for
+  compiling.
+- Fix tail syntax
+
+-------------------------------------------------------------------
+Sat Oct 18 11:06:50 CEST 2003 - mmj@suse.de
+
+- Fix neededforbuild
+
+-------------------------------------------------------------------
+Thu Oct 16 16:57:31 CEST 2003 - mmj@suse.de
+
+- Don't build as root
+- Cleanup specfile
+
+-------------------------------------------------------------------
+Tue Oct 14 22:31:53 CEST 2003 - jh@suse.de
+
+- Fix profiling lockup.  (we can not profile dl_closed modules yet)
+
+-------------------------------------------------------------------
+Thu Jun 19 14:40:56 CEST 2003 - mmj@suse.de
+
+- Update to 4.1.1
+- Enable profiling
+
+-------------------------------------------------------------------
+Thu May  8 19:03:39 CEST 2003 - mmj@suse.de
+
+- And do it even better, thanks Andreas Schwab.
+
+-------------------------------------------------------------------
+Thu May  8 16:13:31 CEST 2003 - mmj@suse.de
+
+- Use a better way of unaliasing 'which'. Thanks Ingo Lameter.
+
+-------------------------------------------------------------------
+Thu Apr 24 12:20:23 CEST 2003 - ro@suse.de
+
+- fix install_info --delete call and move from preun to postun
+
+-------------------------------------------------------------------
+Mon Apr  7 15:44:40 CEST 2003 - mmj@suse.de
+
+- Only delete info entries when removing last version.
+
+-------------------------------------------------------------------
+Fri Feb  7 13:26:51 CET 2003 - mmj@suse.de
+
+- Use %install_info macro
+- Clean up build root
+
+-------------------------------------------------------------------
+Thu Jan  9 12:56:34 CET 2003 - mmj@suse.de
+
+- Set the important option 'nopromptcr' to not screw output.
+
+-------------------------------------------------------------------
+Mon Sep 16 10:06:31 CEST 2002 - mmj@suse.de
+
+- Use BuildRoot
+
+-------------------------------------------------------------------
+Fri Aug 16 12:16:52 CEST 2002 - mmj@suse.de
+
+- Move zsh binary to /bin [#17758]
+- Use proper libdir
+
+-------------------------------------------------------------------
+Thu Aug 15 11:30:34 CEST 2002 - poeml@suse.de
+
+- update completion for _yast{,2} and add one for _hwinfo
+
+-------------------------------------------------------------------
+Wed Aug 14 23:34:51 CEST 2002 - mmj@suse.de
+
+- Update to 4.0.6 which was released this fast b/c a termcap /
+  terminfo fix was forgotten together with a fix for _mount.
+
+-------------------------------------------------------------------
+Mon Aug 12 03:01:12 CEST 2002 - mmj@suse.de
+
+- Update to 4.0.5 which includes a lot more completion, modules and
+  bugfixes.
+
+-------------------------------------------------------------------
+Tue Jun  4 09:33:36 CEST 2002 - mmj@suse.de
+
+- Added the html documentation from the ZSH team.
+
+-------------------------------------------------------------------
+Tue Apr 16 12:28:17 CEST 2002 - mmj@suse.de
+
+- Fix to own %{_defaultdocdir}/zsh
+
+-------------------------------------------------------------------
+Mon Mar 11 12:11:31 MET 2002 - mmj@suse.de
+
+- Comment out a completion that a lot of people find broken
+
+-------------------------------------------------------------------
+Fri Feb 22 12:29:08 MET 2002 - mmj@suse.de
+
+- Added yast2 and SuSEconfig completion from poeml@
+
+-------------------------------------------------------------------
+Wed Feb 13 14:16:46 CET 2002 - stepan@suse.de
+
+- remove .orig and .rej files from patch set.
+
+-------------------------------------------------------------------
+Wed Jan 30 16:07:25 CET 2002 - mmj@suse.de
+
+- Moved /etc/zshrc and /etc/zshenv to this package. This is ok b/c
+  it is only specific zsh options.
+
+-------------------------------------------------------------------
+Thu Dec 13 11:34:05 CET 2001 - mmj@suse.de
+
+- Fix broken symlink from help/man1 -> ../Doc
+
+-------------------------------------------------------------------
+Sat Oct 27 16:43:54 CEST 2001 - mmj@suse.de
+
+- Update to 4.0.4
+
+-------------------------------------------------------------------
+Thu Oct 25 13:24:58 CEST 2001 - mmj@suse.de
+
+- Update to 4.0.3
+
+-------------------------------------------------------------------
+Tue Jun 26 19:58:05 CEST 2001 - mmj@suse.de
+
+- Update to the newly released 4.0.2
+
+-------------------------------------------------------------------
+Sat Jun  2 02:30:39 CEST 2001 - mmj@suse.de
+
+- Updated to the new stable release, zsh-4.0.1
+- Fixed build prob on beta-i386 and beta-ia64
+
+-------------------------------------------------------------------
+Tue May  8 19:14:24 CEST 2001 - mfabian@suse.de
+
+- bzip2 sources
+
+-------------------------------------------------------------------
+Sun Apr 15 22:02:45 CEST 2001 - schwab@suse.de
+
+- Fix missing declarations.
+
+-------------------------------------------------------------------
+Fri Apr 13 01:13:46 CEST 2001 - mmj@suse.de
+
+- Updated to 4.0.1-pre-3
+
+-------------------------------------------------------------------
+Wed Mar 14 18:31:11 CET 2001 - mmj@suse.de
+
+- Updated to 4.0.1-pre-2
+
+-------------------------------------------------------------------
+Sun Feb 18 19:46:07 CET 2001 - mmj@suse.de
+
+- Updated to 4.0.1-pre-1
+
+-------------------------------------------------------------------
+Fri Dec 15 13:19:42 CET 2000 - werner@suse.de
+
+- Update to 3.1.9-dev-8
+
+-------------------------------------------------------------------
+Fri Oct  6 18:01:00 CEST 2000 - kukuk@suse.de
+
+- Change group tag
+
+-------------------------------------------------------------------
+Fri May 12 17:40:19 CEST 2000 - schwab@suse.de
+
+- Update config files.
+- Move docs to %{_defaultdocdir}.
+
+-------------------------------------------------------------------
+Thu Jan 27 17:05:36 CET 2000 - werner@suse.de
+
+- New zsh version 3.1.6-dev-16
+- Install html and info documentation
+- Enable run-help help library
+- Fix paths of perl and zsh scripts
+- Enable command line history
+- Enable command line complementation/correction
+
+-------------------------------------------------------------------
+Mon Dec  6 13:06:10 CET 1999 - schwab@suse.de
+
+- Fix errors from makeinfo
+
+-------------------------------------------------------------------
+Mon Sep 13 17:23:57 CEST 1999 - bs@suse.de
+
+- ran old prepare_spec on spec file to switch to new prepare_spec.
+
+-------------------------------------------------------------------
+Tue Nov 17 14:22:20 MET 1998 - bs@suse.de
+
+- removed symlink /etc/zshrc -> profile (aaa_base contains a real zshrc now)
+
+----------------------------------------------------------------------------
+Fri Oct 10 15:23:30 MEST 1997 - florian@suse.de
+
+
+- update to version 3.0.5
+
+
+----------------------------------------------------------------------------
+Mon Jun 23 23:04:57 MEST 1997 - florian@suse.de
+
+
+- update to version 3.0.4
+
+
+
+----------------------------------------------------------------------------
+Wed Jan 22 22:24:11 CET 1997 - florian@suse.de
+
+
+- update to version 3.0.2
+
+
+----------------------------------------------------------------------------
+Sat Nov  2 17:35:11 CET 1996 - florian@suse.de
+
+
+- update to version 3.0.1
+
+- added more documentation in binary package
+
+----------------------------------------------------------------------
+Sun Aug 25 19:28:50 MET DST 1996 - florian@suse.de
+
+new version 3.0.0
