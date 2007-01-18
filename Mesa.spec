@@ -19,7 +19,7 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 Autoreqprov:    on
 Version:        6.5.2
-Release:        11
+Release:        13
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL.*
 Source:         Mesa-%{version}.tar.bz2
 Source3:        README.updates
@@ -29,6 +29,7 @@ Source6:        via.sh
 Patch0:         disable-sis_dri.diff
 Patch1:         dri_driver_dir.diff
 Patch2:         i915-crossbar.diff
+Patch3:         bug-211314_mesa-context.diff
 Patch5:         static.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -112,6 +113,7 @@ rm -rf src/glw/
 %patch0
 %patch1
 %patch2
+%patch3
 %patch5
 
 %build
@@ -222,6 +224,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libMesaGL.a
 
 %changelog -n Mesa
+* Wed Jan 17 2007 - sndirsch@suse.de
+- bug-211314_mesa-context.diff:
+  * fixes Xserver crash in software rendering fallback (Bug #211314)
 * Tue Jan 09 2007 - sndirsch@suse.de
 - disabled build of sis DRI driver on i64 to fix build
 * Sat Dec 02 2006 - sndirsch@suse.de

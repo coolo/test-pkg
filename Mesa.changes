@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jan 17 21:39:41 CET 2007 - sndirsch@suse.de
+
+- bug-211314_mesa-context.diff:
+  * fixes Xserver crash in software rendering fallback (Bug #211314)
+
+-------------------------------------------------------------------
 Tue Jan  9 23:02:26 CET 2007 - sndirsch@suse.de
 
 - disabled build of sis DRI driver on i64 to fix build
