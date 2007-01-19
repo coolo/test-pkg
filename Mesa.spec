@@ -19,7 +19,7 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 Autoreqprov:    on
 Version:        6.5.2
-Release:        13
+Release:        14
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL.*
 Source:         Mesa-%{version}.tar.bz2
 Source3:        README.updates
@@ -30,6 +30,7 @@ Patch0:         disable-sis_dri.diff
 Patch1:         dri_driver_dir.diff
 Patch2:         i915-crossbar.diff
 Patch3:         bug-211314_mesa-context.diff
+Patch4:         libIndirectGL.diff
 Patch5:         static.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -114,6 +115,7 @@ rm -rf src/glw/
 %patch1
 %patch2
 %patch3
+%patch4
 %patch5
 
 %build
@@ -121,6 +123,14 @@ rm -rf src/glw/
 %install
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/usr
+%ifnarch s390 s390x ppc64
+# build and install Indirect Rendering only libGL
+make realclean
+make linux-indirect OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
+mkdir -p $RPM_BUILD_ROOT/usr/%{_lib}
+cp -a lib/libIndirectGL.so* $RPM_BUILD_ROOT/usr/%{_lib}
+patch -p0 -s -R < $RPM_SOURCE_DIR/libIndirectGL.diff
+%endif
 for dir in ../xc/doc/man/{GL/gl,GL/glx,GLU}; do
 pushd $dir
   xmkmf -a
@@ -214,6 +224,9 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(-,root,root)
 /usr/%{_lib}/libGLU.so
+%ifnarch s390 s390x ppc64
+/usr/%{_lib}/libIndirectGL.so
+%endif
 /usr/%{_lib}/libOSMesa.so
 %{_mandir}/man3/*
 
@@ -224,6 +237,8 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libMesaGL.a
 
 %changelog -n Mesa
+* Thu Jan 18 2007 - sndirsch@suse.de
+- added libIndirectGL for indirect rendering only (Bug #234154)
 * Wed Jan 17 2007 - sndirsch@suse.de
 - bug-211314_mesa-context.diff:
   * fixes Xserver crash in software rendering fallback (Bug #211314)
