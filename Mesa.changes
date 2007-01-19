@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Jan 18 21:56:37 CET 2007 - sndirsch@suse.de
+
+- added libIndirectGL for indirect rendering only (Bug #234154)
+
+-------------------------------------------------------------------
 Wed Jan 17 21:39:41 CET 2007 - sndirsch@suse.de
 
 - bug-211314_mesa-context.diff:
