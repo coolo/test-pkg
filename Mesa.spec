@@ -19,7 +19,7 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 Autoreqprov:    on
 Version:        6.5.2
-Release:        14
+Release:        15
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL.*
 Source:         Mesa-%{version}.tar.bz2
 Source3:        README.updates
@@ -115,7 +115,6 @@ rm -rf src/glw/
 %patch1
 %patch2
 %patch3
-%patch4
 %patch5
 
 %build
@@ -125,6 +124,7 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/usr
 %ifnarch s390 s390x ppc64
 # build and install Indirect Rendering only libGL
+patch -p0 -s < $RPM_SOURCE_DIR/libIndirectGL.diff
 make realclean
 make linux-indirect OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
 mkdir -p $RPM_BUILD_ROOT/usr/%{_lib}
@@ -237,6 +237,8 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libMesaGL.a
 
 %changelog -n Mesa
+* Thu Jan 25 2007 - sndirsch@suse.de
+- fixed build on ppc64/s390/s390x
 * Thu Jan 18 2007 - sndirsch@suse.de
 - added libIndirectGL for indirect rendering only (Bug #234154)
 * Wed Jan 17 2007 - sndirsch@suse.de
