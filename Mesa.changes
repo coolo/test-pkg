@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Mar 14 08:12:52 CET 2007 - sndirsch@suse.de
+
+- removed libIndirectGL.so (Bug #254317)
+- README.updates: new location of DRI drivers (Bug #254318)
+
+-------------------------------------------------------------------
 Thu Jan 25 00:19:11 CET 2007 - sndirsch@suse.de
 
 - fixed build on ppc64/s390/s390x

@@ -19,7 +19,7 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 Autoreqprov:    on
 Version:        6.5.2
-Release:        15
+Release:        20
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL.*
 Source:         Mesa-%{version}.tar.bz2
 Source3:        README.updates
@@ -128,7 +128,7 @@ patch -p0 -s < $RPM_SOURCE_DIR/libIndirectGL.diff
 make realclean
 make linux-indirect OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
 mkdir -p $RPM_BUILD_ROOT/usr/%{_lib}
-cp -a lib/libIndirectGL.so* $RPM_BUILD_ROOT/usr/%{_lib}
+cp -a lib/libIndirectGL.so.* $RPM_BUILD_ROOT/usr/%{_lib}
 patch -p0 -s -R < $RPM_SOURCE_DIR/libIndirectGL.diff
 %endif
 for dir in ../xc/doc/man/{GL/gl,GL/glx,GLU}; do
@@ -224,9 +224,6 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(-,root,root)
 /usr/%{_lib}/libGLU.so
-%ifnarch s390 s390x ppc64
-/usr/%{_lib}/libIndirectGL.so
-%endif
 /usr/%{_lib}/libOSMesa.so
 %{_mandir}/man3/*
 
@@ -236,7 +233,10 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libGLU.a
 /usr/%{_lib}/libMesaGL.a
 
-%changelog -n Mesa
+%changelog
+* Wed Mar 14 2007 - sndirsch@suse.de
+- removed libIndirectGL.so (Bug #254317)
+- README.updates: new location of DRI drivers (Bug #254318)
 * Thu Jan 25 2007 - sndirsch@suse.de
 - fixed build on ppc64/s390/s390x
 * Thu Jan 18 2007 - sndirsch@suse.de
