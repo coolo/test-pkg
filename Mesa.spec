@@ -19,7 +19,7 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 Autoreqprov:    on
 Version:        6.5.2
-Release:        20
+Release:        21
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL.*
 Source:         Mesa-%{version}.tar.bz2
 Source3:        README.updates
@@ -29,9 +29,21 @@ Source6:        via.sh
 Patch0:         disable-sis_dri.diff
 Patch1:         dri_driver_dir.diff
 Patch2:         i915-crossbar.diff
-Patch3:         bug-211314_mesa-context.diff
 Patch4:         libIndirectGL.diff
 Patch5:         static.diff
+Patch6:         bug-211314_mesa-destroy_buffers.diff
+Patch7:         bug-211314_mesa-framebuffer-counting.diff
+Patch8:         bug-211314-patch-1.diff
+Patch9:         bug-211314-patch-2.diff
+Patch10:        bug-211314-patch-3.diff
+Patch11:        bug-211314-patch-4.diff
+Patch12:        bug-211314-patch-5.diff
+Patch13:        bug-211314-patch-6.diff
+Patch14:        bug-211314-patch-7.diff
+Patch15:        bug-211314-patch-8.diff
+Patch16:        bug-211314-patch-9.diff
+Patch17:        bug-211314-patch-10.diff
+Patch18:        bug-211314-patch-11.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -114,8 +126,20 @@ rm -rf src/glw/
 %patch0
 %patch1
 %patch2
-%patch3
 %patch5
+%patch6 -p1
+%patch7 -p1
+%patch8 -p1
+%patch9 -p1
+%patch10 -p1
+%patch11 -p1
+%patch12 -p1
+%patch13 -p1
+%patch14 -p1
+%patch15 -p1
+%patch16 -p1
+%patch17 -p1
+%patch18 -p1
 
 %build
 
@@ -234,6 +258,10 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libMesaGL.a
 
 %changelog
+* Mon Mar 19 2007 - sndirsch@suse.de
+- no longer apply bug-211314_mesa-context.diff (Bug #211314,
+  commment #114)
+- added different Mesa patches (Bug #211314, comments #114/#115)
 * Wed Mar 14 2007 - sndirsch@suse.de
 - removed libIndirectGL.so (Bug #254317)
 - README.updates: new location of DRI drivers (Bug #254318)

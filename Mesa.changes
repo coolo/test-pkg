@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Mar 19 21:42:44 CET 2007 - sndirsch@suse.de
+
+- no longer apply bug-211314_mesa-context.diff (Bug #211314,
+  commment #114)
+- added different Mesa patches (Bug #211314, comments #114/#115)
+
+-------------------------------------------------------------------
 Wed Mar 14 08:12:52 CET 2007 - sndirsch@suse.de
 
 - removed libIndirectGL.so (Bug #254317)
