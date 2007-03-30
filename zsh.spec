@@ -1,7 +1,7 @@
 #
 # spec file for package zsh (Version 4.3.2)
 #
-# Copyright (c) 2006 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2007 SUSE LINUX Products GmbH, Nuernberg, Germany.
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 #
@@ -12,10 +12,11 @@
 
 Name:           zsh
 Version:        4.3.2
-Release:        1
-License:        Other License(s), see package
+Release:        42
+License:        Other uncritical OpenSource License
 Group:          System/Shells
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+BuildRequires:  ncurses-devel
 %if %suse_version > 1000
 BuildRequires:  libcap-devel
 %else
@@ -105,7 +106,6 @@ groff Doc/intro.ms > intro.txt
 %{__rm} -f Etc/Makefile* Etc/*.yo
 
 %install
-
 %makeinstall install.info VERSION="%{version}"
 # install SUSE configuration
 %{__install} -m 0755 -Dd  %{buildroot}/{etc,bin}
@@ -139,7 +139,9 @@ groff Doc/intro.ms > intro.txt
 %{_infodir}/zsh.info*.gz
 %{_mandir}/man1/zsh*.1.gz
 
-%changelog -n zsh
+%changelog
+* Fri Mar 30 2007 - rguenther@suse.de
+- add ncurses-devel BuildRequires.
 * Fri Jul 14 2006 - mskibbe@suse.de
 - merged in patches from poeml (mruecker@suse.de)
 - rediffed patches for -p0 (mruecker@suse.de)

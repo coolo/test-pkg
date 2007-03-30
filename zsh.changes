@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Mar 30 12:33:28 CEST 2007 - rguenther@suse.de
+
+- add ncurses-devel BuildRequires.
+
+-------------------------------------------------------------------
 Fri Jul 14 14:58:53 CEST 2006 - mskibbe@suse.de
 
 - merged in patches from poeml (mruecker@suse.de)
