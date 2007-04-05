@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Apr  4 22:03:24 CEST 2007 - sndirsch@suse.de
+
+- bug-211314_mesa-refcount-memleak-fixes.diff:
+  * Fix for memleaks and refount bugs (Bug #211314)
+
+-------------------------------------------------------------------
 Mon Mar 19 21:42:44 CET 2007 - sndirsch@suse.de
 
 - no longer apply bug-211314_mesa-context.diff (Bug #211314,
