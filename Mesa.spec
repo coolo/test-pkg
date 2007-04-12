@@ -19,7 +19,7 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 Autoreqprov:    on
 Version:        6.5.2
-Release:        25
+Release:        27
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL.*
 Source:         Mesa-%{version}.tar.bz2
 Source3:        README.updates
@@ -45,6 +45,7 @@ Patch16:        bug-211314-patch-9.diff
 Patch17:        bug-211314-patch-10.diff
 Patch18:        bug-211314-patch-11.diff
 Patch19:        bug-211314_mesa-refcount-memleak-fixes.diff
+Patch20:        Mesa-6.5.2-fix_radeon_cliprect.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -142,6 +143,7 @@ rm -rf src/glw/
 %patch17 -p1
 %patch18 -p1
 %patch19 -p1
+%patch20 -p1
 
 %build
 
@@ -260,6 +262,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libMesaGL.a
 
 %changelog
+* Tue Apr 10 2007 - sndirsch@suse.de
+- Mesa-6.5.2-fix_radeon_cliprect.diff:
+  * fixes X.Org Bug #9876
 * Wed Apr 04 2007 - sndirsch@suse.de
 - bug-211314_mesa-refcount-memleak-fixes.diff:
   * Fix for memleaks and refount bugs (Bug #211314)
