@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Apr 10 15:29:53 CEST 2007 - sndirsch@suse.de
+
+- Mesa-6.5.2-fix_radeon_cliprect.diff:
+  * fixes X.Org Bug #9876 
+
+-------------------------------------------------------------------
 Wed Apr  4 22:03:24 CEST 2007 - sndirsch@suse.de
 
 - bug-211314_mesa-refcount-memleak-fixes.diff:
