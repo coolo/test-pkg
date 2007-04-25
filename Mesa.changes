@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Wed Apr 25 19:31:11 CEST 2007 - sndirsch@suse.de
+
+- 4th RC ready
+  * This fixes some breakage in RC3.
+
+-------------------------------------------------------------------
+Tue Apr 24 18:50:51 CEST 2007 - sndirsch@suse.de
+
+- 3rd release candidate 
+  * updated Windows/VC8 project files.
+
+-------------------------------------------------------------------
 Sun Apr 22 11:24:21 CEST 2007 - sndirsch@suse.de
 
 - updated to Mesa 6.5.3rc2

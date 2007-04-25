@@ -19,10 +19,10 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 Autoreqprov:    on
 Version:        6.5.3
-Release:        1
+Release:        4
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL.*
-Source:         MesaLib-%{version}rc2.tar.gz
-Source1:        MesaDemos-%{version}rc2.tar.gz
+Source:         MesaLib-%{version}rc4.tar.gz
+Source1:        MesaDemos-%{version}rc4.tar.gz
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source5:        via.csh
@@ -101,7 +101,7 @@ Authors:
     Brian Paul
 
 %prep
-%setup -n %{name}-%{version}rc2 -b1 -b4
+%setup -n %{name}-%{version}rc4 -b1 -b4
 # make legal department happy (Bug #204110)
 test -f src/mesa/drivers/directfb/idirectfbgl_mesa.c && exit 1
 test -f progs/ggi/asc-view.c && exit 1
@@ -233,6 +233,12 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libMesaGL.a
 
 %changelog
+* Wed Apr 25 2007 - sndirsch@suse.de
+- 4th RC ready
+  * This fixes some breakage in RC3.
+* Tue Apr 24 2007 - sndirsch@suse.de
+- 3rd release candidate
+  * updated Windows/VC8 project files.
 * Sun Apr 22 2007 - sndirsch@suse.de
 - updated to Mesa 6.5.3rc2
   * a number of bug fixes since the first RC
