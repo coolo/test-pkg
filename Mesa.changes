@@ -1,4 +1,25 @@
 -------------------------------------------------------------------
+Mon Apr 30 22:26:51 CEST 2007 - sndirsch@suse.de
+
+- updated to Mesa 6.5.3
+- obsoletes the following patches:
+  * bug-211314_mesa-destroy_buffers.diff
+  * bug-211314_mesa-framebuffer-counting.diff
+  * bug-211314-patch-1.diff
+  * bug-211314-patch-2.diff
+  * bug-211314-patch-3.diff
+  * bug-211314-patch-4.diff
+  * bug-211314-patch-5.diff
+  * bug-211314-patch-6.diff
+  * bug-211314-patch-7.diff
+  * bug-211314-patch-8.diff
+  * bug-211314-patch-9.diff
+  * bug-211314-patch-10.diff
+  * bug-211314-patch-11.diff
+  * bug-211314_mesa-refcount-memleak-fixes.diff
+  * Mesa-6.5.2-fix_radeon_cliprect.diff
+
+-------------------------------------------------------------------
 Fri Apr 27 16:57:47 CEST 2007 - sndirsch@suse.de
 
 - back to Mesa 6.5.2 (Bug #269155/269042)
