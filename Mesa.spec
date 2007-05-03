@@ -1,5 +1,5 @@
 #
-# spec file for package Mesa (Version 6.5.2)
+# spec file for package Mesa (Version 6.5.3)
 #
 # Copyright (c) 2007 SUSE LINUX Products GmbH, Nuernberg, Germany.
 # This file and all modifications and additions to the pristine
@@ -18,10 +18,11 @@ Group:          System/Libraries
 Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 Autoreqprov:    on
-Version:        6.5.2
-Release:        28
+Version:        6.5.3
+Release:        6
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL.*
-Source:         Mesa-%{version}.tar.bz2
+Source:         MesaLib-%{version}.tar.bz2
+Source1:        MesaDemos-%{version}.tar.bz2
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source5:        via.csh
@@ -31,21 +32,6 @@ Patch1:         dri_driver_dir.diff
 Patch2:         i915-crossbar.diff
 Patch4:         libIndirectGL.diff
 Patch5:         static.diff
-Patch6:         bug-211314_mesa-destroy_buffers.diff
-Patch7:         bug-211314_mesa-framebuffer-counting.diff
-Patch8:         bug-211314-patch-1.diff
-Patch9:         bug-211314-patch-2.diff
-Patch10:        bug-211314-patch-3.diff
-Patch11:        bug-211314-patch-4.diff
-Patch12:        bug-211314-patch-5.diff
-Patch13:        bug-211314-patch-6.diff
-Patch14:        bug-211314-patch-7.diff
-Patch15:        bug-211314-patch-8.diff
-Patch16:        bug-211314-patch-9.diff
-Patch17:        bug-211314-patch-10.diff
-Patch18:        bug-211314-patch-11.diff
-Patch19:        bug-211314_mesa-refcount-memleak-fixes.diff
-Patch20:        Mesa-6.5.2-fix_radeon_cliprect.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -115,12 +101,12 @@ Authors:
     Brian Paul
 
 %prep
-%setup -n %name -b4
+%setup -n %{name}-%{version} -b1 -b4
 # make legal department happy (Bug #204110)
 test -f src/mesa/drivers/directfb/idirectfbgl_mesa.c && exit 1
 test -f progs/ggi/asc-view.c && exit 1
 # no need to build GLUT and (GLUT-)Demos
-rm -rf src/glut progs/{demos,redbook,samples,xdemos}
+rm -rf src/glut progs/{demos,redbook,samples,xdemos,glsl}
 # we use freeglut
 rm -f include/GL/{glut.h,uglglutshapes.h,glutf90.h}
 # extra package for GLw (MesaGLw)
@@ -129,21 +115,6 @@ rm -rf src/glw/
 %patch1
 %patch2
 %patch5
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch13 -p1
-%patch14 -p1
-%patch15 -p1
-%patch16 -p1
-%patch17 -p1
-%patch18 -p1
-%patch19 -p1
-%patch20 -p1
 
 %build
 
@@ -262,6 +233,24 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libMesaGL.a
 
 %changelog
+* Mon Apr 30 2007 - sndirsch@suse.de
+- updated to Mesa 6.5.3
+- obsoletes the following patches:
+  * bug-211314_mesa-destroy_buffers.diff
+  * bug-211314_mesa-framebuffer-counting.diff
+  * bug-211314-patch-1.diff
+  * bug-211314-patch-2.diff
+  * bug-211314-patch-3.diff
+  * bug-211314-patch-4.diff
+  * bug-211314-patch-5.diff
+  * bug-211314-patch-6.diff
+  * bug-211314-patch-7.diff
+  * bug-211314-patch-8.diff
+  * bug-211314-patch-9.diff
+  * bug-211314-patch-10.diff
+  * bug-211314-patch-11.diff
+  * bug-211314_mesa-refcount-memleak-fixes.diff
+  * Mesa-6.5.2-fix_radeon_cliprect.diff
 * Fri Apr 27 2007 - sndirsch@suse.de
 - back to Mesa 6.5.2 (Bug #269155/269042)
 * Wed Apr 25 2007 - sndirsch@suse.de
