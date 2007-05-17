@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon May 14 20:45:34 CEST 2007 - sndirsch@suse.de
+
+- link-shared.diff:
+  * use shared lib for DRI drivers to save a lot of space (Bug 
+    #272875) 
+
+-------------------------------------------------------------------
 Mon Apr 30 22:26:51 CEST 2007 - sndirsch@suse.de
 
 - updated to Mesa 6.5.3
