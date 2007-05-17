@@ -19,7 +19,7 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 Autoreqprov:    on
 Version:        6.5.3
-Release:        6
+Release:        11
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL.*
 Source:         MesaLib-%{version}.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -32,6 +32,7 @@ Patch1:         dri_driver_dir.diff
 Patch2:         i915-crossbar.diff
 Patch4:         libIndirectGL.diff
 Patch5:         static.diff
+Patch6:         link-shared.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -115,6 +116,9 @@ rm -rf src/glw/
 %patch1
 %patch2
 %patch5
+%ifarch %ix86 x86_64 ppc
+%patch6
+%endif
 
 %build
 
@@ -216,6 +220,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/include/GL/
 /usr/%{_lib}/libGL.so
 /usr/%{_lib}/lib*.so.*
+%ifarch %ix86 x86_64 ppc
+/usr/%{_lib}/libmesa_private.so
+%endif
 %ifnarch s390 s390x ppc64
 /usr/%{_lib}/dri/
 %endif
@@ -233,6 +240,10 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libMesaGL.a
 
 %changelog
+* Mon May 14 2007 - sndirsch@suse.de
+- link-shared.diff:
+  * use shared lib for DRI drivers to save a lot of space (Bug
+  [#272875])
 * Mon Apr 30 2007 - sndirsch@suse.de
 - updated to Mesa 6.5.3
 - obsoletes the following patches:
