@@ -19,7 +19,7 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 Autoreqprov:    on
 Version:        6.5.3
-Release:        11
+Release:        14
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL.*
 Source:         MesaLib-%{version}.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -144,32 +144,32 @@ done
 make realclean
 %ifarch %ix86 ppc x86_64
 %ifarch %ix86
-make linux-dri-x86 OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -DDEFAULT_DRIVER_DIR='\"'/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri'\"'"
-make install DESTDIR=$RPM_BUILD_ROOT/usr INSTALL_DIR=$RPM_BUILD_ROOT/usr DRI_DRIVER_INSTALL_DIR=$RPM_BUILD_ROOT/usr/%{_lib}/dri
+make linux-dri-x86 OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -DDEFAULT_DRIVER_DIR='\"'/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri'\"'" %{?jobs:-j %jobs}
+make install DESTDIR=$RPM_BUILD_ROOT/usr INSTALL_DIR=$RPM_BUILD_ROOT/usr DRI_DRIVER_INSTALL_DIR=$RPM_BUILD_ROOT/usr/%{_lib}/dri %{?jobs:-j %jobs}
 make realclean
-make linux-x86-static OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
+make linux-x86-static OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing" %{?jobs:-j %jobs}
 %endif
 %ifarch ppc
-make linux-dri-ppc OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -DDEFAULT_DRIVER_DIR='\"'/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri'\"'"
-make install DESTDIR=$RPM_BUILD_ROOT/usr INSTALL_DIR=$RPM_BUILD_ROOT/usr DRI_DRIVER_INSTALL_DIR=$RPM_BUILD_ROOT/usr/%{_lib}/dri
+make linux-dri-ppc OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -DDEFAULT_DRIVER_DIR='\"'/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri'\"'" %{?jobs:-j %jobs}
+make install DESTDIR=$RPM_BUILD_ROOT/usr INSTALL_DIR=$RPM_BUILD_ROOT/usr DRI_DRIVER_INSTALL_DIR=$RPM_BUILD_ROOT/usr/%{_lib}/dri %{?jobs:-j %jobs}
 make realclean
-make linux-ppc-static OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
+make linux-ppc-static OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing" %{?jobs:-j %jobs}
 %endif
 %ifarch x86_64
-make linux-dri-x86-64 OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -DDEFAULT_DRIVER_DIR='\"'/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri'\"'"
-make install DESTDIR=$RPM_BUILD_ROOT/usr INSTALL_DIR=$RPM_BUILD_ROOT/usr DRI_DRIVER_INSTALL_DIR=$RPM_BUILD_ROOT/usr/%{_lib}/dri
+make linux-dri-x86-64 OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -DDEFAULT_DRIVER_DIR='\"'/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri'\"'" %{?jobs:-j %jobs}
+make install DESTDIR=$RPM_BUILD_ROOT/usr INSTALL_DIR=$RPM_BUILD_ROOT/usr DRI_DRIVER_INSTALL_DIR=$RPM_BUILD_ROOT/usr/%{_lib}/dri %{?jobs:-j %jobs}
 make realclean
-make linux-x86-64-static OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
+make linux-x86-64-static OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing" %{?jobs:-j %jobs}
 %endif
 %else
 %ifnarch s390 s390x ppc64
-make linux-dri OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -DDEFAULT_DRIVER_DIR='\"'/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri'\"'"
+make linux-dri OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -DDEFAULT_DRIVER_DIR='\"'/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri'\"'" %{?jobs:-j %jobs}
 %else
 make linux OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
 %endif
 make install DESTDIR=$RPM_BUILD_ROOT/usr INSTALL_DIR=$RPM_BUILD_ROOT/usr DRI_DRIVER_INSTALL_DIR=$RPM_BUILD_ROOT/usr/%{_lib}/dri
 make realclean
-make linux-static OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
+make linux-static OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing" %{?jobs:-j %jobs}
 %endif
 %ifarch ppc64 s390x
 mv $RPM_BUILD_ROOT/usr/lib $RPM_BUILD_ROOT/usr/%{_lib}
@@ -183,7 +183,7 @@ ln -snf libGL.a $RPM_BUILD_ROOT/usr/%{_lib}/libMesaGL.a
 rm -f $RPM_BUILD_ROOT/usr/%{_lib}/libOSMesa.a
 # build and install OffScreen Mesa library
 make realclean
-make linux-osmesa OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
+make linux-osmesa OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing" %{?jobs:-j %jobs}
 cp -a lib/libOSMesa.so* $RPM_BUILD_ROOT/usr/%{_lib}
 # create dummy nvidia libGLcore.so.1 for applications, which are still
 # linked against libGL.so.1 of older nvidia driver releases
@@ -240,6 +240,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libMesaGL.a
 
 %changelog
+* Tue May 22 2007 - dmueller@suse.de
+- fix various undefined symbols in dri drivers (#272875)
+- build parallel
 * Mon May 14 2007 - sndirsch@suse.de
 - link-shared.diff:
   * use shared lib for DRI drivers to save a lot of space (Bug
