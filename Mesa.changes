@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue May 22 15:56:20 CEST 2007 - dmueller@suse.de
+
+- fix various undefined symbols in dri drivers (#272875)
+- build parallel
+
+-------------------------------------------------------------------
 Mon May 14 20:45:34 CEST 2007 - sndirsch@suse.de
 
 - link-shared.diff:
