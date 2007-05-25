@@ -19,7 +19,7 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 Autoreqprov:    on
 Version:        6.5.3
-Release:        14
+Release:        16
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL.*
 Source:         MesaLib-%{version}.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -240,6 +240,8 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libMesaGL.a
 
 %changelog
+* Fri May 25 2007 - dmueller@suse.de
+- fix undefined symbols for i915 (#277744)
 * Tue May 22 2007 - dmueller@suse.de
 - fix various undefined symbols in dri drivers (#272875)
 - build parallel
