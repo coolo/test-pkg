@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri May 25 16:54:40 CEST 2007 - dmueller@suse.de
+
+- fix undefined symbols for i915 (#277744)
+
+-------------------------------------------------------------------
 Tue May 22 15:56:20 CEST 2007 - dmueller@suse.de
 
 - fix various undefined symbols in dri drivers (#272875)
