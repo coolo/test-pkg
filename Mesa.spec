@@ -19,7 +19,7 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 Autoreqprov:    on
 Version:        6.5.3
-Release:        16
+Release:        17
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL.*
 Source:         MesaLib-%{version}.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -207,6 +207,8 @@ install -m 644 $RPM_SOURCE_DIR/via.{sh,csh} $RPM_BUILD_ROOT/etc/profile.d
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post -p /sbin/ldconfig
+
 %postun -p /sbin/ldconfig
 
 %files
@@ -217,7 +219,6 @@ rm -rf $RPM_BUILD_ROOT
 /etc/profile.d/via.*
 %endif
 %endif
-/usr/include/GL/
 /usr/%{_lib}/libGL.so
 /usr/%{_lib}/lib*.so.*
 %ifarch %ix86 x86_64 ppc
@@ -229,6 +230,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(-,root,root)
+/usr/include/GL/
 /usr/%{_lib}/libGLU.so
 /usr/%{_lib}/libOSMesa.so
 %{_mandir}/man3/*
@@ -240,6 +242,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libMesaGL.a
 
 %changelog
+* Sat May 26 2007 - ro@suse.de
+- add ldconfig to postinstall
+- move /usr/include/GL to devel package
 * Fri May 25 2007 - dmueller@suse.de
 - fix undefined symbols for i915 (#277744)
 * Tue May 22 2007 - dmueller@suse.de
