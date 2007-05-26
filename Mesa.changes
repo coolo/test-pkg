@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat May 26 15:31:10 CEST 2007 - ro@suse.de
+
+- add ldconfig to postinstall
+- move /usr/include/GL to devel package 
+
+-------------------------------------------------------------------
 Fri May 25 16:54:40 CEST 2007 - dmueller@suse.de
 
 - fix undefined symbols for i915 (#277744)
