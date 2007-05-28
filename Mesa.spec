@@ -19,7 +19,7 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 Autoreqprov:    on
 Version:        6.5.3
-Release:        18
+Release:        20
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL.*
 Source:         MesaLib-%{version}.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -219,6 +219,10 @@ rm -rf $RPM_BUILD_ROOT
 /etc/profile.d/via.*
 %endif
 %endif
+/usr/include/GL/gl.h
+/usr/include/GL/glext.h
+/usr/include/GL/glx.h
+/usr/include/GL/glxext.h
 /usr/%{_lib}/libGL.so
 /usr/%{_lib}/lib*.so.*
 %ifarch %ix86 x86_64 ppc
@@ -231,7 +235,25 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(-,root,root)
 %doc docs/*.html docs/*.spec
-/usr/include/GL/
+/usr/include/GL/amesa.h
+/usr/include/GL/dmesa.h
+/usr/include/GL/fxmesa.h
+/usr/include/GL/ggimesa.h
+/usr/include/GL/gl_mangle.h
+/usr/include/GL/glfbdev.h
+/usr/include/GL/glu.h
+/usr/include/GL/glu_mangle.h
+/usr/include/GL/glx_mangle.h
+/usr/include/GL/mesa_wgl.h
+/usr/include/GL/mglmesa.h
+/usr/include/GL/osmesa.h
+/usr/include/GL/svgamesa.h
+/usr/include/GL/uglmesa.h
+/usr/include/GL/vms_x_fix.h
+/usr/include/GL/wmesa.h
+/usr/include/GL/xmesa.h
+/usr/include/GL/xmesa_x.h
+/usr/include/GL/xmesa_xf86.h
 /usr/%{_lib}/libGLU.so
 /usr/%{_lib}/libOSMesa.so
 %{_mandir}/man3/*
@@ -243,6 +265,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libMesaGL.a
 
 %changelog
+* Mon May 28 2007 - sndirsch@suse.de
+- move GL headers, which conflict with GL headers of NVIDIA driver,
+  from Mesa-devel back to Mesa; this still make rpmlint happy
 * Sat May 26 2007 - dmueller@suse.de
 - add missing ldconfig call to %%post
 - move include files to -devel package
