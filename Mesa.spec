@@ -1,5 +1,5 @@
 #
-# spec file for package Mesa (Version 6.5.3)
+# spec file for package Mesa (Version 7.0)
 #
 # Copyright (c) 2007 SUSE LINUX Products GmbH, Nuernberg, Germany.
 # This file and all modifications and additions to the pristine
@@ -18,11 +18,11 @@ Group:          System/Libraries
 Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 Autoreqprov:    on
-Version:        6.5.3
-Release:        20
+Version:        7.0
+Release:        1
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL.*
-Source:         MesaLib-%{version}.tar.bz2
-Source1:        MesaDemos-%{version}.tar.bz2
+Source:         MesaLib-%{version}-rc1.tar.gz
+Source1:        MesaDemos-%{version}-rc1.tar.gz
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source5:        via.csh
@@ -265,6 +265,11 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libMesaGL.a
 
 %changelog
+* Thu Jun 21 2007 - sndirsch@suse.de
+- updated Mesa to release 7.0 RC1
+  * Mesa 7.0 is a stable, follow-on release to Mesa 6.5.3. The only
+  difference is bug fixes. The major version number bump is due
+  to OpenGL 2.1 API support.
 * Mon May 28 2007 - sndirsch@suse.de
 - move GL headers, which conflict with GL headers of NVIDIA driver,
   from Mesa-devel back to Mesa; this still make rpmlint happy
