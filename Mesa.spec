@@ -19,10 +19,10 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 Autoreqprov:    on
 Version:        7.0
-Release:        1
+Release:        2
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL.*
-Source:         MesaLib-%{version}-rc1.tar.gz
-Source1:        MesaDemos-%{version}-rc1.tar.gz
+Source:         MesaLib-%{version}.tar.bz2
+Source1:        MesaDemos-%{version}.tar.bz2
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source5:        via.csh
@@ -265,6 +265,8 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libMesaGL.a
 
 %changelog
+* Sat Jun 23 2007 - sndirsch@suse.de
+- updated to final release 7.0
 * Thu Jun 21 2007 - sndirsch@suse.de
 - updated Mesa to release 7.0 RC1
   * Mesa 7.0 is a stable, follow-on release to Mesa 6.5.3. The only
