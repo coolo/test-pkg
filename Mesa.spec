@@ -19,7 +19,7 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 Autoreqprov:    on
 Version:        7.0
-Release:        2
+Release:        4
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL.*
 Source:         MesaLib-%{version}.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -33,6 +33,8 @@ Patch2:         i915-crossbar.diff
 Patch4:         libIndirectGL.diff
 Patch5:         static.diff
 Patch6:         link-shared.diff
+Patch7:         i915-g33.diff
+Patch8:         i915tex-g33.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -119,6 +121,12 @@ rm -rf src/glw/
 %ifarch %ix86 x86_64 ppc
 %patch6
 %endif
+pushd src/mesa/drivers/dri/i915
+%patch7
+popd
+pushd src/mesa/drivers/dri/i915tex
+%patch8
+popd
 
 %build
 
@@ -265,6 +273,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libMesaGL.a
 
 %changelog
+* Wed Jul 04 2007 - sndirsch@suse.de
+- i915-g33.diff/i915tex-g33.diff
+  * support for G33/Q33/Q35
 * Sat Jun 23 2007 - sndirsch@suse.de
 - updated to final release 7.0
 * Thu Jun 21 2007 - sndirsch@suse.de
