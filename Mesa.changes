@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jul  4 05:08:57 CEST 2007 - sndirsch@suse.de
+
+- i915-g33.diff/i915tex-g33.diff
+  * support for G33/Q33/Q35
+
+-------------------------------------------------------------------
 Sat Jun 23 04:51:48 CEST 2007 - sndirsch@suse.de
 
 - updated to final release 7.0 
