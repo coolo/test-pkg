@@ -1,5 +1,5 @@
 #
-# spec file for package zsh (Version 4.3.2)
+# spec file for package zsh (Version 4.3.4)
 #
 # Copyright (c) 2007 SUSE LINUX Products GmbH, Nuernberg, Germany.
 # This file and all modifications and additions to the pristine
@@ -11,8 +11,8 @@
 # norootforbuild
 
 Name:           zsh
-Version:        4.3.2
-Release:        42
+Version:        4.3.4
+Release:        1
 License:        Other uncritical OpenSource License
 Group:          System/Shells
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -34,7 +34,7 @@ Source5:        _hwinfo
 Source6:        _make
 # unused atm. we build the docs with yodl on our own.
 Source20:       %{name}-%{version}-doc.tar.bz2
-Patch0:         %{name}-4.3.1.diff
+Patch0:         %{name}-4.3.4.diff
 Patch1:         %{name}-4.2.5-tailsyntax.diff
 Patch2:         %{name}-4.3.1-91.diff
 Summary:        Shell with comprehensive completion
@@ -54,10 +54,12 @@ Authors:
     Paul Falstad
 
 %prep
-%setup
+%setup -q
 %patch0
 %patch1
 %patch2
+perl -p -i -e 's|/usr/local/bin/zsh|%{_bindir}/zsh|' \
+    Functions/Misc/zcalc Functions/Example/cat
 
 %build
 export CC="gcc" CFLAGS="%{optflags} -pipe -fno-strict-aliasing"
@@ -140,6 +142,13 @@ groff Doc/intro.ms > intro.txt
 %{_mandir}/man1/zsh*.1.gz
 
 %changelog
+* Wed Jul 04 2007 - hvogel@suse.de
+- update to version 4.3.4
+  * various bugfixes
+  * countless completion fixes
+  * some new completions
+  * various UTF8 fixes
+- remove autoresume option from default config [#287776]
 * Fri Mar 30 2007 - rguenther@suse.de
 - add ncurses-devel BuildRequires.
 * Fri Jul 14 2006 - mskibbe@suse.de

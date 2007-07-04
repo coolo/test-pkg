@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Wed Jul  4 16:14:30 CEST 2007 - hvogel@suse.de
+
+- update to version 4.3.4
+  * various bugfixes
+  * countless completion fixes
+  * some new completions
+  * various UTF8 fixes
+- remove autoresume option from default config [#287776]
+
+-------------------------------------------------------------------
 Fri Mar 30 12:33:28 CEST 2007 - rguenther@suse.de
 
 - add ncurses-devel BuildRequires.
