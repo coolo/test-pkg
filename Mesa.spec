@@ -1,5 +1,5 @@
 #
-# spec file for package Mesa (Version 7.0)
+# spec file for package Mesa (Version 7.0.1)
 #
 # Copyright (c) 2007 SUSE LINUX Products GmbH, Nuernberg, Germany.
 # This file and all modifications and additions to the pristine
@@ -18,8 +18,8 @@ Group:          System/Libraries
 Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 Autoreqprov:    on
-Version:        7.0
-Release:        4
+Version:        7.0.1
+Release:        1
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL.*
 Source:         MesaLib-%{version}.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -105,6 +105,7 @@ Authors:
 
 %prep
 %setup -n %{name}-%{version} -b1 -b4
+rm docs/README.MINGW32.orig
 # make legal department happy (Bug #204110)
 test -f src/mesa/drivers/directfb/idirectfbgl_mesa.c && exit 1
 test -f progs/ggi/asc-view.c && exit 1
@@ -273,6 +274,8 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libMesaGL.a
 
 %changelog
+* Sat Aug 04 2007 - sndirsch@suse.de
+- updated to bugfix relelase 7.0.1
 * Wed Jul 04 2007 - sndirsch@suse.de
 - i915-g33.diff/i915tex-g33.diff
   * support for G33/Q33/Q35
