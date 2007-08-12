@@ -19,7 +19,7 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 Autoreqprov:    on
 Version:        7.0.1
-Release:        1
+Release:        4
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL.*
 Source:         MesaLib-%{version}.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -30,6 +30,7 @@ Source6:        via.sh
 Patch0:         disable-sis_dri.diff
 Patch1:         dri_driver_dir.diff
 Patch2:         i915-crossbar.diff
+Patch3:         disable-libGL-warning.diff
 Patch4:         libIndirectGL.diff
 Patch5:         static.diff
 Patch6:         link-shared.diff
@@ -118,6 +119,7 @@ rm -rf src/glw/
 %patch0
 %patch1
 %patch2
+%patch3
 %patch5
 %ifarch %ix86 x86_64 ppc
 %patch6
@@ -274,6 +276,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libMesaGL.a
 
 %changelog
+* Sun Aug 12 2007 - sndirsch@suse.de
+- disable-libGL-warning.diff:
+  * ignore unsupported visual 0x4b (Bug #247471, X.Org Bug #6689)
 * Sat Aug 04 2007 - sndirsch@suse.de
 - updated to bugfix relelase 7.0.1
 * Wed Jul 04 2007 - sndirsch@suse.de

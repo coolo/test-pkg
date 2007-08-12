@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Aug 12 10:59:23 CEST 2007 - sndirsch@suse.de
+
+- disable-libGL-warning.diff:
+  * ignore unsupported visual 0x4b (Bug #247471, X.Org Bug #6689)   
+
+-------------------------------------------------------------------
 Sat Aug  4 05:54:46 CEST 2007 - sndirsch@suse.de
 
 - updated to bugfix relelase 7.0.1 
