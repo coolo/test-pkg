@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Aug 13 03:06:02 CEST 2007 - sndirsch@suse.de
+
+- disable-libGL-warning.diff:
+  * Just filters warnings about unsupported non-conformant visuals
+    instead of relying on the visual id. (X.Org Bug #6689)
+
+-------------------------------------------------------------------
 Sun Aug 12 10:59:23 CEST 2007 - sndirsch@suse.de
 
 - disable-libGL-warning.diff:
