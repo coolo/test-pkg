@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Oct 31 08:53:24 CET 2007 - sndirsch@suse.de
+
+- updated to Mesa 7.0.2 RC1 
+- obsoletes disable-libGL-warning.diff, i915-g33.diff and 
+  i915tex-g33.diff
+- adjusted link-shared.diff and static.diff
+
+-------------------------------------------------------------------
 Mon Aug 13 03:06:02 CEST 2007 - sndirsch@suse.de
 
 - disable-libGL-warning.diff:
