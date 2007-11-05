@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Nov  4 22:46:31 CET 2007 - sndirsch@suse.de
+
+- pic.diff
+  * fixes shared lib on i386 (X.Org Bug #1809) 
+
+-------------------------------------------------------------------
 Wed Oct 31 08:53:24 CET 2007 - sndirsch@suse.de
 
 - updated to Mesa 7.0.2 RC1 
