@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Wed Nov  7 16:38:11 CET 2007 - sndirsch@suse.de
+
+- updated to Mesa 7.0.2 RC2
+  * added -fPIC and -fno-strict-aliasing flags for gcc
+  * applied a few patches (mmx code, edgeflag ptr check)
+  * r200 texture from pixmap fixes
+- obsoletes pic.diff
+
+-------------------------------------------------------------------
 Sun Nov  4 22:46:31 CET 2007 - sndirsch@suse.de
 
 - pic.diff
