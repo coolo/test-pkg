@@ -19,10 +19,10 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 AutoReqProv:    on
 Version:        7.0.2
-Release:        3
+Release:        4
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL.*
-Source:         MesaLib-%{version}-rc1.tar.bz2
-Source1:        MesaDemos-%{version}-rc1.tar.bz2
+Source:         MesaLib-%{version}-rc2.tar.bz2
+Source1:        MesaDemos-%{version}-rc2.tar.bz2
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source5:        via.csh
@@ -33,7 +33,6 @@ Patch2:         i915-crossbar.diff
 Patch4:         libIndirectGL.diff
 Patch5:         static.diff
 Patch6:         link-shared.diff
-Patch7:         pic.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -103,7 +102,7 @@ Authors:
     Brian Paul
 
 %prep
-%setup -n %{name}-%{version}-rc1 -b1 -b4
+%setup -n %{name}-%{version}-rc2 -b1 -b4
 rm docs/README.MINGW32.orig
 # make legal department happy (Bug #204110)
 test -f src/mesa/drivers/directfb/idirectfbgl_mesa.c && exit 1
@@ -121,7 +120,6 @@ rm -rf src/glw/
 %ifarch %ix86 x86_64 ppc
 %patch6
 %endif
-%patch7
 
 %build
 
@@ -269,6 +267,12 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libGLU.a
 /usr/%{_lib}/libMesaGL.a
 %changelog
+* Wed Nov 07 2007 - sndirsch@suse.de
+- updated to Mesa 7.0.2 RC2
+  * added -fPIC and -fno-strict-aliasing flags for gcc
+  * applied a few patches (mmx code, edgeflag ptr check)
+  * r200 texture from pixmap fixes
+- obsoletes pic.diff
 * Sun Nov 04 2007 - sndirsch@suse.de
 - pic.diff
   * fixes shared lib on i386 (X.Org Bug #1809)
