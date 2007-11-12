@@ -1,4 +1,42 @@
 -------------------------------------------------------------------
+Sat Nov 10 19:13:45 CET 2007 - sndirsch@suse.de
+
+- updated to Mesa 7.0.2
+  * New features:
+    - Updated Windows VC7 project files 
+    - Added DESTDIR variable for 'make install' 
+    - Added pkg-config files for gl, glu, glut and glw libraries 
+    - Added bluegene-xlc-osmesa and catamount-osmesa-pgi configs 
+    - Support for Intel G33/Q33/Q35 graphics chipsets
+  * Bug fixes:
+    - Fixed a vertex buffer wrapping issue (bug 9962) 
+    - Added mutex protection around texture object reference
+      counters 
+    - Added checking/support for additional chips in the i915/i945
+      family (see 11978) 
+    - Fixed a blending/banding issue (bug 11931) 
+    - Fixed a GLU matrix inversion bug (#6748) 
+    - Fixed problem with large glDrawArrays calls and indirect
+      rendering (bug 12141) 
+    - Fixed an assortment of i965 driver bugs 
+    - Fixed x86-64 vertex transformation bug (12216) 
+    - Fixed X server crash caused by multiple indirect rendering
+      clients 
+    - Parsing of state.texgen in ARB vertex/fragment programs
+      didn't work (bug 12313) 
+    - Fixed a glCopyPixels/glPixelZoom bug (12417) 
+    - Fixed a bug when using glMaterial in display lists (10604)
+    - Fixed a few GLUT/Fortran issues (Bill Mitchell) 
+    - Fixed Blender crash bug (12164) 
+    - Fixed some issues preventing cross-compiling 
+    - Fixed up broken GL_ATI_separate_stencil extension 
+    - glDrawArrays(count=0) led to a crash 
+    - Fix SSE code gen memory leak, possible crash 
+    - Fixed MMX 565 rgb conversion problem (bug 12614) 
+    - Added -fno-strict-aliasing and -fPIC flags for gcc 
+    - Fixed Blender crash in Unichrome driver (bug 13142)
+
+-------------------------------------------------------------------
 Wed Nov  7 16:38:11 CET 2007 - sndirsch@suse.de
 
 - updated to Mesa 7.0.2 RC2
