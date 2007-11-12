@@ -19,10 +19,10 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 AutoReqProv:    on
 Version:        7.0.2
-Release:        4
+Release:        6
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL.*
-Source:         MesaLib-%{version}-rc2.tar.bz2
-Source1:        MesaDemos-%{version}-rc2.tar.bz2
+Source:         MesaLib-%{version}.tar.bz2
+Source1:        MesaDemos-%{version}.tar.bz2
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source5:        via.csh
@@ -102,7 +102,7 @@ Authors:
     Brian Paul
 
 %prep
-%setup -n %{name}-%{version}-rc2 -b1 -b4
+%setup -n %{name}-%{version} -b1 -b4
 rm docs/README.MINGW32.orig
 # make legal department happy (Bug #204110)
 test -f src/mesa/drivers/directfb/idirectfbgl_mesa.c && exit 1
@@ -267,6 +267,41 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libGLU.a
 /usr/%{_lib}/libMesaGL.a
 %changelog
+* Sat Nov 10 2007 - sndirsch@suse.de
+- updated to Mesa 7.0.2
+  * New features:
+    - Updated Windows VC7 project files
+    - Added DESTDIR variable for 'make install'
+    - Added pkg-config files for gl, glu, glut and glw libraries
+    - Added bluegene-xlc-osmesa and catamount-osmesa-pgi configs
+    - Support for Intel G33/Q33/Q35 graphics chipsets
+  * Bug fixes:
+    - Fixed a vertex buffer wrapping issue (bug 9962)
+    - Added mutex protection around texture object reference
+  counters
+    - Added checking/support for additional chips in the i915/i945
+  family (see 11978)
+    - Fixed a blending/banding issue (bug 11931)
+    - Fixed a GLU matrix inversion bug (#6748)
+    - Fixed problem with large glDrawArrays calls and indirect
+  rendering (bug 12141)
+    - Fixed an assortment of i965 driver bugs
+    - Fixed x86-64 vertex transformation bug (12216)
+    - Fixed X server crash caused by multiple indirect rendering
+  clients
+    - Parsing of state.texgen in ARB vertex/fragment programs
+  didn't work (bug 12313)
+    - Fixed a glCopyPixels/glPixelZoom bug (12417)
+    - Fixed a bug when using glMaterial in display lists (10604)
+    - Fixed a few GLUT/Fortran issues (Bill Mitchell)
+    - Fixed Blender crash bug (12164)
+    - Fixed some issues preventing cross-compiling
+    - Fixed up broken GL_ATI_separate_stencil extension
+    - glDrawArrays(count=0) led to a crash
+    - Fix SSE code gen memory leak, possible crash
+    - Fixed MMX 565 rgb conversion problem (bug 12614)
+    - Added -fno-strict-aliasing and -fPIC flags for gcc
+    - Fixed Blender crash in Unichrome driver (bug 13142)
 * Wed Nov 07 2007 - sndirsch@suse.de
 - updated to Mesa 7.0.2 RC2
   * added -fPIC and -fno-strict-aliasing flags for gcc
