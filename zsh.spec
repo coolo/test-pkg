@@ -12,7 +12,7 @@
 
 Name:           zsh
 Version:        4.3.4
-Release:        1
+Release:        57
 License:        Other uncritical OpenSource License
 Group:          System/Shells
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -24,7 +24,7 @@ BuildRequires:  libcap
 %endif
 BuildRequires:  yodl
 PreReq:         %{install_info_prereq}
-URL:            http://www.zsh.org
+Url:            http://www.zsh.org
 Source0:        %{name}-%{version}.tar.bz2
 Source1:        zshrc
 Source2:        zshenv
@@ -32,6 +32,7 @@ Source3:        _yast2
 Source4:        _SuSEconfig
 Source5:        _hwinfo
 Source6:        _make
+Source7:        zprofile
 # unused atm. we build the docs with yodl on our own.
 Source20:       %{name}-%{version}-doc.tar.bz2
 Patch0:         %{name}-4.3.4.diff
@@ -111,7 +112,7 @@ groff Doc/intro.ms > intro.txt
 %makeinstall install.info VERSION="%{version}"
 # install SUSE configuration
 %{__install} -m 0755 -Dd  %{buildroot}/{etc,bin}
-%{__install} -m 0644 %{S:1} %{S:2} %{buildroot}/etc
+%{__install} -m 0644 %{S:1} %{S:2} %{S:7} %{buildroot}/etc
 %{__install} -m 0644 %{S:3} %{S:4} %{S:5} %{S:6} %{buildroot}%{_datadir}/%{name}/%version/functions
 # install help files
 %{__install} -m 0755 -Dd    %{buildroot}%{_datadir}/%{name}/help
@@ -134,6 +135,7 @@ groff Doc/intro.ms > intro.txt
 %doc Etc/* intro.txt Misc/compctl-examples Doc/htmldoc
 %config(noreplace) /etc/zshrc
 %config(noreplace) /etc/zshenv
+%config(noreplace) /etc/zprofile
 %{_bindir}/zsh
 /bin/zsh
 %{_libdir}/zsh/
@@ -142,6 +144,14 @@ groff Doc/intro.ms > intro.txt
 %{_mandir}/man1/zsh*.1.gz
 
 %changelog
+* Mon Dec 03 2007 - hvogel@suse.de
+- cleanup initialization files
+  * Dont source profile from zshenv. profile is not for interactive
+  shells [#343621]
+  * Instead source profile from zprofile so we dont loose the features
+  and its easy to get rid of it.
+  * Source bash.bashrc from zshrc to keep the features and make it
+  possible to get rid of it easier.
 * Wed Jul 04 2007 - hvogel@suse.de
 - update to version 4.3.4
   * various bugfixes
