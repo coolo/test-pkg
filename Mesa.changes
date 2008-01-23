@@ -1,4 +1,21 @@
 -------------------------------------------------------------------
+Wed Jan 23 12:23:16 CET 2008 - sndirsch@suse.de
+
+- update to Mesa bugfix release 7.0.3 RC1
+  * Added missing glw.pc.in file to release tarball
+  * Fix GLUT/Fortran issues
+  * GLSL gl_FrontLightModelProduct.sceneColor variable wasn't 
+    defined
+  * Fix crash upon GLSL variable array indexes (not yet supported)
+  * Two-sided stencil test didn't work in software rendering
+  * Fix two-sided lighting bugs/crashes (bug 13368)
+  * GLSL gl_FrontFacing didn't work properly
+  * glGetActiveUniform returned incorrect sizes (bug 13751)
+  * Fix several bugs relating to uniforms and attributes in GLSL
+    API (Bruce Merry, bug 13753)
+  * glTexImage3D(GL_PROXY_TEXTURE_3D) mis-set teximage depth field
+
+-------------------------------------------------------------------
 Sat Nov 10 19:13:45 CET 2007 - sndirsch@suse.de
 
 - updated to Mesa 7.0.2
