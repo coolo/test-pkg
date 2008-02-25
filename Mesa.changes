@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Fri Feb 22 04:02:54 CET 2008 - sndirsch@suse.de
+
+- update to Mesa bugfix release 7.0.3 RC2
+  * Fixed GLX indirect vertex array rendering bug (14197)
+  * Fixed crash when deleting framebuffer objects (bugs 13507,
+    14293)
+  * User-defined clip planes enabled for R300 (bug 9871)
+  * Fixed glBindTexture() crash upon bad target (bug 14514)
+  * Fixed potential crash in glDrawPixels(GL_DEPTH_COMPONENT) (bug
+    13915)
+  * Bad strings given to glProgramStringARB() didn't generate
+    GL_INVALID_OPERATION
+  * Fixed minor point rasterization regression (bug 11016)
+
+-------------------------------------------------------------------
 Wed Jan 23 12:23:16 CET 2008 - sndirsch@suse.de
 
 - update to Mesa bugfix release 7.0.3 RC1
