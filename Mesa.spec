@@ -10,6 +10,7 @@
 
 # norootforbuild
 
+
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel pkgconfig xorg-x11-devel
 Url:            http://www.mesa3d.org
@@ -19,10 +20,10 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 AutoReqProv:    on
 Version:        7.0.3
-Release:        1
+Release:        10
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL.*
-Source:         MesaLib-%{version}-rc1.tar.bz2
-Source1:        MesaDemos-%{version}-rc1.tar.bz2
+Source:         MesaLib-%{version}-rc2.tar.bz2
+Source1:        MesaDemos-%{version}-rc2.tar.bz2
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source5:        via.csh
@@ -102,7 +103,7 @@ Authors:
     Brian Paul
 
 %prep
-%setup -n %{name}-%{version}-rc1 -b1 -b4
+%setup -n %{name}-%{version}-rc2 -b1 -b4
 rm docs/README.MINGW32.orig
 # make legal department happy (Bug #204110)
 test -f src/mesa/drivers/directfb/idirectfbgl_mesa.c && exit 1
@@ -268,6 +269,18 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libMesaGL.a
 
 %changelog
+* Fri Feb 22 2008 sndirsch@suse.de
+- update to Mesa bugfix release 7.0.3 RC2
+  * Fixed GLX indirect vertex array rendering bug (14197)
+  * Fixed crash when deleting framebuffer objects (bugs 13507,
+  14293)
+  * User-defined clip planes enabled for R300 (bug 9871)
+  * Fixed glBindTexture() crash upon bad target (bug 14514)
+  * Fixed potential crash in glDrawPixels(GL_DEPTH_COMPONENT) (bug
+  13915)
+  * Bad strings given to glProgramStringARB() didn't generate
+  GL_INVALID_OPERATION
+  * Fixed minor point rasterization regression (bug 11016)
 * Wed Jan 23 2008 sndirsch@suse.de
 - update to Mesa bugfix release 7.0.3 RC1
   * Added missing glw.pc.in file to release tarball
@@ -432,7 +445,7 @@ rm -rf $RPM_BUILD_ROOT
 * Wed Jan 17 2007 sndirsch@suse.de
 - bug-211314_mesa-context.diff:
   * fixes Xserver crash in software rendering fallback (Bug #211314)
-* Tue Jan 09 2007 sndirsch@suse.de
+* Wed Jan 10 2007 sndirsch@suse.de
 - disabled build of sis DRI driver on i64 to fix build
 * Sat Dec 02 2006 sndirsch@suse.de
 - updated to Mesa 6.5.2
@@ -482,7 +495,7 @@ rm -rf $RPM_BUILD_ROOT
   been decprecated.
     - OpenGL 2.0 and 2.1 support is nearly done. We need to do quite a
   bit more testing of the shading language functions.
-* Thu Nov 23 2006 sndirsch@suse.de
+* Fri Nov 24 2006 sndirsch@suse.de
 - enabled build of i965 DRI driver on x86_64
 * Fri Nov 10 2006 sndirsch@suse.de
 - fixed typos (Bug #219732)
@@ -630,7 +643,7 @@ rm -rf $RPM_BUILD_ROOT
 * Wed Dec 28 2005 sndirsch@suse.de
 - moved header files and libGL.so from Mesa-devel to Mesa to make
   uninstallation of nvidia driver in %%pre of Mesa-devel obsolete
-* Wed Nov 30 2005 sndirsch@suse.de
+* Thu Dec 01 2005 sndirsch@suse.de
 - update to Mesa 6.4.1
 * Fri Nov 18 2005 sndirsch@suse.de
 - updated to Mesa 6.4 branch (2005-11-18)
