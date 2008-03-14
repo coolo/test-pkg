@@ -20,8 +20,8 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 AutoReqProv:    on
 Version:        7.0.3
-Release:        10
-Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL.*
+Release:        14
+Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}-rc2.tar.bz2
 Source1:        MesaDemos-%{version}-rc2.tar.bz2
 Source3:        README.updates
@@ -34,6 +34,7 @@ Patch2:         i915-crossbar.diff
 Patch4:         libIndirectGL.diff
 Patch5:         static.diff
 Patch6:         link-shared.diff
+Patch7:         commit-185320a.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -121,6 +122,7 @@ rm -rf src/glw/
 %ifarch %ix86 x86_64 ppc
 %patch6
 %endif
+%patch7 -p1
 
 %build
 
@@ -269,6 +271,13 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libMesaGL.a
 
 %changelog
+* Thu Mar 13 2008 sndirsch@suse.de
+- commit-185320a.diff
+  Only call ProgramStringNotify if program parsing succeeded.
+  Wine intentionally tries some out-of-spec programs to test
+  strictness, and calling ProgramStringNotify on the results
+  of a failed program parse resulted in crashes in the 965
+  driver. (bfo #13492)
 * Fri Feb 22 2008 sndirsch@suse.de
 - update to Mesa bugfix release 7.0.3 RC2
   * Fixed GLX indirect vertex array rendering bug (14197)
