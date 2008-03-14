@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Thu Mar 13 12:43:53 CET 2008 - sndirsch@suse.de
+
+- commit-185320a.diff 
+  Only call ProgramStringNotify if program parsing succeeded.
+  Wine intentionally tries some out-of-spec programs to test
+  strictness, and calling ProgramStringNotify on the results
+  of a failed program parse resulted in crashes in the 965
+  driver. (bfo #13492)
+
+-------------------------------------------------------------------
 Fri Feb 22 04:02:54 CET 2008 - sndirsch@suse.de
 
 - update to Mesa bugfix release 7.0.3 RC2
