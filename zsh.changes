@@ -1,4 +1,24 @@
 -------------------------------------------------------------------
+Thu Mar 20 14:46:44 CET 2008 - hvogel@suse.de
+
+- update to 4.3.5
+ * Various bugfixes
+ * stop tindent becoming negative, which causes infinite use of
+   memory; add debug test to see where it would become negative.
+ * make malloc(0) allocate a single byte instead of returning
+   invalid (and unfreeable) memory.
+ * fix race in POSIX signal blocking
+ * various completion fixes/updates, mostly git
+ * tidy up module interface and documentation
+ * more build tests
+ * The new extended globbing flag (#cN,M) behaves similarly to
+   the extended regular expression syntax {N,M}.
+ * The zsh/datetime module has been enhanced and a calendar function
+   system has been added along the lines of (but much enhanced from)
+ * A new module zsh/curses provides a builtin zcurses for access to
+   to the curses screen manipulation package.
+
+-------------------------------------------------------------------
 Mon Dec  3 15:40:31 CET 2007 - hvogel@suse.de
 
 - cleanup initialization files
