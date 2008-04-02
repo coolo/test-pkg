@@ -20,10 +20,10 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 AutoReqProv:    on
 Version:        7.0.3
-Release:        14
+Release:        19
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
-Source:         MesaLib-%{version}-rc2.tar.bz2
-Source1:        MesaDemos-%{version}-rc2.tar.bz2
+Source:         MesaLib-%{version}-rc3.tar.bz2
+Source1:        MesaDemos-%{version}-rc3.tar.bz2
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source5:        via.csh
@@ -34,7 +34,6 @@ Patch2:         i915-crossbar.diff
 Patch4:         libIndirectGL.diff
 Patch5:         static.diff
 Patch6:         link-shared.diff
-Patch7:         commit-185320a.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -59,6 +58,7 @@ Authors:
     Brian Paul
 
 %package devel
+License:        X11/MIT
 Requires:       Mesa = %version xorg-x11-devel
 Summary:        Libraries, includes and more to develop Mesa applications
 Group:          System/Libraries
@@ -87,6 +87,7 @@ Authors:
     Brian Paul
 
 %package devel-static
+License:        X11/MIT
 Requires:       Mesa-devel = %version
 Summary:        Static GL library - Usually not required at all
 Group:          System/Libraries
@@ -104,7 +105,7 @@ Authors:
     Brian Paul
 
 %prep
-%setup -n %{name}-%{version}-rc2 -b1 -b4
+%setup -n %{name}-%{version}-rc3 -b1 -b4
 rm docs/README.MINGW32.orig
 # make legal department happy (Bug #204110)
 test -f src/mesa/drivers/directfb/idirectfbgl_mesa.c && exit 1
@@ -122,7 +123,6 @@ rm -rf src/glw/
 %ifarch %ix86 x86_64 ppc
 %patch6
 %endif
-%patch7 -p1
 
 %build
 
@@ -271,6 +271,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libMesaGL.a
 
 %changelog
+* Wed Apr 02 2008 sndirsch@suse.de
+- update to Mesa bugfix release 7.0.3 RC3
+  * obsoletes commit-185320a.diff
 * Thu Mar 13 2008 sndirsch@suse.de
 - commit-185320a.diff
   Only call ProgramStringNotify if program parsing succeeded.
@@ -345,7 +348,7 @@ rm -rf $RPM_BUILD_ROOT
   * applied a few patches (mmx code, edgeflag ptr check)
   * r200 texture from pixmap fixes
 - obsoletes pic.diff
-* Sun Nov 04 2007 sndirsch@suse.de
+* Mon Nov 05 2007 sndirsch@suse.de
 - pic.diff
   * fixes shared lib on i386 (X.Org Bug #1809)
 * Wed Oct 31 2007 sndirsch@suse.de
@@ -387,7 +390,7 @@ rm -rf $RPM_BUILD_ROOT
 - link-shared.diff:
   * use shared lib for DRI drivers to save a lot of space (Bug
   [#272875])
-* Mon Apr 30 2007 sndirsch@suse.de
+* Tue May 01 2007 sndirsch@suse.de
 - updated to Mesa 6.5.3
 - obsoletes the following patches:
   * bug-211314_mesa-destroy_buffers.diff
@@ -437,7 +440,7 @@ rm -rf $RPM_BUILD_ROOT
 * Tue Apr 10 2007 sndirsch@suse.de
 - Mesa-6.5.2-fix_radeon_cliprect.diff:
   * fixes X.Org Bug #9876
-* Wed Apr 04 2007 sndirsch@suse.de
+* Thu Apr 05 2007 sndirsch@suse.de
 - bug-211314_mesa-refcount-memleak-fixes.diff:
   * Fix for memleaks and refount bugs (Bug #211314)
 * Mon Mar 19 2007 sndirsch@suse.de
@@ -456,7 +459,7 @@ rm -rf $RPM_BUILD_ROOT
   * fixes Xserver crash in software rendering fallback (Bug #211314)
 * Wed Jan 10 2007 sndirsch@suse.de
 - disabled build of sis DRI driver on i64 to fix build
-* Sat Dec 02 2006 sndirsch@suse.de
+* Sun Dec 03 2006 sndirsch@suse.de
 - updated to Mesa 6.5.2
   * New features
     - New DRI memory manager system. Currently used by the i915tex
@@ -604,7 +607,7 @@ rm -rf $RPM_BUILD_ROOT
   release of Mesa). (bnc 174839)
 * Tue May 23 2006 sndirsch@suse.de
 - no longer remove NVIDIA installer in %%pre
-* Mon May 22 2006 sndirsch@suse.de
+* Tue May 23 2006 sndirsch@suse.de
 - reverted Mesa/MesaGLU split
 - fixed libGLcore.so.1 (e.g. soname); required to create a
   non-conflicting package for the NVIDIA driver (Bug #175683)
@@ -619,7 +622,7 @@ rm -rf $RPM_BUILD_ROOT
   document DRI driver update mechanism
 * Wed Apr 12 2006 sndirsch@suse.de
 - enhanced search path for DRI driver updates (FATE #300553)
-* Mon Apr 03 2006 sndirsch@suse.de
+* Tue Apr 04 2006 sndirsch@suse.de
 - mesa-6.4.2-dri-copy-sub-buffer-1.patch:
   * needed for open source drivers to work with Xgl (David Reveman)
 * Wed Mar 15 2006 mhopf@suse.de
@@ -681,7 +684,7 @@ rm -rf $RPM_BUILD_ROOT
 - fixed DRI driver path for 64bit platforms
 * Tue Oct 25 2005 sndirsch@suse.de
 - update to Mesa 6.4
-* Mon Oct 24 2005 sndirsch@suse.de
+* Tue Oct 25 2005 sndirsch@suse.de
 - build DRI compatible libGL
 * Fri Oct 21 2005 sndirsch@suse.de
 - added dummy nvidia libGLcore.so.1 for applications, which are
@@ -691,5 +694,5 @@ rm -rf $RPM_BUILD_ROOT
   libGl does not work
 * Wed Oct 19 2005 sndirsch@suse.de
 - no longer install libglide (disables 3Dfx DRI support)
-* Sun Oct 02 2005 sndirsch@suse.de
+* Mon Oct 03 2005 sndirsch@suse.de
 - created package

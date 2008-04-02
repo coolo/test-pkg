@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Apr  2 09:33:27 CEST 2008 - sndirsch@suse.de
+
+- update to Mesa bugfix release 7.0.3 RC3 
+  * obsoletes commit-185320a.diff
+
+-------------------------------------------------------------------
 Thu Mar 13 12:43:53 CET 2008 - sndirsch@suse.de
 
 - commit-185320a.diff 
