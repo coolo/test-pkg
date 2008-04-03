@@ -1,5 +1,5 @@
 #
-# spec file for package zsh (Version 4.3.5)
+# spec file for package zsh (Version 4.3.6)
 #
 # Copyright (c) 2008 SUSE LINUX Products GmbH, Nuernberg, Germany.
 # This file and all modifications and additions to the pristine
@@ -12,8 +12,8 @@
 
 
 Name:           zsh
-Version:        4.3.5
-Release:        4
+Version:        4.3.6
+Release:        1
 License:        Other uncritical OpenSource License
 Group:          System/Shells
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -79,7 +79,7 @@ make VERSION="%{version}" CFLAGS="$CFLAGS "%cflags_profile_generate \
 %ifarch s390 s390x ppc ppc64
 pushd Test
 mkdir skipped
-mv A01grammar.ztst D02glob.ztst C02cond.ztst skipped
+mv A01grammar.ztst C02cond.ztst D02glob.ztst skipped
 popd
 %endif
 ZTST_verbose=0 make test
@@ -147,6 +147,18 @@ groff Doc/intro.ms > intro.txt
 %{_mandir}/man1/zsh*.1.gz
 
 %changelog
+* Thu Apr 03 2008 hvogel@suse.de
+- update to 4.3.6
+  * Various bugfixes
+  * various buildfixes
+  * for calendar_show use kdialog rather than xmessage if in KDE
+  * clarify the message printed when compaudit finds problems
+  * improve compsys option handling
+  * add -q option to cd, chdir, pushd, popd
+  * wait shouldn't return immediately on a signal unless it's
+  trapped
+  * fix not enough space for ztrftime string with multibyte
+  characters
 * Tue Mar 25 2008 hvogel@suse.de
 - Disable some tests on  s390, s390x, ppc and ppc64
 * Thu Mar 20 2008 hvogel@suse.de
@@ -244,7 +256,7 @@ groff Doc/intro.ms > intro.txt
 * Thu Oct 16 2003 mmj@suse.de
 - Don't build as root
 - Cleanup specfile
-* Tue Oct 14 2003 jh@suse.de
+* Wed Oct 15 2003 jh@suse.de
 - Fix profiling lockup.  (we can not profile dl_closed modules yet)
 * Thu Jun 19 2003 mmj@suse.de
 - Update to 4.1.1
@@ -301,7 +313,7 @@ groff Doc/intro.ms > intro.txt
 - Fixed build prob on beta-i386 and beta-ia64
 * Tue May 08 2001 mfabian@suse.de
 - bzip2 sources
-* Sun Apr 15 2001 schwab@suse.de
+* Mon Apr 16 2001 schwab@suse.de
 - Fix missing declarations.
 * Fri Apr 13 2001 mmj@suse.de
 - Updated to 4.0.1-pre-3
@@ -333,7 +345,7 @@ groff Doc/intro.ms > intro.txt
 - update to version 3.0.5
 * Tue Jun 24 1997 florian@suse.de
 - update to version 3.0.4
-* Wed Jan 22 1997 florian@suse.de
+* Thu Jan 23 1997 florian@suse.de
 - update to version 3.0.2
 * Thu Jan 02 1997 florian@suse.de
 - update to version 3.0.1

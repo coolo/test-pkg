@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Thu Apr  3 15:03:30 CEST 2008 - hvogel@suse.de
+
+- update to 4.3.6
+  * Various bugfixes
+  * various buildfixes
+  * for calendar_show use kdialog rather than xmessage if in KDE
+  * clarify the message printed when compaudit finds problems
+  * improve compsys option handling
+  * add -q option to cd, chdir, pushd, popd
+  * wait shouldn't return immediately on a signal unless it's
+    trapped
+  * fix not enough space for ztrftime string with multibyte
+    characters
+
+-------------------------------------------------------------------
 Tue Mar 25 13:25:53 CET 2008 - hvogel@suse.de
 
 - Disable some tests on  s390, s390x, ppc and ppc64
