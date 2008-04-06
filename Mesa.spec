@@ -20,10 +20,10 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 AutoReqProv:    on
 Version:        7.0.3
-Release:        19
+Release:        21
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
-Source:         MesaLib-%{version}-rc3.tar.bz2
-Source1:        MesaDemos-%{version}-rc3.tar.bz2
+Source:         MesaLib-%{version}.tar.bz2
+Source1:        MesaDemos-%{version}.tar.bz2
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source5:        via.csh
@@ -105,7 +105,7 @@ Authors:
     Brian Paul
 
 %prep
-%setup -n %{name}-%{version}-rc3 -b1 -b4
+%setup -n %{name}-%{version} -b1 -b4
 rm docs/README.MINGW32.orig
 # make legal department happy (Bug #204110)
 test -f src/mesa/drivers/directfb/idirectfbgl_mesa.c && exit 1
@@ -271,6 +271,8 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libMesaGL.a
 
 %changelog
+* Sat Apr 05 2008 sndirsch@suse.de
+- update to Mesa bugfix release 7.0.3 (final)
 * Wed Apr 02 2008 sndirsch@suse.de
 - update to Mesa bugfix release 7.0.3 RC3
   * obsoletes commit-185320a.diff
