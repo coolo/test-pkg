@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Apr 10 12:54:45 CEST 2008 - ro@suse.de
+
+- added baselibs.conf file to build xxbit packages
+  for multilib support
+
+-------------------------------------------------------------------
 Sat Apr  5 03:42:11 CEST 2008 - sndirsch@suse.de
 
 - update to Mesa bugfix release 7.0.3 (final) 
