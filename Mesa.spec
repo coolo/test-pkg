@@ -20,20 +20,19 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 AutoReqProv:    on
 Version:        7.0.3
-Release:        23
+Release:        25
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
-Source5:        via.csh
-Source6:        via.sh
 Patch0:         disable-sis_dri.diff
 Patch1:         dri_driver_dir.diff
 Patch2:         i915-crossbar.diff
 Patch4:         libIndirectGL.diff
 Patch5:         static.diff
 Patch6:         link-shared.diff
+Patch7:         unichrome-context.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -123,6 +122,7 @@ rm -rf src/glw/
 %ifarch %ix86 x86_64 ppc
 %patch6
 %endif
+%patch7 -p1
 
 %build
 
@@ -201,12 +201,6 @@ mkdir -p $RPM_BUILD_ROOT/usr/%{_lib}/dri/updates
 install -m 644 $RPM_SOURCE_DIR/README.updates \
   $RPM_BUILD_ROOT/usr/%{_lib}/dri/updates
 %endif
-%if %suse_version > 1010
-%ifnarch s390 s390x ppc64
-mkdir -p $RPM_BUILD_ROOT/etc/profile.d
-install -m 644 $RPM_SOURCE_DIR/via.{sh,csh} $RPM_BUILD_ROOT/etc/profile.d
-%endif
-%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -218,11 +212,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %doc docs/README* docs/COPYING
-%if %suse_version > 1010
-%ifnarch s390 s390x ppc64
-/etc/profile.d/via.*
-%endif
-%endif
 /usr/include/GL/gl.h
 /usr/include/GL/glext.h
 /usr/include/GL/glx.h
@@ -271,6 +260,11 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libMesaGL.a
 
 %changelog
+* Tue Apr 15 2008 sndirsch@suse.de
+- unichrome-context.diff
+  * Do not clear the current context before attempting to use it.
+  (bnc #285496)
+- no longer need to use LIBGL_ALWAYS_INDIRECT=1 on via hardware
 * Thu Apr 10 2008 ro@suse.de
 - added baselibs.conf file to build xxbit packages
   for multilib support
