@@ -265,6 +265,7 @@ rm -rf $RPM_BUILD_ROOT
   * Do not clear the current context before attempting to use it.
   (bnc #285496)
 - no longer need to use LIBGL_ALWAYS_INDIRECT=1 on via hardware
+  (bnc #285496)
 * Thu Apr 10 2008 ro@suse.de
 - added baselibs.conf file to build xxbit packages
   for multilib support

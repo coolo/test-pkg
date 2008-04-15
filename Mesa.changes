@@ -5,6 +5,7 @@ Mon Apr 14 23:56:57 CEST 2008 - sndirsch@suse.de
   * Do not clear the current context before attempting to use it.
     (bnc #285496) 
 - no longer need to use LIBGL_ALWAYS_INDIRECT=1 on via hardware
+  (bnc #285496)
 
 -------------------------------------------------------------------
 Thu Apr 10 12:54:45 CEST 2008 - ro@suse.de
