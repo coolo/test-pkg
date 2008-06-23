@@ -13,7 +13,7 @@
 
 Name:           zsh
 Version:        4.3.6
-Release:        1
+Release:        23
 License:        Other uncritical OpenSource License
 Group:          System/Shells
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -76,12 +76,13 @@ export CC="gcc" CFLAGS="%{optflags} -pipe -fno-strict-aliasing"
 make VERSION="%{version}" CFLAGS="$CFLAGS "%cflags_profile_generate \
      DLCFLAGS="-fPIC -fno-profile-arcs" LDFLAGS="-fprofile-arcs"
 # this is needed to create the profiling data files *.gcda
-%ifarch s390 s390x ppc ppc64
 pushd Test
 mkdir skipped
-mv A01grammar.ztst C02cond.ztst D02glob.ztst skipped
-popd
+%ifarch s390 s390x ppc ppc64
+mv A01grammar.ztst D02glob.ztst skipped
 %endif
+mv C02cond.ztst skipped
+popd
 ZTST_verbose=0 make test
 make clean
 # compile with profiling data reading enabled and writing disabled
@@ -147,6 +148,8 @@ groff Doc/intro.ms > intro.txt
 %{_mandir}/man1/zsh*.1.gz
 
 %changelog
+* Tue Jun 17 2008 hvogel@suse.de
+- disable one test globally
 * Thu Apr 03 2008 hvogel@suse.de
 - update to 4.3.6
   * Various bugfixes
