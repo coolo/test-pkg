@@ -22,9 +22,9 @@ AutoReqProv:    on
 Version:        7.1
 Release:        1
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
-#Source:        MesaLib-%{version}-rc1.tar.bz2
 Source:         MesaLib-6befdca.tar.bz2
 Source1:        MesaDemos-%{version}-rc1.tar.bz2
+Source2:        MesaLib-%{version}-rc1.tar.bz2
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Patch1:         dri_driver_dir.diff
