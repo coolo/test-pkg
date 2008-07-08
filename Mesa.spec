@@ -1,5 +1,5 @@
 #
-# spec file for package Mesa (Version 7.0.3)
+# spec file for package Mesa (Version 7.1)
 #
 # Copyright (c) 2008 SUSE LINUX Products GmbH, Nuernberg, Germany.
 # This file and all modifications and additions to the pristine
@@ -19,20 +19,17 @@ Group:          System/Libraries
 Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 AutoReqProv:    on
-Version:        7.0.3
-Release:        25
+Version:        7.1
+Release:        1
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
-Source:         MesaLib-%{version}.tar.bz2
-Source1:        MesaDemos-%{version}.tar.bz2
+Source:         MesaLib-6befdca.tar.bz2
+Source1:        MesaDemos-%{version}-rc1.tar.bz2
+Source2:        MesaLib-%{version}-rc1.tar.bz2
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
-Patch0:         disable-sis_dri.diff
 Patch1:         dri_driver_dir.diff
-Patch2:         i915-crossbar.diff
-Patch4:         libIndirectGL.diff
-Patch5:         static.diff
+Patch2:         MesaLib-6befdca.diff
 Patch6:         link-shared.diff
-Patch7:         unichrome-context.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -104,40 +101,61 @@ Authors:
     Brian Paul
 
 %prep
-%setup -n %{name}-%{version} -b1 -b4
-rm docs/README.MINGW32.orig
+#%setup -n %{name}-%{version}-rc1 -b1 -b4
+%setup -n mesa -b4
+#rm docs/README.MINGW32.orig
 # make legal department happy (Bug #204110)
 test -f src/mesa/drivers/directfb/idirectfbgl_mesa.c && exit 1
 test -f progs/ggi/asc-view.c && exit 1
-# no need to build GLUT and (GLUT-)Demos
+# no need to build (GLUT-)Demos
 rm -rf src/glut progs/{demos,redbook,samples,xdemos,glsl}
 # we use freeglut
 rm -f include/GL/{glut.h,uglglutshapes.h,glutf90.h}
-# extra package for GLw (MesaGLw)
-rm -rf src/glw/
-%patch0
 %patch1
+sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 %patch2
-%patch5
 %ifarch %ix86 x86_64 ppc
-%patch6
+### FIXME
+#%patch6
 %endif
-%patch7 -p1
 
 %build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/usr
+#autoreconf -fi
+### libGL (disable savage/mga, bnc #402132/#403071)
+%configure --disable-glw \
+%ifarch ia64
+          --with-driver=dri \
+%endif
+%ifnarch s390 s390x ppc64
+           --with-dri-drivers=i915,i965,mach64,r128,r200,r300,radeon,tdfx,unichrome,swrast \
+%endif
+           --disable-glut
+gmake
+make install DESTDIR=$RPM_BUILD_ROOT
 %ifnarch s390 s390x ppc64
 # build and install Indirect Rendering only libGL
-patch -p0 -s < $RPM_SOURCE_DIR/libIndirectGL.diff
 make realclean
-make linux-indirect OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
-mkdir -p $RPM_BUILD_ROOT/usr/%{_lib}
-cp -a lib/libIndirectGL.so.* $RPM_BUILD_ROOT/usr/%{_lib}
-patch -p0 -s -R < $RPM_SOURCE_DIR/libIndirectGL.diff
+%configure --with-driver=xlib \
+           --disable-glu \
+           --disable-glw \
+           --disable-glut
+sed -i 's/GL_LIB = .*/GL_LIB = IndirectGL/g' configs/autoconf
+gmake 
+make install DESTDIR=$RPM_BUILD_ROOT
+rm $RPM_BUILD_ROOT/usr/%{_lib}/libIndirectGL.so
 %endif
+### static libGL
+make realclean
+%configure --with-driver=xlib \
+           --disable-shared \
+           --enable-static \
+           --disable-glw \
+           --disable-glut
+gmake
+make install DESTDIR=$RPM_BUILD_ROOT
+%ifnarch s390
 for dir in ../xc/doc/man/{GL/gl,GL/glx,GLU}; do
 pushd $dir
   xmkmf -a
@@ -145,61 +163,18 @@ pushd $dir
   make install.man DESTDIR=$RPM_BUILD_ROOT MANPATH=%{_mandir} LIBMANSUFFIX=3gl
 popd
 done
-make realclean
-%ifarch %ix86 ppc x86_64
-%ifarch %ix86
-make linux-dri-x86 OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -DDEFAULT_DRIVER_DIR='\"'/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri'\"'" %{?jobs:-j %jobs}
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL_DIR=/usr DRI_DRIVER_INSTALL_DIR=/usr/%{_lib}/dri %{?jobs:-j %jobs}
-make realclean
-make linux-x86-static OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing" %{?jobs:-j %jobs}
 %endif
-%ifarch ppc
-make linux-dri-ppc OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -DDEFAULT_DRIVER_DIR='\"'/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri'\"'" %{?jobs:-j %jobs}
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL_DIR=/usr DRI_DRIVER_INSTALL_DIR=/usr/%{_lib}/dri %{?jobs:-j %jobs}
-make realclean
-make linux-ppc-static OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing" %{?jobs:-j %jobs}
-%endif
-%ifarch x86_64
-make linux-dri-x86-64 OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -DDEFAULT_DRIVER_DIR='\"'/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri'\"'" %{?jobs:-j %jobs}
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL_DIR=/usr DRI_DRIVER_INSTALL_DIR=/usr/%{_lib}/dri %{?jobs:-j %jobs}
-make realclean
-make linux-x86-64-static OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing" %{?jobs:-j %jobs}
-%endif
-%else
-%ifnarch s390 s390x ppc64
-make linux-dri OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -DDEFAULT_DRIVER_DIR='\"'/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri'\"'" %{?jobs:-j %jobs}
-%else
-make linux OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
-%endif
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL_DIR=/usr DRI_DRIVER_INSTALL_DIR=/usr/%{_lib}/dri
-make realclean
-make linux-static OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing" %{?jobs:-j %jobs}
-%endif
-%ifarch ppc64 s390x
-mv $RPM_BUILD_ROOT/usr/lib $RPM_BUILD_ROOT/usr/%{_lib}
-install -m 644 lib/libGL.a  $RPM_BUILD_ROOT/usr/%{_lib}
-install -m 644 lib/libGLU.a $RPM_BUILD_ROOT/usr/%{_lib}
-%else
-install -m 644 %{_lib}/libGL.a  $RPM_BUILD_ROOT/usr/%{_lib}
-install -m 644 %{_lib}/libGLU.a $RPM_BUILD_ROOT/usr/%{_lib}
-%endif
-ln -snf libGL.a $RPM_BUILD_ROOT/usr/%{_lib}/libMesaGL.a
-rm -f $RPM_BUILD_ROOT/usr/%{_lib}/libOSMesa.a
-# build and install OffScreen Mesa library
-make realclean
-make linux-osmesa OPT_FLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing" %{?jobs:-j %jobs}
-cp -a lib/libOSMesa.so* $RPM_BUILD_ROOT/usr/%{_lib}
-# create dummy nvidia libGLcore.so.1 for applications, which are still
-# linked against libGL.so.1 of older nvidia driver releases
-> libGLcore.c
-gcc -Wall -ansi -pedantic -c libGLcore.c -fPIC
-ld -shared -soname libGLcore.so.1 -o $RPM_BUILD_ROOT/usr/%{_lib}/libGLcore.so.1.0 libGLcore.o
-/sbin/ldconfig -n $RPM_BUILD_ROOT/usr/%_lib
 %ifnarch s390 s390x ppc64
 # DRI driver update mechanism
 mkdir -p $RPM_BUILD_ROOT/usr/%{_lib}/dri/updates
 install -m 644 $RPM_SOURCE_DIR/README.updates \
   $RPM_BUILD_ROOT/usr/%{_lib}/dri/updates
+%endif
+# required for building Xserver glx extension later
+%ifarch s390 s390x
+mkdir -p $RPM_BUILD_ROOT//usr/include/GL/internal/
+install -m 644 include/GL/internal/{dri_interface.h,dri_sarea.h} \
+               $RPM_BUILD_ROOT//usr/include/GL/internal/
 %endif
 
 %clean
@@ -218,10 +193,7 @@ rm -rf $RPM_BUILD_ROOT
 /usr/include/GL/glxext.h
 /usr/%{_lib}/libGL.so
 /usr/%{_lib}/lib*.so.*
-%ifarch %ix86 x86_64 ppc
-/usr/%{_lib}/libmesa_private.so
-%endif
-%ifnarch s390 s390x ppc64
+%ifnarch s390 s390x
 /usr/%{_lib}/dri/
 %endif
 
@@ -247,19 +219,30 @@ rm -rf $RPM_BUILD_ROOT
 /usr/include/GL/xmesa.h
 /usr/include/GL/xmesa_x.h
 /usr/include/GL/xmesa_xf86.h
+/usr/include/GL/internal/dri_interface.h
+/usr/include/GL/internal/dri_sarea.h
+/usr/include/GL/directfbgl.h
+/usr/include/GL/miniglx.h
 /usr/%{_lib}/libGLU.so
+%ifnarch ppc64
 /usr/%{_lib}/libOSMesa.so
+%endif
+/usr/%{_lib}/pkgconfig/dri.pc
 /usr/%{_lib}/pkgconfig/gl.pc
 /usr/%{_lib}/pkgconfig/glu.pc
+%ifnarch s390
 %{_mandir}/man3/*
+%endif
 
 %files devel-static
 %defattr(-,root,root)
 /usr/%{_lib}/libGL.a
 /usr/%{_lib}/libGLU.a
-/usr/%{_lib}/libMesaGL.a
+/usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Sat Jul 05 2008 sndirsch@suse.de
+- udpated to Mesa 7.1-pre
 * Tue Apr 15 2008 sndirsch@suse.de
 - unichrome-context.diff
   * Do not clear the current context before attempting to use it.
