@@ -20,7 +20,7 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 AutoReqProv:    on
 Version:        7.1
-Release:        2
+Release:        3
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-6befdca.tar.bz2
 Source1:        MesaDemos-%{version}-rc1.tar.bz2
@@ -229,7 +229,9 @@ rm -rf $RPM_BUILD_ROOT
 %ifnarch ppc64
 /usr/%{_lib}/libOSMesa.so
 %endif
+%ifnarch s390 s390x
 /usr/%{_lib}/pkgconfig/dri.pc
+%endif
 /usr/%{_lib}/pkgconfig/gl.pc
 /usr/%{_lib}/pkgconfig/glu.pc
 %ifnarch s390
@@ -243,6 +245,8 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Wed Jul 09 2008 sndirsch@suse.de
+- no dri.pc for s390/s390x
 * Wed Jul 09 2008 sndirsch@suse.de
 - disable_ttm_warning.diff
   * disables confusing warning, that TTM cannot be initialized
