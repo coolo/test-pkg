@@ -20,7 +20,7 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 AutoReqProv:    on
 Version:        7.1
-Release:        1
+Release:        2
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-6befdca.tar.bz2
 Source1:        MesaDemos-%{version}-rc1.tar.bz2
@@ -30,6 +30,7 @@ Source4:        manual-pages.tar.bz2
 Patch1:         dri_driver_dir.diff
 Patch2:         MesaLib-6befdca.diff
 Patch6:         link-shared.diff
+Patch7:         disable_ttm_warning.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -118,6 +119,7 @@ sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 ### FIXME
 #%patch6
 %endif
+%patch7 -p1
 
 %build
 
@@ -241,6 +243,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Wed Jul 09 2008 sndirsch@suse.de
+- disable_ttm_warning.diff
+  * disables confusing warning, that TTM cannot be initialized
 * Sat Jul 05 2008 sndirsch@suse.de
 - udpated to Mesa 7.1-pre
 * Tue Apr 15 2008 sndirsch@suse.de
