@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jul  8 22:51:32 CEST 2008 - sndirsch@suse.de
+
+- disable_ttm_warning.diff
+  * disables confusing warning, that TTM cannot be initialized 
+
+-------------------------------------------------------------------
 Fri Jul  4 22:15:48 CEST 2008 - sndirsch@suse.de
 
 - udpated to Mesa 7.1-pre 
