@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Jul 10 23:10:25 CEST 2008 - sndirsch@suse.de
+
+- even s390(x) needs swrast DRI driver now
+- specfile cleanup
+
+-------------------------------------------------------------------
 Wed Jul  9 09:50:25 CEST 2008 - sndirsch@suse.de
 
 - no dri.pc for s390/s390x 
