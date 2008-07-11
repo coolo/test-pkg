@@ -20,7 +20,7 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 AutoReqProv:    on
 Version:        7.1
-Release:        3
+Release:        5
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-6befdca.tar.bz2
 Source1:        MesaDemos-%{version}-rc1.tar.bz2
@@ -115,10 +115,8 @@ rm -f include/GL/{glut.h,uglglutshapes.h,glutf90.h}
 %patch1
 sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 %patch2
-%ifarch %ix86 x86_64 ppc
 ### FIXME
 #%patch6
-%endif
 %patch7 -p1
 
 %build
@@ -127,16 +125,16 @@ sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 #autoreconf -fi
 ### libGL (disable savage/mga, bnc #402132/#403071)
 %configure --disable-glw \
-%ifarch ia64
           --with-driver=dri \
-%endif
-%ifnarch s390 s390x ppc64
+%ifarch %ix86 x86_64 ppc
            --with-dri-drivers=i915,i965,mach64,r128,r200,r300,radeon,tdfx,unichrome,swrast \
+%endif
+%ifarch s390 s390x
+           --with-dri-drivers=swrast \
 %endif
            --disable-glut
 gmake
 make install DESTDIR=$RPM_BUILD_ROOT
-%ifnarch s390 s390x ppc64
 # build and install Indirect Rendering only libGL
 make realclean
 %configure --with-driver=xlib \
@@ -147,7 +145,6 @@ sed -i 's/GL_LIB = .*/GL_LIB = IndirectGL/g' configs/autoconf
 gmake 
 make install DESTDIR=$RPM_BUILD_ROOT
 rm $RPM_BUILD_ROOT/usr/%{_lib}/libIndirectGL.so
-%endif
 ### static libGL
 make realclean
 %configure --with-driver=xlib \
@@ -157,7 +154,6 @@ make realclean
            --disable-glut
 gmake
 make install DESTDIR=$RPM_BUILD_ROOT
-%ifnarch s390
 for dir in ../xc/doc/man/{GL/gl,GL/glx,GLU}; do
 pushd $dir
   xmkmf -a
@@ -165,19 +161,10 @@ pushd $dir
   make install.man DESTDIR=$RPM_BUILD_ROOT MANPATH=%{_mandir} LIBMANSUFFIX=3gl
 popd
 done
-%endif
-%ifnarch s390 s390x ppc64
 # DRI driver update mechanism
 mkdir -p $RPM_BUILD_ROOT/usr/%{_lib}/dri/updates
 install -m 644 $RPM_SOURCE_DIR/README.updates \
   $RPM_BUILD_ROOT/usr/%{_lib}/dri/updates
-%endif
-# required for building Xserver glx extension later
-%ifarch s390 s390x
-mkdir -p $RPM_BUILD_ROOT//usr/include/GL/internal/
-install -m 644 include/GL/internal/{dri_interface.h,dri_sarea.h} \
-               $RPM_BUILD_ROOT//usr/include/GL/internal/
-%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -195,9 +182,7 @@ rm -rf $RPM_BUILD_ROOT
 /usr/include/GL/glxext.h
 /usr/%{_lib}/libGL.so
 /usr/%{_lib}/lib*.so.*
-%ifnarch s390 s390x
 /usr/%{_lib}/dri/
-%endif
 
 %files devel
 %defattr(-,root,root)
@@ -226,17 +211,11 @@ rm -rf $RPM_BUILD_ROOT
 /usr/include/GL/directfbgl.h
 /usr/include/GL/miniglx.h
 /usr/%{_lib}/libGLU.so
-%ifnarch ppc64
 /usr/%{_lib}/libOSMesa.so
-%endif
-%ifnarch s390 s390x
 /usr/%{_lib}/pkgconfig/dri.pc
-%endif
 /usr/%{_lib}/pkgconfig/gl.pc
 /usr/%{_lib}/pkgconfig/glu.pc
-%ifnarch s390
 %{_mandir}/man3/*
-%endif
 
 %files devel-static
 %defattr(-,root,root)
@@ -245,6 +224,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Fri Jul 11 2008 sndirsch@suse.de
+- even s390(x) needs swrast DRI driver now
+- specfile cleanup
 * Wed Jul 09 2008 sndirsch@suse.de
 - no dri.pc for s390/s390x
 * Wed Jul 09 2008 sndirsch@suse.de
