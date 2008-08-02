@@ -20,7 +20,7 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 AutoReqProv:    on
 Version:        7.1
-Release:        5
+Release:        13
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-6befdca.tar.bz2
 Source1:        MesaDemos-%{version}-rc1.tar.bz2
@@ -31,6 +31,7 @@ Patch1:         dri_driver_dir.diff
 Patch2:         MesaLib-6befdca.diff
 Patch6:         link-shared.diff
 Patch7:         disable_ttm_warning.diff
+Patch8:         commit-c71fa34.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -118,6 +119,7 @@ sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 ### FIXME
 #%patch6
 %patch7 -p1
+%patch8 -p1
 
 %build
 
@@ -224,6 +226,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Sat Aug 02 2008 sndirsch@suse.de
+- commit-c71fa34.diff
+  * added null texObj ptr check (bfo #15567, bnc #402687)
 * Fri Jul 11 2008 sndirsch@suse.de
 - even s390(x) needs swrast DRI driver now
 - specfile cleanup
