@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Aug  1 23:28:45 CEST 2008 - sndirsch@suse.de
+
+- commit-c71fa34.diff
+  * added null texObj ptr check (bfo #15567, bnc #402687) 
+
+-------------------------------------------------------------------
 Thu Jul 10 23:10:25 CEST 2008 - sndirsch@suse.de
 
 - even s390(x) needs swrast DRI driver now
