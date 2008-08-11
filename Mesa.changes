@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Aug 11 13:49:19 CEST 2008 - sndirsch@suse.de
+
+- udpated to Mesa 7.1 RC3
+  * bugfixes
+
+-------------------------------------------------------------------
 Mon Aug  4 14:52:07 CEST 2008 - sndirsch@suse.de
 
 - i965-GL_MAX_TEXTURE_SIZE-4096.diff
