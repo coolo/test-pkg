@@ -20,18 +20,17 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 AutoReqProv:    on
 Version:        7.1
-Release:        13
+Release:        15
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
-Source:         MesaLib-6befdca.tar.bz2
-Source1:        MesaDemos-%{version}-rc1.tar.bz2
-Source2:        MesaLib-%{version}-rc1.tar.bz2
+Source:         MesaLib-%{version}-rc3.tar.bz2
+Source1:        MesaDemos-%{version}-rc3.tar.bz2
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Patch1:         dri_driver_dir.diff
 Patch2:         MesaLib-6befdca.diff
 Patch6:         link-shared.diff
 Patch7:         disable_ttm_warning.diff
-Patch8:         commit-c71fa34.diff
+Patch9:         i965-GL_MAX_TEXTURE_SIZE-4096.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -103,9 +102,8 @@ Authors:
     Brian Paul
 
 %prep
-#%setup -n %{name}-%{version}-rc1 -b1 -b4
-%setup -n mesa -b4
-#rm docs/README.MINGW32.orig
+%setup -n %{name}-%{version}-rc3 -b1 -b4
+rm docs/README.MINGW32.orig
 # make legal department happy (Bug #204110)
 test -f src/mesa/drivers/directfb/idirectfbgl_mesa.c && exit 1
 test -f progs/ggi/asc-view.c && exit 1
@@ -119,7 +117,7 @@ sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 ### FIXME
 #%patch6
 %patch7 -p1
-%patch8 -p1
+%patch9 -p1
 
 %build
 
@@ -210,8 +208,6 @@ rm -rf $RPM_BUILD_ROOT
 /usr/include/GL/xmesa_xf86.h
 /usr/include/GL/internal/dri_interface.h
 /usr/include/GL/internal/dri_sarea.h
-/usr/include/GL/directfbgl.h
-/usr/include/GL/miniglx.h
 /usr/%{_lib}/libGLU.so
 /usr/%{_lib}/libOSMesa.so
 /usr/%{_lib}/pkgconfig/dri.pc
@@ -226,6 +222,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Mon Aug 04 2008 sndirsch@suse.de
+- i965-GL_MAX_TEXTURE_SIZE-4096.diff
+  * sets GL_MAX_TEXTURE_SIZE to 4096 for Intel 965 series
 * Sat Aug 02 2008 sndirsch@suse.de
 - commit-c71fa34.diff
   * added null texObj ptr check (bfo #15567, bnc #402687)

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Aug  4 14:52:07 CEST 2008 - sndirsch@suse.de
+
+- i965-GL_MAX_TEXTURE_SIZE-4096.diff
+  * sets GL_MAX_TEXTURE_SIZE to 4096 for Intel 965 series
+
+-------------------------------------------------------------------
 Fri Aug  1 23:28:45 CEST 2008 - sndirsch@suse.de
 
 - commit-c71fa34.diff
