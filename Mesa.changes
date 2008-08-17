@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Sun Aug 17 11:46:40 CEST 2008 - sndirsch@suse.de
+
+- udpated to Mesa 7.1 RC4
+  "This includes the latest GLSL fixes/features plus other assorted
+   fixes from the past 2-3 weeks."
+- obsoletes MesaLib-6befdca.diff
+- adjusted disable_ttm_warning.diff (TTM --> GEM)
+- adjusted i965-GL_MAX_TEXTURE_SIZE-4096.diff
+
+-------------------------------------------------------------------
 Mon Aug 11 13:49:19 CEST 2008 - sndirsch@suse.de
 
 - udpated to Mesa 7.1 RC3
