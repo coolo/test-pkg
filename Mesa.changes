@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Aug 18 03:18:55 CEST 2008 - sndirsch@suse.de
+
+- reverted commit 1724334 to get RGB, Double-buffered visuals back;
+  otherwise even GL applications like glxgears no longer start 
+  (bfo #17069)
+
+-------------------------------------------------------------------
 Sun Aug 17 11:46:40 CEST 2008 - sndirsch@suse.de
 
 - udpated to Mesa 7.1 RC4
