@@ -1,4 +1,21 @@
 -------------------------------------------------------------------
+Mon Aug 18 03:18:55 CEST 2008 - sndirsch@suse.de
+
+- reverted commit 1724334 to get RGB, Double-buffered visuals back;
+  otherwise even GL applications like glxgears no longer start 
+  (bfo #17069)
+
+-------------------------------------------------------------------
+Sun Aug 17 11:46:40 CEST 2008 - sndirsch@suse.de
+
+- udpated to Mesa 7.1 RC4
+  "This includes the latest GLSL fixes/features plus other assorted
+   fixes from the past 2-3 weeks."
+- obsoletes MesaLib-6befdca.diff
+- adjusted disable_ttm_warning.diff (TTM --> GEM)
+- adjusted i965-GL_MAX_TEXTURE_SIZE-4096.diff
+
+-------------------------------------------------------------------
 Mon Aug 11 13:49:19 CEST 2008 - sndirsch@suse.de
 
 - udpated to Mesa 7.1 RC3
