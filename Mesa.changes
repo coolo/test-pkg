@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Aug 27 16:38:12 CEST 2008 - sndirsch@suse.de
+
+- updated to Mesa 7.1 final release 
+
+-------------------------------------------------------------------
 Mon Aug 18 03:18:55 CEST 2008 - sndirsch@suse.de
 
 - reverted commit 1724334 to get RGB, Double-buffered visuals back;

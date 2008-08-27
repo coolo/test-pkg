@@ -27,10 +27,10 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 AutoReqProv:    on
 Version:        7.1
-Release:        23
+Release:        29
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
-Source:         MesaLib-%{version}-rc4.tar.bz2
-Source1:        MesaDemos-%{version}-rc4.tar.bz2
+Source:         MesaLib-%{version}.tar.bz2
+Source1:        MesaDemos-%{version}.tar.bz2
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Patch1:         dri_driver_dir.diff
@@ -109,8 +109,7 @@ Authors:
     Brian Paul
 
 %prep
-%setup -n %{name}-%{version}-rc4 -b1 -b4
-rm docs/README.MINGW32.orig
+%setup -n %{name}-%{version} -b1 -b4
 # make legal department happy (Bug #204110)
 test -f src/mesa/drivers/directfb/idirectfbgl_mesa.c && exit 1
 test -f progs/ggi/asc-view.c && exit 1
@@ -229,6 +228,8 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Wed Aug 27 2008 sndirsch@suse.de
+- updated to Mesa 7.1 final release
 * Mon Aug 18 2008 sndirsch@suse.de
 - reverted commit 1724334 to get RGB, Double-buffered visuals back;
   otherwise even GL applications like glxgears no longer start
