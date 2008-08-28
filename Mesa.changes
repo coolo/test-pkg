@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Aug 28 12:51:22 CEST 2008 - sndirsch@suse.de
+
+- revert of commit-1724334.diff obsolete after adding the patches
+  commit-5930aeb.diff/commit-78f50cd.diff (commits 5930aeb/78f50cd)
+  to xorg-x11-server package (bfo #17069)
+
+-------------------------------------------------------------------
 Wed Aug 27 16:38:12 CEST 2008 - sndirsch@suse.de
 
 - updated to Mesa 7.1 final release 

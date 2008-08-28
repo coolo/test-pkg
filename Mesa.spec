@@ -37,7 +37,6 @@ Patch1:         dri_driver_dir.diff
 Patch6:         link-shared.diff
 Patch7:         disable_ttm_warning.diff
 Patch9:         i965-GL_MAX_TEXTURE_SIZE-4096.diff
-Patch10:        commit-1724334.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -123,7 +122,6 @@ sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 #%patch6
 %patch7 -p1
 %patch9 -p1
-%patch10 -p1 -R
 
 %build
 
@@ -228,6 +226,10 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Thu Aug 28 2008 sndirsch@suse.de
+- revert of commit-1724334.diff obsolete after adding the patches
+  commit-5930aeb.diff/commit-78f50cd.diff (commits 5930aeb/78f50cd)
+  to xorg-x11-server package (bfo #17069)
 * Wed Aug 27 2008 sndirsch@suse.de
 - updated to Mesa 7.1 final release
 * Mon Aug 18 2008 sndirsch@suse.de
