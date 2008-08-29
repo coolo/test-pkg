@@ -19,7 +19,7 @@
 
 
 Name:           Mesa
-BuildRequires:  gcc-c++ libdrm-devel pkgconfig xorg-x11-devel
+BuildRequires:  gcc-c++ libdrm-devel pkgconfig xorg-x11-devel libexpat-devel
 Url:            http://www.mesa3d.org
 License:        X11/MIT
 Group:          System/Libraries
