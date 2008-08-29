@@ -19,7 +19,7 @@
 
 
 Name:           Mesa
-BuildRequires:  gcc-c++ libdrm-devel pkgconfig xorg-x11-devel
+BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig xorg-x11-devel
 Url:            http://www.mesa3d.org
 License:        X11/MIT
 Group:          System/Libraries
@@ -27,17 +27,16 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 AutoReqProv:    on
 Version:        7.1
-Release:        27
+Release:        29
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
-Source:         MesaLib-%{version}-rc4.tar.bz2
-Source1:        MesaDemos-%{version}-rc4.tar.bz2
+Source:         MesaLib-%{version}.tar.bz2
+Source1:        MesaDemos-%{version}.tar.bz2
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Patch1:         dri_driver_dir.diff
 Patch6:         link-shared.diff
 Patch7:         disable_ttm_warning.diff
 Patch9:         i965-GL_MAX_TEXTURE_SIZE-4096.diff
-Patch10:        commit-1724334.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -109,8 +108,7 @@ Authors:
     Brian Paul
 
 %prep
-%setup -n %{name}-%{version}-rc4 -b1 -b4
-rm docs/README.MINGW32.orig
+%setup -n %{name}-%{version} -b1 -b4
 # make legal department happy (Bug #204110)
 test -f src/mesa/drivers/directfb/idirectfbgl_mesa.c && exit 1
 test -f progs/ggi/asc-view.c && exit 1
@@ -124,7 +122,6 @@ sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 #%patch6
 %patch7 -p1
 %patch9 -p1
-%patch10 -p1 -R
 
 %build
 
@@ -229,6 +226,14 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Fri Aug 29 2008 sndirsch@suse.de
+- added libexpat-devel to Buildrequires to fix build
+* Thu Aug 28 2008 sndirsch@suse.de
+- revert of commit-1724334.diff obsolete after adding the patches
+  commit-5930aeb.diff/commit-78f50cd.diff (commits 5930aeb/78f50cd)
+  to xorg-x11-server package (bfo #17069)
+* Wed Aug 27 2008 sndirsch@suse.de
+- updated to Mesa 7.1 final release
 * Mon Aug 18 2008 sndirsch@suse.de
 - reverted commit 1724334 to get RGB, Double-buffered visuals back;
   otherwise even GL applications like glxgears no longer start
