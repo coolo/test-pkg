@@ -2,9 +2,16 @@
 # spec file for package zsh (Version 4.3.6)
 #
 # Copyright (c) 2008 SUSE LINUX Products GmbH, Nuernberg, Germany.
-# This file and all modifications and additions to the pristine
-# package are under the same license as the package itself.
 #
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
@@ -13,7 +20,7 @@
 
 Name:           zsh
 Version:        4.3.6
-Release:        23
+Release:        65
 License:        Other uncritical OpenSource License
 Group:          System/Shells
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -81,7 +88,7 @@ mkdir skipped
 %ifarch s390 s390x ppc ppc64
 mv A01grammar.ztst D02glob.ztst skipped
 %endif
-mv C02cond.ztst skipped
+mv C02cond.ztst V01zmodload.ztst skipped
 popd
 ZTST_verbose=0 make test
 make clean
@@ -148,6 +155,8 @@ groff Doc/intro.ms > intro.txt
 %{_mandir}/man1/zsh*.1.gz
 
 %changelog
+* Thu Sep 18 2008 hvogel@suse.de
+- disable another test globally which keeps hanging
 * Tue Jun 17 2008 hvogel@suse.de
 - disable one test globally
 * Thu Apr 03 2008 hvogel@suse.de
