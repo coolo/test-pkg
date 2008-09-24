@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Sat Sep 20 18:18:40 CEST 2008 - sndirsch@suse.de
+
+- Mesa 7.2:
+  Mesa 7.2 is a stable release fixing bugs found in 7.1, which was
+  a new development release. Mesa 7.2 implements the OpenGL 2.1
+  API, but the version reported by glGetString(GL_VERSION) depends
+  on the particular driver being used. Some drivers don't support
+  all the features required in OpenGL 2.1. Note that this version
+  of Mesa does not use the GEM memory manager. The master branch
+  of git uses GEM. The prototype DRI2 code that was in 7.1 has
+  also been removed. DRM version 2.3.1 should be used with Mesa 7.2
+
+-------------------------------------------------------------------
 Fri Aug 29 16:08:15 CEST 2008 - sndirsch@suse.de
 
 - added libexpat-devel to Buildrequires to fix build

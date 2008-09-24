@@ -1,5 +1,5 @@
 #
-# spec file for package Mesa (Version 7.1)
+# spec file for package Mesa (Version 7.2)
 #
 # Copyright (c) 2008 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
@@ -26,8 +26,8 @@ Group:          System/Libraries
 Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 AutoReqProv:    on
-Version:        7.1
-Release:        29
+Version:        7.2
+Release:        1
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -226,6 +226,16 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Sat Sep 20 2008 sndirsch@suse.de
+- Mesa 7.2:
+  Mesa 7.2 is a stable release fixing bugs found in 7.1, which was
+  a new development release. Mesa 7.2 implements the OpenGL 2.1
+  API, but the version reported by glGetString(GL_VERSION) depends
+  on the particular driver being used. Some drivers don't support
+  all the features required in OpenGL 2.1. Note that this version
+  of Mesa does not use the GEM memory manager. The master branch
+  of git uses GEM. The prototype DRI2 code that was in 7.1 has
+  also been removed. DRM version 2.3.1 should be used with Mesa 7.2
 * Fri Aug 29 2008 sndirsch@suse.de
 - added libexpat-devel to Buildrequires to fix build
 * Thu Aug 28 2008 sndirsch@suse.de
