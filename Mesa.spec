@@ -120,7 +120,7 @@ rm -f include/GL/{glut.h,uglglutshapes.h,glutf90.h}
 sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 ### FIXME
 #%patch6
-#%patch7 -p1
+%patch7 -p1
 %patch9 -p1
 
 %build
