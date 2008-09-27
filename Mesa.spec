@@ -35,7 +35,7 @@ Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Patch1:         dri_driver_dir.diff
 Patch6:         link-shared.diff
-Patch7:         disable_ttm_warning.diff
+Patch7:         disable_gem_warning.diff
 Patch9:         i965-GL_MAX_TEXTURE_SIZE-4096.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -229,7 +229,7 @@ rm -rf $RPM_BUILD_ROOT
 * Sat Sep 27 2008 sndirsch@suse.de
 - Mesa 7.2_intel-2008-q3_e636f5b
   * Intel-2008-Q3-RC2 release (Mesa 7.2 + GEM code)
-- disable_ttm_warning.diff disabled for now
+- replaced disable_ttm_warning.diff with disable_gem_warning.diff
 - adjusted i965-GL_MAX_TEXTURE_SIZE-4096.diff
 * Sat Sep 20 2008 sndirsch@suse.de
 - Mesa 7.2:
