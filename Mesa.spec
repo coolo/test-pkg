@@ -27,15 +27,15 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 AutoReqProv:    on
 Version:        7.2
-Release:        1
+Release:        2
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
-Source:         MesaLib-%{version}.tar.bz2
+Source:         MesaLib-%{version}_intel-2008-q3_e636f5b.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Patch1:         dri_driver_dir.diff
 Patch6:         link-shared.diff
-Patch7:         disable_ttm_warning.diff
+Patch7:         disable_gem_warning.diff
 Patch9:         i965-GL_MAX_TEXTURE_SIZE-4096.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -226,6 +226,11 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Sat Sep 27 2008 sndirsch@suse.de
+- Mesa 7.2_intel-2008-q3_e636f5b
+  * Intel-2008-Q3-RC2 release (Mesa 7.2 + GEM code)
+- replaced disable_ttm_warning.diff with disable_gem_warning.diff
+- adjusted i965-GL_MAX_TEXTURE_SIZE-4096.diff
 * Sat Sep 20 2008 sndirsch@suse.de
 - Mesa 7.2:
   Mesa 7.2 is a stable release fixing bugs found in 7.1, which was
