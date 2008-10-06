@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sat Sep 27 05:48:56 CEST 2008 - sndirsch@suse.de
+
+- Mesa 7.2_intel-2008-q3_e636f5b
+  * Intel-2008-Q3-RC2 release (Mesa 7.2 + GEM code)
+- replaced disable_ttm_warning.diff with disable_gem_warning.diff
+- adjusted i965-GL_MAX_TEXTURE_SIZE-4096.diff
+
+-------------------------------------------------------------------
 Sat Sep 20 18:18:40 CEST 2008 - sndirsch@suse.de
 
 - Mesa 7.2:
