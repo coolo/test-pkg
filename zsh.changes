@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Oct  2 10:14:01 CEST 2008 - hvogel@suse.de
+
+- globally disabling the test was the plan, not only on some archs
+
+-------------------------------------------------------------------
 Thu Sep 18 14:58:44 CEST 2008 - hvogel@suse.de
 
 - disable another test globally which keeps hanging

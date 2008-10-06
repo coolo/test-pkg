@@ -20,7 +20,7 @@
 
 Name:           zsh
 Version:        4.3.6
-Release:        65
+Release:        66
 License:        Other uncritical OpenSource License
 Group:          System/Shells
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -86,9 +86,9 @@ make VERSION="%{version}" CFLAGS="$CFLAGS "%cflags_profile_generate \
 pushd Test
 mkdir skipped
 %ifarch s390 s390x ppc ppc64
-mv A01grammar.ztst D02glob.ztst skipped
+mv D02glob.ztst skipped
 %endif
-mv C02cond.ztst V01zmodload.ztst skipped
+mv A01grammar.ztst C02cond.ztst V01zmodload.ztst skipped
 popd
 ZTST_verbose=0 make test
 make clean
@@ -155,6 +155,8 @@ groff Doc/intro.ms > intro.txt
 %{_mandir}/man1/zsh*.1.gz
 
 %changelog
+* Thu Oct 02 2008 hvogel@suse.de
+- globally disabling the test was the plan, not only on some archs
 * Thu Sep 18 2008 hvogel@suse.de
 - disable another test globally which keeps hanging
 * Tue Jun 17 2008 hvogel@suse.de
