@@ -27,9 +27,9 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 AutoReqProv:    on
 Version:        7.2
-Release:        2
+Release:        3
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
-Source:         MesaLib-%{version}_intel-2008-q3_e636f5b.tar.bz2
+Source:         MesaLib-%{version}_intel-2008-q3_793c3b9.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
@@ -226,6 +226,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Thu Oct 09 2008 sndirsch@suse.de
+- Mesa 7.2_intel-2008-q3_793c3b9
+  * Intel-2008-Q3-RC3 release (Mesa 7.2 + GEM code)
 * Sat Sep 27 2008 sndirsch@suse.de
 - Mesa 7.2_intel-2008-q3_e636f5b
   * Intel-2008-Q3-RC2 release (Mesa 7.2 + GEM code)
