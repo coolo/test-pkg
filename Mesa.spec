@@ -27,12 +27,13 @@ Provides:       xorg-x11-Mesa
 Obsoletes:      xorg-x11-Mesa
 AutoReqProv:    on
 Version:        7.2
-Release:        3
+Release:        4
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}_intel-2008-q3_793c3b9.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
+Patch:          MesaLib-7.2_intel-2008-q3_793c3b9-46921a5.diff
 Patch1:         dri_driver_dir.diff
 Patch6:         link-shared.diff
 Patch7:         disable_gem_warning.diff
@@ -116,6 +117,7 @@ test -f progs/ggi/asc-view.c && exit 1
 rm -rf src/glut progs/{demos,redbook,samples,xdemos,glsl}
 # we use freeglut
 rm -f include/GL/{glut.h,uglglutshapes.h,glutf90.h}
+%patch -p1
 %patch1
 sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 ### FIXME
@@ -226,6 +228,11 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Tue Oct 21 2008 sndirsch@suse.de
+- MesaLib-7.2_intel-2008-q3_793c3b9-46921a5.diff
+  * i965: Fix a potential assertion failure.
+  * intel: GLSL 1.20 is broken in Mesa, so disable it in the i965
+  driver
 * Thu Oct 09 2008 sndirsch@suse.de
 - Mesa 7.2_intel-2008-q3_793c3b9
   * Intel-2008-Q3-RC3 release (Mesa 7.2 + GEM code)
