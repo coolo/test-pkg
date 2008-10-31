@@ -46,6 +46,7 @@ Patch1:         dri_driver_dir.diff
 Patch6:         link-shared.diff
 Patch7:         disable_gem_warning.diff
 Patch9:         i965-GL_MAX_TEXTURE_SIZE-4096.diff
+Patch10:        commit-b4bf9ac.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -140,6 +141,7 @@ sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 #%patch6
 %patch7 -p1
 %patch9 -p1
+%patch10 -p1
 
 %build
 
@@ -244,6 +246,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Fri Oct 31 2008 sndirsch@suse.de
+- commit-b4bf9ac.diff
+  * i915: fix crash in i830_emit_state (bfo #17766)
 * Thu Oct 30 2008 olh@suse.de
 - obsolete old -XXbit packages (bnc#437293)
 * Tue Oct 21 2008 sndirsch@suse.de

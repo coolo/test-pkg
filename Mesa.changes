@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Oct 31 12:17:40 CET 2008 - sndirsch@suse.de
+
+- commit-b4bf9ac.diff
+  * i915: fix crash in i830_emit_state (bfo #17766)
+
+-------------------------------------------------------------------
 Thu Oct 30 12:34:56 CET 2008 - olh@suse.de
 
 - obsolete old -XXbit packages (bnc#437293)
