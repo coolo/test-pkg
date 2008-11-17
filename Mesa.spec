@@ -35,7 +35,7 @@ Obsoletes:      Mesa-32bit
 %endif
 #
 Version:        7.2
-Release:        6
+Release:        7
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}_intel-2008-q3_793c3b9.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -140,7 +140,7 @@ sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 ### FIXME
 #%patch6
 %patch7 -p1
-%patch9 -p1
+#%patch9 -p1
 %patch10 -p1
 
 %build
@@ -246,6 +246,10 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Thu Nov 13 2008 sndirsch@suse.de
+- disabled i965-GL_MAX_TEXTURE_SIZE-4096.diff; apparently it
+  doesn't work for compiz/Desktop effects and is not required at
+  all for 3D support in general (bnc #441572)
 * Fri Oct 31 2008 sndirsch@suse.de
 - commit-b4bf9ac.diff
   * i915: fix crash in i830_emit_state (bfo #17766)
@@ -299,10 +303,10 @@ rm -rf $RPM_BUILD_ROOT
 * Mon Aug 04 2008 sndirsch@suse.de
 - i965-GL_MAX_TEXTURE_SIZE-4096.diff
   * sets GL_MAX_TEXTURE_SIZE to 4096 for Intel 965 series
-* Sat Aug 02 2008 sndirsch@suse.de
+* Fri Aug 01 2008 sndirsch@suse.de
 - commit-c71fa34.diff
   * added null texObj ptr check (bfo #15567, bnc #402687)
-* Fri Jul 11 2008 sndirsch@suse.de
+* Thu Jul 10 2008 sndirsch@suse.de
 - even s390(x) needs swrast DRI driver now
 - specfile cleanup
 * Wed Jul 09 2008 sndirsch@suse.de
@@ -312,7 +316,7 @@ rm -rf $RPM_BUILD_ROOT
   * disables confusing warning, that TTM cannot be initialized
 * Fri Jul 04 2008 sndirsch@suse.de
 - udpated to Mesa 7.1-pre
-* Tue Apr 15 2008 sndirsch@suse.de
+* Mon Apr 14 2008 sndirsch@suse.de
 - unichrome-context.diff
   * Do not clear the current context before attempting to use it.
   (bnc #285496)
@@ -509,7 +513,7 @@ rm -rf $RPM_BUILD_ROOT
 * Wed Jan 17 2007 sndirsch@suse.de
 - bug-211314_mesa-context.diff:
   * fixes Xserver crash in software rendering fallback (Bug #211314)
-* Wed Jan 10 2007 sndirsch@suse.de
+* Tue Jan 09 2007 sndirsch@suse.de
 - disabled build of sis DRI driver on i64 to fix build
 * Sat Dec 02 2006 sndirsch@suse.de
 - updated to Mesa 6.5.2
@@ -559,7 +563,7 @@ rm -rf $RPM_BUILD_ROOT
   been decprecated.
     - OpenGL 2.0 and 2.1 support is nearly done. We need to do quite a
   bit more testing of the shading language functions.
-* Fri Nov 24 2006 sndirsch@suse.de
+* Thu Nov 23 2006 sndirsch@suse.de
 - enabled build of i965 DRI driver on x86_64
 * Fri Nov 10 2006 sndirsch@suse.de
 - fixed typos (Bug #219732)
@@ -707,7 +711,7 @@ rm -rf $RPM_BUILD_ROOT
 * Wed Dec 28 2005 sndirsch@suse.de
 - moved header files and libGL.so from Mesa-devel to Mesa to make
   uninstallation of nvidia driver in %%pre of Mesa-devel obsolete
-* Thu Dec 01 2005 sndirsch@suse.de
+* Wed Nov 30 2005 sndirsch@suse.de
 - update to Mesa 6.4.1
 * Fri Nov 18 2005 sndirsch@suse.de
 - updated to Mesa 6.4 branch (2005-11-18)
