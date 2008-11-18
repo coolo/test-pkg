@@ -35,12 +35,13 @@ Obsoletes:      Mesa-32bit
 %endif
 #
 Version:        7.2
-Release:        7
+Release:        8
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}_intel-2008-q3_793c3b9.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
+Source5:        drirc
 Patch:          MesaLib-7.2_intel-2008-q3_793c3b9-46921a5.diff
 Patch1:         dri_driver_dir.diff
 Patch6:         link-shared.diff
@@ -189,6 +190,9 @@ done
 mkdir -p $RPM_BUILD_ROOT/usr/%{_lib}/dri/updates
 install -m 644 $RPM_SOURCE_DIR/README.updates \
   $RPM_BUILD_ROOT/usr/%{_lib}/dri/updates
+# global drirc file
+mkdir -p $RPM_BUILD_ROOT/etc
+install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -200,6 +204,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %doc docs/README* docs/COPYING
+%config /etc/drirc
 /usr/include/GL/gl.h
 /usr/include/GL/glext.h
 /usr/include/GL/glx.h
@@ -246,6 +251,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Mon Nov 17 2008 sndirsch@suse.de
+- added global /etc/drirc to disable VBlank for i915 DRI driver
+  (bnc #432980)
 * Thu Nov 13 2008 sndirsch@suse.de
 - disabled i965-GL_MAX_TEXTURE_SIZE-4096.diff; apparently it
   doesn't work for compiz/Desktop effects and is not required at
