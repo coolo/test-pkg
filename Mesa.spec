@@ -35,7 +35,7 @@ Obsoletes:      Mesa-32bit
 %endif
 #
 Version:        7.2
-Release:        8
+Release:        9
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}_intel-2008-q3_793c3b9.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -251,6 +251,8 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Sat Nov 22 2008 sndirsch@suse.de
+- disabled VBlank also for i965 DRI driver (bfo #17967)
 * Mon Nov 17 2008 sndirsch@suse.de
 - added global /etc/drirc to disable VBlank for i915 DRI driver
   (bnc #432980)

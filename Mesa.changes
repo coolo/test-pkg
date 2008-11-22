@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sat Nov 22 11:45:33 CET 2008 - sndirsch@suse.de
+
+- disabled VBlank also for i965 DRI driver (bfo #17967) 
+
+-------------------------------------------------------------------
 Mon Nov 17 18:35:37 CET 2008 - sndirsch@suse.de
 
 - added global /etc/drirc to disable VBlank for i915 DRI driver
