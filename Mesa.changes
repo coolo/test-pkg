@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Fri Nov 28 03:37:26 CET 2008 - sndirsch@suse.de
+
+- mesa-7.1-fix-i8xx-vbos.patch
+  * For some reason the Intel 865 seem to claim VBO support in the
+    docs, but doesn't seem to practice it in the hardware, or
+    there is some missing errata. This restores the old pre-vbo
+    code and uses it on all 8xx hw. (bfo #17963)
+    This patch fixes OpenGL support on 845/855GM/865.
+
+-------------------------------------------------------------------
 Sat Nov 22 11:45:33 CET 2008 - sndirsch@suse.de
 
 - disabled VBlank also for i965 DRI driver (bfo #17967) 

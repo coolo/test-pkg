@@ -48,6 +48,7 @@ Patch6:         link-shared.diff
 Patch7:         disable_gem_warning.diff
 Patch9:         i965-GL_MAX_TEXTURE_SIZE-4096.diff
 Patch10:        commit-b4bf9ac.diff
+Patch11:        mesa-7.1-fix-i8xx-vbos.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -143,6 +144,7 @@ sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 %patch7 -p1
 #%patch9 -p1
 %patch10 -p1
+%patch11 -p1
 
 %build
 
@@ -251,6 +253,13 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Fri Nov 28 2008 sndirsch@suse.de
+- mesa-7.1-fix-i8xx-vbos.patch
+  * For some reason the Intel 865 seem to claim VBO support in the
+  docs, but doesn't seem to practice it in the hardware, or
+  there is some missing errata. This restores the old pre-vbo
+  code and uses it on all 8xx hw. (bfo #17963)
+  This patch fixes OpenGL support on 845/855GM/865.
 * Sat Nov 22 2008 sndirsch@suse.de
 - disabled VBlank also for i965 DRI driver (bfo #17967)
 * Mon Nov 17 2008 sndirsch@suse.de
