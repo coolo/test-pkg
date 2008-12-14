@@ -30,9 +30,6 @@ AutoReqProv:    on
 %ifarch ppc64
 Obsoletes:      Mesa-64bit
 %endif
-%ifarch  %ix86 ppc
-Obsoletes:      Mesa-32bit
-%endif
 #
 Version:        7.2
 Release:        9
@@ -80,9 +77,6 @@ Group:          System/Libraries
 # bug437293
 %ifarch ppc64
 Obsoletes:      Mesa-devel-64bit
-%endif
-%ifarch  %ix86 ppc
-Obsoletes:      Mesa-devel-32bit
 %endif
 #
 Provides:       xorg-x11-Mesa-devel
