@@ -30,12 +30,9 @@ AutoReqProv:    on
 %ifarch ppc64
 Obsoletes:      Mesa-64bit
 %endif
-%ifarch  %ix86 ppc
-Obsoletes:      Mesa-32bit
-%endif
 #
 Version:        7.2
-Release:        9
+Release:        10
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}_intel-2008-q3_793c3b9.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -80,9 +77,6 @@ Group:          System/Libraries
 # bug437293
 %ifarch ppc64
 Obsoletes:      Mesa-devel-64bit
-%endif
-%ifarch  %ix86 ppc
-Obsoletes:      Mesa-devel-32bit
 %endif
 #
 Provides:       xorg-x11-Mesa-devel
@@ -253,6 +247,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Wed Dec 10 2008 olh@suse.de
+- use Obsoletes: -XXbit only for ppc64 to help solver during distupgrade
+  (bnc#437293)
 * Fri Nov 28 2008 sndirsch@suse.de
 - mesa-7.1-fix-i8xx-vbos.patch
   * For some reason the Intel 865 seem to claim VBO support in the
