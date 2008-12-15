@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Dec 10 12:34:56 CET 2008 - olh@suse.de
+
+- use Obsoletes: -XXbit only for ppc64 to help solver during distupgrade
+  (bnc#437293)
+
+-------------------------------------------------------------------
 Fri Nov 28 03:37:26 CET 2008 - sndirsch@suse.de
 
 - mesa-7.1-fix-i8xx-vbos.patch
