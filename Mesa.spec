@@ -1,7 +1,7 @@
 #
 # spec file for package Mesa (Version 7.2)
 #
-# Copyright (c) 2008 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2009 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -32,7 +32,7 @@ Obsoletes:      Mesa-64bit
 %endif
 #
 Version:        7.2
-Release:        9
+Release:        11
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}_intel-2008-q3_793c3b9.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -247,6 +247,14 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Fri Jan 09 2009 sndirsch@suse.de
+- /etc/drirc
+  * disable vblank_mode/force_s3tc_enable and enable
+  disable_lowimpact_fallback for r300 driver to fix performance
+  issues with GoogleEarth and OpenOffice.Org (bnc #438666)
+* Wed Dec 10 2008 olh@suse.de
+- use Obsoletes: -XXbit only for ppc64 to help solver during distupgrade
+  (bnc#437293)
 * Fri Nov 28 2008 sndirsch@suse.de
 - mesa-7.1-fix-i8xx-vbos.patch
   * For some reason the Intel 865 seem to claim VBO support in the
