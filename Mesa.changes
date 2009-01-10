@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Fri Jan  9 19:00:00 CET 2009 - sndirsch@suse.de
+
+- /etc/drirc
+  * disable vblank_mode/force_s3tc_enable and enable 
+    disable_lowimpact_fallback for r300 driver to fix performance
+    issues with GoogleEarth and OpenOffice.Org (bnc #438666)
+
+-------------------------------------------------------------------
 Wed Dec 10 12:34:56 CET 2008 - olh@suse.de
 
 - use Obsoletes: -XXbit only for ppc64 to help solver during distupgrade
