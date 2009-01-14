@@ -33,7 +33,7 @@ Obsoletes:      Mesa-64bit
 %endif
 #
 Version:        7.2
-Release:        11
+Release:        14
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}_intel-2008-q3_793c3b9.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -47,6 +47,7 @@ Patch7:         disable_gem_warning.diff
 Patch9:         i965-GL_MAX_TEXTURE_SIZE-4096.diff
 Patch10:        commit-b4bf9ac.diff
 Patch11:        mesa-7.1-fix-i8xx-vbos.patch
+Patch12:        i965_aperture_call_for_Q3.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -141,6 +142,7 @@ sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 #%patch9 -p1
 %patch10 -p1
 %patch11 -p1
+%patch12 -p1
 
 %build
 
@@ -249,6 +251,14 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Wed Jan 14 2009 sndirsch@suse.de
+- i965_aperture_call_for_Q3.patch (Quanxian Wang)
+  * addresses bfo #19242; based on Q3 release; the patch is
+  coming from commit id 59b2c2adbbece27ccf54e58b598ea29cb3a5aa85,
+  2fc9d671e0be77676818da51cd3b35b52af79421,
+  c30eb2c104c19c758c0b2a2461ad7f38cfa747d0
+* Tue Jan 13 2009 olh@suse.de
+- obsolete old XFree86-Mesa{,-devel}-XXbit packages (bnc#437293)
 * Fri Jan 09 2009 sndirsch@suse.de
 - /etc/drirc
   * disable vblank_mode/force_s3tc_enable and enable
