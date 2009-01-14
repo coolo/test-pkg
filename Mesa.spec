@@ -28,11 +28,12 @@ Obsoletes:      xorg-x11-Mesa
 AutoReqProv:    on
 # bug437293
 %ifarch ppc64
+Obsoletes:      XFree86-Mesa-64bit
 Obsoletes:      Mesa-64bit
 %endif
 #
 Version:        7.2
-Release:        11
+Release:        13
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}_intel-2008-q3_793c3b9.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -76,6 +77,7 @@ Summary:        Libraries, includes and more to develop Mesa applications
 Group:          System/Libraries
 # bug437293
 %ifarch ppc64
+Obsoletes:      XFree86-Mesa-devel-64bit
 Obsoletes:      Mesa-devel-64bit
 %endif
 #
@@ -247,6 +249,8 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Tue Jan 13 2009 olh@suse.de
+- obsolete old XFree86-Mesa{,-devel}-XXbit packages (bnc#437293)
 * Fri Jan 09 2009 sndirsch@suse.de
 - /etc/drirc
   * disable vblank_mode/force_s3tc_enable and enable

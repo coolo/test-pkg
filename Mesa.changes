@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jan 13 12:34:56 CET 2009 - olh@suse.de
+
+- obsolete old XFree86-Mesa{,-devel}-XXbit packages (bnc#437293)
+
+-------------------------------------------------------------------
 Fri Jan  9 19:00:00 CET 2009 - sndirsch@suse.de
 
 - /etc/drirc
