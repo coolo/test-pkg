@@ -28,6 +28,7 @@ Obsoletes:      xorg-x11-Mesa
 AutoReqProv:    on
 # bug437293
 %ifarch ppc64
+Obsoletes:      XFree86-Mesa-64bit
 Obsoletes:      Mesa-64bit
 %endif
 #
@@ -76,6 +77,7 @@ Summary:        Libraries, includes and more to develop Mesa applications
 Group:          System/Libraries
 # bug437293
 %ifarch ppc64
+Obsoletes:      XFree86-Mesa-devel-64bit
 Obsoletes:      Mesa-devel-64bit
 %endif
 #
