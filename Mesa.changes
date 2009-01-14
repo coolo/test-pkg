@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Wed Jan 14 17:59:57 CET 2009 - sndirsch@suse.de
+
+- i965_aperture_call_for_Q3.patch (Quanxian Wang)
+  * addresses bfo #19242; based on Q3 release; the patch is
+    coming from commit id 59b2c2adbbece27ccf54e58b598ea29cb3a5aa85,
+    2fc9d671e0be77676818da51cd3b35b52af79421,
+    c30eb2c104c19c758c0b2a2461ad7f38cfa747d0
+
+-------------------------------------------------------------------
 Tue Jan 13 12:34:56 CET 2009 - olh@suse.de
 
 - obsolete old XFree86-Mesa{,-devel}-XXbit packages (bnc#437293)
