@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jan 23 15:09:50 CET 2009 - sndirsch@suse.de
+
+- added intel-i810-Mesa, Mesa7 to Provides/Obsoletes, i.e. get rid
+  of SLE10 packages (bnc #468796)
+
+-------------------------------------------------------------------
 Wed Jan 14 17:59:57 CET 2009 - sndirsch@suse.de
 
 - i965_aperture_call_for_Q3.patch (Quanxian Wang)
