@@ -23,8 +23,8 @@ BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig xorg-x11-devel
 Url:            http://www.mesa3d.org
 License:        X11/MIT
 Group:          System/Libraries
-Provides:       xorg-x11-Mesa
-Obsoletes:      xorg-x11-Mesa
+Provides:       xorg-x11-Mesa intel-i810-Mesa Mesa7
+Obsoletes:      xorg-x11-Mesa intel-i810-Mesa Mesa7
 AutoReqProv:    on
 # bug437293
 %ifarch ppc64
@@ -33,7 +33,7 @@ Obsoletes:      Mesa-64bit
 %endif
 #
 Version:        7.2
-Release:        14
+Release:        16
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}_intel-2008-q3_793c3b9.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -251,6 +251,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Fri Jan 23 2009 sndirsch@suse.de
+- added intel-i810-Mesa, Mesa7 to Provides/Obsoletes, i.e. get rid
+  of SLE10 packages (bnc #468796)
 * Wed Jan 14 2009 sndirsch@suse.de
 - i965_aperture_call_for_Q3.patch (Quanxian Wang)
   * addresses bfo #19242; based on Q3 release; the patch is
