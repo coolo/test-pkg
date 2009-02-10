@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Tue Feb 10 01:12:37 CET 2009 - sndirsch@suse.de
+
+- commit-7d99ddc.diff
+  * intel: Fix a number of memory leaks on context destroy.
+    (bnc #457879,bfo #19665)
+- intel_release_static_region.patch
+  * detach static region from intel_renderbuffer on contex destroy
+    (bnc #457879,bfo #19665)
+
+-------------------------------------------------------------------
 Fri Jan 23 15:09:50 CET 2009 - sndirsch@suse.de
 
 - added intel-i810-Mesa, Mesa7 to Provides/Obsoletes, i.e. get rid
