@@ -33,7 +33,7 @@ Obsoletes:      Mesa-64bit
 %endif
 #
 Version:        7.2
-Release:        17
+Release:        18
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}_intel-2008-q3_793c3b9.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -48,6 +48,8 @@ Patch9:         i965-GL_MAX_TEXTURE_SIZE-4096.diff
 Patch10:        commit-b4bf9ac.diff
 Patch11:        mesa-7.1-fix-i8xx-vbos.patch
 Patch12:        i965_aperture_call_for_Q3.patch
+Patch13:        commit-7d99ddc.diff
+Patch14:        intel_release_static_region.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -143,6 +145,8 @@ sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 %patch10 -p1
 %patch11 -p1
 %patch12 -p1
+%patch13 -p1
+%patch14 -p1
 
 %build
 
@@ -251,6 +255,13 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Tue Feb 10 2009 sndirsch@suse.de
+- commit-7d99ddc.diff
+  * intel: Fix a number of memory leaks on context destroy.
+  (bnc #457879,bfo #19665)
+- intel_release_static_region.patch
+  * detach static region from intel_renderbuffer on contex destroy
+  (bnc #457879,bfo #19665)
 * Fri Jan 23 2009 sndirsch@suse.de
 - added intel-i810-Mesa, Mesa7 to Provides/Obsoletes, i.e. get rid
   of SLE10 packages (bnc #468796)
