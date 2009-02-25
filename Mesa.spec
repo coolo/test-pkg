@@ -210,9 +210,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(-,root,root)
 %doc docs/*.html docs/*.spec
-/usr/include/GL/amesa.h
 /usr/include/GL/dmesa.h
-/usr/include/GL/fxmesa.h
 /usr/include/GL/ggimesa.h
 /usr/include/GL/gl_mangle.h
 /usr/include/GL/glfbdev.h
@@ -223,19 +221,15 @@ rm -rf $RPM_BUILD_ROOT
 /usr/include/GL/mglmesa.h
 /usr/include/GL/osmesa.h
 /usr/include/GL/svgamesa.h
-/usr/include/GL/uglmesa.h
 /usr/include/GL/vms_x_fix.h
 /usr/include/GL/wmesa.h
-/usr/include/GL/xmesa.h
-/usr/include/GL/xmesa_x.h
-/usr/include/GL/xmesa_xf86.h
 /usr/include/GL/internal/dri_interface.h
-/usr/include/GL/internal/dri_sarea.h
 /usr/%{_lib}/libGLU.so
 /usr/%{_lib}/libOSMesa.so
 /usr/%{_lib}/pkgconfig/dri.pc
 /usr/%{_lib}/pkgconfig/gl.pc
 /usr/%{_lib}/pkgconfig/glu.pc
+/usr/%{_lib}/pkgconfig/osmesa.pc
 %{_mandir}/man3/*
 
 %files devel-static
