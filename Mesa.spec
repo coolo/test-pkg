@@ -1,5 +1,5 @@
 #
-# spec file for package Mesa (Version 7.2)
+# spec file for package Mesa (Version 7.3)
 #
 # Copyright (c) 2009 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
@@ -32,23 +32,18 @@ Obsoletes:      XFree86-Mesa-64bit
 Obsoletes:      Mesa-64bit
 %endif
 #
-Version:        7.2
-Release:        18
+Version:        7.3
+Release:        1
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
-Source:         MesaLib-%{version}_intel-2008-q3_793c3b9.tar.bz2
+Source:         MesaLib-%{version}.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source5:        drirc
-Patch:          MesaLib-7.2_intel-2008-q3_793c3b9-46921a5.diff
 Patch1:         dri_driver_dir.diff
 Patch6:         link-shared.diff
 Patch7:         disable_gem_warning.diff
 Patch9:         i965-GL_MAX_TEXTURE_SIZE-4096.diff
-Patch10:        commit-b4bf9ac.diff
-Patch11:        mesa-7.1-fix-i8xx-vbos.patch
-Patch12:        i965_aperture_call_for_Q3.patch
-Patch13:        commit-7d99ddc.diff
 Patch14:        intel_release_static_region.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -135,17 +130,12 @@ test -f progs/ggi/asc-view.c && exit 1
 rm -rf src/glut progs/{demos,redbook,samples,xdemos,glsl}
 # we use freeglut
 rm -f include/GL/{glut.h,uglglutshapes.h,glutf90.h}
-%patch -p1
 %patch1
 sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 ### FIXME
 #%patch6
 %patch7 -p1
 #%patch9 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch13 -p1
 %patch14 -p1
 
 %build
@@ -220,9 +210,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(-,root,root)
 %doc docs/*.html docs/*.spec
-/usr/include/GL/amesa.h
 /usr/include/GL/dmesa.h
-/usr/include/GL/fxmesa.h
 /usr/include/GL/ggimesa.h
 /usr/include/GL/gl_mangle.h
 /usr/include/GL/glfbdev.h
@@ -233,19 +221,15 @@ rm -rf $RPM_BUILD_ROOT
 /usr/include/GL/mglmesa.h
 /usr/include/GL/osmesa.h
 /usr/include/GL/svgamesa.h
-/usr/include/GL/uglmesa.h
 /usr/include/GL/vms_x_fix.h
 /usr/include/GL/wmesa.h
-/usr/include/GL/xmesa.h
-/usr/include/GL/xmesa_x.h
-/usr/include/GL/xmesa_xf86.h
 /usr/include/GL/internal/dri_interface.h
-/usr/include/GL/internal/dri_sarea.h
 /usr/%{_lib}/libGLU.so
 /usr/%{_lib}/libOSMesa.so
 /usr/%{_lib}/pkgconfig/dri.pc
 /usr/%{_lib}/pkgconfig/gl.pc
 /usr/%{_lib}/pkgconfig/glu.pc
+/usr/%{_lib}/pkgconfig/osmesa.pc
 %{_mandir}/man3/*
 
 %files devel-static
@@ -255,6 +239,11 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Wed Feb 25 2009 sndirsch@suse.de
+- update to Mesa 7.3
+- obsoletes MesaLib-7.2_intel-2008-q3_793c3b9-46921a5.diff,
+  commit-7d99ddc.diff, commit-b4bf9ac.diff,
+  i965_aperture_call_for_Q3.patch, mesa-7.1-fix-i8xx-vbos.patch
 * Tue Feb 10 2009 sndirsch@suse.de
 - commit-7d99ddc.diff
   * intel: Fix a number of memory leaks on context destroy.
