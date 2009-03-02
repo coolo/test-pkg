@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Feb 27 16:58:13 CET 2009 - mhopf@suse.de
+
+- Mesa_indirect_old_xserver_compatibility.diff
+  Workaround for enabling indirect rendering to older Xservers
+  (bnc #469280).
+
+-------------------------------------------------------------------
 Wed Feb 25 15:51:31 CET 2009 - sndirsch@suse.de
 
 - update to Mesa 7.3
