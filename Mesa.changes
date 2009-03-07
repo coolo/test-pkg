@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Sat Mar  7 04:17:18 CET 2009 - sndirsch@suse.de
+
+- mesa-commit-954dfba.diff
+  * i965: bump texture limit to 4kx4k (bfo #18100)
+  * obsoletes i965-GL_MAX_TEXTURE_SIZE-4096.diff
+- mesa-commit-88b702e.diff
+  * i965: Eric Anholt's patch for bumping up texture sizes
+    (bfo #18100)
+
+-------------------------------------------------------------------
 Fri Feb 27 16:58:13 CET 2009 - mhopf@suse.de
 
 - Mesa_indirect_old_xserver_compatibility.diff

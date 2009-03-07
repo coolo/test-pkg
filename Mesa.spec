@@ -33,7 +33,7 @@ Obsoletes:      Mesa-64bit
 %endif
 #
 Version:        7.3
-Release:        2
+Release:        3
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -43,7 +43,8 @@ Source5:        drirc
 Patch1:         dri_driver_dir.diff
 Patch6:         link-shared.diff
 Patch7:         disable_gem_warning.diff
-Patch9:         i965-GL_MAX_TEXTURE_SIZE-4096.diff
+Patch9:         mesa-commit-954dfba.diff
+Patch10:        mesa-commit-88b702e.diff
 Patch14:        intel_release_static_region.patch
 Patch15:        Mesa_indirect_old_xserver_compatibility.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -136,7 +137,8 @@ sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 ### FIXME
 #%patch6
 %patch7 -p1
-#%patch9 -p1
+%patch9 -p1
+%patch10 -p1
 %patch14 -p1
 %patch15 -p1
 
@@ -241,6 +243,13 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Sat Mar 07 2009 sndirsch@suse.de
+- mesa-commit-954dfba.diff
+  * i965: bump texture limit to 4kx4k (bfo #18100)
+  * obsoletes i965-GL_MAX_TEXTURE_SIZE-4096.diff
+- mesa-commit-88b702e.diff
+  * i965: Eric Anholt's patch for bumping up texture sizes
+  (bfo #18100)
 * Fri Feb 27 2009 mhopf@suse.de
 - Mesa_indirect_old_xserver_compatibility.diff
   Workaround for enabling indirect rendering to older Xservers
