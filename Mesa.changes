@@ -1,10 +1,4 @@
 -------------------------------------------------------------------
-Sun Mar  8 05:06:20 CET 2009 - sndirsch@suse.de
-
-- disable mesa-commit-954dfba.diff, mesa-commit-88b702e.diff for
-  now
-
--------------------------------------------------------------------
 Sat Mar  7 04:17:18 CET 2009 - sndirsch@suse.de
 
 - mesa-commit-954dfba.diff
