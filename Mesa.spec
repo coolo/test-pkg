@@ -137,8 +137,8 @@ sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 ### FIXME
 #%patch6
 %patch7 -p1
-%patch9 -p1
-%patch10 -p1
+#%patch9 -p1
+#%patch10 -p1
 %patch14 -p1
 %patch15 -p1
 
@@ -243,6 +243,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Sun Mar 08 2009 sndirsch@suse.de
+- disable mesa-commit-954dfba.diff, mesa-commit-88b702e.diff for
+  now
 * Sat Mar 07 2009 sndirsch@suse.de
 - mesa-commit-954dfba.diff
   * i965: bump texture limit to 4kx4k (bfo #18100)
