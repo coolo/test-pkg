@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Mar 26 08:22:52 CET 2009 - sndirsch@suse.de
+
+- Mesa 7.4-rc2
+  * more patches cherry-picked from the master branch 
+
+-------------------------------------------------------------------
 Sat Mar 21 04:34:04 CET 2009 - sndirsch@suse.de
 
 - Mesa 7.4-rc1
