@@ -1,5 +1,5 @@
 #
-# spec file for package Mesa (Version 7.3)
+# spec file for package Mesa (Version 7.4)
 #
 # Copyright (c) 2009 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
@@ -32,11 +32,11 @@ Obsoletes:      XFree86-Mesa-64bit
 Obsoletes:      Mesa-64bit
 %endif
 #
-Version:        7.3
-Release:        3
+Version:        7.4
+Release:        1
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
-Source:         MesaLib-%{version}.tar.bz2
-Source1:        MesaDemos-%{version}.tar.bz2
+Source:         MesaLib-%{version}-rc2.tar.bz2
+Source1:        MesaDemos-%{version}-rc2.tar.bz2
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source5:        drirc
@@ -124,7 +124,7 @@ Authors:
     Brian Paul
 
 %prep
-%setup -n %{name}-%{version} -b1 -b4
+%setup -n %{name}-%{version}-rc2 -b1 -b4
 # make legal department happy (Bug #204110)
 test -f src/mesa/drivers/directfb/idirectfbgl_mesa.c && exit 1
 test -f progs/ggi/asc-view.c && exit 1
@@ -145,7 +145,8 @@ sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 %build
 
 %install
-#autoreconf -fi
+rm src/mesa/depend
+autoreconf -fi
 ### libGL (disable savage/mga, bnc #402132/#403071)
 %configure --disable-glw \
           --with-driver=dri \
@@ -243,6 +244,11 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Thu Mar 26 2009 sndirsch@suse.de
+- Mesa 7.4-rc2
+  * more patches cherry-picked from the master branch
+* Sat Mar 21 2009 sndirsch@suse.de
+- Mesa 7.4-rc1
 * Sat Mar 07 2009 sndirsch@suse.de
 - mesa-commit-954dfba.diff
   * i965: bump texture limit to 4kx4k (bfo #18100)
