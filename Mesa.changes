@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sat Mar 28 04:58:00 CET 2009 - sndirsch@suse.de
+
+- Mesa 7.4 (final)
+  * This is a stable release that just fixes bugs since the 7.3
+    release. 
+
+-------------------------------------------------------------------
 Thu Mar 26 08:22:52 CET 2009 - sndirsch@suse.de
 
 - Mesa 7.4-rc2
