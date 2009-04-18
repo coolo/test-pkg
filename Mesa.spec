@@ -1,5 +1,5 @@
 #
-# spec file for package Mesa (Version 7.4)
+# spec file for package Mesa (Version 7.4.1)
 #
 # Copyright (c) 2009 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
@@ -32,8 +32,8 @@ Obsoletes:      XFree86-Mesa-64bit
 Obsoletes:      Mesa-64bit
 %endif
 #
-Version:        7.4
-Release:        2
+Version:        7.4.1
+Release:        1
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -244,6 +244,21 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libOSMesa.a
 
 %changelog
+* Sat Apr 18 2009 sndirsch@suse.de
+- Mesa 7.4.1
+  * Fixed a two-sided lighting bug in fixed-function-to-GPU code
+  generation
+  * Fixed some Darwin issues (Jeremy Huddleston)
+  * Indexing the GLSL gl_EyePlane[] or gl_ObjectPlane[] arrays
+  with a variable was broken, bug 20986
+  * Fixed incorrect texture unit bias in TXB instruction
+  * glTexParameter settings weren't always propogated to drivers
+  * Assorted vertex/fragment program bug fixes
+  * Fixed point rendering in software rasterizer
+  * Fixed potential deadlock in object hash functions
+  * Fix a couple bugs surrounding front-buffer rendering with
+  DRI2, but this is not quite complete.
+  * Fixed glPopAttrib() bug when restoring user clip planes
 * Sat Mar 28 2009 sndirsch@suse.de
 - Mesa 7.4 (final)
   * This is a stable release that just fixes bugs since the 7.3
@@ -574,7 +589,7 @@ rm -rf $RPM_BUILD_ROOT
 * Wed Jan 17 2007 sndirsch@suse.de
 - bug-211314_mesa-context.diff:
   * fixes Xserver crash in software rendering fallback (Bug #211314)
-* Tue Jan 09 2007 sndirsch@suse.de
+* Wed Jan 10 2007 sndirsch@suse.de
 - disabled build of sis DRI driver on i64 to fix build
 * Sat Dec 02 2006 sndirsch@suse.de
 - updated to Mesa 6.5.2
@@ -624,7 +639,7 @@ rm -rf $RPM_BUILD_ROOT
   been decprecated.
     - OpenGL 2.0 and 2.1 support is nearly done. We need to do quite a
   bit more testing of the shading language functions.
-* Thu Nov 23 2006 sndirsch@suse.de
+* Fri Nov 24 2006 sndirsch@suse.de
 - enabled build of i965 DRI driver on x86_64
 * Fri Nov 10 2006 sndirsch@suse.de
 - fixed typos (Bug #219732)
@@ -772,7 +787,7 @@ rm -rf $RPM_BUILD_ROOT
 * Wed Dec 28 2005 sndirsch@suse.de
 - moved header files and libGL.so from Mesa-devel to Mesa to make
   uninstallation of nvidia driver in %%pre of Mesa-devel obsolete
-* Wed Nov 30 2005 sndirsch@suse.de
+* Thu Dec 01 2005 sndirsch@suse.de
 - update to Mesa 6.4.1
 * Fri Nov 18 2005 sndirsch@suse.de
 - updated to Mesa 6.4 branch (2005-11-18)

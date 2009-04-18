@@ -1,4 +1,22 @@
 -------------------------------------------------------------------
+Sat Apr 18 20:25:22 CEST 2009 - sndirsch@suse.de
+
+- Mesa 7.4.1
+  * Fixed a two-sided lighting bug in fixed-function-to-GPU code
+    generation
+  * Fixed some Darwin issues (Jeremy Huddleston)
+  * Indexing the GLSL gl_EyePlane[] or gl_ObjectPlane[] arrays
+    with a variable was broken, bug 20986
+  * Fixed incorrect texture unit bias in TXB instruction
+  * glTexParameter settings weren't always propogated to drivers
+  * Assorted vertex/fragment program bug fixes
+  * Fixed point rendering in software rasterizer
+  * Fixed potential deadlock in object hash functions
+  * Fix a couple bugs surrounding front-buffer rendering with
+    DRI2, but this is not quite complete.
+  * Fixed glPopAttrib() bug when restoring user clip planes   
+
+-------------------------------------------------------------------
 Sat Mar 28 04:58:00 CET 2009 - sndirsch@suse.de
 
 - Mesa 7.4 (final)
