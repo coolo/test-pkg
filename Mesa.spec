@@ -81,8 +81,8 @@ Obsoletes:      XFree86-Mesa-devel-64bit
 Obsoletes:      Mesa-devel-64bit
 %endif
 #
-Provides:       xorg-x11-Mesa-devel
-Obsoletes:      xorg-x11-Mesa-devel
+Provides:       xorg-x11-Mesa-devel Mesa-devel-static
+Obsoletes:      xorg-x11-Mesa-devel Mesa-devel-static
 
 %description devel
 Mesa is a 3-D graphics library with an API which is very similar to
@@ -98,24 +98,6 @@ Please do not refer to the library as MesaGL (for legal reasons). It's
 just Mesa or The Mesa 3-D graphics library.
 
 * OpenGL is a trademark of Silicon Graphics Incorporated.
-
-
-
-Authors:
---------
-    Brian Paul
-
-%package devel-static
-License:        X11/MIT
-Requires:       Mesa-devel = %version
-Summary:        Static GL library - Usually not required at all
-Group:          System/Libraries
-Provides:       xorg-x11-Mesa-devel-static
-Obsoletes:      xorg-x11-Mesa-devel-static
-
-%description devel-static
-Static GL library. It is not recommended at all to link against the
-static GL library. Only included for legacy reasons.
 
 
 
@@ -169,15 +151,6 @@ sed -i 's/GL_LIB = .*/GL_LIB = IndirectGL/g' configs/autoconf
 gmake 
 make install DESTDIR=$RPM_BUILD_ROOT
 rm $RPM_BUILD_ROOT/usr/%{_lib}/libIndirectGL.so
-### static libGL
-make realclean
-%configure --with-driver=xlib \
-           --disable-shared \
-           --enable-static \
-           --disable-glw \
-           --disable-glut
-gmake
-make install DESTDIR=$RPM_BUILD_ROOT
 for dir in ../xc/doc/man/{GL/gl,GL/glx,GLU}; do
 pushd $dir
   xmkmf -a
@@ -237,13 +210,10 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/pkgconfig/osmesa.pc
 %{_mandir}/man3/*
 
-%files devel-static
-%defattr(-,root,root)
-/usr/%{_lib}/libGL.a
-/usr/%{_lib}/libGLU.a
-/usr/%{_lib}/libOSMesa.a
-
 %changelog
+* Wed Apr 22 2009 sndirsch@suse.de
+- no longer package static libGL/libGLU; can't work any longer
+  due to static X libraries having been removed
 * Sat Apr 18 2009 sndirsch@suse.de
 - Mesa 7.4.1
   * Fixed a two-sided lighting bug in fixed-function-to-GPU code

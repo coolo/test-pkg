@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Apr 22 14:12:35 CEST 2009 - sndirsch@suse.de
+
+- no longer package static libGL/libGLU; can't work any longer
+  due to static X libraries having been removed
+
+-------------------------------------------------------------------
 Sat Apr 18 20:25:22 CEST 2009 - sndirsch@suse.de
 
 - Mesa 7.4.1
