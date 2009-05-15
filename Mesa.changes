@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Fri May 15 18:25:09 CEST 2009 - sndirsch@suse.de
+
+- Mesa 7.4.2
+  * Fixed segfault when rendering to front buffer with DRI 1.
+  * Fixed swrast texture rectangle bug when wrap mode = 
+    GL_CLAMP_TO_BORDER and filter mode = GL_LINEAR. (bug 21461)
+  * Fixed texture object mem leak during context destruction.
+  * Fixed a state validation bug in glCopyTex[Sub]Image()
+  * Fixed some i965 GLSL bugs.
+  * Fixed an R300 driver texture object bad memory reference.
+
+-------------------------------------------------------------------
 Wed Apr 22 14:12:35 CEST 2009 - sndirsch@suse.de
 
 - no longer package static libGL/libGLU; can't work any longer

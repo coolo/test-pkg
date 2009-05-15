@@ -1,5 +1,5 @@
 #
-# spec file for package Mesa (Version 7.4.1)
+# spec file for package Mesa (Version 7.4.2)
 #
 # Copyright (c) 2009 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
@@ -32,7 +32,7 @@ Obsoletes:      XFree86-Mesa-64bit
 Obsoletes:      Mesa-64bit
 %endif
 #
-Version:        7.4.1
+Version:        7.4.2
 Release:        1
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}.tar.bz2
@@ -211,6 +211,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Fri May 15 2009 sndirsch@suse.de
+- Mesa 7.4.2
+  * Fixed segfault when rendering to front buffer with DRI 1.
+  * Fixed swrast texture rectangle bug when wrap mode =
+  GL_CLAMP_TO_BORDER and filter mode = GL_LINEAR. (bug 21461)
+  * Fixed texture object mem leak during context destruction.
+  * Fixed a state validation bug in glCopyTex[Sub]Image()
+  * Fixed some i965 GLSL bugs.
+  * Fixed an R300 driver texture object bad memory reference.
 * Wed Apr 22 2009 sndirsch@suse.de
 - no longer package static libGL/libGLU; can't work any longer
   due to static X libraries having been removed
