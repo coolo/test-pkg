@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Apr 24 14:15:13 CEST 2009 - hmacht@suse.de
+
+- add completion for osc (_osc)
+- add completion for zypper (_zypper)
+
+-------------------------------------------------------------------
 Thu Oct  2 10:14:01 CEST 2008 - hvogel@suse.de
 
 - globally disabling the test was the plan, not only on some archs

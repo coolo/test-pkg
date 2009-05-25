@@ -1,7 +1,7 @@
 #
 # spec file for package zsh (Version 4.3.6)
 #
-# Copyright (c) 2008 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2009 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -20,8 +20,8 @@
 
 Name:           zsh
 Version:        4.3.6
-Release:        66
-License:        Other uncritical OpenSource License
+Release:        68
+License:        BSD 3-Clause
 Group:          System/Shells
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  ncurses-devel
@@ -37,6 +37,8 @@ Source4:        _SuSEconfig
 Source5:        _hwinfo
 Source6:        _make
 Source7:        zprofile
+Source8:        _osc
+Source9:        _zypper
 # unused atm. we build the docs with yodl on our own.
 Source20:       %{name}-%{version}-doc.tar.bz2
 Patch0:         %{name}-4.3.4.diff
@@ -124,7 +126,7 @@ groff Doc/intro.ms > intro.txt
 # install SUSE configuration
 %{__install} -m 0755 -Dd  %{buildroot}/{etc,bin}
 %{__install} -m 0644 %{S:1} %{S:2} %{S:7} %{buildroot}/etc
-%{__install} -m 0644 %{S:3} %{S:4} %{S:5} %{S:6} %{buildroot}%{_datadir}/%{name}/%version/functions
+%{__install} -m 0644 %{S:3} %{S:4} %{S:5} %{S:6} %{S:8} %{S:9} %{buildroot}%{_datadir}/%{name}/%version/functions
 # install help files
 %{__install} -m 0755 -Dd    %{buildroot}%{_datadir}/%{name}/help
 %{__install} -m 0644 Help/* %{buildroot}%{_datadir}/%{name}/help/
@@ -155,6 +157,9 @@ groff Doc/intro.ms > intro.txt
 %{_mandir}/man1/zsh*.1.gz
 
 %changelog
+* Fri Apr 24 2009 hmacht@suse.de
+- add completion for osc (_osc)
+- add completion for zypper (_zypper)
 * Thu Oct 02 2008 hvogel@suse.de
 - globally disabling the test was the plan, not only on some archs
 * Thu Sep 18 2008 hvogel@suse.de
@@ -270,7 +275,7 @@ groff Doc/intro.ms > intro.txt
 * Thu Oct 16 2003 mmj@suse.de
 - Don't build as root
 - Cleanup specfile
-* Wed Oct 15 2003 jh@suse.de
+* Tue Oct 14 2003 jh@suse.de
 - Fix profiling lockup.  (we can not profile dl_closed modules yet)
 * Thu Jun 19 2003 mmj@suse.de
 - Update to 4.1.1
@@ -295,7 +300,7 @@ groff Doc/intro.ms > intro.txt
 - Use proper libdir
 * Thu Aug 15 2002 poeml@suse.de
 - update completion for _yast{,2} and add one for _hwinfo
-* Thu Aug 15 2002 mmj@suse.de
+* Wed Aug 14 2002 mmj@suse.de
 - Update to 4.0.6 which was released this fast b/c a termcap /
   terminfo fix was forgotten together with a fix for _mount.
 * Mon Aug 12 2002 mmj@suse.de
@@ -327,7 +332,7 @@ groff Doc/intro.ms > intro.txt
 - Fixed build prob on beta-i386 and beta-ia64
 * Tue May 08 2001 mfabian@suse.de
 - bzip2 sources
-* Mon Apr 16 2001 schwab@suse.de
+* Sun Apr 15 2001 schwab@suse.de
 - Fix missing declarations.
 * Fri Apr 13 2001 mmj@suse.de
 - Updated to 4.0.1-pre-3
@@ -357,9 +362,9 @@ groff Doc/intro.ms > intro.txt
 - removed symlink /etc/zshrc -> profile (aaa_base contains a real zshrc now)
 * Fri Oct 10 1997 florian@suse.de
 - update to version 3.0.5
-* Tue Jun 24 1997 florian@suse.de
+* Mon Jun 23 1997 florian@suse.de
 - update to version 3.0.4
-* Thu Jan 23 1997 florian@suse.de
+* Wed Jan 22 1997 florian@suse.de
 - update to version 3.0.2
 * Thu Jan 02 1997 florian@suse.de
 - update to version 3.0.1
