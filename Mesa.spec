@@ -47,7 +47,6 @@ Patch9:         mesa-commit-954dfba.diff
 Patch10:        mesa-commit-88b702e.diff
 Patch14:        intel_release_static_region.patch
 Patch15:        Mesa_indirect_old_xserver_compatibility.diff
-Patch16:        mesa_7_4_branch-commit-63cde0e.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -124,7 +123,6 @@ sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 %patch10 -p1
 %patch14 -p1
 %patch15 -p1
-%patch16 -p1 -R
 
 %build
 
@@ -213,6 +211,21 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jun 20 2009 sndirsch@suse.de
+- Mesa 7.4.3
+  * Fixed texture object reference counting bug (bug 21756)
+  * Allow depth/stencil textures to be attached to GL_STENCIL_ATTACHMENT point
+  (SF bug 2793846)
+  * Added missing glGet case for GL_VERTEX_ARRAY_BINDING_APPLE
+  * Fixed some OSMesa build issues
+  * Fixed a vertex buffer object crash
+  * Fixed broken glTexImage3D() when image type = GL_BITMAP
+  * Fixed some GLSL preprocessor bugs
+  * Fixed framebuffer mem leak in i945/i965 DRI drivers
+  * Fixed texture coordinate repeat bug in swrast (bug 21872)
+  * Fixed incorrect viewport clamping (lower bound is zero, not one)
+  * GLX fix for glean's makeCurrent test case
+- obsoletes reverted applied mesa_7_4_branch-commit-63cde0e.diff
 * Tue May 19 2009 sndirsch@suse.de
 - mesa_7_4_branch-commit-63cde0e.diff
   * commit, which introduced a regression; revert it (bnc #504578)
