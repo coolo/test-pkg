@@ -1,5 +1,5 @@
 #
-# spec file for package Mesa (Version 7.4.2)
+# spec file for package Mesa (Version 7.4.3)
 #
 # Copyright (c) 2009 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
@@ -21,7 +21,7 @@
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig xorg-x11-devel
 Url:            http://www.mesa3d.org
-License:        X11/MIT
+License:        MIT License (or similar)
 Group:          System/Libraries
 Provides:       xorg-x11-Mesa intel-i810-Mesa Mesa7
 Obsoletes:      xorg-x11-Mesa intel-i810-Mesa Mesa7
@@ -32,7 +32,7 @@ Obsoletes:      XFree86-Mesa-64bit
 Obsoletes:      Mesa-64bit
 %endif
 #
-Version:        7.4.2
+Version:        7.4.3
 Release:        1
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}.tar.bz2
@@ -71,7 +71,7 @@ Authors:
     Brian Paul
 
 %package devel
-License:        X11/MIT
+License:        MIT License (or similar)
 Requires:       Mesa = %version xorg-x11-devel
 Summary:        Libraries, includes and more to develop Mesa applications
 Group:          System/Libraries
@@ -211,6 +211,24 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jun 20 2009 sndirsch@suse.de
+- Mesa 7.4.3
+  * Fixed texture object reference counting bug (bug 21756)
+  * Allow depth/stencil textures to be attached to GL_STENCIL_ATTACHMENT point
+  (SF bug 2793846)
+  * Added missing glGet case for GL_VERTEX_ARRAY_BINDING_APPLE
+  * Fixed some OSMesa build issues
+  * Fixed a vertex buffer object crash
+  * Fixed broken glTexImage3D() when image type = GL_BITMAP
+  * Fixed some GLSL preprocessor bugs
+  * Fixed framebuffer mem leak in i945/i965 DRI drivers
+  * Fixed texture coordinate repeat bug in swrast (bug 21872)
+  * Fixed incorrect viewport clamping (lower bound is zero, not one)
+  * GLX fix for glean's makeCurrent test case
+- obsoletes reverted applied mesa_7_4_branch-commit-63cde0e.diff
+* Tue May 19 2009 sndirsch@suse.de
+- mesa_7_4_branch-commit-63cde0e.diff
+  * commit, which introduced a regression; revert it (bnc #504578)
 * Fri May 15 2009 sndirsch@suse.de
 - Mesa 7.4.2
   * Fixed segfault when rendering to front buffer with DRI 1.
