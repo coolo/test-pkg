@@ -1,5 +1,5 @@
 #
-# spec file for package Mesa (Version 7.4.2)
+# spec file for package Mesa (Version 7.4.3)
 #
 # Copyright (c) 2009 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
@@ -21,7 +21,7 @@
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig xorg-x11-devel
 Url:            http://www.mesa3d.org
-License:        X11/MIT
+License:        MIT License (or similar)
 Group:          System/Libraries
 Provides:       xorg-x11-Mesa intel-i810-Mesa Mesa7
 Obsoletes:      xorg-x11-Mesa intel-i810-Mesa Mesa7
@@ -32,8 +32,8 @@ Obsoletes:      XFree86-Mesa-64bit
 Obsoletes:      Mesa-64bit
 %endif
 #
-Version:        7.4.2
-Release:        2
+Version:        7.4.3
+Release:        1
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -72,7 +72,7 @@ Authors:
     Brian Paul
 
 %package devel
-License:        X11/MIT
+License:        MIT License (or similar)
 Requires:       Mesa = %version xorg-x11-devel
 Summary:        Libraries, includes and more to develop Mesa applications
 Group:          System/Libraries
