@@ -47,6 +47,7 @@ Patch9:         mesa-commit-954dfba.diff
 Patch10:        mesa-commit-88b702e.diff
 Patch14:        intel_release_static_region.patch
 Patch15:        Mesa_indirect_old_xserver_compatibility.diff
+Patch16:	Mesa-intel_unref_fb.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -123,6 +124,7 @@ sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 %patch10 -p1
 %patch14 -p1
 %patch15 -p1
+%patch16 -p1
 
 %build
 
