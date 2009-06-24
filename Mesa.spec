@@ -1,5 +1,5 @@
 #
-# spec file for package Mesa (Version 7.4.3)
+# spec file for package Mesa (Version 7.4.4)
 #
 # Copyright (c) 2009 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
@@ -32,8 +32,8 @@ Obsoletes:      XFree86-Mesa-64bit
 Obsoletes:      Mesa-64bit
 %endif
 #
-Version:        7.4.3
-Release:        2
+Version:        7.4.4
+Release:        1
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -47,7 +47,6 @@ Patch9:         mesa-commit-954dfba.diff
 Patch10:        mesa-commit-88b702e.diff
 Patch14:        intel_release_static_region.patch
 Patch15:        Mesa_indirect_old_xserver_compatibility.diff
-Patch16:        Mesa-intel_unref_fb.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -124,7 +123,6 @@ sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 %patch10 -p1
 %patch14 -p1
 %patch15 -p1
-%patch16 -p1
 
 %build
 
