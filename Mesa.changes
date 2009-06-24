@@ -1,4 +1,22 @@
 -------------------------------------------------------------------
+Wed Jun 24 04:43:35 CEST 2009 - sndirsch@suse.de
+
+- Mesa 7.4.4
+  * Fixed i965/i915 segfault in screen destruction (bfo #22408) 
+- adjusted intel_release_static_region.patch
+- obsoletes Mesa-intel_unref_fb.patch
+
+-------------------------------------------------------------------
+Tue Jun 23 13:53:06 CEST 2009 - sndirsch@suse.de
+
+- Mesa-intel_unref_fb.patch
+  * intel: call _mesa_unreference_framebuffer() in
+    intelDestroyBuffer(). This was a call to 
+    _mesa_reference_framebuffer(ptr, NULL) but the NULL pointer is
+    incorrect in Mesa 7.4.x. Fixes a failed assertion during screen
+    tear-down.
+
+-------------------------------------------------------------------
 Sat Jun 20 03:35:17 CEST 2009 - sndirsch@suse.de
 
 - Mesa 7.4.3
