@@ -62,6 +62,7 @@ Patch30:        readline-6.0-destdir.patch
 Patch40:        bash-4.0.10-typo.patch
 Patch41:        bash-4.0.24-globstar-nulldir.patch
 Patch42:        bash-4.0.24-acl.dif
+Patch43:        bash-4.0.24-memleak-read.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
@@ -277,9 +278,6 @@ for p in ../bash-%{bash_vers}-patches/*; do
     test -e $p || break
     echo Patch $p
     patch -s -p0 < $p
-    grep -q '^--- lib/readline/' $p || continue
-    sed -r '\@^\*\*\*[[:blank:]][^[:blank:]]*patchlevel.h@,\@^\*\*\*[[:blank:]][^[:digit:]]@d' < $p | \
-	patch -d ../readline-%{rl_vers}/ -s -p2
 done
 unset p
 %patch1  -p0 -b .manual
@@ -302,6 +300,7 @@ unset p
 %patch40 -p0 -b .typo
 %patch41 -p0 -b .globstar
 %patch42 -p0 -b .acl
+%patch43 -p0 -b .leak
 %patch0  -p0
 cd ../readline-%{rl_vers}
 for p in ../readline-%{rl_vers}-patches/*; do
