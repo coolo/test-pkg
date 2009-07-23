@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Sat Jul 18 04:16:04 CEST 2009 - sndirsch@suse.de
+
+- Mesa 7.5
+  * new features like e.g. Gallium3D
+  * various bug fixes
+  * removed some GL_SGIX_* extensions, which have been superseded
+    by ARB versions
+- obsoletes mesa-commit-88b702e.diff, mesa-commit-954dfba.diff,
+  intel_release_static_region.patch
+
+-------------------------------------------------------------------
 Wed Jun 24 04:43:35 CEST 2009 - sndirsch@suse.de
 
 - Mesa 7.4.4

@@ -1,5 +1,5 @@
 #
-# spec file for package Mesa (Version 7.4.4)
+# spec file for package Mesa (Version 7.5)
 #
 # Copyright (c) 2009 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
@@ -32,7 +32,7 @@ Obsoletes:      XFree86-Mesa-64bit
 Obsoletes:      Mesa-64bit
 %endif
 #
-Version:        7.4.4
+Version:        7.5
 Release:        1
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}.tar.bz2
@@ -43,9 +43,6 @@ Source5:        drirc
 Patch1:         dri_driver_dir.diff
 Patch6:         link-shared.diff
 Patch7:         disable_gem_warning.diff
-Patch9:         mesa-commit-954dfba.diff
-Patch10:        mesa-commit-88b702e.diff
-Patch14:        intel_release_static_region.patch
 Patch15:        Mesa_indirect_old_xserver_compatibility.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -119,9 +116,6 @@ sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 ### FIXME
 #%patch6
 %patch7 -p1
-%patch9 -p1
-%patch10 -p1
-%patch14 -p1
 %patch15 -p1
 
 %build
@@ -131,14 +125,19 @@ rm src/mesa/depend
 autoreconf -fi
 ### libGL (disable savage/mga, bnc #402132/#403071)
 %configure --disable-glw \
-          --with-driver=dri \
-%ifarch %ix86 x86_64 ppc
-           --with-dri-drivers=i915,i965,mach64,r128,r200,r300,radeon,tdfx,unichrome,swrast \
+           --with-driver=dri \
+%ifarch %ix86 x86_64
+           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,radeon,s3v,sis,tdfx,trident,unichrome,ffb,swrast \
+           --enable-gallium-nouveau \
+%endif
+%ifarch ppc
+           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,radeon,s3v,tdfx,trident,unichrome,ffb,swrast \
 %endif
 %ifarch s390 s390x
            --with-dri-drivers=swrast \
 %endif
            --disable-glut
+make -C src/gallium/state_trackers/dri
 gmake
 make install DESTDIR=$RPM_BUILD_ROOT
 # build and install Indirect Rendering only libGL
@@ -146,11 +145,12 @@ make realclean
 %configure --with-driver=xlib \
            --disable-glu \
            --disable-glw \
-           --disable-glut
+           --disable-glut \
+           --disable-gallium
 sed -i 's/GL_LIB = .*/GL_LIB = IndirectGL/g' configs/autoconf
 gmake 
-make install DESTDIR=$RPM_BUILD_ROOT
-rm $RPM_BUILD_ROOT/usr/%{_lib}/libIndirectGL.so
+cp -a %{_lib}/libIndirectGL.so.* %{_lib}/libOSMesa.so* \
+  $RPM_BUILD_ROOT/usr/%{_lib}
 for dir in ../xc/doc/man/{GL/gl,GL/glx,GLU}; do
 pushd $dir
   xmkmf -a
@@ -202,12 +202,13 @@ rm -rf $RPM_BUILD_ROOT
 /usr/include/GL/vms_x_fix.h
 /usr/include/GL/wmesa.h
 /usr/include/GL/internal/dri_interface.h
+/usr/include/GL/wglext.h
 /usr/%{_lib}/libGLU.so
 /usr/%{_lib}/libOSMesa.so
+/usr/%{_lib}/libEGL.so
 /usr/%{_lib}/pkgconfig/dri.pc
 /usr/%{_lib}/pkgconfig/gl.pc
 /usr/%{_lib}/pkgconfig/glu.pc
-/usr/%{_lib}/pkgconfig/osmesa.pc
 %{_mandir}/man3/*
 
 %changelog
