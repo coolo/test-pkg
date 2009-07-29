@@ -60,6 +60,7 @@ Patch22:        readline-6.0-wrap.patch
 Patch23:        readline-5.2-conf.patch
 Patch30:        readline-6.0-destdir.patch
 Patch40:        bash-4.0.10-typo.patch
+Patch41:        bash-4.0.24-globstar-nulldir.patch
 Patch42:        bash-4.0.24-acl.dif
 Patch43:        bash-4.0.24-memleak-read.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -297,6 +298,7 @@ unset p
 %patch22 -p0 -b .wrap
 %patch23 -p0 -b .conf
 %patch40 -p0 -b .typo
+%patch41 -p0 -b .globstar
 %patch42 -p0 -b .acl
 %patch43 -p0 -b .leak
 %patch0  -p0
