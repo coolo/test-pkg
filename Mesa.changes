@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Jul 31 12:39:02 CEST 2009 - sndirsch@suse.de
+
+- Mesa-devel should require libdrm-devel (bnc #527097)
+
+-------------------------------------------------------------------
 Sat Jul 18 04:16:04 CEST 2009 - sndirsch@suse.de
 
 - Mesa 7.5
