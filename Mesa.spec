@@ -33,7 +33,7 @@ Obsoletes:      Mesa-64bit
 %endif
 #
 Version:        7.5
-Release:        1
+Release:        2
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -69,7 +69,7 @@ Authors:
 
 %package devel
 License:        MIT License (or similar)
-Requires:       Mesa = %version xorg-x11-devel
+Requires:       Mesa = %version xorg-x11-devel libdrm-devel
 Summary:        Libraries, includes and more to develop Mesa applications
 Group:          System/Libraries
 # bug437293
