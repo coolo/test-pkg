@@ -136,6 +136,9 @@ autoreconf -fi
 %ifarch s390 s390x
            --with-dri-drivers=swrast \
 %endif
+%ifarch %arm
+           --with-dri-drivers=swrast \
+%endif
            --disable-glut
 make -C src/gallium/state_trackers/dri
 gmake

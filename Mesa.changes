@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Aug  2 21:48:08 UTC 2009 - jansimon.moeller@opensuse.org
+
+- add ARM variant to configure 
+
+-------------------------------------------------------------------
 Fri Jul 31 12:39:02 CEST 2009 - sndirsch@suse.de
 
 - Mesa-devel should require libdrm-devel (bnc #527097)
