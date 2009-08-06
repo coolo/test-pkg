@@ -33,7 +33,7 @@ Obsoletes:      Mesa-64bit
 %endif
 #
 Version:        7.5
-Release:        2
+Release:        3
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -134,6 +134,9 @@ autoreconf -fi
            --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,radeon,s3v,tdfx,trident,unichrome,ffb,swrast \
 %endif
 %ifarch s390 s390x
+           --with-dri-drivers=swrast \
+%endif
+%ifarch %arm
            --with-dri-drivers=swrast \
 %endif
            --disable-glut
