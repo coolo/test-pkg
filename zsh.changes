@@ -1,4 +1,38 @@
 -------------------------------------------------------------------
+Wed Aug  5 16:58:50 CEST 2009 - hvogel@suse.de
+
+- update to version 4.3.10
+  o The command "emulate <mode> -c ..." evaluates an expression in
+    a given emulation.
+  o The variable CORRECT_IGNORE gives a pattern that can be ignored
+    in spelling correction.
+  o The option POSIX_ALIASES improves compatibility of aliases with
+    other shells.
+  o The option COMBINING_CHARS has been added.  When it is set, the
+    line editor assumes the terminal is capable of displaying
+    zero-width combining characters (typically accents) correctly
+    as modifications to the base character, and will act accordingly.
+  o The option HIST_FCNTL_LOCK has been added to provide locking of
+    history files 
+  o The syntax ~[...] provides a dynamic form of directory naming,
+    supplementing the existing static ~name syntax.
+  o Patterns can now be used in incremental searches with new widgets
+  o Highlighting and colouring of sections of the command line is now
+    supported
+  o Colouring of prompts is now supported within the shell by prompt
+    escapes.
+  o Various changes have been added to make debugging of shell code
+    easier
+  o The "fc" builtin has been enhanced to make non-interactive use
+    possible and output consistent when the history is manipulated
+    with "print -s".
+  o The completion style accept-exact-dirs has been added
+  o cd, chdir, pushd and popd now take a -q option to suppress side effects
+- cleanup patches
+- use fdupes
+- install help files to versioned directory
+
+-------------------------------------------------------------------
 Fri Apr 24 14:15:13 CEST 2009 - hmacht@suse.de
 
 - add completion for osc (_osc)
