@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Aug 20 10:51:55 UTC 2009 - hvogel@novell.com
+
+- Fix zshrc. Lost some features by not including bash.bashrc
+
+-------------------------------------------------------------------
 Wed Aug  5 16:58:50 CEST 2009 - hvogel@suse.de
 
 - update to version 4.3.10
