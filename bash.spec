@@ -28,7 +28,7 @@ Recommends:     bash-lang = %bash_vers
 Suggests:       command-not-found
 AutoReqProv:    on
 Version:        4.0
-Release:        13
+Release:        14
 Summary:        The GNU Bourne-Again Shell
 Url:            http://www.gnu.org/software/bash/bash.html
 Source0:        ftp://ftp.gnu.org/gnu/bash/bash-%{bash_vers}.tar.bz2
@@ -60,7 +60,6 @@ Patch22:        readline-6.0-wrap.patch
 Patch23:        readline-5.2-conf.patch
 Patch30:        readline-6.0-destdir.patch
 Patch40:        bash-4.0.10-typo.patch
-Patch41:        bash-4.0.24-globstar-nulldir.patch
 Patch42:        bash-4.0.24-acl.dif
 Patch43:        bash-4.0.24-memleak-read.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -91,7 +90,7 @@ Group:          Documentation/Man
 Provides:       bash:%{_infodir}/bash.info.gz
 PreReq:         %install_info_prereq
 Version:        4.0
-Release:        13
+Release:        14
 AutoReqProv:    on
 
 %description -n bash-doc
@@ -111,7 +110,7 @@ License:        GPL v2 or later
 Summary:        Include Files mandatory for Development of bash loadable builtins
 Group:          Development/Languages/C and C++
 Version:        4.0
-Release:        2
+Release:        3
 AutoReqProv:    on
 
 %description -n bash-devel
@@ -131,7 +130,7 @@ License:        GPL v2 or later
 Summary:        Loadable bash builtins
 Group:          System/Shells
 Version:        4.0
-Release:        2
+Release:        3
 AutoReqProv:    on
 
 %description -n bash-loadables
@@ -200,7 +199,7 @@ Summary:        The Readline Library
 Group:          System/Libraries
 Provides:       bash:/%{_lib}/libreadline.so.%{rl_major}
 Version:        6.0
-Release:        13
+Release:        14
 Recommends:     readline-doc = %{version}
 # bug437293
 %ifarch ppc64
@@ -229,7 +228,7 @@ Summary:        Include Files and Libraries mandatory for Development
 Group:          Development/Libraries/C and C++
 Provides:       bash:%{_libdir}/libreadline.a
 Version:        6.0
-Release:        13
+Release:        14
 Requires:       libreadline6 = %{version}
 Requires:       ncurses-devel
 Recommends:     readline-doc = %{version}
@@ -258,7 +257,7 @@ Group:          System/Libraries
 Provides:       readline:%{_infodir}/readline.info.gz
 PreReq:         %install_info_prereq
 Version:        6.0
-Release:        13
+Release:        14
 AutoReqProv:    on
 
 %description -n readline-doc
@@ -298,7 +297,6 @@ unset p
 %patch22 -p0 -b .wrap
 %patch23 -p0 -b .conf
 %patch40 -p0 -b .typo
-%patch41 -p0 -b .globstar
 %patch42 -p0 -b .acl
 %patch43 -p0 -b .leak
 %patch0  -p0
