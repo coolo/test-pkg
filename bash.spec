@@ -47,7 +47,6 @@ Patch4:         bash-3.0-evalexp.patch
 Patch5:         bash-3.0-warn-locale.patch
 Patch6:         bash-3.0-nfs_redir.patch
 Patch7:         bash-3.0-decl.patch
-Patch8:         bash-4.0-async-bnc523667.dif
 Patch9:         bash-4.0-extended_quote.patch
 Patch10:        bash-3.2-printf.patch
 Patch11:        bash-4.0-loadables.dif
@@ -62,6 +61,7 @@ Patch23:        readline-5.2-conf.patch
 Patch30:        readline-6.0-destdir.patch
 Patch40:        bash-4.0.10-typo.patch
 Patch42:        bash-4.0.24-acl.dif
+Patch43:        bash-4.0.24-memleak-read.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
@@ -286,7 +286,6 @@ unset p
 %patch5  -p0 -b .warnlc
 %patch6  -p0 -b .nfs_redir
 %patch7  -p0 -b .decl
-%patch8  -p0 -b .async
 %patch9  -p0 -b .extended_quote
 %patch10 -p0 -b .printf
 %patch11 -p0 -b .plugins
@@ -299,6 +298,7 @@ unset p
 %patch23 -p0 -b .conf
 %patch40 -p0 -b .typo
 %patch42 -p0 -b .acl
+%patch43 -p0 -b .leak
 %patch0  -p0
 cd ../readline-%{rl_vers}
 for p in ../readline-%{rl_vers}-patches/*; do
