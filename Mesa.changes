@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Sep  4 00:02:13 CEST 2009 - sndirsch@suse.de
+
+- Mesa 7.5.1 
+  * bug-fix release fixing issues found since the 7.5 release.  
+
+-------------------------------------------------------------------
 Sun Aug  2 21:48:08 UTC 2009 - jansimon.moeller@opensuse.org
 
 - add ARM variant to configure 
