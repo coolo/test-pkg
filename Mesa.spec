@@ -33,7 +33,7 @@ Obsoletes:      Mesa-64bit
 %endif
 #
 Version:        7.5.1
-Release:        1
+Release:        2
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -206,9 +206,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/include/GL/wmesa.h
 /usr/include/GL/internal/dri_interface.h
 /usr/include/GL/wglext.h
-/usr/include/GL/glew.h
-/usr/include/GL/glxew.h
-/usr/include/GL/wglew.h
+%exclude /usr/include/GL/glew.h
+%exclude /usr/include/GL/glxew.h
+%exclude /usr/include/GL/wglew.h
 /usr/%{_lib}/libGLU.so
 /usr/%{_lib}/libOSMesa.so
 /usr/%{_lib}/libEGL.so

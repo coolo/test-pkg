@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Sep 11 15:21:56 CEST 2009 - sndirsch@suse.de
+
+- no longer package glew headers in Mesa-devel, which caused file
+  conflicts with glew-devel (bnc #538344)
+
+-------------------------------------------------------------------
 Fri Sep  4 00:02:13 CEST 2009 - sndirsch@suse.de
 
 - Mesa 7.5.1 
