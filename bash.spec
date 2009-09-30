@@ -28,7 +28,7 @@ Recommends:     bash-lang = %bash_vers
 Suggests:       command-not-found
 AutoReqProv:    on
 Version:        4.0
-Release:        15
+Release:        16
 Summary:        The GNU Bourne-Again Shell
 Url:            http://www.gnu.org/software/bash/bash.html
 Source0:        ftp://ftp.gnu.org/gnu/bash/bash-%{bash_vers}.tar.bz2
@@ -47,6 +47,7 @@ Patch4:         bash-3.0-evalexp.patch
 Patch5:         bash-3.0-warn-locale.patch
 Patch6:         bash-3.0-nfs_redir.patch
 Patch7:         bash-3.0-decl.patch
+Patch8:         bash-4.0-async-bnc523667.dif
 Patch9:         bash-4.0-extended_quote.patch
 Patch10:        bash-3.2-printf.patch
 Patch11:        bash-4.0-loadables.dif
@@ -58,10 +59,10 @@ Patch20:        readline-%{rl_vers}.dif
 Patch21:        readline-4.3-input.dif
 Patch22:        readline-6.0-wrap.patch
 Patch23:        readline-5.2-conf.patch
+Patch24:        readline-6.0-metamode.patch
 Patch30:        readline-6.0-destdir.patch
 Patch40:        bash-4.0.10-typo.patch
 Patch42:        bash-4.0.24-acl.dif
-Patch43:        bash-4.0.24-memleak-read.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
@@ -90,7 +91,7 @@ Group:          Documentation/Man
 Provides:       bash:%{_infodir}/bash.info.gz
 PreReq:         %install_info_prereq
 Version:        4.0
-Release:        15
+Release:        16
 AutoReqProv:    on
 
 %description -n bash-doc
@@ -110,7 +111,7 @@ License:        GPL v2 or later
 Summary:        Include Files mandatory for Development of bash loadable builtins
 Group:          Development/Languages/C and C++
 Version:        4.0
-Release:        4
+Release:        5
 AutoReqProv:    on
 
 %description -n bash-devel
@@ -130,7 +131,7 @@ License:        GPL v2 or later
 Summary:        Loadable bash builtins
 Group:          System/Shells
 Version:        4.0
-Release:        4
+Release:        5
 AutoReqProv:    on
 
 %description -n bash-loadables
@@ -199,7 +200,7 @@ Summary:        The Readline Library
 Group:          System/Libraries
 Provides:       bash:/%{_lib}/libreadline.so.%{rl_major}
 Version:        6.0
-Release:        15
+Release:        16
 Recommends:     readline-doc = %{version}
 # bug437293
 %ifarch ppc64
@@ -228,7 +229,7 @@ Summary:        Include Files and Libraries mandatory for Development
 Group:          Development/Libraries/C and C++
 Provides:       bash:%{_libdir}/libreadline.a
 Version:        6.0
-Release:        15
+Release:        16
 Requires:       libreadline6 = %{version}
 Requires:       ncurses-devel
 Recommends:     readline-doc = %{version}
@@ -257,7 +258,7 @@ Group:          System/Libraries
 Provides:       readline:%{_infodir}/readline.info.gz
 PreReq:         %install_info_prereq
 Version:        6.0
-Release:        15
+Release:        16
 AutoReqProv:    on
 
 %description -n readline-doc
@@ -286,6 +287,7 @@ unset p
 %patch5  -p0 -b .warnlc
 %patch6  -p0 -b .nfs_redir
 %patch7  -p0 -b .decl
+%patch8  -p0 -b .async
 %patch9  -p0 -b .extended_quote
 %patch10 -p0 -b .printf
 %patch11 -p0 -b .plugins
@@ -296,9 +298,9 @@ unset p
 %patch21 -p0 -b .zerotty
 %patch22 -p0 -b .wrap
 %patch23 -p0 -b .conf
+%patch24 -p0 -b .metamode
 %patch40 -p0 -b .typo
 %patch42 -p0 -b .acl
-%patch43 -p0 -b .leak
 %patch0  -p0
 cd ../readline-%{rl_vers}
 for p in ../readline-%{rl_vers}-patches/*; do
@@ -309,6 +311,7 @@ done
 %patch21 -p2 -b .zerotty
 %patch22 -p2 -b .wrap
 %patch23 -p2 -b .conf
+%patch24 -p2 -b .metamode
 %patch30 -p0 -b .destdir
 %patch20 -p0
 
