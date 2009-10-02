@@ -59,7 +59,6 @@ Patch20:        readline-%{rl_vers}.dif
 Patch21:        readline-4.3-input.dif
 Patch22:        readline-6.0-wrap.patch
 Patch23:        readline-5.2-conf.patch
-Patch24:        readline-6.0-metamode.patch
 Patch30:        readline-6.0-destdir.patch
 Patch40:        bash-4.0.10-typo.patch
 Patch42:        bash-4.0.24-acl.dif
@@ -298,7 +297,6 @@ unset p
 %patch21 -p0 -b .zerotty
 %patch22 -p0 -b .wrap
 %patch23 -p0 -b .conf
-%patch24 -p0 -b .metamode
 %patch40 -p0 -b .typo
 %patch42 -p0 -b .acl
 %patch0  -p0
@@ -311,7 +309,6 @@ done
 %patch21 -p2 -b .zerotty
 %patch22 -p2 -b .wrap
 %patch23 -p2 -b .conf
-%patch24 -p2 -b .metamode
 %patch30 -p0 -b .destdir
 %patch20 -p0
 
