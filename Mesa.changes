@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Oct  7 16:32:46 UTC 2009 - mhopf@novell.com
+
+- Add -DNDEBUG to CFLAGS.
+  It's unfortunate, but a few newly added assert()s for testing memory leaks
+  trigger in this release. But having memory leaks is less problematic than
+  crashing compiz.
+
+-------------------------------------------------------------------
 Tue Sep 29 21:33:56 CEST 2009 - sndirsch@suse.de
 
 - Mesa 7.6
