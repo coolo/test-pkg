@@ -33,7 +33,7 @@ Obsoletes:      Mesa-64bit
 %endif
 #
 Version:        7.6
-Release:        1
+Release:        2
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -139,7 +139,8 @@ autoreconf -fi
 %ifarch %arm
            --with-dri-drivers=swrast \
 %endif
-           --disable-glut
+           --disable-glut \
+	   CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
 make -C src/gallium/state_trackers/dri
 gmake
 make install DESTDIR=$RPM_BUILD_ROOT
@@ -149,7 +150,8 @@ make realclean
            --disable-glu \
            --disable-glw \
            --disable-glut \
-           --disable-gallium
+           --disable-gallium \
+	   CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
 sed -i 's/GL_LIB = .*/GL_LIB = IndirectGL/g' configs/autoconf
 gmake 
 cp -a %{_lib}/libIndirectGL.so.* %{_lib}/libOSMesa.so* \
