@@ -48,8 +48,6 @@ Patch2:         %{name}-%{version}-run-help_pager.patch
 Patch3:         zsh-cleanup.patch
 Summary:        Shell with comprehensive completion
 
-%define do_profiling 0
-
 %description
 Zsh is a UNIX command interpreter (shell) that resembles the Korn shell
 (ksh). It is not completely compatible. It includes many enhancements,
