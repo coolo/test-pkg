@@ -20,7 +20,7 @@
 
 Name:           zsh
 Version:        4.3.10
-Release:        2
+Release:        3
 License:        Other uncritical OpenSource License
 Group:          System/Shells
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -47,6 +47,7 @@ Patch1:         %{name}-%{version}-doc_intro_paths.patch
 Patch2:         %{name}-%{version}-run-help_pager.patch
 Patch3:         zsh-cleanup.patch
 Summary:        Shell with comprehensive completion
+%define do_profiling 0
 
 %description
 Zsh is a UNIX command interpreter (shell) that resembles the Korn shell
