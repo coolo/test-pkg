@@ -1,5 +1,5 @@
 #
-# spec file for package Mesa (Version 7.6)
+# spec file for package Mesa (Version 7.7)
 #
 # Copyright (c) 2009 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
@@ -32,11 +32,11 @@ Obsoletes:      XFree86-Mesa-64bit
 Obsoletes:      Mesa-64bit
 %endif
 #
-Version:        7.6
-Release:        2
+Version:        7.7
+Release:        1
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
-Source:         MesaLib-%{version}.tar.bz2
-Source1:        MesaDemos-%{version}.tar.bz2
+Source:         MesaLib-%{version}-rc1-devel.tar.bz2
+Source1:        MesaDemos-%{version}-rc1-devel.tar.bz2
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source5:        drirc
@@ -103,7 +103,7 @@ Authors:
     Brian Paul
 
 %prep
-%setup -n %{name}-%{version} -b1 -b4
+%setup -n %{name}-%{version}-devel -b1 -b4
 # make legal department happy (Bug #204110)
 test -f src/mesa/drivers/directfb/idirectfbgl_mesa.c && exit 1
 test -f progs/ggi/asc-view.c && exit 1
@@ -127,11 +127,11 @@ autoreconf -fi
 %configure --disable-glw \
            --with-driver=dri \
 %ifarch %ix86 x86_64
-           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,s3v,sis,tdfx,trident,unichrome,ffb,swrast \
+           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,sis,tdfx,unichrome,ffb,swrast \
            --enable-gallium-nouveau \
 %endif
 %ifarch ppc
-           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,s3v,tdfx,trident,unichrome,ffb,swrast \
+           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,tdfx,unichrome,ffb,swrast \
 %endif
 %ifarch s390 s390x
            --with-dri-drivers=swrast \
