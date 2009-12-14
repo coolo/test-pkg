@@ -19,7 +19,7 @@
 
 Name:           bash
 BuildRequires:  bison fdupes ncurses-devel
-License:        GPL v2 or later
+License:        GPLv2+
 Group:          System/Shells
 %define         bash_vers 4.0
 %define         rl_vers   6.0
@@ -28,7 +28,7 @@ Recommends:     bash-lang = %bash_vers
 Suggests:       command-not-found
 AutoReqProv:    on
 Version:        4.0
-Release:        17
+Release:        18
 Summary:        The GNU Bourne-Again Shell
 Url:            http://www.gnu.org/software/bash/bash.html
 Source0:        ftp://ftp.gnu.org/gnu/bash/bash-%{bash_vers}.tar.bz2
@@ -39,6 +39,7 @@ Source4:        run-tests
 Source5:        dot.bashrc
 Source6:        dot.profile
 Source7:        bash-rpmlintrc
+Source8:	baselibs.conf
 Patch0:         bash-%{bash_vers}.dif
 Patch1:         bash-2.03-manual.patch
 Patch2:         bash-4.0-security.patch
@@ -85,13 +86,13 @@ Authors:
     Chet Ramey <chet@ins.cwru.edu>
 
 %package -n bash-doc
-License:        GPL v2 or later
+License:        GPLv2+
 Summary:        Documentation how to Use the GNU Bourne-Again Shell
 Group:          Documentation/Man
 Provides:       bash:%{_infodir}/bash.info.gz
 PreReq:         %install_info_prereq
 Version:        4.0
-Release:        17
+Release:        18
 AutoReqProv:    on
 
 %description -n bash-doc
@@ -107,11 +108,11 @@ Authors:
 
 %lang_package(bash)
 %package -n bash-devel
-License:        GPL v2 or later
+License:        GPLv2+
 Summary:        Include Files mandatory for Development of bash loadable builtins
 Group:          Development/Languages/C and C++
 Version:        4.0
-Release:        6
+Release:        7
 AutoReqProv:    on
 
 %description -n bash-devel
@@ -127,11 +128,11 @@ Authors:
     Chet Ramey <chet@ins.cwru.edu>
 
 %package -n bash-loadables
-License:        GPL v2 or later
+License:        GPLv2+
 Summary:        Loadable bash builtins
 Group:          System/Shells
 Version:        4.0
-Release:        6
+Release:        7
 AutoReqProv:    on
 
 %description -n bash-loadables
@@ -195,12 +196,12 @@ Authors:
     Chet Ramey <chet@ins.cwru.edu>
 
 %package -n libreadline6
-License:        GPL v2 or later
+License:        GPLv2+
 Summary:        The Readline Library
 Group:          System/Libraries
 Provides:       bash:/%{_lib}/libreadline.so.%{rl_major}
 Version:        6.0
-Release:        17
+Release:        18
 Recommends:     readline-doc = %{version}
 # bug437293
 %ifarch ppc64
@@ -224,12 +225,12 @@ Authors:
     Chet Ramey <chet@ins.cwru.edu>
 
 %package -n readline-devel
-License:        GPL v2 or later
+License:        GPLv2+
 Summary:        Include Files and Libraries mandatory for Development
 Group:          Development/Libraries/C and C++
 Provides:       bash:%{_libdir}/libreadline.a
 Version:        6.0
-Release:        17
+Release:        18
 Requires:       libreadline6 = %{version}
 Requires:       ncurses-devel
 Recommends:     readline-doc = %{version}
@@ -252,13 +253,13 @@ Authors:
     Chet Ramey <chet@ins.cwru.edu>
 
 %package -n readline-doc
-License:        GPL v2 or later
+License:        GPLv2+
 Summary:        Documentation how to Use and Program with the Readline Library
 Group:          System/Libraries
 Provides:       readline:%{_infodir}/readline.info.gz
 PreReq:         %install_info_prereq
 Version:        6.0
-Release:        17
+Release:        18
 AutoReqProv:    on
 
 %description -n readline-doc
