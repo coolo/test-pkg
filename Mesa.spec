@@ -37,6 +37,7 @@ Release:        2
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}-rc2.tar.bz2
 Source1:        MesaDemos-%{version}-rc2.tar.bz2
+Source2:	baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source5:        drirc
@@ -130,7 +131,7 @@ autoreconf -fi
            --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,sis,tdfx,unichrome,ffb,swrast \
            --enable-gallium-nouveau \
 %endif
-%ifarch ppc
+%ifarch ppc %sparc
            --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,tdfx,unichrome,ffb,swrast \
 %endif
 %ifarch s390 s390x
@@ -141,8 +142,8 @@ autoreconf -fi
 %endif
            --disable-glut \
 	   CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
-make -C src/gallium/state_trackers/dri
-gmake
+make %{?jobs:-j%jobs} -C src/gallium/state_trackers/dri
+gmake %{?jobs:-j%jobs};
 make install DESTDIR=$RPM_BUILD_ROOT
 # build and install Indirect Rendering only libGL
 make realclean
@@ -153,13 +154,13 @@ make realclean
            --disable-gallium \
 	   CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
 sed -i 's/GL_LIB = .*/GL_LIB = IndirectGL/g' configs/autoconf
-gmake 
+gmake %{?jobs:-j%jobs};
 cp -a %{_lib}/libIndirectGL.so.* %{_lib}/libOSMesa.so* \
   $RPM_BUILD_ROOT/usr/%{_lib}
 for dir in ../xc/doc/man/{GL/gl,GL/glx,GLU}; do
 pushd $dir
   xmkmf -a
-  make
+  make %{?jobs:-j%jobs};
   make install.man DESTDIR=$RPM_BUILD_ROOT MANPATH=%{_mandir} LIBMANSUFFIX=3gl
 popd
 done
