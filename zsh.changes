@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Dec  2 18:14:17 UTC 2009 - coolo@novell.com
+
+- update patch to apply with fuzz=0
+
+-------------------------------------------------------------------
 Thu Oct  8 16:22:43 UTC 2009 - coolo@novell.com
 
 - disable profiling for now
