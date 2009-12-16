@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Dec 15 21:21:51 CET 2009 - jengelh@medozas.de
+
+- add baselibs.conf as a source
+- enable parallel building
+- build drivers for SPARC
+
+-------------------------------------------------------------------
 Tue Dec  8 03:53:06 CET 2009 - sndirsch@suse.de
 
 - Mesa 7.7 RC2
