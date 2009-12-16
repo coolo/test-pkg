@@ -39,7 +39,6 @@ Source4:        run-tests
 Source5:        dot.bashrc
 Source6:        dot.profile
 Source7:        bash-rpmlintrc
-Source8:	baselibs.conf
 Patch0:         bash-%{bash_vers}.dif
 Patch1:         bash-2.03-manual.patch
 Patch2:         bash-4.0-security.patch
