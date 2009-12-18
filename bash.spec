@@ -94,7 +94,6 @@ PreReq:         %install_info_prereq
 Version:        4.0
 Release:        19
 AutoReqProv:    on
-BuildArch:	noarch
 
 %description -n bash-doc
 This package contains the documentation for using the bourne shell
@@ -262,7 +261,6 @@ PreReq:         %install_info_prereq
 Version:        6.0
 Release:        19
 AutoReqProv:    on
-BuildArch:	noarch
 
 %description -n readline-doc
 This package contains the documentation for using the readline library
