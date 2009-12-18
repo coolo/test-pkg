@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Dec 18 21:29:08 CET 2009 - sndirsch@suse.de
+
+- Mesa 7.7 RC3
+  * more bug fixes
+
+-------------------------------------------------------------------
 Tue Dec 15 21:21:51 CET 2009 - jengelh@medozas.de
 
 - add baselibs.conf as a source
