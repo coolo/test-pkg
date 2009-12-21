@@ -33,10 +33,10 @@ Obsoletes:      Mesa-64bit
 %endif
 #
 Version:        7.7
-Release:        3
+Release:        4
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
-Source:         MesaLib-%{version}-rc2.tar.bz2
-Source1:        MesaDemos-%{version}-rc2.tar.bz2
+Source:         MesaLib-%{version}-rc3.tar.bz2
+Source1:        MesaDemos-%{version}-rc3.tar.bz2
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
@@ -104,7 +104,7 @@ Authors:
     Brian Paul
 
 %prep
-%setup -n %{name}-%{version}-rc2 -b1 -b4
+%setup -n %{name}-%{version} -b1 -b4
 # make legal department happy (Bug #204110)
 test -f src/mesa/drivers/directfb/idirectfbgl_mesa.c && exit 1
 test -f progs/ggi/asc-view.c && exit 1
