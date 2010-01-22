@@ -42,6 +42,7 @@ Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source5:        drirc
 Patch1:         dri_driver_dir.diff
+Patch2:         spantmp2_h_ppc_build_fix.diff
 Patch6:         link-shared.diff
 Patch7:         disable_gem_warning.diff
 Patch15:        Mesa_indirect_old_xserver_compatibility.diff
@@ -113,6 +114,7 @@ rm -rf src/glut progs/{demos,redbook,samples,xdemos,glsl}
 # we use freeglut
 rm -f include/GL/{glut.h,uglglutshapes.h,glutf90.h}
 %patch1
+%patch2
 sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
 ### FIXME
 #%patch6
