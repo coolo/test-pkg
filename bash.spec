@@ -1,7 +1,7 @@
 #
 # spec file for package bash (Version 4.0)
 #
-# Copyright (c) 2009 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2010 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -21,14 +21,14 @@ Name:           bash
 BuildRequires:  bison fdupes ncurses-devel
 License:        GPLv2+
 Group:          System/Shells
-%define         bash_vers 4.0
-%define         rl_vers   6.0
+%define         bash_vers 4.1
+%define         rl_vers   6.1
 Recommends:     bash-doc = %bash_vers
 Recommends:     bash-lang = %bash_vers
 Suggests:       command-not-found
 AutoReqProv:    on
-Version:        4.0
-Release:        20
+Version:        4.1
+Release:        1
 Summary:        The GNU Bourne-Again Shell
 Url:            http://www.gnu.org/software/bash/bash.html
 Source0:        ftp://ftp.gnu.org/gnu/bash/bash-%{bash_vers}.tar.bz2
@@ -46,7 +46,6 @@ Patch2:         bash-4.0-security.patch
 Patch3:         bash-3.2-2.4.4.patch
 Patch4:         bash-3.0-evalexp.patch
 Patch5:         bash-3.0-warn-locale.patch
-Patch6:         bash-3.0-nfs_redir.patch
 Patch7:         bash-3.0-decl.patch
 Patch8:         bash-4.0-async-bnc523667.dif
 Patch9:         bash-4.0-extended_quote.patch
@@ -58,12 +57,11 @@ Patch16:        bash-4.0-setlocale.dif
 Patch17:        bash-4.0-headers.dif
 Patch20:        readline-%{rl_vers}.dif
 Patch21:        readline-4.3-input.dif
-Patch22:        readline-6.0-wrap.patch
+Patch22:        readline-6.1-wrap.patch
 Patch23:        readline-5.2-conf.patch
 Patch24:        readline-6.0-metamode.patch
-Patch30:        readline-6.0-destdir.patch
-Patch40:        bash-4.0.10-typo.patch
-Patch42:        bash-4.0.24-acl.dif
+Patch30:        readline-6.1-destdir.patch
+Patch41:        bash-4.1-intr.dif
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
@@ -91,10 +89,12 @@ Summary:        Documentation how to Use the GNU Bourne-Again Shell
 Group:          Documentation/Man
 Provides:       bash:%{_infodir}/bash.info.gz
 PreReq:         %install_info_prereq
-Version:        4.0
+Version:        4.1
 Release:        20
 AutoReqProv:    on
+%if %suse_version > 1120
 BuildArch:      noarch
+%endif
 
 %description -n bash-doc
 This package contains the documentation for using the bourne shell
@@ -112,7 +112,7 @@ Authors:
 License:        GPLv2+
 Summary:        Include Files mandatory for Development of bash loadable builtins
 Group:          Development/Languages/C and C++
-Version:        4.0
+Version:        4.1
 Release:        9
 AutoReqProv:    on
 
@@ -132,7 +132,7 @@ Authors:
 License:        GPLv2+
 Summary:        Loadable bash builtins
 Group:          System/Shells
-Version:        4.0
+Version:        4.1
 Release:        9
 AutoReqProv:    on
 
@@ -201,7 +201,7 @@ License:        GPLv2+
 Summary:        The Readline Library
 Group:          System/Libraries
 Provides:       bash:/%{_lib}/libreadline.so.%{rl_major}
-Version:        6.0
+Version:        6.1
 Release:        20
 Recommends:     readline-doc = %{version}
 # bug437293
@@ -209,7 +209,7 @@ Recommends:     readline-doc = %{version}
 Obsoletes:      readline-64bit
 %endif
 #
-Provides:       readline =  6.0
+Provides:       readline =  6.1
 Obsoletes:      readline <= 6.0
 AutoReqProv:    on
 
@@ -230,7 +230,7 @@ License:        GPLv2+
 Summary:        Include Files and Libraries mandatory for Development
 Group:          Development/Libraries/C and C++
 Provides:       bash:%{_libdir}/libreadline.a
-Version:        6.0
+Version:        6.1
 Release:        20
 Requires:       libreadline6 = %{version}
 Requires:       ncurses-devel
@@ -259,10 +259,12 @@ Summary:        Documentation how to Use and Program with the Readline Library
 Group:          System/Libraries
 Provides:       readline:%{_infodir}/readline.info.gz
 PreReq:         %install_info_prereq
-Version:        6.0
+Version:        6.1
 Release:        20
 AutoReqProv:    on
+%if %suse_version > 1120
 BuildArch:      noarch
+%endif
 
 %description -n readline-doc
 This package contains the documentation for using the readline library
@@ -288,7 +290,6 @@ unset p
 %patch3  -p0 -b .2.4.4
 %patch4  -p0 -b .evalexp
 %patch5  -p0 -b .warnlc
-%patch6  -p0 -b .nfs_redir
 %patch7  -p0 -b .decl
 %patch8  -p0 -b .async
 %patch9  -p0 -b .extended_quote
@@ -302,8 +303,7 @@ unset p
 %patch22 -p0 -b .wrap
 %patch23 -p0 -b .conf
 %patch24 -p0 -b .metamode
-%patch40 -p0 -b .typo
-%patch42 -p0 -b .acl
+%patch41 -p0 -b .intr
 %patch0  -p0
 cd ../readline-%{rl_vers}
 for p in ../readline-%{rl_vers}-patches/*; do
