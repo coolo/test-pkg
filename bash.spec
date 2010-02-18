@@ -61,6 +61,7 @@ Patch22:        readline-6.1-wrap.patch
 Patch23:        readline-5.2-conf.patch
 Patch24:        readline-6.0-metamode.patch
 Patch30:        readline-6.1-destdir.patch
+Patch40:        bash-4.1-bash.bashrc.dif
 Patch41:        bash-4.1-intr.dif
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
@@ -303,6 +304,7 @@ unset p
 %patch22 -p0 -b .wrap
 %patch23 -p0 -b .conf
 %patch24 -p0 -b .metamode
+%patch40 -p0 -b .bashrc
 %patch41 -p0 -b .intr
 %patch0  -p0
 cd ../readline-%{rl_vers}
