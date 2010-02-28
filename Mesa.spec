@@ -17,6 +17,7 @@
 
 # norootforbuild
 
+%define enable_nouveau 0
 
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
@@ -131,7 +132,9 @@ autoreconf -fi
            --with-driver=dri \
 %ifarch %ix86 x86_64
            --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,sis,tdfx,unichrome,ffb,swrast \
+%if %enable_nouveau
            --enable-gallium-nouveau \
+%endif
 %endif
 %ifarch ppc %sparc
            --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,tdfx,unichrome,ffb,swrast \
