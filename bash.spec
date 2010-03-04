@@ -63,7 +63,6 @@ Patch24:        readline-6.0-metamode.patch
 Patch30:        readline-6.1-destdir.patch
 Patch40:        bash-4.1-bash.bashrc.dif
 Patch41:        bash-4.1-intr.dif
-Patch42:        bash-4.1-non_void.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
@@ -307,7 +306,6 @@ unset p
 %patch24 -p0 -b .metamode
 %patch40 -p0 -b .bashrc
 %patch41 -p0 -b .intr
-%patch42 -p0 -b .non_void
 %patch0  -p0
 cd ../readline-%{rl_vers}
 for p in ../readline-%{rl_vers}-patches/*; do
