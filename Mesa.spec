@@ -17,6 +17,7 @@
 
 # norootforbuild
 
+%define enable_nouveau 0
 
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
@@ -33,7 +34,7 @@ Obsoletes:      Mesa-64bit
 %endif
 #
 Version:        7.7
-Release:        6
+Release:        7
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{version}.tar.bz2
 Source1:        MesaDemos-%{version}.tar.bz2
@@ -131,7 +132,9 @@ autoreconf -fi
            --with-driver=dri \
 %ifarch %ix86 x86_64
            --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,sis,tdfx,unichrome,ffb,swrast \
+%if %enable_nouveau
            --enable-gallium-nouveau \
+%endif
 %endif
 %ifarch ppc %sparc
            --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,tdfx,unichrome,ffb,swrast \
