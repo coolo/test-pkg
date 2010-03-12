@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Tue Mar  9 11:50:17 CET 2010 - hmacht@suse.de
+
+- update completion for _osc:
+  - add new products openSUSE 11.2 and openSUSE 11.3
+  - add possibility to extend the list of projects and build
+    targets with user defined variables
+    $ZSH_OSC_BUILD_TARGETS_EXTRA and $ZSH_OSC_PROJECTS_EXTRA
+
+-------------------------------------------------------------------
 Wed Dec  2 18:14:17 UTC 2009 - coolo@novell.com
 
 - update patch to apply with fuzz=0
