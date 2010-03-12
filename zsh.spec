@@ -1,7 +1,7 @@
 #
 # spec file for package zsh (Version 4.3.10)
 #
-# Copyright (c) 2009 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2010 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -20,7 +20,7 @@
 
 Name:           zsh
 Version:        4.3.10
-Release:        4
+Release:        5
 License:        Other uncritical OpenSource License
 Group:          System/Shells
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
