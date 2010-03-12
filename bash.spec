@@ -28,7 +28,7 @@ Recommends:     bash-lang = %bash_vers
 Suggests:       command-not-found
 AutoReqProv:    on
 Version:        4.1
-Release:        3
+Release:        4
 Summary:        The GNU Bourne-Again Shell
 Url:            http://www.gnu.org/software/bash/bash.html
 Source0:        ftp://ftp.gnu.org/gnu/bash/bash-%{bash_vers}.tar.bz2
@@ -93,7 +93,7 @@ Group:          Documentation/Man
 Provides:       bash:%{_infodir}/bash.info.gz
 PreReq:         %install_info_prereq
 Version:        4.1
-Release:        3
+Release:        4
 AutoReqProv:    on
 %if %suse_version > 1120
 BuildArch:      noarch
@@ -116,7 +116,7 @@ License:        GPLv2+
 Summary:        Include Files mandatory for Development of bash loadable builtins
 Group:          Development/Languages/C and C++
 Version:        4.1
-Release:        3
+Release:        4
 AutoReqProv:    on
 
 %description -n bash-devel
@@ -136,7 +136,7 @@ License:        GPLv2+
 Summary:        Loadable bash builtins
 Group:          System/Shells
 Version:        4.1
-Release:        3
+Release:        4
 AutoReqProv:    on
 
 %description -n bash-loadables
@@ -205,7 +205,7 @@ Summary:        The Readline Library
 Group:          System/Libraries
 Provides:       bash:/%{_lib}/libreadline.so.%{rl_major}
 Version:        6.1
-Release:        3
+Release:        4
 Recommends:     readline-doc = %{version}
 # bug437293
 %ifarch ppc64
@@ -234,7 +234,7 @@ Summary:        Include Files and Libraries mandatory for Development
 Group:          Development/Libraries/C and C++
 Provides:       bash:%{_libdir}/libreadline.a
 Version:        6.1
-Release:        3
+Release:        4
 Requires:       libreadline6 = %{version}
 Requires:       ncurses-devel
 Recommends:     readline-doc = %{version}
@@ -263,7 +263,7 @@ Group:          System/Libraries
 Provides:       readline:%{_infodir}/readline.info.gz
 PreReq:         %install_info_prereq
 Version:        6.1
-Release:        3
+Release:        4
 AutoReqProv:    on
 %if %suse_version > 1120
 BuildArch:      noarch
