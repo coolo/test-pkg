@@ -51,7 +51,6 @@ Patch8:         bash-4.0-async-bnc523667.dif
 Patch9:         bash-4.0-extended_quote.patch
 Patch10:        bash-3.2-printf.patch
 Patch11:        bash-4.0-loadables.dif
-Patch12:        bash-4.1-completion.dif
 Patch14:        bash-3.2-sigrestart.patch
 Patch15:        bash-3.2-longjmp.dif
 Patch16:        bash-4.0-setlocale.dif
@@ -298,7 +297,6 @@ unset p
 %patch9  -p0 -b .extended_quote
 %patch10 -p0 -b .printf
 %patch11 -p0 -b .plugins
-%patch12 -p0 -b .completion
 %patch14 -p0 -b .sigrestart
 %patch15 -p0 -b .longjmp
 %patch16 -p0 -b .setlocale
