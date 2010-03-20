@@ -1,5 +1,5 @@
 #
-# spec file for package Mesa (Version 7.7)
+# spec file for package Mesa (Version 7.7.99)
 #
 # Copyright (c) 2010 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
@@ -17,7 +17,7 @@
 
 # norootforbuild
 
-%define enable_nouveau 0
+%define enable_nouveau 1
 
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
@@ -33,20 +33,22 @@ Obsoletes:      XFree86-Mesa-64bit
 Obsoletes:      Mesa-64bit
 %endif
 #
-Version:        7.7
+%define _version 7.8-rc1
+Version:        7.7.99
 Release:        7
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
-Source:         MesaLib-%{version}.tar.bz2
-Source1:        MesaDemos-%{version}.tar.bz2
+Source:         MesaLib-%{_version}.tar.bz2
+Source1:        MesaDemos-%{_version}.tar.bz2
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source5:        drirc
+# add update path for dri drivers
 Patch1:         dri_driver_dir.diff
-Patch2:         spantmp2_h_ppc_build_fix.diff
-Patch6:         link-shared.diff
-Patch7:         disable_gem_warning.diff
-Patch15:        Mesa_indirect_old_xserver_compatibility.diff
+# to be upstreamed
+Patch8:         egl-buildfix.diff
+# from Mesa 7.8 branch
+Patch9:         missing_Makefile.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -106,7 +108,7 @@ Authors:
     Brian Paul
 
 %prep
-%setup -n %{name}-%{version} -b1 -b4
+%setup -n %{name}-%{_version} -b1 -b4 -q
 # make legal department happy (Bug #204110)
 test -f src/mesa/drivers/directfb/idirectfbgl_mesa.c && exit 1
 test -f progs/ggi/asc-view.c && exit 1
@@ -115,29 +117,27 @@ rm -rf src/glut progs/{demos,redbook,samples,xdemos,glsl}
 # we use freeglut
 rm -f include/GL/{glut.h,uglglutshapes.h,glutf90.h}
 %patch1
-%patch2
-sed -i 's/REPLACE/%_lib/g' src/glx/x11/Makefile
-### FIXME
-#%patch6
-%patch7 -p1
-%patch15 -p1
+sed -i 's/REPLACE/%_lib/g' src/glx/Makefile
+sed -i 's/REPLACE/%_lib/g' src/egl/drivers/dri2/Makefile
+%patch8
+%patch9
 
 %build
 
 %install
-rm src/mesa/depend
+rm -f src/mesa/depend
 autoreconf -fi
 ### libGL (disable savage/mga, bnc #402132/#403071)
 %configure --disable-glw \
            --with-driver=dri \
 %ifarch %ix86 x86_64
-           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,sis,tdfx,unichrome,ffb,swrast \
+           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,sis,tdfx,unichrome,swrast \
 %if %enable_nouveau
            --enable-gallium-nouveau \
 %endif
 %endif
 %ifarch ppc %sparc
-           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,tdfx,unichrome,ffb,swrast \
+           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,tdfx,unichrome,swrast \
 %endif
 %ifarch s390 s390x
            --with-dri-drivers=swrast \
@@ -195,12 +195,11 @@ rm -rf $RPM_BUILD_ROOT
 /usr/%{_lib}/libGL.so
 /usr/%{_lib}/lib*.so.*
 /usr/%{_lib}/dri/
+/usr/%{_lib}/egl/
 
 %files devel
 %defattr(-,root,root)
 %doc docs/*.html docs/*.spec
-/usr/include/GL/dmesa.h
-/usr/include/GL/ggimesa.h
 /usr/include/GL/gl_mangle.h
 /usr/include/GL/glfbdev.h
 /usr/include/GL/glu.h
@@ -209,11 +208,12 @@ rm -rf $RPM_BUILD_ROOT
 /usr/include/GL/mesa_wgl.h
 /usr/include/GL/mglmesa.h
 /usr/include/GL/osmesa.h
-/usr/include/GL/svgamesa.h
 /usr/include/GL/vms_x_fix.h
 /usr/include/GL/wmesa.h
 /usr/include/GL/internal/dri_interface.h
 /usr/include/GL/wglext.h
+/usr/include/EGL
+/usr/include/KHR
 %exclude /usr/include/GL/glew.h
 %exclude /usr/include/GL/glxew.h
 %exclude /usr/include/GL/wglew.h
