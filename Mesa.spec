@@ -1,5 +1,5 @@
 #
-# spec file for package Mesa (Version 7.8)
+# spec file for package Mesa (Version 7.8.1)
 #
 # Copyright (c) 2010 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
@@ -33,8 +33,8 @@ Obsoletes:      XFree86-Mesa-64bit
 Obsoletes:      Mesa-64bit
 %endif
 #
-%define _version 7.8
-Version:        7.8
+%define _version 7.8.1
+Version:        7.8.1
 Release:        1
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{_version}.tar.bz2

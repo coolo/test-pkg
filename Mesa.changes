@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Apr  6 02:09:57 CEST 2010 - sndirsch@suse.de
+
+- Mesa 7.8.1
+  * The primary purpose of this release is to fix a significant
+    error in Mesa's copy of glxext.h and the libGL code that uses
+    it. The release also contains some other bug fixes. 
+
+-------------------------------------------------------------------
 Mon Mar 29 14:42:48 CEST 2010 - sndirsch@suse.de
 
 - update to 7.8 final release 
