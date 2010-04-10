@@ -48,7 +48,6 @@ Patch1:         dri_driver_dir.diff
 # to be upstreamed
 Patch8:         egl-buildfix.diff
 # from Mesa 7.8 branch
-Patch9:         missing_Makefile.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -109,9 +108,6 @@ Authors:
 
 %prep
 %setup -n %{name}-%{_version} -b1 -b4 -q
-# make legal department happy (Bug #204110)
-test -f src/mesa/drivers/directfb/idirectfbgl_mesa.c && exit 1
-test -f progs/ggi/asc-view.c && exit 1
 # no need to build (GLUT-)Demos
 rm -rf src/glut progs/{demos,redbook,samples,xdemos,glsl}
 # we use freeglut
@@ -120,7 +116,6 @@ rm -f include/GL/{glut.h,uglglutshapes.h,glutf90.h}
 sed -i 's/REPLACE/%_lib/g' src/glx/Makefile
 sed -i 's/REPLACE/%_lib/g' src/egl/drivers/dri2/Makefile
 %patch8
-%patch9
 
 %build
 
@@ -146,9 +141,8 @@ autoreconf -fi
            --with-dri-drivers=swrast \
 %endif
            --disable-glut \
-	   CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
-make %{?jobs:-j%jobs} -C src/gallium/state_trackers/dri
-gmake %{?jobs:-j%jobs};
+           CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
+make %{?jobs:-j%jobs}
 make install DESTDIR=$RPM_BUILD_ROOT
 # build and install Indirect Rendering only libGL
 make realclean
@@ -157,9 +151,9 @@ make realclean
            --disable-glw \
            --disable-glut \
            --disable-gallium \
-	   CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
+           CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
 sed -i 's/GL_LIB = .*/GL_LIB = IndirectGL/g' configs/autoconf
-gmake %{?jobs:-j%jobs};
+make %{?jobs:-j%jobs}
 cp -a %{_lib}/libIndirectGL.so.* %{_lib}/libOSMesa.so* \
   $RPM_BUILD_ROOT/usr/%{_lib}
 for dir in ../xc/doc/man/{GL/gl,GL/glx,GLU}; do
