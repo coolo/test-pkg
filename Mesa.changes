@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sat Apr 10 22:03:00 CEST 2010 - sndirsch@suse.de
+
+- removed legal check since affected source files no longer exist
+- removed obsolete missing_Makefile.diff 
+- specfile cleanup
+
+-------------------------------------------------------------------
 Tue Apr  6 02:09:57 CEST 2010 - sndirsch@suse.de
 
 - Mesa 7.8.1
