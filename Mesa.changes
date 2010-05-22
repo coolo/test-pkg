@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sat May 22 16:00:55 CEST 2010 - sndirsch@suse.de
+
+- Mesa_indirect_old_xserver_compatibility.diff (revival)
+  Workaround for enabling indirect rendering to older Xservers
+  (bnc #469280, bnc #600672).
+
+-------------------------------------------------------------------
 Sat Apr 10 22:03:00 CEST 2010 - sndirsch@suse.de
 
 - removed legal check since affected source files no longer exist

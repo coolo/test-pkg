@@ -47,7 +47,7 @@ Source5:        drirc
 Patch1:         dri_driver_dir.diff
 # to be upstreamed
 Patch8:         egl-buildfix.diff
-# from Mesa 7.8 branch
+Patch9:         Mesa_indirect_old_xserver_compatibility.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -116,6 +116,7 @@ rm -f include/GL/{glut.h,uglglutshapes.h,glutf90.h}
 sed -i 's/REPLACE/%_lib/g' src/glx/Makefile
 sed -i 's/REPLACE/%_lib/g' src/egl/drivers/dri2/Makefile
 %patch8
+%patch9 -p0
 
 %build
 
