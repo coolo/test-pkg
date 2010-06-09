@@ -35,7 +35,7 @@ Obsoletes:      Mesa-64bit
 #
 %define _version 7.8.1
 Version:        7.8.1
-Release:        3
+Release:        4
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{_version}.tar.bz2
 Source1:        MesaDemos-%{_version}.tar.bz2
@@ -48,6 +48,7 @@ Patch1:         dri_driver_dir.diff
 # to be upstreamed
 Patch8:         egl-buildfix.diff
 Patch9:         Mesa_indirect_old_xserver_compatibility.diff
+Patch10:        mesa-commit-06c72da.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -117,6 +118,7 @@ sed -i 's/REPLACE/%_lib/g' src/glx/Makefile
 sed -i 's/REPLACE/%_lib/g' src/egl/drivers/dri2/Makefile
 %patch8
 %patch9 -p0
+%patch10 -p1
 
 %build
 
