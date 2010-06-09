@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Jun  7 19:27:30 CEST 2010 - sndirsch@suse.de
+
+- mesa-commit-06c72da.diff
+  * intel: Update renderbuffers unconditionally in
+    intelSetTexBuffer2() (bnc #610323)
+
+-------------------------------------------------------------------
 Sat May 22 16:00:55 CEST 2010 - sndirsch@suse.de
 
 - Mesa_indirect_old_xserver_compatibility.diff (revival)
