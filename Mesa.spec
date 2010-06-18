@@ -134,7 +134,7 @@ autoreconf -fi
            --enable-gallium-nouveau \
 %endif
 %endif
-%ifarch ppc %sparc
+%ifarch ppc %sparc hppa
            --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,tdfx,unichrome,swrast \
 %endif
 %ifarch s390 s390x
