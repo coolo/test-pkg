@@ -35,7 +35,7 @@ Obsoletes:      Mesa-64bit
 #
 %define _version 7.8.1
 Version:        7.8.1
-Release:        4
+Release:        5
 Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
 Source:         MesaLib-%{_version}.tar.bz2
 Source1:        MesaDemos-%{_version}.tar.bz2
@@ -134,7 +134,7 @@ autoreconf -fi
            --enable-gallium-nouveau \
 %endif
 %endif
-%ifarch ppc %sparc
+%ifarch ppc %sparc hppa
            --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,tdfx,unichrome,swrast \
 %endif
 %ifarch s390 s390x
