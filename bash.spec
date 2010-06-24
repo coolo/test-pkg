@@ -117,8 +117,18 @@ Authors:
 --------
     Brian Fox <bfox@gnu.org>
     Chet Ramey <chet@ins.cwru.edu>
-
+%if %{defined lang_package}
 %lang_package(bash)
+%else
+%package -n bash-lang
+License:        GPLv2+
+Summary:        Languages for package bash
+Group:          System/Localization
+Provides:       bash-lang = %{version}
+Requires:       bash = %{version}
+%description -n bash-lang
+Provides translations to the package bash
+%endif
 %package -n bash-devel
 License:        GPLv2+
 Summary:        Include Files mandatory for Development of bash loadable builtins
