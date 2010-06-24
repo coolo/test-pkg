@@ -18,7 +18,10 @@
 
 
 Name:           bash
-BuildRequires:  bison fdupes ncurses-devel
+BuildRequires:  bison ncurses-devel
+%if %suse_version > 1020
+BuildRequires:  fdupes
+%endif
 License:        GPLv2+
 Group:          System/Shells
 %define         bash_vers 4.1
@@ -558,7 +561,9 @@ EOF
   touch -t 199605181720.50 %{buildroot}%{_sysconfdir}/skel/.bash_history
   chmod 600                %{buildroot}%{_sysconfdir}/skel/.bash_history
   %find_lang bash
+%if %suse_version > 1020
   %fdupes -s %{buildroot}%{_datadir}/bash/helpfiles
+%endif
 
 %post -n bash-doc
 %install_info --info-dir=%{_infodir} %{_infodir}/bash.info.gz
