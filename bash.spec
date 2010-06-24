@@ -347,13 +347,29 @@ cd ../readline-%{rl_vers}
   cflags ()
   {
       local flag=$1; shift
-      case "${RPM_OPT_FLAGS}" in
+      local var=$1; shift
+      test -n "${flag}" -a -n "${var}" || return
+      case "${!var}" in
       *${flag}*) return
       esac
-      if test -n "$1" && gcc -Werror $flag -S -o /dev/null -xc   /dev/null > /dev/null 2>&1 ; then
-	  local var=$1; shift
-	  eval $var=\${$var:+\$$var\ }$flag
-      fi
+      case "$flag" in
+      -Wl,*)
+	  set -o noclobber
+	  echo 'int main () { return 0; }' > ldtest.c
+	  if ${CC:-gcc} -Werror $flag -o /dev/null -xc ldtest.c > /dev/null 2>&1 ; then
+	      eval $var=\${$var:+\$$var\ }$flag
+	  fi
+	  set +o noclobber
+	  rm -f ldtest.c
+	  ;;
+      *)
+	  if ${CC:-gcc} -Werror $flag -S -o /dev/null -xc /dev/null > /dev/null 2>&1 ; then
+	      eval $var=\${$var:+\$$var\ }$flag
+	  fi
+	  if ${CXX:-g++} -Werror $flag -S -o /dev/null -xc++ /dev/null > /dev/null 2>&1 ; then
+	      eval $var=\${$var:+\$$var\ }$flag
+	  fi
+      esac
   }
   echo 'int main () { return !(sizeof(void*) >= 8); }' | gcc -x c -o test64 -
   if ./test64 ; then
