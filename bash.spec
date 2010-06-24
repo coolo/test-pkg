@@ -28,7 +28,7 @@ Recommends:     bash-lang = %bash_vers
 Suggests:       command-not-found
 AutoReqProv:    on
 Version:        4.1
-Release:        5
+Release:        6
 Summary:        The GNU Bourne-Again Shell
 Url:            http://www.gnu.org/software/bash/bash.html
 Source0:        ftp://ftp.gnu.org/gnu/bash/bash-%{bash_vers}.tar.bz2
@@ -66,6 +66,8 @@ Patch40:        bash-4.1-bash.bashrc.dif
 Patch41:        bash-4.1-intr.dif
 Patch42:        bash-4.1-non_void.patch
 Patch43:        bash-4.1-array.dif
+Patch44:        bash-4.1-pipe.dif
+Patch45:        bash-4.1-edit-parser-state.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
@@ -94,7 +96,7 @@ Group:          Documentation/Man
 Provides:       bash:%{_infodir}/bash.info.gz
 PreReq:         %install_info_prereq
 Version:        4.1
-Release:        5
+Release:        6
 AutoReqProv:    on
 %if %suse_version > 1120
 BuildArch:      noarch
@@ -117,7 +119,7 @@ License:        GPLv2+
 Summary:        Include Files mandatory for Development of bash loadable builtins
 Group:          Development/Languages/C and C++
 Version:        4.1
-Release:        5
+Release:        6
 AutoReqProv:    on
 
 %description -n bash-devel
@@ -137,7 +139,7 @@ License:        GPLv2+
 Summary:        Loadable bash builtins
 Group:          System/Shells
 Version:        4.1
-Release:        5
+Release:        6
 AutoReqProv:    on
 
 %description -n bash-loadables
@@ -206,7 +208,7 @@ Summary:        The Readline Library
 Group:          System/Libraries
 Provides:       bash:/%{_lib}/libreadline.so.%{rl_major}
 Version:        6.1
-Release:        5
+Release:        6
 Recommends:     readline-doc = %{version}
 # bug437293
 %ifarch ppc64
@@ -235,7 +237,7 @@ Summary:        Include Files and Libraries mandatory for Development
 Group:          Development/Libraries/C and C++
 Provides:       bash:%{_libdir}/libreadline.a
 Version:        6.1
-Release:        5
+Release:        6
 Requires:       libreadline6 = %{version}
 Requires:       ncurses-devel
 Recommends:     readline-doc = %{version}
@@ -264,7 +266,7 @@ Group:          System/Libraries
 Provides:       readline:%{_infodir}/readline.info.gz
 PreReq:         %install_info_prereq
 Version:        6.1
-Release:        5
+Release:        6
 AutoReqProv:    on
 %if %suse_version > 1120
 BuildArch:      noarch
@@ -312,6 +314,8 @@ unset p
 %patch41 -p0 -b .intr
 %patch42 -p0 -b .non_void
 %patch43 -p0 -b .array
+%patch44 -p0 -b .pipe
+%patch45 -p0 -b .parser
 %patch0  -p0
 cd ../readline-%{rl_vers}
 for p in ../readline-%{rl_vers}-patches/*; do
@@ -481,7 +485,8 @@ cd ../bash-%{bash_vers}
 	$READLINE
   make %{?do_profiling:CFLAGS="$CFLAGS %cflags_profile_generate"} \
       all printenv recho zecho xcase
-  env -i HOME=$PWD TERM=$TERM LD_LIBRARY_PATH=$LD_LIBRARY_PATH make TESTSCRIPT=%{SOURCE4} check
+  TMPDIR=$(mktemp -d /tmp/bash.XXXXXXXXXX) || exit 1
+  env -i HOME=$PWD TERM=$TERM LD_LIBRARY_PATH=$LD_LIBRARY_PATH TMPDIR=$TMPDIR make TESTSCRIPT=%{SOURCE4} check
   make %{?do_profiling:CFLAGS="$CFLAGS %cflags_profile_feedback" clean} all
   make -C examples/loadables/
   make documentation
