@@ -26,9 +26,11 @@ License:        GPLv2+
 Group:          System/Shells
 %define         bash_vers 4.1
 %define         rl_vers   6.1
+%if %suse_version > 1020
 Recommends:     bash-doc = %bash_vers
 Recommends:     bash-lang = %bash_vers
 Suggests:       command-not-found
+%endif
 AutoReqProv:    on
 Version:        4.1
 Release:        6
@@ -212,7 +214,9 @@ Group:          System/Libraries
 Provides:       bash:/%{_lib}/libreadline.so.%{rl_major}
 Version:        6.1
 Release:        6
+%if %suse_version > 1020
 Recommends:     readline-doc = %{version}
+%endif
 # bug437293
 %ifarch ppc64
 Obsoletes:      readline-64bit
@@ -243,7 +247,9 @@ Version:        6.1
 Release:        6
 Requires:       libreadline6 = %{version}
 Requires:       ncurses-devel
+%if %suse_version > 1020
 Recommends:     readline-doc = %{version}
+%endif
 AutoReqProv:    on
 # bug437293
 %ifarch ppc64
