@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Fri Jun 25 11:15:20 CEST 2010 - sndirsch@suse.de
+
+- Mesa 7.8.2
+  * Various i965 and i915 driver fixes.
+- adjusted Mesa_indirect_old_xserver_compatibility.diff,
+  egl-buildfix.diff
+
+-------------------------------------------------------------------
 Wed Jun  9 08:52:41 UTC 2010 - bg@novell.com
 
 - sis does not work on hppa as well
