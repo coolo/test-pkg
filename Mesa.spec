@@ -25,6 +25,9 @@ Version:        7.8.2
 Release:        2
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
+%if 0%{?suse_version} > 1020
+BuildRequires:  fdupes
+%endif
 Url:            http://www.mesa3d.org
 License:        MIT License (or similar)
 Group:          System/Libraries
@@ -50,7 +53,7 @@ Patch1:         dri_driver_dir.diff
 Patch8:         egl-buildfix.diff
 Patch9:         Mesa_indirect_old_xserver_compatibility.diff
 Patch10:        mesa-commit-06c72da.diff
-Patch11:        libdrm_nouveau.diff
+Patch11:        libdrm_nouveau.diff.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -205,6 +208,9 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 # global drirc file
 mkdir -p $RPM_BUILD_ROOT/etc
 install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
+%if 0%{?suse_version} > 1020
+%fdupes -s $RPM_BUILD_ROOT/%_mandir
+%endif 
 
 %clean
 rm -rf $RPM_BUILD_ROOT
