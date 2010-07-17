@@ -27,9 +27,10 @@ Group:          System/Shells
 %define         bash_vers 4.1
 %define         rl_vers   6.1
 %if %suse_version > 1020
-Recommends:     bash-doc = %bash_vers
 Recommends:     bash-lang = %bash_vers
+Recommends:	bash-completion
 Suggests:       command-not-found
+Suggests:	bash-doc = %bash_vers
 %endif
 AutoReqProv:    on
 Version:        4.1
@@ -414,7 +415,7 @@ cd ../readline-%{rl_vers}
   CFLAGS_FOR_BUILD="$CFLAGS"
   LDFLAGS_FOR_BUILD="$LDFLAGS"
   export CC_FOR_BUILD CFLAGS_FOR_BUILD LDFLAGS_FOR_BUILD CFLAGS LDFLAGS CC
-  ./configure --build=%{_target_cpu}-suse-linux	\
+  ./configure --disable-static --build=%{_target_cpu}-suse-linux	\
 	--prefix=%{_prefix}			\
 	--with-curses			\
 	--mandir=%{_mandir}		\
@@ -671,9 +672,7 @@ ldd -u -r %{buildroot}%{_libdir}/libreadline.so || true
 %files -n readline-devel
 %defattr(-,root,root)
 %{_incdir}/readline/
-%{_libdir}/libhistory.a
 %{_libdir}/libhistory.so
-%{_libdir}/libreadline.a
 %{_libdir}/libreadline.so
 %doc %{_mandir}/man3/readline.3.gz
 
