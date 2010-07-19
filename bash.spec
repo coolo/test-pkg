@@ -18,22 +18,14 @@
 
 
 Name:           bash
-BuildRequires:  bison ncurses-devel
-%if %suse_version > 1020
-BuildRequires:  fdupes
-%endif
+BuildRequires:  bison fdupes ncurses-devel
 License:        GPLv2+
 Group:          System/Shells
 %define         bash_vers 4.1
 %define         rl_vers   6.1
-%if %suse_version > 1020
+Recommends:     bash-doc = %bash_vers
 Recommends:     bash-lang = %bash_vers
-# The package bash-completion is a source of
-# bugs which will hit at most this package
-#Recommends:	bash-completion
 Suggests:       command-not-found
-Suggests:	bash-doc = %bash_vers
-%endif
 AutoReqProv:    on
 Version:        4.1
 Release:        6
@@ -74,8 +66,6 @@ Patch40:        bash-4.1-bash.bashrc.dif
 Patch41:        bash-4.1-intr.dif
 Patch42:        bash-4.1-non_void.patch
 Patch43:        bash-4.1-array.dif
-Patch44:        bash-4.1-pipe.dif
-Patch45:        bash-4.1-edit-parser-state.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
@@ -120,18 +110,8 @@ Authors:
 --------
     Brian Fox <bfox@gnu.org>
     Chet Ramey <chet@ins.cwru.edu>
-%if %{defined lang_package}
+
 %lang_package(bash)
-%else
-%package -n bash-lang
-License:        GPLv2+
-Summary:        Languages for package bash
-Group:          System/Localization
-Provides:       bash-lang = %{version}
-Requires:       bash = %{version}
-%description -n bash-lang
-Provides translations to the package bash
-%endif
 %package -n bash-devel
 License:        GPLv2+
 Summary:        Include Files mandatory for Development of bash loadable builtins
@@ -227,9 +207,7 @@ Group:          System/Libraries
 Provides:       bash:/%{_lib}/libreadline.so.%{rl_major}
 Version:        6.1
 Release:        6
-%if %suse_version > 1020
 Recommends:     readline-doc = %{version}
-%endif
 # bug437293
 %ifarch ppc64
 Obsoletes:      readline-64bit
@@ -260,9 +238,7 @@ Version:        6.1
 Release:        6
 Requires:       libreadline6 = %{version}
 Requires:       ncurses-devel
-%if %suse_version > 1020
 Recommends:     readline-doc = %{version}
-%endif
 AutoReqProv:    on
 # bug437293
 %ifarch ppc64
@@ -336,8 +312,6 @@ unset p
 %patch41 -p0 -b .intr
 %patch42 -p0 -b .non_void
 %patch43 -p0 -b .array
-%patch44 -p0 -b .pipe
-%patch45 -p0 -b .parser
 %patch0  -p0
 cd ../readline-%{rl_vers}
 for p in ../readline-%{rl_vers}-patches/*; do
@@ -366,29 +340,13 @@ cd ../readline-%{rl_vers}
   cflags ()
   {
       local flag=$1; shift
-      local var=$1; shift
-      test -n "${flag}" -a -n "${var}" || return
-      case "${!var}" in
+      case "${RPM_OPT_FLAGS}" in
       *${flag}*) return
       esac
-      case "$flag" in
-      -Wl,*)
-	  set -o noclobber
-	  echo 'int main () { return 0; }' > ldtest.c
-	  if ${CC:-gcc} -Werror $flag -o /dev/null -xc ldtest.c > /dev/null 2>&1 ; then
-	      eval $var=\${$var:+\$$var\ }$flag
-	  fi
-	  set +o noclobber
-	  rm -f ldtest.c
-	  ;;
-      *)
-	  if ${CC:-gcc} -Werror $flag -S -o /dev/null -xc /dev/null > /dev/null 2>&1 ; then
-	      eval $var=\${$var:+\$$var\ }$flag
-	  fi
-	  if ${CXX:-g++} -Werror $flag -S -o /dev/null -xc++ /dev/null > /dev/null 2>&1 ; then
-	      eval $var=\${$var:+\$$var\ }$flag
-	  fi
-      esac
+      if test -n "$1" && gcc -Werror $flag -S -o /dev/null -xc   /dev/null > /dev/null 2>&1 ; then
+	  local var=$1; shift
+	  eval $var=\${$var:+\$$var\ }$flag
+      fi
   }
   echo 'int main () { return !(sizeof(void*) >= 8); }' | gcc -x c -o test64 -
   if ./test64 ; then
@@ -417,7 +375,7 @@ cd ../readline-%{rl_vers}
   CFLAGS_FOR_BUILD="$CFLAGS"
   LDFLAGS_FOR_BUILD="$LDFLAGS"
   export CC_FOR_BUILD CFLAGS_FOR_BUILD LDFLAGS_FOR_BUILD CFLAGS LDFLAGS CC
-  ./configure --disable-static --build=%{_target_cpu}-suse-linux	\
+  ./configure --build=%{_target_cpu}-suse-linux	\
 	--prefix=%{_prefix}			\
 	--with-curses			\
 	--mandir=%{_mandir}		\
@@ -523,8 +481,7 @@ cd ../bash-%{bash_vers}
 	$READLINE
   make %{?do_profiling:CFLAGS="$CFLAGS %cflags_profile_generate"} \
       all printenv recho zecho xcase
-  TMPDIR=$(mktemp -d /tmp/bash.XXXXXXXXXX) || exit 1
-  env -i HOME=$PWD TERM=$TERM LD_LIBRARY_PATH=$LD_LIBRARY_PATH TMPDIR=$TMPDIR make TESTSCRIPT=%{SOURCE4} check
+  env -i HOME=$PWD TERM=$TERM LD_LIBRARY_PATH=$LD_LIBRARY_PATH make TESTSCRIPT=%{SOURCE4} check
   make %{?do_profiling:CFLAGS="$CFLAGS %cflags_profile_feedback" clean} all
   make -C examples/loadables/
   make documentation
@@ -596,9 +553,7 @@ EOF
   touch -t 199605181720.50 %{buildroot}%{_sysconfdir}/skel/.bash_history
   chmod 600                %{buildroot}%{_sysconfdir}/skel/.bash_history
   %find_lang bash
-%if %suse_version > 1020
   %fdupes -s %{buildroot}%{_datadir}/bash/helpfiles
-%endif
 
 %post -n bash-doc
 %install_info --info-dir=%{_infodir} %{_infodir}/bash.info.gz
@@ -674,7 +629,9 @@ ldd -u -r %{buildroot}%{_libdir}/libreadline.so || true
 %files -n readline-devel
 %defattr(-,root,root)
 %{_incdir}/readline/
+%{_libdir}/libhistory.a
 %{_libdir}/libhistory.so
+%{_libdir}/libreadline.a
 %{_libdir}/libreadline.so
 %doc %{_mandir}/man3/readline.3.gz
 
