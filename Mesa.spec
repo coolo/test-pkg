@@ -19,24 +19,29 @@
 
 %define enable_nouveau 1
 
+%define _version 7.8.2
+
+Version:        7.8.2
+Release:        2
+
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
+%if 0%{?suse_version} > 1020
+BuildRequires:  fdupes
+%endif
 Url:            http://www.mesa3d.org
 License:        MIT License (or similar)
 Group:          System/Libraries
-Provides:       xorg-x11-Mesa intel-i810-Mesa Mesa7
-Obsoletes:      xorg-x11-Mesa intel-i810-Mesa Mesa7
+Provides:       xorg-x11-Mesa = %{version} intel-i810-Mesa = %{version} Mesa7 = %{version}
+Obsoletes:      xorg-x11-Mesa < %{version} intel-i810-Mesa < %{version} Mesa7 < %{version}
 AutoReqProv:    on
 # bug437293
 %ifarch ppc64
-Obsoletes:      XFree86-Mesa-64bit
-Obsoletes:      Mesa-64bit
+Obsoletes:      XFree86-Mesa-64bit < %{version} Mesa-64bit < %{version}
+Provides:       XFree86-Mesa-64bit = %{version} Mesa-64bit < %{version}
 %endif
 #
-%define _version 7.8.2
-Version:        7.8.2
-Release:        1
-Summary:        Mesa is a 3-D graphics library with an API which is very similar to that of OpenGL
+Summary:        System for rendering interactive 3-D graphics
 Source:         MesaLib-%{_version}.tar.bz2
 Source1:        MesaDemos-%{_version}.tar.bz2
 Source2:        baselibs.conf
@@ -49,6 +54,7 @@ Patch1:         dri_driver_dir.diff
 Patch8:         egl-buildfix.diff
 Patch9:         Mesa_indirect_old_xserver_compatibility.diff
 Patch10:        mesa-commit-06c72da.diff
+Patch11:        libdrm_nouveau.diff.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -76,15 +82,15 @@ Authors:
 License:        MIT License (or similar)
 Requires:       Mesa = %version xorg-x11-devel libdrm-devel
 Summary:        Libraries, includes and more to develop Mesa applications
-Group:          System/Libraries
+Group:          Development/Libraries/X11
 # bug437293
 %ifarch ppc64
-Obsoletes:      XFree86-Mesa-devel-64bit
-Obsoletes:      Mesa-devel-64bit
+Obsoletes:      XFree86-Mesa-devel-64bit < %{version} Mesa-devel-64bit < %{version}
+Provides:       XFree86-Mesa-devel-64bit = %{version} Mesa-devel-64bit = %{version}
 %endif
 #
-Provides:       xorg-x11-Mesa-devel Mesa-devel-static
-Obsoletes:      xorg-x11-Mesa-devel Mesa-devel-static
+Provides:       xorg-x11-Mesa-devel = %{version} Mesa-devel-static = %{version}
+Obsoletes:      xorg-x11-Mesa-devel < %{version} Mesa-devel-static < %{version}
 
 %description devel
 Mesa is a 3-D graphics library with an API which is very similar to
@@ -107,18 +113,41 @@ Authors:
 --------
     Brian Paul
 
+%package nouveau3d
+License:        MIT License (or similar)
+Requires:       Mesa = %version xorg-x11-driver-video-nouveau
+Summary:        Experimental 3D driver for nouveau driver
+Group:          System/Libraries
+
+%description nouveau3d
+This is the 3D driver for open source nouveau driver. It uses Gallium3d architecture within Mesa.
+
+Note:
+This driver is in a very experimental state. So it is not recommend that you use it.
+Bug reports using this driver are not supported by developers.
+
+Authors:
+--------
+    Brian Paul
+    Pekka Paalanen
+    Ben Skeggs
+    Francisco Jerez
+
 %prep
 %setup -n %{name}-%{_version} -b1 -b4 -q
 # no need to build (GLUT-)Demos
 rm -rf src/glut progs/{demos,redbook,samples,xdemos,glsl}
 # we use freeglut
 rm -f include/GL/{glut.h,uglglutshapes.h,glutf90.h}
+# remove some docs
+rm -rf docs/README.{VMS,WIN32,OS2}
 %patch1
 sed -i 's/REPLACE/%_lib/g' src/glx/Makefile
 sed -i 's/REPLACE/%_lib/g' src/egl/drivers/dri2/Makefile
 %patch8
 %patch9 -p0
 %patch10 -p1
+%patch11 -p1
 
 %build
 
@@ -129,13 +158,21 @@ autoreconf -fi
 %configure --disable-glw \
            --with-driver=dri \
 %ifarch %ix86 x86_64
+%if 0%{?suse_version} >= 1130
+           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,sis,tdfx,unichrome,swrast,nouveau \
+%else
            --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,sis,tdfx,unichrome,swrast \
+%endif
 %if %enable_nouveau
            --enable-gallium-nouveau \
 %endif
 %endif
 %ifarch ppc %sparc hppa
+%if 0%{?suse_version} >= 1130
+           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,tdfx,unichrome,swrast,nouveau \
+%else
            --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,tdfx,unichrome,swrast \
+%endif
 %endif
 %ifarch s390 s390x
            --with-dri-drivers=swrast \
@@ -173,6 +210,9 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 # global drirc file
 mkdir -p $RPM_BUILD_ROOT/etc
 install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
+%if 0%{?suse_version} > 1020
+%fdupes -s $RPM_BUILD_ROOT/%_mandir
+%endif 
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -185,41 +225,37 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %doc docs/README* docs/COPYING
 %config /etc/drirc
-/usr/include/GL/gl.h
-/usr/include/GL/glext.h
-/usr/include/GL/glx.h
-/usr/include/GL/glxext.h
-/usr/%{_lib}/libGL.so
-/usr/%{_lib}/lib*.so.*
-/usr/%{_lib}/dri/
-/usr/%{_lib}/egl/
+%{_libdir}/lib*.so.*
+%{_libdir}/dri/
+%{_libdir}/egl/
+%exclude %{_libdir}/dri/nouveau_dri.so
+%if 0%{?suse_version} >= 1130
+%exclude %{_libdir}/dri/nouveau_vieux_dri.so
+%endif
 
 %files devel
 %defattr(-,root,root)
 %doc docs/*.html docs/*.spec
-/usr/include/GL/gl_mangle.h
-/usr/include/GL/glfbdev.h
-/usr/include/GL/glu.h
-/usr/include/GL/glu_mangle.h
-/usr/include/GL/glx_mangle.h
-/usr/include/GL/mesa_wgl.h
-/usr/include/GL/mglmesa.h
-/usr/include/GL/osmesa.h
-/usr/include/GL/vms_x_fix.h
-/usr/include/GL/wmesa.h
-/usr/include/GL/internal/dri_interface.h
-/usr/include/GL/wglext.h
-/usr/include/EGL
-/usr/include/KHR
-%exclude /usr/include/GL/glew.h
-%exclude /usr/include/GL/glxew.h
-%exclude /usr/include/GL/wglew.h
-/usr/%{_lib}/libGLU.so
-/usr/%{_lib}/libOSMesa.so
-/usr/%{_lib}/libEGL.so
-/usr/%{_lib}/pkgconfig/dri.pc
-/usr/%{_lib}/pkgconfig/gl.pc
-/usr/%{_lib}/pkgconfig/glu.pc
+%{_includedir}/GL
+%{_includedir}/EGL
+%{_includedir}/KHR
+%exclude %{_includedir}/GL/glew.h
+%exclude %{_includedir}/GL/glxew.h
+%exclude %{_includedir}/GL/wglew.h
+%{_libdir}/libGL.so
+%{_libdir}/libGLU.so
+%{_libdir}/libOSMesa.so
+%{_libdir}/libEGL.so
+%{_libdir}/pkgconfig/dri.pc
+%{_libdir}/pkgconfig/gl.pc
+%{_libdir}/pkgconfig/glu.pc
 %{_mandir}/man3/*
+
+%files nouveau3d
+%defattr(-,root,root)
+%{_libdir}/dri/nouveau_dri.so
+%if 0%{?suse_version} >= 1130
+%{_libdir}/dri/nouveau_vieux_dri.so
+%endif
 
 %changelog

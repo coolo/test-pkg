@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Wed Jul  7 00:00:00 CEST 2010 - johannesobermayr@gmx.de
+
+- bnc #620037
+  * create nouveau_vieux_dri.so
+  * add libdrm_nouveau.diff
+  * separate Mesa-nouveau3d package
+- fix some RPMLINT warnings
+
+-------------------------------------------------------------------
 Fri Jun 25 11:15:20 CEST 2010 - sndirsch@suse.de
 
 - Mesa 7.8.2
