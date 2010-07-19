@@ -28,7 +28,9 @@ Group:          System/Shells
 %define         rl_vers   6.1
 %if %suse_version > 1020
 Recommends:     bash-lang = %bash_vers
-Recommends:	bash-completion
+# The package bash-completion is a source of
+# bugs which will hit at most this package
+#Recommends:	bash-completion
 Suggests:       command-not-found
 Suggests:	bash-doc = %bash_vers
 %endif
