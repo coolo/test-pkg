@@ -22,7 +22,7 @@
 %define _version 7.8.2
 
 Version:        7.8.2
-Release:        2
+Release:        3
 
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
@@ -154,12 +154,12 @@ sed -i 's/REPLACE/%_lib/g' src/egl/drivers/dri2/Makefile
 %install
 rm -f src/mesa/depend
 autoreconf -fi
-### libGL (disable savage/mga, bnc #402132/#403071)
+### libGL (disable savage/mga, bnc #402132/#403071; reenable mga, bnc #466635)
 %configure --disable-glw \
            --with-driver=dri \
 %ifarch %ix86 x86_64
 %if 0%{?suse_version} >= 1130
-           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,sis,tdfx,unichrome,swrast,nouveau \
+           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,sis,tdfx,unichrome,swrast,nouveau,mga \
 %else
            --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,sis,tdfx,unichrome,swrast \
 %endif

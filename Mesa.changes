@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Jul 23 22:52:14 CEST 2010 - sndirsch@suse.de
+
+- reenable build of mga DRI driver (bnc #466635) 
+
+-------------------------------------------------------------------
 Wed Jul  7 00:00:00 CEST 2010 - johannesobermayr@gmx.de
 
 - bnc #620037
