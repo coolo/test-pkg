@@ -339,9 +339,7 @@ unset p
 %patch41 -p0 -b .intr
 %patch42 -p0 -b .non_void
 %patch43 -p0 -b .array
-# This currently resets the PIPESTATUS array
-# the status of the forground process only
-#%patch44 -p0 -b .pipe
+%patch44 -p0 -b .pipe
 %patch45 -p0 -b .parser
 %patch0  -p0
 cd ../readline-%{rl_vers}
