@@ -26,6 +26,7 @@ Release:        3
 
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
+BuildRequires:  libtalloc-devel bison flex libxml2-python
 %if 0%{?suse_version} > 1020
 BuildRequires:  fdupes
 %endif
@@ -42,7 +43,7 @@ Provides:       XFree86-Mesa-64bit = %{version} Mesa-64bit < %{version}
 %endif
 #
 Summary:        System for rendering interactive 3-D graphics
-Source:         MesaLib-%{_version}.tar.bz2
+Source:         MesaLib-%{_version}-2dfd348.tar.bz2
 Source1:        MesaDemos-%{_version}.tar.bz2
 Source2:        baselibs.conf
 Source3:        README.updates
@@ -53,8 +54,6 @@ Patch1:         dri_driver_dir.diff
 # to be upstreamed
 Patch8:         egl-buildfix.diff
 Patch9:         Mesa_indirect_old_xserver_compatibility.diff
-Patch10:        mesa-commit-06c72da.diff
-Patch11:        libdrm_nouveau.diff.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -146,8 +145,6 @@ sed -i 's/REPLACE/%_lib/g' src/glx/Makefile
 sed -i 's/REPLACE/%_lib/g' src/egl/drivers/dri2/Makefile
 %patch8
 %patch9 -p0
-%patch10 -p1
-%patch11 -p1
 
 %build
 
@@ -247,6 +244,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libOSMesa.so
 %{_libdir}/libEGL.so
 %{_libdir}/pkgconfig/dri.pc
+%{_libdir}/pkgconfig/egl.pc
 %{_libdir}/pkgconfig/gl.pc
 %{_libdir}/pkgconfig/glu.pc
 %{_mandir}/man3/*
