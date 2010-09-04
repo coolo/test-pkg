@@ -76,6 +76,7 @@ Patch42:        bash-4.1-non_void.patch
 Patch43:        bash-4.1-array.dif
 Patch44:        bash-4.1-pipe.dif
 Patch45:        bash-4.1-edit-parser-state.patch
+Patch46:		man2html-no-timestamp.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
@@ -343,6 +344,7 @@ unset p
 # the status of the forground process only
 #%patch44 -p0 -b .pipe
 %patch45 -p0 -b .parser
+%patch46 -p0
 %patch0  -p0
 cd ../readline-%{rl_vers}
 for p in ../readline-%{rl_vers}-patches/*; do
