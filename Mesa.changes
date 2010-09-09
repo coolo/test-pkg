@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Sep  9 12:45:55 UTC 2010 - sndirsch@novell.com
+
+- use TALLOC_LIBS/TALLOC_CFLAGS env. variables which obsolete the
+  requirement for a patched libtalloc-devel package, i.e. 
+  talloc.pc is no longer required.
+
+-------------------------------------------------------------------
 Sun Aug 29 05:05:58 CEST 2010 - sndirsch@suse.de
 
 - Mesa git master #2dfd348 (2010-08-28)

@@ -150,6 +150,8 @@ sed -i 's/REPLACE/%_lib/g' src/egl/drivers/dri2/Makefile
 
 %install
 rm -f src/mesa/depend
+export TALLOC_LIBS=-ltalloc
+export TALLOC_CFLAGS="-I/usr/include"
 autoreconf -fi
 ### libGL (disable savage/mga, bnc #402132/#403071; reenable mga, bnc #466635)
 %configure --disable-glw \
