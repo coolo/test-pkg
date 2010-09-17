@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Sep 15 03:54:37 UTC 2010 - sndirsch@novell.com
+
+- Mesa git master #fd328a (2010-09-11)
+- commit-4ebf07a.diff
+  * glx: Don't destroy DRI2 drawables for legacy glx drawables
+    (bfo #30109)
+
+-------------------------------------------------------------------
 Thu Sep  9 12:45:55 UTC 2010 - sndirsch@novell.com
 
 - use TALLOC_LIBS/TALLOC_CFLAGS env. variables which obsolete the
