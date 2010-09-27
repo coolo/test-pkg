@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Mon Sep 27 18:28:46 UTC 2010 - sndirsch@novell.com
+
+- updated to MesaLib 7.9-RC1 
+
+-------------------------------------------------------------------
+Wed Sep 15 12:29:11 UTC 2010 - sndirsch@novell.com
+
+- Mesa git master #83f5f50 (2010-09-14)
+- obsoletes commit-4ebf07a.diff
+
+-------------------------------------------------------------------
 Wed Sep 15 03:54:37 UTC 2010 - sndirsch@novell.com
 
 - Mesa git master #fd328a (2010-09-11)
