@@ -43,7 +43,7 @@ Provides:       XFree86-Mesa-64bit = %{version} Mesa-64bit < %{version}
 %endif
 #
 Summary:        System for rendering interactive 3-D graphics
-Source:         MesaLib-%{_version}-rc1.tar.bz2
+Source:         MesaLib-%{_version}-rc2.tar.bz2
 Source1:        MesaDemos-7.8.2.tar.bz2
 Source2:        baselibs.conf
 Source3:        README.updates
@@ -134,7 +134,7 @@ Authors:
     Francisco Jerez
 
 %prep
-%setup -n %{name}-%{_version}-rc1 -a1 -b4 -q
+%setup -n %{name}-%{_version}-rc2 -a1 -b4 -q
 # no need to build (GLUT-)Demos
 rm -rf src/glut progs/{demos,redbook,samples,xdemos,glsl}
 # we use freeglut
