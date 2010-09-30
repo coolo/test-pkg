@@ -2,7 +2,8 @@
 Thu Sep 30 09:49:13 UTC 2010 - sndirsch@novell.com
 
 - commit-73dab75.diff
-  * i965: fallback lineloop on sandybridge for now
+  * i965: fallback lineloop on sandybridge for now (bfo #30420,
+    comment #8)
 
 -------------------------------------------------------------------
 Wed Sep 29 12:01:23 UTC 2010 - sndirsch@novell.com
