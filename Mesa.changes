@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Sep 30 09:49:13 UTC 2010 - sndirsch@novell.com
+
+- commit-73dab75.diff
+  * i965: fallback lineloop on sandybridge for now
+
+-------------------------------------------------------------------
 Wed Sep 29 12:01:23 UTC 2010 - sndirsch@novell.com
 
 - updated to MesaLib 7.9-RC2
