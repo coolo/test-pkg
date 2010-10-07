@@ -22,7 +22,7 @@
 %define _version 7.9
 
 Version:        7.9
-Release:        2
+Release:        3
 
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
@@ -43,7 +43,7 @@ Provides:       XFree86-Mesa-64bit = %{version} Mesa-64bit < %{version}
 %endif
 #
 Summary:        System for rendering interactive 3-D graphics
-Source:         MesaLib-%{_version}-rc2.tar.bz2
+Source:         MesaLib-%{_version}.tar.bz2
 Source1:        MesaDemos-7.8.2.tar.bz2
 Source2:        baselibs.conf
 Source3:        README.updates
@@ -55,7 +55,7 @@ Patch1:         dri_driver_dir.diff
 Patch8:         egl-buildfix.diff
 Patch9:         Mesa_indirect_old_xserver_compatibility.diff
 # already upstream
-Patch10:        commit-73dab75.diff
+Patch10:        commit-d316391.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -135,7 +135,7 @@ Authors:
     Francisco Jerez
 
 %prep
-%setup -n %{name}-%{_version}-rc2 -a1 -b4 -q
+%setup -n %{name}-%{_version} -a1 -b4 -q
 # no need to build (GLUT-)Demos
 rm -rf src/glut progs/{demos,redbook,samples,xdemos,glsl}
 # we use freeglut

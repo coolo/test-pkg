@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Thu Oct  7 07:35:31 UTC 2010 - sndirsch@novell.com
+
+- commit-d316391.diff
+  * i965: Fix gen6 pointsize handling to match pre-gen6. Fixes
+    point-line-no-cull (bfo #30532)
+
+-------------------------------------------------------------------
+Tue Oct  5 06:57:26 UTC 2010 - sndirsch@novell.com
+
+- MesaLib 7.9 
+- obsoletes commit-73dab75.diff
+
+-------------------------------------------------------------------
 Thu Sep 30 09:49:13 UTC 2010 - sndirsch@novell.com
 
 - commit-73dab75.diff
