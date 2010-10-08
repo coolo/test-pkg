@@ -175,6 +175,9 @@ autoreconf -fi
 %else
            --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,tdfx,unichrome,swrast \
 %endif
+%if %enable_nouveau
+           --enable-gallium-nouveau \
+%endif
 %endif
 %ifarch s390 s390x
            --with-dri-drivers=swrast \
