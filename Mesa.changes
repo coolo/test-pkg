@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Oct  8 21:35:56 CEST 2010 - meissner@suse.de
+
+- --enable-gallium-nouveau also for PowerPC.
+
+-------------------------------------------------------------------
 Thu Oct  7 07:35:31 UTC 2010 - sndirsch@novell.com
 
 - commit-d316391.diff

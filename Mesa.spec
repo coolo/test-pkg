@@ -22,7 +22,7 @@
 %define _version 7.9
 
 Version:        7.9
-Release:        3
+Release:        4
 
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
@@ -174,6 +174,9 @@ autoreconf -fi
            --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,tdfx,unichrome,swrast,nouveau \
 %else
            --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,tdfx,unichrome,swrast \
+%endif
+%if %enable_nouveau
+           --enable-gallium-nouveau \
 %endif
 %endif
 %ifarch s390 s390x
