@@ -60,7 +60,7 @@ Patch9:         bash-4.0-extended_quote.patch
 Patch10:        bash-3.2-printf.patch
 Patch11:        bash-4.0-loadables.dif
 Patch12:        bash-4.1-completion.dif
-Patch14:        bash-3.2-sigrestart.patch
+Patch14:        bash-4.1-sigrestart.patch
 Patch15:        bash-3.2-longjmp.dif
 Patch16:        bash-4.0-setlocale.dif
 Patch17:        bash-4.0-headers.dif
