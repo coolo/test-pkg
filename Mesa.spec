@@ -218,6 +218,7 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %if 0%{?suse_version} > 1020
 %fdupes -s $RPM_BUILD_ROOT/%_mandir
 %endif 
+rm $RPM_BUILD_ROOT/%{_libdir}/dri/swrastg_dri.so
 
 %clean
 rm -rf $RPM_BUILD_ROOT
