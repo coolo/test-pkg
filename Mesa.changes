@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sat Nov  6 08:36:11 UTC 2010 - sndirsch@novell.com
+
+- 0001-Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
+  * Fix crash in swrast when setting a texture for a pixmap 
+    (bnc #641297)
+- readd swrastg DRI driver
+
+-------------------------------------------------------------------
 Wed Nov  3 20:45:02 UTC 2010 - sndirsch@novell.com
 
 - exclude swrastg DRI driver (bnc #641297) 
