@@ -54,6 +54,7 @@ Patch1:         dri_driver_dir.diff
 # to be upstreamed
 Patch8:         egl-buildfix.diff
 Patch9:         Mesa_indirect_old_xserver_compatibility.diff
+Patch11:        0001-Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 # already upstream
 Patch10:        commit-d316391.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -148,6 +149,7 @@ sed -i 's/REPLACE/%_lib/g' src/egl/drivers/dri2/Makefile
 %patch8
 %patch9 -p0
 %patch10 -p1
+%patch11 -p2
 
 %build
 
@@ -218,7 +220,6 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %if 0%{?suse_version} > 1020
 %fdupes -s $RPM_BUILD_ROOT/%_mandir
 %endif 
-rm $RPM_BUILD_ROOT/%{_libdir}/dri/swrastg_dri.so
 
 %clean
 rm -rf $RPM_BUILD_ROOT
