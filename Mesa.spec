@@ -22,7 +22,7 @@
 %define _version 7.9
 
 Version:        7.9
-Release:        5
+Release:        6
 
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
