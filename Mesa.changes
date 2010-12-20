@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Mon Dec 20 14:34:44 UTC 2010 - sndirsch@novell.com
+
+- Update full mesa stack to pre-7.10 (git 32218e4).
+  Fixes most of intel SandyBridge rendering issues.
+- Set Mesa version to 7.9.801
+- obsoletes commit-d316391.diff
+- adjusted 0001-Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
+
+-------------------------------------------------------------------
 Sat Nov  6 08:36:11 UTC 2010 - sndirsch@novell.com
 
 - 0001-Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch

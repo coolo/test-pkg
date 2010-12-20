@@ -19,10 +19,10 @@
 
 %define enable_nouveau 1
 
-%define _version 7.9
+%define _version 7.9.801-32218e4
 
-Version:        7.9
-Release:        5
+Version:        7.9.801
+Release:        0
 
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
@@ -56,7 +56,6 @@ Patch8:         egl-buildfix.diff
 Patch9:         Mesa_indirect_old_xserver_compatibility.diff
 Patch11:        0001-Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 # already upstream
-Patch10:        commit-d316391.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -148,8 +147,7 @@ sed -i 's/REPLACE/%_lib/g' src/glx/Makefile
 sed -i 's/REPLACE/%_lib/g' src/egl/drivers/dri2/Makefile
 %patch8
 %patch9 -p0
-%patch10 -p1
-%patch11 -p2
+%patch11 -p1
 
 %build
 
