@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Jan  3 13:48:35 UTC 2011 - sndirsch@novell.com
+
+- Update pre-7.10 state (git 96685a6)
+  Fixes two screensaver GPU crashes on SandyBridge (xorg #32683)
+
+-------------------------------------------------------------------
 Mon Dec 20 14:34:44 UTC 2010 - sndirsch@novell.com
 
 - Update full mesa stack to pre-7.10 (git 32218e4).
