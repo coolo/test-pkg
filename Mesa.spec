@@ -1,7 +1,7 @@
 #
-# spec file for package Mesa (Version 7.9.801)
+# spec file for package Mesa (Version 7.9.802)
 #
-# Copyright (c) 2010 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2011 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -22,7 +22,7 @@
 %define _version 7.9.802-96685a6
 
 Version:        7.9.802
-Release:        0
+Release:        1
 
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
