@@ -1,7 +1,7 @@
 #
-# spec file for package Mesa (Version 7.9.801)
+# spec file for package Mesa (Version 7.10)
 #
-# Copyright (c) 2010 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2011 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -19,9 +19,9 @@
 
 %define enable_nouveau 1
 
-%define _version 7.9.802-96685a6
+%define _version 7.10
 
-Version:        7.9.802
+Version:        7.10
 Release:        0
 
 Name:           Mesa
