@@ -1,4 +1,22 @@
 -------------------------------------------------------------------
+Wed Dec 29 02:07:58 UTC 2010 - cristian.rodriguez@opensuse.org
+
+- Update to version 4.3.11
+* The completion system now has a style path-completion.
+* new "zsystem" builtin whose subcommands perform system level tasks
+* Added "D" and "Z" flag in parameter expansion
+* Lots of other bugfixes/improvements, see Changelog
+
+-------------------------------------------------------------------
+Tue Mar  9 11:50:17 CET 2010 - hmacht@suse.de
+
+- update completion for _osc:
+  - add new products openSUSE 11.2 and openSUSE 11.3
+  - add possibility to extend the list of projects and build
+    targets with user defined variables
+    $ZSH_OSC_BUILD_TARGETS_EXTRA and $ZSH_OSC_PROJECTS_EXTRA
+
+-------------------------------------------------------------------
 Wed Dec  2 18:14:17 UTC 2009 - coolo@novell.com
 
 - update patch to apply with fuzz=0
