@@ -19,7 +19,7 @@
 
 
 Name:           zsh
-Version:        4.3.10
+Version:        4.3.11
 Release:        5
 License:        Other uncritical OpenSource License
 Group:          System/Shells
@@ -135,6 +135,7 @@ groff Doc/intro.ms > intro.txt
 %{__mv} %{buildroot}%{_bindir}/zsh %{buildroot}/bin/zsh
 %{__ln_s} -f ../../bin/zsh %{buildroot}/usr/bin/zsh
 %fdupes $RPM_BUILD_ROOT
+
 
 %clean
 %{__rm} -rf %{buildroot}

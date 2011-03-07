@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Wed Dec 29 02:07:58 UTC 2010 - cristian.rodriguez@opensuse.org
+
+- Update to version 4.3.11
+* The completion system now has a style path-completion.
+* new "zsystem" builtin whose subcommands perform system level tasks
+* Added "D" and "Z" flag in parameter expansion
+* Lots of other bugfixes/improvements, see Changelog
+
+-------------------------------------------------------------------
 Tue Mar  9 11:50:17 CET 2010 - hmacht@suse.de
 
 - update completion for _osc:
