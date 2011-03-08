@@ -24,8 +24,9 @@ BuildRequires:  fdupes
 %endif
 License:        GPLv2+
 Group:          System/Shells
-%define         bash_vers 4.1
-%define         rl_vers   6.1
+%define         bash_vers 4.2
+%define         rl_vers   6.2
+%define         extend    ""
 %if %suse_version > 1020
 Recommends:     bash-lang = %bash_vers
 # The package bash-completion is a source of
@@ -35,8 +36,8 @@ Suggests:       command-not-found
 Recommends:     bash-doc = %bash_vers
 %endif
 AutoReqProv:    on
-Version:        4.1
-Release:        22
+Version:        4.2
+Release:        1
 Summary:        The GNU Bourne-Again Shell
 Url:            http://www.gnu.org/software/bash/bash.html
 Source0:        ftp://ftp.gnu.org/gnu/bash/bash-%{bash_vers}.tar.bz2
@@ -51,17 +52,17 @@ Source8:        baselibs.conf
 Patch0:         bash-%{bash_vers}.dif
 Patch1:         bash-2.03-manual.patch
 Patch2:         bash-4.0-security.patch
-Patch3:         bash-3.2-2.4.4.patch
+Patch3:         bash-4.2-2.4.4.patch
 Patch4:         bash-3.0-evalexp.patch
 Patch5:         bash-3.0-warn-locale.patch
-Patch6:         bash-4.1-po-cs-messages-fix.patch
 Patch7:         bash-3.0-decl.patch
 Patch8:         bash-4.0-async-bnc523667.dif
 Patch9:         bash-4.0-extended_quote.patch
 Patch10:        bash-3.2-printf.patch
 Patch11:        bash-4.0-loadables.dif
 Patch12:        bash-4.1-completion.dif
-Patch14:        bash-4.1-sigrestart.patch
+Patch13:        bash-4.2-history.dif
+Patch14:        bash-4.2-sigrestart.patch
 Patch15:        bash-3.2-longjmp.dif
 Patch16:        bash-4.0-setlocale.dif
 Patch17:        bash-4.0-headers.dif
@@ -69,14 +70,9 @@ Patch20:        readline-%{rl_vers}.dif
 Patch21:        readline-4.3-input.dif
 Patch22:        readline-6.1-wrap.patch
 Patch23:        readline-5.2-conf.patch
-Patch24:        readline-6.0-metamode.patch
-Patch30:        readline-6.1-destdir.patch
+Patch24:        readline-6.2-metamode.patch
+Patch30:        readline-6.2-destdir.patch
 Patch40:        bash-4.1-bash.bashrc.dif
-Patch41:        bash-4.1-intr.dif
-Patch42:        bash-4.1-non_void.patch
-Patch43:        bash-4.1-array.dif
-Patch44:        bash-4.1-pipe.dif
-Patch45:        bash-4.1-edit-parser-state.patch
 Patch46:        man2html-no-timestamp.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
@@ -105,8 +101,8 @@ Summary:        Documentation how to Use the GNU Bourne-Again Shell
 Group:          Documentation/Man
 Provides:       bash:%{_infodir}/bash.info.gz
 PreReq:         %install_info_prereq
-Version:        4.1
-Release:        18
+Version:        4.2
+Release:        1
 AutoReqProv:    on
 %if %suse_version > 1120
 BuildArch:      noarch
@@ -141,8 +137,8 @@ Provides translations to the package bash
 License:        GPLv2+
 Summary:        Include Files mandatory for Development of bash loadable builtins
 Group:          Development/Languages/C and C++
-Version:        4.1
-Release:        18
+Version:        4.2
+Release:        1
 AutoReqProv:    on
 
 %description -n bash-devel
@@ -161,8 +157,8 @@ Authors:
 License:        GPLv2+
 Summary:        Loadable bash builtins
 Group:          System/Shells
-Version:        4.1
-Release:        18
+Version:        4.2
+Release:        1
 AutoReqProv:    on
 
 %description -n bash-loadables
@@ -230,8 +226,8 @@ License:        GPLv2+
 Summary:        The Readline Library
 Group:          System/Libraries
 Provides:       bash:/%{_lib}/libreadline.so.%{rl_major}
-Version:        6.1
-Release:        18
+Version:        6.2
+Release:        1
 %if %suse_version > 1020
 Recommends:     readline-doc = %{version}
 %endif
@@ -240,8 +236,8 @@ Recommends:     readline-doc = %{version}
 Obsoletes:      readline-64bit
 %endif
 #
-Provides:       readline =  6.1
-Obsoletes:      readline <= 6.0
+Provides:       readline =  6.2
+Obsoletes:      readline <= 6.1
 AutoReqProv:    on
 
 %description -n libreadline6
@@ -261,8 +257,8 @@ License:        GPLv2+
 Summary:        Include Files and Libraries mandatory for Development
 Group:          Development/Libraries/C and C++
 Provides:       bash:%{_libdir}/libreadline.a
-Version:        6.1
-Release:        18
+Version:        6.2
+Release:        1
 Requires:       libreadline6 = %{version}
 Requires:       ncurses-devel
 %if %suse_version > 1020
@@ -292,8 +288,8 @@ Summary:        Documentation how to Use and Program with the Readline Library
 Group:          System/Libraries
 Provides:       readline:%{_infodir}/readline.info.gz
 PreReq:         %install_info_prereq
-Version:        6.1
-Release:        18
+Version:        6.2
+Release:        1
 AutoReqProv:    on
 %if %suse_version > 1120
 BuildArch:      noarch
@@ -311,7 +307,7 @@ Authors:
     Chet Ramey <chet@ins.cwru.edu>
 
 %prep
-%setup -q -n bash-%{bash_vers} -b1 -b2 -b3
+%setup -q -n bash-%{bash_vers}%{extend} -b1 -b2 -b3
 for p in ../bash-%{bash_vers}-patches/*; do
     test -e $p || break
     echo Patch $p
@@ -323,13 +319,13 @@ unset p
 %patch3  -p0 -b .2.4.4
 %patch4  -p0 -b .evalexp
 %patch5  -p0 -b .warnlc
-%patch6  -p1 -b .po-cs
 %patch7  -p0 -b .decl
 %patch8  -p0 -b .async
 %patch9  -p0 -b .extended_quote
 %patch10 -p0 -b .printf
 %patch11 -p0 -b .plugins
 %patch12 -p0 -b .completion
+%patch13 -p0 -b .history
 %patch14 -p0 -b .sigrestart
 %patch15 -p0 -b .longjmp
 %patch16 -p0 -b .setlocale
@@ -339,16 +335,9 @@ unset p
 %patch23 -p0 -b .conf
 %patch24 -p0 -b .metamode
 %patch40 -p0 -b .bashrc
-%patch41 -p0 -b .intr
-%patch42 -p0 -b .non_void
-%patch43 -p0 -b .array
-# This currently resets the PIPESTATUS array
-# the status of the forground process only
-#%patch44 -p0 -b .pipe
-%patch45 -p0 -b .parser
-%patch46 -p0
-%patch0  -p0
-cd ../readline-%{rl_vers}
+%patch46 -p0 -b .notimestamp
+%patch0  -p0 -b .0
+pushd ../readline-%{rl_vers}%{extend}
 for p in ../readline-%{rl_vers}-patches/*; do
     test -e $p || break
     echo Patch $p
@@ -359,7 +348,7 @@ done
 %patch23 -p2 -b .conf
 %patch24 -p2 -b .metamode
 %patch30 -p0 -b .destdir
-%patch20 -p0
+%patch20 -p0 -b .0
 
 %build
   LANG=POSIX
@@ -369,7 +358,7 @@ done
   HOSTTYPE=${CPU}
   MACHTYPE=${CPU}-suse-linux
   export LANG LC_ALL HOSTTYPE MACHTYPE
-cd ../readline-%{rl_vers}
+pushd ../readline-%{rl_vers}%{extend}
 %{?suse_update_config:%{suse_update_config -f support}}
   autoconf
   cflags ()
@@ -438,7 +427,7 @@ cd ../readline-%{rl_vers}
   ln -sf shlib/libreadline.so.%{rl_vers} libreadline.so.%{rl_major}
   ln -sf shlib/libhistory.so.%{rl_vers} libhistory.so
   ln -sf shlib/libhistory.so.%{rl_vers} libhistory.so.%{rl_major}
-cd ../bash-%{bash_vers}
+popd
   # /proc is required for correct configuration
   test -d /dev/fd || { echo "/proc is not mounted!" >&2; exit 1; }
   ln -sf ../readline-%{rl_vers} readline
@@ -539,7 +528,7 @@ cd ../bash-%{bash_vers}
   make documentation
 
 %install
-cd ../readline-%{rl_vers}
+pushd ../readline-%{rl_vers}%{extend}
   make install htmldir=%{_defaultdocdir}/readline \
 	       installdir=%{_defaultdocdir}/readline/examples DESTDIR=%{buildroot}
   make install-shared libdir=/%{_lib} linkagedir=%{_libdir} DESTDIR=%{buildroot}
@@ -553,7 +542,7 @@ cd ../readline-%{rl_vers}
   rm -vf %{buildroot}/%{_lib}/libreadline.so
   ln -sf /%{_lib}/libhistory.so.%{rl_vers}  %{buildroot}/%{_libdir}/libhistory.so
   ln -sf /%{_lib}/libreadline.so.%{rl_vers} %{buildroot}/%{_libdir}/libreadline.so
-cd ../bash-%{bash_vers}
+popd
   make install DESTDIR=%{buildroot}
   make -C examples/loadables/ install-plugins DESTDIR=%{buildroot} libdir=/%{_lib}
   make -C examples/loadables/ install-headers DESTDIR=%{buildroot}
