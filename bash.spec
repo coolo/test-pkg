@@ -49,6 +49,11 @@ Source5:        dot.bashrc
 Source6:        dot.profile
 Source7:        bash-rpmlintrc
 Source8:        baselibs.conf
+# Remember unsafe method, compare with
+# http://lists.gnu.org/archive/html/bug-bash/2011-03/msg00070.html
+# http://lists.gnu.org/archive/html/bug-bash/2011-03/msg00071.html
+# http://lists.gnu.org/archive/html/bug-bash/2011-03/msg00073.html
+Source9:        bash-4.2-history-myown.dif.bz2
 Patch0:         bash-%{bash_vers}.dif
 Patch1:         bash-2.03-manual.patch
 Patch2:         bash-4.0-security.patch
