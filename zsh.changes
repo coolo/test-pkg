@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Mar 15 13:40:24 UTC 2011 - ismail@namtrac.org
+
+- Fix crash with ${foo:0:} 
+
+-------------------------------------------------------------------
 Wed Dec 29 02:07:58 UTC 2010 - cristian.rodriguez@opensuse.org
 
 - Update to version 4.3.11

@@ -46,6 +46,7 @@ Patch0:         %{name}-%{version}-doc_makefile.patch
 Patch1:         %{name}-%{version}-doc_intro_paths.patch
 Patch2:         %{name}-%{version}-run-help_pager.patch
 Patch3:         zsh-cleanup.patch
+Patch4:         subst-crash.patch
 Summary:        Shell with comprehensive completion
 %define do_profiling 0
 
@@ -67,6 +68,7 @@ Authors:
 %patch1
 %patch2
 %patch3
+%patch4 -p1
 # Fix bindir path in some files
 perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
     Functions/Misc/zcalc Functions/Example/cat \
