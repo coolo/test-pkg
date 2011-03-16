@@ -20,7 +20,7 @@
 
 Name:           zsh
 Version:        4.3.11
-Release:        1
+Release:        2
 License:        Other uncritical OpenSource License
 Group:          System/Shells
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
