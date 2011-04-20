@@ -30,7 +30,6 @@ Source2:        zshenv
 Source3:        _yast2
 Source4:        _SuSEconfig
 Source5:        _hwinfo
-Source6:        _make
 Source7:        zprofile
 Source8:        _osc
 Source9:        _zypper
@@ -109,7 +108,7 @@ make check
 # install SUSE configuration
 install -m 0755 -Dd  %{buildroot}/{etc,bin}
 install -m 0644 %{SOURCE1} %{SOURCE2} %{SOURCE7} %{buildroot}/etc
-install -m 0644 %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} %{SOURCE8} %{SOURCE9} %{buildroot}%{_datadir}/%{name}/%{version}/functions
+install -m 0644 %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE8} %{SOURCE9} %{buildroot}%{_datadir}/%{name}/%{version}/functions
 # install help files
 install -m 0755 -Dd    %{buildroot}%{_datadir}/%{name}/%{version}/help
 install -m 0644 Help/* %{buildroot}%{_datadir}/%{name}/%{version}/help/
