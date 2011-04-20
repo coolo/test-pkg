@@ -19,7 +19,7 @@
 
 
 Name:           zsh
-Version:        4.3.11
+Version:        4.3.11_dev_2
 Release:        2
 License:        Other uncritical OpenSource License
 Group:          System/Shells
@@ -30,7 +30,7 @@ BuildRequires:  yodl
 BuildRequires:  fdupes
 PreReq:         %{install_info_prereq}
 Url:            http://www.zsh.org
-Source0:        %{name}-%{version}.tar.bz2
+Source0:        %{name}-4.3.11-dev-2.tar.bz2
 Source1:        zshrc
 Source2:        zshenv
 Source3:        _yast2
@@ -41,14 +41,12 @@ Source7:        zprofile
 Source8:        _osc
 Source9:        _zypper
 # unused atm. we build the docs with yodl on our own.
-Source20:       %{name}-%{version}-doc.tar.bz2
-Patch0:         %{name}-%{version}-doc_makefile.patch
-Patch1:         %{name}-%{version}-doc_intro_paths.patch
-Patch2:         %{name}-%{version}-run-help_pager.patch
+Source20:       %{name}-4.3.11-dev-2-doc.tar.bz2
+Patch0:         %{name}-4.3.11-doc_makefile.patch
+Patch1:         %{name}-4.3.11-doc_intro_paths.patch
+Patch2:         %{name}-4.3.11-run-help_pager.patch
 Patch3:         zsh-cleanup.patch
-Patch4:         subst-crash.patch
 Summary:        Shell with comprehensive completion
-%define do_profiling 0
 
 %description
 Zsh is a UNIX command interpreter (shell) that resembles the Korn shell
@@ -63,12 +61,11 @@ Authors:
     Paul Falstad
 
 %prep
-%setup -q
+%setup -q -n %{name}-4.3.11-dev-2
 %patch0
 %patch1
 %patch2
 %patch3
-%patch4 -p1
 # Fix bindir path in some files
 perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
     Functions/Misc/zcalc Functions/Example/cat \
@@ -90,22 +87,9 @@ export CC="gcc" CFLAGS="%{optflags} -pipe -fno-strict-aliasing"
     --enable-zsh-debug \
     --enable-cap \
     --enable-multibyte
-# compiling with profiling data is default.
-%if %do_profiling
-# compile with profiling data writing enabled
-make VERSION="%{version}" CFLAGS="$CFLAGS "%cflags_profile_generate \
-     DLCFLAGS="-fPIC -fno-profile-arcs" LDFLAGS="-fprofile-arcs"
-# this is needed to create the profiling data files *.gcda
-make check
-make clean
-# compile with profiling data reading enabled and writing disabled
-make VERSION="%{version}" CFLAGS="$CFLAGS "%cflags_profile_feedback \
-     DLCFLAGS="-fPIC -fno-branch-probabilities" LDFLAGS="-fprofile-arcs"
-make check
-make clean
-%else
+
 make VERSION="%{version}"
-%endif
+
 # make html documentation
 make -C Doc all zsh.info zsh_toc.html VERSION="%{version}"
 # make help text files
@@ -123,6 +107,9 @@ groff Doc/intro.ms > intro.txt
 %{__mv} Doc/*.html Doc/htmldoc
 # remove some unwanted files in Etc/
 %{__rm} -f Etc/Makefile* Etc/*.yo
+
+%check
+make check
 
 %install
 %makeinstall install.info VERSION="%{version}"
