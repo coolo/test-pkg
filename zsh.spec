@@ -15,21 +15,15 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
-# norootforbuild
 
 
 Name:           zsh
 Version:        4.3.11_dev_2
 Release:        2
 License:        Other uncritical OpenSource License
-Group:          System/Shells
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-BuildRequires:  ncurses-devel
-BuildRequires:  libcap-devel
-BuildRequires:  yodl
-BuildRequires:  fdupes
-PreReq:         %{install_info_prereq}
+Summary:        Shell with comprehensive completion
 Url:            http://www.zsh.org
+Group:          System/Shells
 Source0:        %{name}-4.3.11-dev-2.tar.bz2
 Source1:        zshrc
 Source2:        zshenv
@@ -40,13 +34,16 @@ Source6:        _make
 Source7:        zprofile
 Source8:        _osc
 Source9:        _zypper
-# unused atm. we build the docs with yodl on our own.
-Source20:       %{name}-4.3.11-dev-2-doc.tar.bz2
 Patch0:         %{name}-4.3.11-doc_makefile.patch
 Patch1:         %{name}-4.3.11-doc_intro_paths.patch
 Patch2:         %{name}-4.3.11-run-help_pager.patch
 Patch3:         zsh-cleanup.patch
-Summary:        Shell with comprehensive completion
+BuildRequires:  fdupes
+BuildRequires:  libcap-devel
+BuildRequires:  ncurses-devel
+BuildRequires:  yodl
+PreReq:         %{install_info_prereq}
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
 Zsh is a UNIX command interpreter (shell) that resembles the Korn shell
@@ -55,10 +52,6 @@ notably in the command-line editor, options for customizing its
 behavior, file name globbing, features to make C-shell (csh) users feel
 at home, and extra features drawn from tcsh (another `custom' shell).
 Zsh is well known for its command line completion.
-
-Authors:
---------
-    Paul Falstad
 
 %prep
 %setup -q -n %{name}-4.3.11-dev-2
@@ -71,7 +64,7 @@ perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
     Functions/Misc/zcalc Functions/Example/cat \
     Functions/Misc/checkmail Functions/Misc/run-help Misc/globtests \
     Misc/globtests.ksh Test/ztst.zsh Util/reporter Misc/lete2ctl \
-    Util/check_exports Util/helpfiles 
+    Util/check_exports Util/helpfiles
 # Get rid of /usr/princeton examples
 perl -p -i -e 's|/usr/princeton|%{_bindir}|' \
     Doc/intro.ms
@@ -103,10 +96,10 @@ popd
 # generate intro.txt
 groff Doc/intro.ms > intro.txt
 # better name for html documentation
-%{__mkdir} Doc/htmldoc/
-%{__mv} Doc/*.html Doc/htmldoc
+mkdir Doc/htmldoc/
+mv Doc/*.html Doc/htmldoc
 # remove some unwanted files in Etc/
-%{__rm} -f Etc/Makefile* Etc/*.yo
+rm -f Etc/Makefile* Etc/*.yo
 
 %check
 make check
@@ -114,19 +107,19 @@ make check
 %install
 %makeinstall install.info VERSION="%{version}"
 # install SUSE configuration
-%{__install} -m 0755 -Dd  %{buildroot}/{etc,bin}
-%{__install} -m 0644 %{S:1} %{S:2} %{S:7} %{buildroot}/etc
-%{__install} -m 0644 %{S:3} %{S:4} %{S:5} %{S:6} %{S:8} %{S:9} %{buildroot}%{_datadir}/%{name}/%version/functions
+install -m 0755 -Dd  %{buildroot}/{etc,bin}
+install -m 0644 %{SOURCE1} %{SOURCE2} %{SOURCE7} %{buildroot}/etc
+install -m 0644 %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} %{SOURCE8} %{SOURCE9} %{buildroot}%{_datadir}/%{name}/%{version}/functions
 # install help files
-%{__install} -m 0755 -Dd    %{buildroot}%{_datadir}/%{name}/%{version}/help
-%{__install} -m 0644 Help/* %{buildroot}%{_datadir}/%{name}/%{version}/help/
+install -m 0755 -Dd    %{buildroot}%{_datadir}/%{name}/%{version}/help
+install -m 0644 Help/* %{buildroot}%{_datadir}/%{name}/%{version}/help/
 # link zsh binary
-%{__mv} %{buildroot}%{_bindir}/zsh %{buildroot}/bin/zsh
-%{__ln_s} -f ../../bin/zsh %{buildroot}/usr/bin/zsh
-%fdupes $RPM_BUILD_ROOT
+mv %{buildroot}%{_bindir}/zsh %{buildroot}/bin/zsh
+ln -s -f ../../bin/zsh %{buildroot}%{_bindir}/zsh
+%fdupes %{buildroot}
 
 %clean
-%{__rm} -rf %{buildroot}
+rm -rf %{buildroot}
 
 %post
 %install_info --info-dir=%{_infodir} %{_infodir}/%{name}.info.gz
@@ -137,9 +130,9 @@ make check
 %files
 %defattr(-,root,root)
 %doc Etc/* intro.txt Misc/compctl-examples Doc/htmldoc
-%config(noreplace) /etc/zshrc
-%config(noreplace) /etc/zshenv
-%config(noreplace) /etc/zprofile
+%config(noreplace) %{_sysconfdir}/zshrc
+%config(noreplace) %{_sysconfdir}/zshenv
+%config(noreplace) %{_sysconfdir}/zprofile
 %{_bindir}/zsh
 /bin/zsh
 %{_libdir}/zsh/
