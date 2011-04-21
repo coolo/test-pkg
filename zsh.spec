@@ -37,8 +37,10 @@ Patch0:         %{name}-4.3.11-doc_makefile.patch
 Patch1:         %{name}-4.3.11-doc_intro_paths.patch
 Patch2:         %{name}-4.3.11-run-help_pager.patch
 Patch3:         zsh-cleanup.patch
-# PATCH-FIX-UPSTREAM zzsh-4.3.11-fix-a01grammar.patch idoenmez@suse.de -- Fix lines output
+# PATCH-FIX-UPSTREAM zsh-4.3.11-fix-a01grammar.patch idoenmez@suse.de -- Fix lines output
 Patch4:		zsh-4.3.11-fix-a01grammar.patch
+# PATCH-FIX-OPENSUSE zsh-4.3.11-disable-c02cond-test.patch idoenmez@suse.de -- Fix problematic test in c02cond test
+Patch5:		zsh-4.3.11-disable-c02cond-test.patch
 BuildRequires:  fdupes
 BuildRequires:  libcap-devel
 BuildRequires:  ncurses-devel
@@ -61,6 +63,7 @@ Zsh is well known for its command line completion.
 %patch2
 %patch3
 %patch4 -p1
+%patch5 -p1
 # Fix bindir path in some files
 perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
     Functions/Misc/zcalc Functions/Example/cat \
