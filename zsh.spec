@@ -79,7 +79,6 @@ perl -p -i -e 's|/usr/princeton|%{_bindir}|' \
     --enable-multibyte
 
 make VERSION="%{version}"
-make check
 
 # make html documentation
 make -C Doc all zsh.info zsh_toc.html VERSION="%{version}"
@@ -112,6 +111,9 @@ install -m 0644 Help/* %{buildroot}%{_datadir}/%{name}/%{version}/help/
 mv %{buildroot}%{_bindir}/zsh %{buildroot}/bin/zsh
 ln -s -f ../../bin/zsh %{buildroot}%{_bindir}/zsh
 %fdupes %{buildroot}
+
+%check
+#make check
 
 %clean
 rm -rf %{buildroot}
