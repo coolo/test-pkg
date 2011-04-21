@@ -79,6 +79,7 @@ perl -p -i -e 's|/usr/princeton|%{_bindir}|' \
     --enable-multibyte
 
 make VERSION="%{version}"
+make check
 
 # make html documentation
 make -C Doc all zsh.info zsh_toc.html VERSION="%{version}"
@@ -97,9 +98,6 @@ mkdir Doc/htmldoc/
 mv Doc/*.html Doc/htmldoc
 # remove some unwanted files in Etc/
 rm -f Etc/Makefile* Etc/*.yo
-
-%check
-make check
 
 %install
 %makeinstall install.info VERSION="%{version}"
