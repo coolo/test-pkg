@@ -20,7 +20,7 @@
 Name:           zsh
 Version:        4.3.11_dev_2
 Release:        2
-License:        Other uncritical OpenSource License
+License:        BSD
 Summary:        Shell with comprehensive completion
 Url:            http://www.zsh.org
 Group:          System/Shells
