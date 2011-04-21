@@ -37,7 +37,7 @@ Patch0:         %{name}-4.3.11-doc_makefile.patch
 Patch1:         %{name}-4.3.11-doc_intro_paths.patch
 Patch2:         %{name}-4.3.11-run-help_pager.patch
 Patch3:         zsh-cleanup.patch
-# PATCH-FIX-OPENSUSE zsh-4.3.6-hack-a01grammar-test-select-off.patch idoenmez@suse.de -- Fix racy test
+# PATCH-FIX-OPENSUSE zsh-4.3.6-hack-a01grammar-test-select-off.patch idoenmez@suse.de -- Disable racy test
 Patch4:         zsh-4.3.6-hack-a01grammar-test-select-off.patch
 # PATCH-FIX-OPENSUSE zsh-test-C02-dev_fd-mock.patch idoenmez@suse.de -- Don't test /dev/fd/0
 Patch5:         zsh-test-C02-dev_fd-mock.patch
