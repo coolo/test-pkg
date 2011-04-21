@@ -69,14 +69,12 @@ perl -p -i -e 's|/usr/princeton|%{_bindir}|' \
     Doc/intro.ms
 
 %build
-export CC="gcc" CFLAGS="%{optflags} -pipe -fno-strict-aliasing"
 # readd the site-* dir.
 %configure \
     --enable-site-scriptdir=%{_datadir}/%{name}/site/scripts/ \
     --enable-site-fndir=%{_datadir}/%{name}/site/scripts/ \
     --enable-maildir-support \
     --with-tcsetpgrp \
-    --enable-zsh-debug \
     --enable-cap \
     --enable-multibyte
 

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Apr 21 09:19:55 UTC 2011 - idoenmez@novell.com
+
+- Disable zsh debug
+- Enable strict aliasing again 
+
+-------------------------------------------------------------------
 Wed Apr 20 12:07:36 UTC 2011 - idoenmez@novell.com
 
 - Update to 4.3.11-dev-2, many crash fixes 
