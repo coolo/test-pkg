@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Apr 26 15:43:10 UTC 2011 - idoenmez@novell.com
+
+- Enable make check 
+
+-------------------------------------------------------------------
 Thu Apr 21 09:19:55 UTC 2011 - idoenmez@novell.com
 
 - Disable zsh debug
