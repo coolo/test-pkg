@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Mar 30 08:15:37 UTC 2011 - fcrozat@novell.com
+
+- Enable gallium driver for radeon and r600
+
+-------------------------------------------------------------------
 Sat Jan  8 20:46:35 UTC 2011 - sndirsch@novell.com
 
 - update to 7.10 final

@@ -18,6 +18,7 @@
 # norootforbuild
 
 %define enable_nouveau 1
+%define enable_radeon_gallium 1
 
 %define _version 7.10
 
@@ -167,6 +168,10 @@ autoreconf -fi
 %endif
 %if %enable_nouveau
            --enable-gallium-nouveau \
+%endif
+%if %enable_radeon_gallium
+           --enable-gallium-radeon \
+           --enable-gallium-r600 \
 %endif
 %endif
 %ifarch ppc %sparc hppa
