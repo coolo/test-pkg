@@ -1,4 +1,20 @@
 -------------------------------------------------------------------
+Tue Apr 26 15:43:10 UTC 2011 - idoenmez@novell.com
+
+- Enable make check 
+
+-------------------------------------------------------------------
+Thu Apr 21 09:19:55 UTC 2011 - idoenmez@novell.com
+
+- Disable zsh debug
+- Enable strict aliasing again 
+
+-------------------------------------------------------------------
+Wed Apr 20 12:07:36 UTC 2011 - idoenmez@novell.com
+
+- Update to 4.3.11-dev-2, many crash fixes 
+
+-------------------------------------------------------------------
 Tue Mar 15 13:40:24 UTC 2011 - ismail@namtrac.org
 
 - Fix crash with ${foo:0:} 
