@@ -19,7 +19,7 @@
 
 Name:           zsh
 Version:        4.3.11_dev_2
-Release:        2
+Release:        1
 License:        BSD
 Summary:        Shell with comprehensive completion
 Url:            http://www.zsh.org
@@ -38,9 +38,9 @@ Patch1:         %{name}-4.3.11-doc_intro_paths.patch
 Patch2:         %{name}-4.3.11-run-help_pager.patch
 Patch3:         zsh-cleanup.patch
 # PATCH-FIX-UPSTREAM zsh-4.3.11-fix-a01grammar.patch idoenmez@suse.de -- Fix lines output
-Patch4:		zsh-4.3.11-fix-a01grammar.patch
+Patch4:         zsh-4.3.11-fix-a01grammar.patch
 # PATCH-FIX-OPENSUSE zsh-4.3.11-disable-c02cond-test.patch idoenmez@suse.de -- Fix problematic test in c02cond test
-Patch5:		zsh-4.3.11-disable-c02cond-test.patch
+Patch5:         zsh-4.3.11-disable-c02cond-test.patch
 BuildRequires:  fdupes
 BuildRequires:  libcap-devel
 BuildRequires:  ncurses-devel
