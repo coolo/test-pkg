@@ -1,5 +1,5 @@
 #
-# spec file for package Mesa (Version 7.10)
+# spec file for package Mesa
 #
 # Copyright (c) 2011 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
@@ -20,10 +20,10 @@
 %define enable_nouveau 1
 %define enable_radeon_gallium 1
 
-%define _version 7.10
+%define _version 7.10.2
 
-Version:        7.10
-Release:        1
+Version:        7.10.2
+Release:        6
 
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
