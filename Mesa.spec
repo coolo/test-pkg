@@ -20,9 +20,9 @@
 %define enable_nouveau 1
 %define enable_radeon_gallium 1
 
-%define _version 7.10
+%define _version 7.10.2
 
-Version:        7.10
+Version:        7.10.2
 Release:        6
 
 Name:           Mesa
