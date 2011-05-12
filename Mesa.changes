@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri May  6 16:46:21 UTC 2011 - mhopf@novell.com
+
+- Update to 7.10.2
+  * Many crash and rendering fixes
+  * Fixes bug 678264 (Xserver crash with radeon/radeonhd UMS)
+
+-------------------------------------------------------------------
 Wed Mar 30 08:15:37 UTC 2011 - fcrozat@novell.com
 
 - Enable gallium driver for radeon and r600
