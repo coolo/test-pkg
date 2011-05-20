@@ -23,7 +23,7 @@
 %define _version 7.10.2
 
 Version:        7.10.2
-Release:        6
+Release:        1
 
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
@@ -52,6 +52,7 @@ Source4:        manual-pages.tar.bz2
 Source5:        drirc
 # add update path for dri drivers
 Patch1:         dri_driver_dir.diff
+Patch2:         intel-add-gem-string.patch
 # to be upstreamed
 Patch8:         egl-buildfix.diff
 Patch9:         Mesa_indirect_old_xserver_compatibility.diff
@@ -144,6 +145,7 @@ rm -f include/GL/{glut.h,uglglutshapes.h,glutf90.h}
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
 %patch1
+%patch2
 sed -i 's/REPLACE/%_lib/g' src/glx/Makefile
 sed -i 's/REPLACE/%_lib/g' src/egl/drivers/dri2/Makefile
 %patch8
