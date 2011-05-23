@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed May 19 18:10:53 UTC 2011 - idoenmez@novell.com
+
+- Add intel-add-gem-string.patch: Add back "GEM" string to Intel
+  driver's version output to fix OpenGL effects in kwin.
+
+-------------------------------------------------------------------
 Fri May  6 16:46:21 UTC 2011 - mhopf@novell.com
 
 - Update to 7.10.2
