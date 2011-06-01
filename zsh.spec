@@ -18,29 +18,17 @@
 
 
 Name:           zsh
-Version:        4.3.11_dev_2
+Version:        4.3.12
 Release:        1
 License:        BSD
 Summary:        Shell with comprehensive completion
 Url:            http://www.zsh.org
 Group:          System/Shells
-Source0:        %{name}-4.3.11-dev-2.tar.bz2
+Source0:        %{name}-%{version}.tar.bz2
 Source1:        zshrc
 Source2:        zshenv
-Source3:        _yast2
-Source4:        _SuSEconfig
-Source5:        _hwinfo
-Source7:        zprofile
-Source8:        _osc
-Source9:        _zypper
-Patch0:         %{name}-4.3.11-doc_makefile.patch
-Patch1:         %{name}-4.3.11-doc_intro_paths.patch
-Patch2:         %{name}-4.3.11-run-help_pager.patch
-Patch3:         zsh-cleanup.patch
-# PATCH-FIX-UPSTREAM zsh-4.3.11-fix-a01grammar.patch idoenmez@suse.de -- Fix lines output
-Patch4:         zsh-4.3.11-fix-a01grammar.patch
-# PATCH-FIX-OPENSUSE zsh-4.3.11-disable-c02cond-test.patch idoenmez@suse.de -- Fix problematic test in c02cond test
-Patch5:         zsh-4.3.11-disable-c02cond-test.patch
+Source3:        zprofile
+Patch1:         %{name}-%{version}-disable-c02cond-test.patch
 BuildRequires:  fdupes
 BuildRequires:  libcap-devel
 BuildRequires:  ncurses-devel
@@ -57,22 +45,14 @@ at home, and extra features drawn from tcsh (another `custom' shell).
 Zsh is well known for its command line completion.
 
 %prep
-%setup -q -n %{name}-4.3.11-dev-2
-%patch0
+%setup -q
 %patch1
-%patch2
-%patch3
-%patch4 -p1
-%patch5 -p1
+
 # Fix bindir path in some files
 perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
-    Functions/Misc/zcalc Functions/Example/cat \
-    Functions/Misc/checkmail Functions/Misc/run-help Misc/globtests \
-    Misc/globtests.ksh Test/ztst.zsh Util/reporter Misc/lete2ctl \
-    Util/check_exports Util/helpfiles
-# Get rid of /usr/princeton examples
-perl -p -i -e 's|/usr/princeton|%{_bindir}|' \
-    Doc/intro.ms
+    Doc/intro.ms Misc/globtests.ksh Misc/globtests \
+    Misc/lete2ctl Util/check_exports Util/helpfiles \
+    Util/reporter
 
 %build
 # readd the site-* dir.
@@ -84,10 +64,11 @@ perl -p -i -e 's|/usr/princeton|%{_bindir}|' \
     --enable-cap \
     --enable-multibyte
 
-make VERSION="%{version}"
+make
 
 # make html documentation
-make -C Doc all zsh.info zsh_toc.html VERSION="%{version}"
+make -C Doc all zsh.info zsh_toc.html
+
 # make help text files
 mkdir -p Help
 pushd Help/
@@ -96,26 +77,35 @@ troff -Tlatin1 -t -mandoc ../Doc/zshbuiltins.1 | \
 	sed -e 's/±/{+|-}/' | \
 	../Util/helpfiles
 popd
-# generate intro.txt
-groff Doc/intro.ms > intro.txt
+
+# generate intro.ps
+groff -Tps -ms Doc/intro.ms > intro.ps
+
 # better name for html documentation
 mkdir Doc/htmldoc/
 mv Doc/*.html Doc/htmldoc
+
 # remove some unwanted files in Etc/
 rm -f Etc/Makefile* Etc/*.yo
 
 %install
-%makeinstall install.info VERSION="%{version}"
+%makeinstall install.info
+
 # install SUSE configuration
 install -m 0755 -Dd  %{buildroot}/{etc,bin}
-install -m 0644 %{SOURCE1} %{SOURCE2} %{SOURCE7} %{buildroot}/etc
-install -m 0644 %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE8} %{SOURCE9} %{buildroot}%{_datadir}/%{name}/%{version}/functions
+install -m 0644 %{SOURCE1} %{SOURCE2} %{SOURCE3} %{buildroot}/etc
+
 # install help files
 install -m 0755 -Dd    %{buildroot}%{_datadir}/%{name}/%{version}/help
 install -m 0644 Help/* %{buildroot}%{_datadir}/%{name}/%{version}/help/
+
 # link zsh binary
 mv %{buildroot}%{_bindir}/zsh %{buildroot}/bin/zsh
 ln -s -f ../../bin/zsh %{buildroot}%{_bindir}/zsh
+
+# Remove versioned zsh binary
+rm -f %{buildroot}%{_bindir}/zsh-*
+
 %fdupes %{buildroot}
 
 %check
@@ -132,7 +122,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%doc Etc/* intro.txt Misc/compctl-examples Doc/htmldoc
+%doc Etc/* intro.ps Misc/compctl-examples Doc/htmldoc
 %config(noreplace) %{_sysconfdir}/zshrc
 %config(noreplace) %{_sysconfdir}/zshenv
 %config(noreplace) %{_sysconfdir}/zprofile
