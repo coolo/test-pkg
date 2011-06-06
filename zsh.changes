@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jun  1 13:17:38 UTC 2011 - idonmez@novell.com
+
+- Update to zsh 4.3.12 
+- Dropped openSUSE specific completions, all are upstreamed now
+
+-------------------------------------------------------------------
 Tue Apr 26 15:43:10 UTC 2011 - idoenmez@novell.com
 
 - Enable make check 
