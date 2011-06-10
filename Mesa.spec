@@ -17,13 +17,13 @@
 
 # norootforbuild
 
-%define enable_nouveau 1
+%define enable_nouveau_gallium 1
 %define enable_radeon_gallium 1
 
 %define _version 7.10.2
 
 Version:        7.10.2
-Release:        1
+Release:        8
 
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
@@ -50,13 +50,10 @@ Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source5:        drirc
-# add update path for dri drivers
-Patch1:         dri_driver_dir.diff
-Patch2:         intel-add-gem-string.patch
 # to be upstreamed
 Patch8:         egl-buildfix.diff
-Patch9:         Mesa_indirect_old_xserver_compatibility.diff
-Patch11:        0001-Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
+Patch9:         u_GLX-SWrast-Make-GLX-with-SWrast-enabled-work-on-olde.patch
+Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 # already upstream
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -144,12 +141,8 @@ rm -rf src/glut progs/{demos,redbook,samples,xdemos,glsl}
 rm -f include/GL/{glut.h,uglglutshapes.h,glutf90.h}
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
-%patch1
-%patch2
-sed -i 's/REPLACE/%_lib/g' src/glx/Makefile
-sed -i 's/REPLACE/%_lib/g' src/egl/drivers/dri2/Makefile
 %patch8
-%patch9 -p0
+%patch9 -p1
 %patch11 -p1
 
 %build
@@ -161,14 +154,16 @@ export TALLOC_CFLAGS="-I/usr/include"
 autoreconf -fi
 ### libGL (disable savage/mga, bnc #402132/#403071; reenable mga, bnc #466635)
 %configure --disable-glw \
+           --enable-gles2 \
            --with-driver=dri \
+           --with-dri-searchpath=/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri \
 %ifarch %ix86 x86_64
 %if 0%{?suse_version} >= 1130
            --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,sis,tdfx,unichrome,swrast,nouveau,mga \
 %else
            --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,sis,tdfx,unichrome,swrast \
 %endif
-%if %enable_nouveau
+%if %enable_nouveau_gallium
            --enable-gallium-nouveau \
 %endif
 %if %enable_radeon_gallium
@@ -182,7 +177,7 @@ autoreconf -fi
 %else
            --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,tdfx,unichrome,swrast \
 %endif
-%if %enable_nouveau
+%if %enable_nouveau_gallium
            --enable-gallium-nouveau \
 %endif
 %endif
@@ -249,6 +244,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %doc docs/*.html docs/*.spec
 %{_includedir}/GL
+%{_includedir}/GLES
+%{_includedir}/GLES2
 %{_includedir}/EGL
 %{_includedir}/KHR
 %exclude %{_includedir}/GL/glew.h
@@ -258,10 +255,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libGLU.so
 %{_libdir}/libOSMesa.so
 %{_libdir}/libEGL.so
+%{_libdir}/libGLESv1_CM.so
+%{_libdir}/libGLESv2.so
 %{_libdir}/pkgconfig/dri.pc
 %{_libdir}/pkgconfig/egl.pc
 %{_libdir}/pkgconfig/gl.pc
 %{_libdir}/pkgconfig/glu.pc
+%{_libdir}/pkgconfig/glesv1_cm.pc
+%{_libdir}/pkgconfig/glesv2.pc
 %{_mandir}/man3/*
 
 %files nouveau3d
