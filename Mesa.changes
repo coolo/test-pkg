@@ -1,8 +1,53 @@
 -------------------------------------------------------------------
+Fri Jun 10 06:10:16 UTC 2011 - eich@suse.de
+
+- u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch:
+  Update this patch closing a giant memory leak.
+
+-------------------------------------------------------------------
+Thu Jun  9 11:01:49 UTC 2011 - eich@suse.de
+
+- Replace patches:
+  * add: u_GLX-SWrast-Make-GLX-with-SWrast-enabled-work-on-olde.patch
+    This patch falls back to indirect rendering if SWrast doesn't work
+    with older Xservers as no common configs/visuals can be found.
+  * remove: Mesa_indirect_old_xserver_compatibility.diff
+    this patch is superseded.
+  * rename: 0001-Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
+    to u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
+
+-------------------------------------------------------------------
+Sat Jun  4 11:20:47 UTC 2011 - eich@suse.de
+
+- Remove: intel-add-gem-string.patch
+  This patch was barking up the wrong tree anyway.
+  As discussed with Martin Grässlin from the Kwin project
+  a patch from the upstream git master has been cherry-picked
+  and added to kdebase4-workspace which makes this patch unneciessary.
+  The patch to Kwin will become obsolete once Kwin is updated,
+  this will be noticed easily in kdebase4-workspace.
+
+-------------------------------------------------------------------
+Tue May 24 19:49:12 UTC 2011 - eich@suse.de
+
+- Fix the driver directory search path in the spec file.
+  This makes dri_driver_dir.diff obsolete.
+
+-------------------------------------------------------------------
 Wed May 19 18:10:53 UTC 2011 - idoenmez@novell.com
 
 - Add intel-add-gem-string.patch: Add back "GEM" string to Intel
   driver's version output to fix OpenGL effects in kwin.
+
+-------------------------------------------------------------------
+Tue May 17 07:31:21 UTC 2011 - eich@suse.de
+
+- Add packaging information for GLES2 devel files. 
+
+-------------------------------------------------------------------
+Mon May 16 18:23:39 UTC 2011 - eich@suse.de
+
+- Add GLES2 support. 
 
 -------------------------------------------------------------------
 Fri May  6 16:46:21 UTC 2011 - mhopf@novell.com
