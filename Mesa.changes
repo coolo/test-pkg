@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Jun 16 15:55:44 UTC 2011 - mhopf@novell.com
+
+- Don't unpack MesaDemos during build; it's not needed any more.
+
+-------------------------------------------------------------------
 Fri Jun 10 06:10:16 UTC 2011 - eich@suse.de
 
 - u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch:
