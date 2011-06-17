@@ -29,6 +29,11 @@ Source1:        zshrc
 Source2:        zshenv
 Source3:        zprofile
 Patch1:         %{name}-%{version}-disable-c02cond-test.patch
+# PATCH-FIX-UPSTREAM zsh-findproc.patch idoenmez@suse.de -- Upstream commit 21c39600ef2d74c3e7474c4e5b89805656c6fe4e
+Patch2:         %{name}-findproc.patch
+# PATCH-FIX-UPSTREAM zsh-kill-suspended-job.patch idoenmez@suse.de -- Upstream commit 98b29d02ca17068779f4b8fa2d43c9753386478f 
+Patch3:         %{name}-kill-suspended-job.patch
+
 BuildRequires:  fdupes
 BuildRequires:  libcap-devel
 BuildRequires:  ncurses-devel
@@ -47,6 +52,8 @@ Zsh is well known for its command line completion.
 %prep
 %setup -q
 %patch1
+%patch2 -p1
+%patch3 -p1
 
 # Fix bindir path in some files
 perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
