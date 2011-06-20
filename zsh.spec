@@ -19,7 +19,7 @@
 
 Name:           zsh
 Version:        4.3.12
-Release:        1
+Release:        2
 License:        BSD
 Summary:        Shell with comprehensive completion
 Url:            http://www.zsh.org
