@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jun 17 13:35:56 UTC 2011 - idonmez@novell.com
+
+- Add zsh-kill-suspended-job.patch: fix killing suspended jobs 
+- Add zsh-findproc.patch: fix findproc() to find stopped jobs
+
+-------------------------------------------------------------------
 Wed Jun  1 13:17:38 UTC 2011 - idonmez@novell.com
 
 - Update to zsh 4.3.12 
