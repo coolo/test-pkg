@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Jun 20 15:05:42 UTC 2011 - sndirsch@novell.com
+
+- libdrm-2.4.26-nouveau.diff
+  * Fixes build of Mesa 7.10.2 nouveau driver with libdrm 2.4.26 ...
+    --> https://bugs.freedesktop.org/show_bug.cgi?id=35562
+
+-------------------------------------------------------------------
 Thu Jun 16 15:55:44 UTC 2011 - mhopf@novell.com
 
 - Don't unpack MesaDemos during build; it's not needed any more.

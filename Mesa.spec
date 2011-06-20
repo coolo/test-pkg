@@ -23,7 +23,7 @@
 %define _version 7.10.2
 
 Version:        7.10.2
-Release:        10
+Release:        12
 
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
@@ -53,6 +53,7 @@ Source5:        drirc
 Patch8:         egl-buildfix.diff
 Patch9:         u_GLX-SWrast-Make-GLX-with-SWrast-enabled-work-on-olde.patch
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
+Patch12:        libdrm-2.4.26-nouveau.diff
 # already upstream
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -143,6 +144,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch8
 %patch9 -p1
 %patch11 -p1
+%patch12 -p1
 
 %build
 
