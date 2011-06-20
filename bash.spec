@@ -40,8 +40,8 @@ Version:        4.2
 Release:        4
 Summary:        The GNU Bourne-Again Shell
 Url:            http://www.gnu.org/software/bash/bash.html
-Source0:        ftp://ftp.gnu.org/gnu/bash/bash-%{bash_vers}.tar.bz2
-Source1:        ftp://ftp.gnu.org/gnu/readline/readline-%{rl_vers}.tar.bz2
+Source0:        ftp://ftp.gnu.org/gnu/bash/bash-%{bash_vers}.tar.gz
+Source1:        ftp://ftp.gnu.org/gnu/readline/readline-%{rl_vers}.tar.gz
 Source2:        bash-%{bash_vers}-patches.tar.bz2
 Source3:        readline-%{rl_vers}-patches.tar.bz2
 Source4:        run-tests
@@ -85,6 +85,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _minsh      0
 %{expand:       %%global rl_major %(echo %{rl_vers} | sed -r 's/.[0-9]+//g')}
 
+
 %description
 Bash is an sh-compatible command interpreter that executes commands
 read from standard input or from a file.  Bash incorporates useful
@@ -112,6 +113,7 @@ AutoReqProv:    on
 BuildArch:      noarch
 %endif
 
+
 %description -n bash-doc
 This package contains the documentation for using the bourne shell
 interpreter Bash.
@@ -126,6 +128,7 @@ Authors:
 %lang_package(bash)
 %else
 
+
 %package -n bash-lang
 License:        GPLv2+
 Summary:        Languages for package bash
@@ -133,9 +136,11 @@ Group:          System/Localization
 Provides:       bash-lang = %{version}
 Requires:       bash = %{version}
 
+
 %description -n bash-lang
 Provides translations to the package bash
 %endif
+
 
 %package -n bash-devel
 License:        GPLv2+
@@ -144,6 +149,7 @@ Group:          Development/Languages/C and C++
 Version:        4.2
 Release:        4
 AutoReqProv:    on
+
 
 %description -n bash-devel
 This package contains the C header files for writing loadable new
@@ -164,6 +170,7 @@ Group:          System/Shells
 Version:        4.2
 Release:        4
 AutoReqProv:    on
+
 
 %description -n bash-loadables
 This package contains the examples for the ready-to-dynamic-load
@@ -244,6 +251,7 @@ Provides:       readline =  6.2
 Obsoletes:      readline <= 6.1
 AutoReqProv:    on
 
+
 %description -n libreadline6
 The readline library is used by the Bourne Again Shell (bash, the
 standard command interpreter) for easy editing of command lines.  This
@@ -275,6 +283,7 @@ Obsoletes:      readline-devel-64bit
 %endif
 #
 
+
 %description -n readline-devel
 This package contains all necessary include files and libraries needed
 to develop applications that require these.
@@ -298,6 +307,7 @@ AutoReqProv:    on
 %if %suse_version > 1120
 BuildArch:      noarch
 %endif
+
 
 %description -n readline-doc
 This package contains the documentation for using the readline library
@@ -352,6 +362,7 @@ done
 %patch24 -p2 -b .metamode
 %patch30 -p0 -b .destdir
 %patch20 -p0 -b .0
+
 
 %build
   LANG=POSIX
@@ -530,6 +541,7 @@ popd
   make -C examples/loadables/
   make documentation
 
+
 %install
 pushd ../readline-%{rl_vers}%{extend}
   make install htmldir=%{_defaultdocdir}/readline \
@@ -601,28 +613,36 @@ EOF
   %fdupes -s %{buildroot}%{_datadir}/bash/helpfiles
 %endif
 
+
 %post -n bash-doc
 %install_info --info-dir=%{_infodir} %{_infodir}/bash.info.gz
+
 
 %postun -n bash-doc
 %install_info_delete --info-dir=%{_infodir} %{_infodir}/bash.info.gz
 
+
 %post -n libreadline6 -p /sbin/ldconfig
 
+
 %postun -n libreadline6 -p /sbin/ldconfig
+
 
 %post -n readline-doc
 %install_info --info-dir=%{_infodir} %{_infodir}/history.info.gz
 %install_info --info-dir=%{_infodir} %{_infodir}/readline.info.gz
 
+
 %postun -n readline-doc
 %install_info_delete --info-dir=%{_infodir} %{_infodir}/history.info.gz
 %install_info_delete --info-dir=%{_infodir} %{_infodir}/readline.info.gz
+
 
 %clean
 ldd -u -r %{buildroot}/bin/bash || true
 ldd -u -r %{buildroot}%{_libdir}/libreadline.so || true
 %{?buildroot: %{__rm} -rf %{buildroot}}
+
 
 %files
 %defattr(-,root,root)
@@ -639,8 +659,10 @@ ldd -u -r %{buildroot}%{_libdir}/libreadline.so || true
 %dir %{_datadir}/bash/helpfiles
 %{_datadir}/bash/helpfiles/*
 
+
 %files -n bash-lang -f bash.lang
 %defattr(-,root,root)
+
 
 %files -n bash-doc
 %defattr(-,root,root)
@@ -651,6 +673,7 @@ ldd -u -r %{buildroot}%{_libdir}/libreadline.so || true
 %doc %{_mandir}/man1/rbash.1.gz
 %doc %{_defaultdocdir}/bash/
 
+
 %files -n bash-devel
 %defattr(-,root,root)
 %dir /%{_includedir}/bash/
@@ -659,11 +682,13 @@ ldd -u -r %{buildroot}%{_libdir}/libreadline.so || true
 /%{_incdir}/bash/%{bash_vers}/*.h
 /%{_incdir}/bash/%{bash_vers}/builtins/*.h
 
+
 %files -n bash-loadables
 %defattr(-,root,root)
 %dir %{_ldldir}/
 %dir %{_ldldir}/%{bash_vers}/
 %{_ldldir}/%{bash_vers}/*
+
 
 %files -n libreadline6
 %defattr(-,root,root)
@@ -672,6 +697,7 @@ ldd -u -r %{buildroot}%{_libdir}/libreadline.so || true
 /%{_lib}/libreadline.so.%{rl_major}
 /%{_lib}/libreadline.so.%{rl_vers}
 
+
 %files -n readline-devel
 %defattr(-,root,root)
 %{_incdir}/readline/
@@ -679,10 +705,13 @@ ldd -u -r %{buildroot}%{_libdir}/libreadline.so || true
 %{_libdir}/libreadline.so
 %doc %{_mandir}/man3/readline.3.gz
 
+
 %files -n readline-doc
 %defattr(-,root,root)
 %doc %{_infodir}/history.info.gz
 %doc %{_infodir}/readline.info.gz
 %doc %{_defaultdocdir}/readline/
+
+
 
 %changelog
