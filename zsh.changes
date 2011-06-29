@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Wed Jun 29 12:35:50 UTC 2011 - chris@computersalat.de
+
+- enable build for RHEL and friends (CentOS, Fedora)
+  o merge with 4.2.6 from RHEL
+  o add/rework RHEL patch (BZ-488943-ksh-emulation-syntax-checking)
+  o add several *.rhs files
+  o disable E01options test
+- add subpkg htmldoc
+- fix deps
+  o fdupes >= suse_version 1110
+
+-------------------------------------------------------------------
 Fri Jun 17 13:35:56 UTC 2011 - idonmez@novell.com
 
 - Add zsh-kill-suspended-job.patch: fix killing suspended jobs 

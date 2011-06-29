@@ -23,23 +23,51 @@ Release:        2
 License:        BSD
 Summary:        Shell with comprehensive completion
 Url:            http://www.zsh.org
+%if 0%{?suse_version}
 Group:          System/Shells
+%else
+Group:          System Environment/Shells
+%endif
+#Source0:        ftp://ftp.fu-berlin.de/pub/unix/shells/zsh/zsh-4.3.12.tar.bz2
 Source0:        %{name}-%{version}.tar.bz2
 Source1:        zshrc
 Source2:        zshenv
 Source3:        zprofile
+%if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
+Source11:       zlogin.rhs
+Source12:       zlogout.rhs
+Source13:       zprofile.rhs
+Source14:       zshrc.rhs
+Source15:       zshenv.rhs
+Source16:       dotzshrc
+Source17:       zshprompt.pl
+%endif
 Patch1:         %{name}-%{version}-disable-c02cond-test.patch
 # PATCH-FIX-UPSTREAM zsh-findproc.patch idoenmez@suse.de -- Upstream commit 21c39600ef2d74c3e7474c4e5b89805656c6fe4e
 Patch2:         %{name}-findproc.patch
 # PATCH-FIX-UPSTREAM zsh-kill-suspended-job.patch idoenmez@suse.de -- Upstream commit 98b29d02ca17068779f4b8fa2d43c9753386478f 
 Patch3:         %{name}-kill-suspended-job.patch
-
+# PATCH-FIX ksh-emulation-syntax-checking.patch -- Import and rework from RHEL (zsh-4.2.6)
+Patch4:         %{name}-4.3.12-ksh-emulation-syntax-checking.patch
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+%if 0%{?suse_version}
+PreReq:         %{install_info_prereq}
+%if 0%{?suse_version} >= 1110
 BuildRequires:  fdupes
+BuildRequires:  yodl
+%endif
+%else
+Prereq:         fileutils grep /sbin/install-info
+%endif
+
 BuildRequires:  libcap-devel
 BuildRequires:  ncurses-devel
-BuildRequires:  yodl
-PreReq:         %{install_info_prereq}
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+%if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
+BuildRequires:  libtermcap-devel
+BuildRequires:  texi2html
+BuildRequires:  texinfo
+BuildRequires:  tetex
+%endif
 
 %description
 Zsh is a UNIX command interpreter (shell) that resembles the Korn shell
@@ -49,11 +77,39 @@ behavior, file name globbing, features to make C-shell (csh) users feel
 at home, and extra features drawn from tcsh (another `custom' shell).
 Zsh is well known for its command line completion.
 
+%package htmldoc
+Summary:        Zsh shell manual in html format
+%if 0%{?suse_version}
+Group:          System/Shells
+%else
+Group:          System Environment/Shells
+Obsoletes:      %{name}-html < %{version}
+%endif
+
+%description htmldoc
+The zsh shell is a command interpreter usable as an interactive login
+shell and as a shell script command processor.  Zsh resembles the ksh
+shell (the Korn shell), but includes many enhancements.  Zsh supports
+command line editing, built-in spelling correction, programmable
+command completion, shell functions (with autoloading), a history
+mechanism, and more.
+
+This package contains the Zsh manual in html format.
+
 %prep
 %setup -q
 %patch1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
+
+##rpmlint
+# spurious-executable-perm
+chmod 0644 Etc/changelog2html.pl
+
+%if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
+  cp -p %{SOURCE17} .
+%endif
 
 # Fix bindir path in some files
 perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
@@ -71,13 +127,10 @@ perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
     --enable-cap \
     --enable-multibyte
 
-make
-
-# make html documentation
-make -C Doc all zsh.info zsh_toc.html
+make all info html
 
 # make help text files
-mkdir -p Help
+install -d Help
 pushd Help/
 troff -Tlatin1 -t -mandoc ../Doc/zshbuiltins.1 | \
 	grotty -cbou | \
@@ -89,18 +142,38 @@ popd
 groff -Tps -ms Doc/intro.ms > intro.ps
 
 # better name for html documentation
-mkdir Doc/htmldoc/
+install -d -m 0755 Doc/htmldoc/
 mv Doc/*.html Doc/htmldoc
 
 # remove some unwanted files in Etc/
 rm -f Etc/Makefile* Etc/*.yo
 
-%install
-%makeinstall install.info
 
-# install SUSE configuration
+%install
+%if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
+  rm -rf %{buildroot}
+%endif
+
+%if 0%{?suse_version}
+%makeinstall install.info
+%else
+  make DESTDIR=%{buildroot} install install.info
+%endif
+
 install -m 0755 -Dd  %{buildroot}/{etc,bin}
-install -m 0644 %{SOURCE1} %{SOURCE2} %{SOURCE3} %{buildroot}/etc
+
+%if 0%{?suse_version}
+# install SUSE configuration
+install -m 0644 %{SOURCE1} %{SOURCE2} %{SOURCE3} %{buildroot}%{_sysconfdir}
+%endif
+
+%if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
+# install RHEL || CentOS || Fedora configuration
+for i in zlogin zlogout zprofile zshrc zshenv; do
+  install -m 0644 $RPM_SOURCE_DIR/${i}.rhs %{buildroot}%{_sysconfdir}/$i
+  install -D -m 0644 %{SOURCE16} %{buildroot}%{_sysconfdir}/skel/.zshrc
+done
+%endif
 
 # install help files
 install -m 0755 -Dd    %{buildroot}%{_datadir}/%{name}/%{version}/help
@@ -113,31 +186,92 @@ ln -s -f ../../bin/zsh %{buildroot}%{_bindir}/zsh
 # Remove versioned zsh binary
 rm -f %{buildroot}%{_bindir}/zsh-*
 
+%if 0%{?suse_version} >= 1110
 %fdupes %{buildroot}
+%endif
 
 %check
+%if 0%{?suse_version}
 make check
+%else
+# FixMe: sometimes failing Test
+#+ fn:echo:2: write error: broken pipe
+#+ fn:2: write error: inappropriate ioctl for device
+mv Test/E01options.ztst Test/E01options.ztst.mvd
+%ifarch s390 s390x ppc ppc64
+  ( cd Test
+    mkdir skipped
+    mv Y*.ztst skipped )
+%endif
+  ZTST_verbose=0 make test
+%endif
+
+%preun
+%if 0%{?suse_version}
+  :
+%else
+  if [ "$1" = 0 ] ; then
+    /sbin/install-info --delete %{_infodir}/zsh.info.gz %{_infodir}/dir \
+      --entry="* zsh: (zsh).                  An enhanced bourne shell."
+  fi
+%endif
+
+%post
+%if 0%{?suse_version}
+  %install_info --info-dir=%{_infodir} %{_infodir}/%{name}.info.gz
+%else
+if [ ! -f %{_sysconfdir}/shells ]; then
+  echo "%{_bindir}/zsh" > %{_sysconfdir}/shells
+else
+  grep -q "^%{_bindir}/zsh$" %{_sysconfdir}/shells || echo "%{_bindir}/zsh" >> %{_sysconfdir}/shells
+fi
+
+/sbin/install-info %{_infodir}/zsh.info.gz %{_infodir}/dir \
+  --entry="* zsh: (zsh).                  An enhanced bourne shell."
+%endif
+
+%postun
+%if 0%{?suse_version}
+  %install_info_delete --info-dir=%{_infodir} %{_infodir}/%{name}.info.gz
+%else
+  if [ "$1" = 0 ] ; then
+    if [ -f %{_sysconfdir}/shells ] ; then
+      TmpFile=`%{_bindir}/mktemp /tmp/.zshrpmXXXXXX`
+      grep -v '^%{_bindir}/zsh$' %{_sysconfdir}/shells > $TmpFile
+      cp -f $TmpFile %{_sysconfdir}/shells
+      rm -f $TmpFile
+      chmod 644 %{_sysconfdir}/shells
+    fi
+  fi
+%endif
 
 %clean
 rm -rf %{buildroot}
 
-%post
-%install_info --info-dir=%{_infodir} %{_infodir}/%{name}.info.gz
-
-%postun
-%install_info_delete --info-dir=%{_infodir} %{_infodir}/%{name}.info.gz
-
 %files
 %defattr(-,root,root)
-%doc Etc/* intro.ps Misc/compctl-examples Doc/htmldoc
+%doc ChangeLog FEATURES LICENCE MACHINES META-FAQ NEWS README
+%doc Etc/* intro.ps Misc/compctl-examples
+
 %config(noreplace) %{_sysconfdir}/zshrc
 %config(noreplace) %{_sysconfdir}/zshenv
 %config(noreplace) %{_sysconfdir}/zprofile
+%if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
+%config(noreplace) %{_sysconfdir}/zlogin
+%config(noreplace) %{_sysconfdir}/zlogout
+%config(noreplace) %{_sysconfdir}/skel/.zshrc
+%endif
+
 %{_bindir}/zsh
 /bin/zsh
 %{_libdir}/zsh/
 %{_datadir}/zsh/
+#exclude %{_datadir}/zsh/htmldoc
 %{_infodir}/zsh.info*.gz
 %{_mandir}/man1/zsh*.1.gz
+
+%files htmldoc
+%defattr(-,root,root)
+%doc Doc/htmldoc/*
 
 %changelog
