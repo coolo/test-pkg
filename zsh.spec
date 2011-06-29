@@ -39,7 +39,7 @@ Source12:       zlogout.rhs
 Source13:       zprofile.rhs
 Source14:       zshrc.rhs
 Source15:       zshenv.rhs
-Source16:       dotzshrc
+Source16:       dotzshrc.rh
 Source17:       zshprompt.pl
 %endif
 Patch1:         %{name}-%{version}-disable-c02cond-test.patch
