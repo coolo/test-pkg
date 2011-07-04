@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Jul  3 13:21:31 UTC 2011 - vljn@ovi.com
+
+- Update Mesa 7.10.3
+  * Few crashes and rendering fixes.
+
+-------------------------------------------------------------------
 Mon Jun 20 15:05:42 UTC 2011 - sndirsch@novell.com
 
 - libdrm-2.4.26-nouveau.diff
