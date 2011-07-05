@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Sun Jul  3 13:21:31 UTC 2011 - vljn@ovi.com
+
+- Update Mesa 7.10.3
+  * Few crashes and rendering fixes.
+
+-------------------------------------------------------------------
+Mon Jun 20 15:05:42 UTC 2011 - sndirsch@novell.com
+
+- libdrm-2.4.26-nouveau.diff
+  * Fixes build of Mesa 7.10.2 nouveau driver with libdrm 2.4.26
+   (fdo #35562)
+
+-------------------------------------------------------------------
 Thu Jun 16 15:55:44 UTC 2011 - mhopf@novell.com
 
 - Don't unpack MesaDemos during build; it's not needed any more.
