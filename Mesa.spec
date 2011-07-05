@@ -20,9 +20,9 @@
 %define enable_nouveau_gallium 1
 %define enable_radeon_gallium 1
 
-%define _version 7.10.2
+%define _version 7.10.3
 
-Version:        7.10.2
+Version:        7.10.3
 Release:        12
 
 Name:           Mesa
@@ -53,6 +53,7 @@ Source5:        drirc
 Patch8:         egl-buildfix.diff
 Patch9:         u_GLX-SWrast-Make-GLX-with-SWrast-enabled-work-on-olde.patch
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
+Patch12:        libdrm-2.4.26-nouveau.diff
 # already upstream
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -143,6 +144,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch8
 %patch9 -p1
 %patch11 -p1
+%patch12 -p1
 
 %build
 
