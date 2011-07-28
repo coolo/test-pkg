@@ -23,7 +23,7 @@
 %define _version 7.10.3
 
 Version:        7.10.3
-Release:        12
+Release:        1
 
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
@@ -172,7 +172,7 @@ autoreconf -fi
            --enable-gallium-r600 \
 %endif
 %endif
-%ifarch ppc %sparc hppa
+%ifarch ppc ppc64 %sparc hppa
 %if 0%{?suse_version} >= 1130
            --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,tdfx,unichrome,swrast,nouveau \
 %else

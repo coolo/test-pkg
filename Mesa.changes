@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Jul 28 09:16:23 CEST 2011 - meissner@suse.de
+
+- Also let ppc64 build the noveau driver, fixing build on ppc64.
+
+-------------------------------------------------------------------
 Sun Jul  3 13:21:31 UTC 2011 - vljn@ovi.com
 
 - Update Mesa 7.10.3
