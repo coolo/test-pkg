@@ -23,7 +23,7 @@
 %define _version 7.10.3
 
 Version:        7.10.3
-Release:        1
+Release:        14
 
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
