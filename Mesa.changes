@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Fri Jul 29 10:10:31 UTC 2011 - mhopf@novell.com
+
+- Update to Mesa 7.11-rc3
+- U_Mesa-7.11-llvm3.patch: fix compatibility with llvm 3.0 (and pre-releases)
+- gallium is now required for r300, r600
+- nouveau is now built by default (except on < OS11.3)
+
+-------------------------------------------------------------------
 Thu Jul 28 09:16:23 CEST 2011 - meissner@suse.de
 
 - Also let ppc64 build the noveau driver, fixing build on ppc64.
