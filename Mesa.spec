@@ -23,7 +23,7 @@ Version:        7.11
 Release:        1
 
 Name:           Mesa
-BuildRequires:  fdupes gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
+BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
 BuildRequires:  bison fdupes flex libtalloc-devel libxml2-python llvm-devel
 Url:            http://www.mesa3d.org
 License:        MIT License (or similar)
