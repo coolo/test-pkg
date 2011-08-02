@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Aug  2 13:05:58 UTC 2011 - mhopf@novell.com
+
+- Obsolete Mesa-nouveau3d (included in standard Mesa package now)
+- Also nuke from baselibs.conf
+
+-------------------------------------------------------------------
 Fri Jul 29 10:10:31 UTC 2011 - mhopf@novell.com
 
 - Update to Mesa 7.11-rc3

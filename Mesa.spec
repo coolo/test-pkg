@@ -30,6 +30,7 @@ License:        MIT License (or similar)
 Group:          System/Libraries
 Provides:       xorg-x11-Mesa = %{version} intel-i810-Mesa = %{version} Mesa7 = %{version}
 Obsoletes:      xorg-x11-Mesa < %{version} intel-i810-Mesa < %{version} Mesa7 < %{version}
+Obsoletes:	Mesa-nouveau3d
 AutoReqProv:    on
 # bug437293
 %ifarch ppc64
@@ -105,30 +106,6 @@ just Mesa or The Mesa 3-D graphics library.
 Authors:
 --------
     Brian Paul
-
-%ifarch %ix86 x86_64 ppc %sparc hppa
-%if 0%{?suse_version} >= 1130
-%package nouveau3d
-License:        MIT License (or similar)
-Requires:       Mesa = %version xorg-x11-driver-video-nouveau
-Summary:        Experimental 3D driver for nouveau driver
-Group:          System/Libraries
-
-%description nouveau3d
-This is the 3D driver for open source nouveau driver. It uses Gallium3d architecture within Mesa.
-
-Note:
-This driver is in a very experimental state. So it is not recommend that you use it.
-Bug reports using this driver are not supported by developers.
-
-Authors:
---------
-    Brian Paul
-    Pekka Paalanen
-    Ben Skeggs
-    Francisco Jerez
-%endif
-%endif
 
 %prep
 %setup -n %{name}-%{_version} -b4 -q
@@ -221,9 +198,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/lib*.so.*
 %{_libdir}/dri/
 #%{_libdir}/egl/
-%if 0%{?suse_version} >= 1130
-%exclude %{_libdir}/dri/nouveau_dri.so
-%endif
 
 %files devel
 %defattr(-,root,root)
@@ -247,13 +221,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/glesv1_cm.pc
 %{_libdir}/pkgconfig/glesv2.pc
 %{_mandir}/man3/*
-
-%ifarch %ix86 x86_64 ppc %sparc hppa
-%if 0%{?suse_version} >= 1130
-%files nouveau3d
-%defattr(-,root,root)
-%{_libdir}/dri/nouveau_dri.so
-%endif
-%endif
 
 %changelog
