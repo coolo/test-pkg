@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Aug  1 23:17:10 UTC 2011 - crrodriguez@opensuse.org
+
+- Enable pcre module 
+- Build against ncurses6w instead of plain old ncurses5
+
+-------------------------------------------------------------------
 Wed Jun 29 12:35:50 UTC 2011 - chris@computersalat.de
 
 - enable build for RHEL and friends (CentOS, Fedora)

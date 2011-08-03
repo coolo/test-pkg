@@ -62,6 +62,7 @@ Prereq:         fileutils grep /sbin/install-info
 
 BuildRequires:  libcap-devel
 BuildRequires:  ncurses-devel
+BuildRequires:  pcre-devel
 %if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
 BuildRequires:  libtermcap-devel
 BuildRequires:  texi2html
@@ -125,7 +126,11 @@ perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
     --enable-maildir-support \
     --with-tcsetpgrp \
     --enable-cap \
-    --enable-multibyte
+    --enable-multibyte \
+    --enable-pcre \
+    --with-term-lib=ncursesw \
+    --enable-cflags="%{optflags} %(ncursesw6-config --cflags)" \
+    --enable-ldflags="%(ncursesw6-config --libs)"
 
 make all info html
 
