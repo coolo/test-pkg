@@ -19,7 +19,7 @@
 
 Name:           zsh
 Version:        4.3.12
-Release:        2
+Release:        4
 License:        BSD
 Summary:        Shell with comprehensive completion
 Url:            http://www.zsh.org
@@ -57,7 +57,7 @@ BuildRequires:  fdupes
 BuildRequires:  yodl
 %endif
 %else
-Prereq:         fileutils grep /sbin/install-info
+PreReq:         fileutils grep /sbin/install-info
 %endif
 
 BuildRequires:  libcap-devel
@@ -79,6 +79,7 @@ at home, and extra features drawn from tcsh (another `custom' shell).
 Zsh is well known for its command line completion.
 
 %package htmldoc
+
 Summary:        Zsh shell manual in html format
 %if 0%{?suse_version}
 Group:          System/Shells
@@ -152,7 +153,6 @@ mv Doc/*.html Doc/htmldoc
 
 # remove some unwanted files in Etc/
 rm -f Etc/Makefile* Etc/*.yo
-
 
 %install
 %if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
