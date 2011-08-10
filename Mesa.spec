@@ -49,6 +49,7 @@ Patch9:         u_GLX-SWrast-Make-GLX-with-SWrast-enabled-work-on-olde.patch
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 # already upstream
 Patch13:	U_Mesa-7.11-llvm3.patch
+Patch14:        U_glx-ignore-BadRequest-errors-from-DRI2Connect.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -118,6 +119,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch9 -p1
 %patch11 -p1
 %patch13 -p0
+%patch14 -p1
 
 %build
 

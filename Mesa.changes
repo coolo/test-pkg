@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Aug  9 00:51:28 UTC 2011 - stefan.bruens@rwth-aachen.de
+
+- add fix for bfo #28125 (DRI2 prevents indirect glx)
+
+-------------------------------------------------------------------
 Tue Aug  2 13:05:58 UTC 2011 - mhopf@novell.com
 
 - Obsolete Mesa-nouveau3d (included in standard Mesa package now)
