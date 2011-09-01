@@ -17,25 +17,20 @@
 
 # norootforbuild
 
-%define enable_nouveau_gallium 1
-%define enable_radeon_gallium 1
+%define _version 7.11-rc3
 
-%define _version 7.10.3
-
-Version:        7.10.3
-Release:        14
+Version:        7.11
+Release:        1
 
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
-BuildRequires:  bison flex libtalloc-devel libxml2-python
-%if 0%{?suse_version} > 1020
-BuildRequires:  fdupes
-%endif
+BuildRequires:  bison fdupes flex libtalloc-devel libxml2-python llvm-devel
 Url:            http://www.mesa3d.org
 License:        MIT License (or similar)
 Group:          System/Libraries
 Provides:       xorg-x11-Mesa = %{version} intel-i810-Mesa = %{version} Mesa7 = %{version}
 Obsoletes:      xorg-x11-Mesa < %{version} intel-i810-Mesa < %{version} Mesa7 < %{version}
+Obsoletes:	Mesa-nouveau3d
 AutoReqProv:    on
 # bug437293
 %ifarch ppc64
@@ -50,11 +45,11 @@ Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source5:        drirc
 # to be upstreamed
-Patch8:         egl-buildfix.diff
 Patch9:         u_GLX-SWrast-Make-GLX-with-SWrast-enabled-work-on-olde.patch
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
-Patch12:        libdrm-2.4.26-nouveau.diff
 # already upstream
+Patch13:	U_Mesa-7.11-llvm3.patch
+Patch14:        U_glx-ignore-BadRequest-errors-from-DRI2Connect.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -113,26 +108,6 @@ Authors:
 --------
     Brian Paul
 
-%package nouveau3d
-License:        MIT License (or similar)
-Requires:       Mesa = %version xorg-x11-driver-video-nouveau
-Summary:        Experimental 3D driver for nouveau driver
-Group:          System/Libraries
-
-%description nouveau3d
-This is the 3D driver for open source nouveau driver. It uses Gallium3d architecture within Mesa.
-
-Note:
-This driver is in a very experimental state. So it is not recommend that you use it.
-Bug reports using this driver are not supported by developers.
-
-Authors:
---------
-    Brian Paul
-    Pekka Paalanen
-    Ben Skeggs
-    Francisco Jerez
-
 %prep
 %setup -n %{name}-%{_version} -b4 -q
 # no need to build (GLUT-)Demos
@@ -141,10 +116,10 @@ rm -rf src/glut progs/{demos,redbook,samples,xdemos,glsl}
 rm -f include/GL/{glut.h,uglglutshapes.h,glutf90.h}
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
-%patch8
 %patch9 -p1
 %patch11 -p1
-%patch12 -p1
+%patch13 -p0
+%patch14 -p1
 
 %build
 
@@ -155,38 +130,29 @@ export TALLOC_CFLAGS="-I/usr/include"
 autoreconf -fi
 ### libGL (disable savage/mga, bnc #402132/#403071; reenable mga, bnc #466635)
 %configure --disable-glw \
+           --enable-gles1 \
            --enable-gles2 \
            --with-driver=dri \
            --with-dri-searchpath=/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri \
 %ifarch %ix86 x86_64
+           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,radeon,sis,tdfx,unichrome,swrast,mga \
 %if 0%{?suse_version} >= 1130
-           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,sis,tdfx,unichrome,swrast,nouveau,mga \
+           --with-gallium-drivers=r300,r600,nouveau \
 %else
-           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,sis,tdfx,unichrome,swrast \
-%endif
-%if %enable_nouveau_gallium
-           --enable-gallium-nouveau \
-%endif
-%if %enable_radeon_gallium
-           --enable-gallium-radeon \
-           --enable-gallium-r600 \
+           --with-gallium-drivers=r300,r600 \
 %endif
 %endif
 %ifarch ppc ppc64 %sparc hppa
+           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,radeon,tdfx,unichrome,swrast \
 %if 0%{?suse_version} >= 1130
-           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,tdfx,unichrome,swrast,nouveau \
+           --with-gallium-drivers=r300,r600,nouveau \
 %else
-           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,r300,r600,radeon,tdfx,unichrome,swrast \
-%endif
-%if %enable_nouveau_gallium
-           --enable-gallium-nouveau \
+           --with-gallium-drivers=r300,r600 \
 %endif
 %endif
-%ifarch s390 s390x
+%ifarch s390 s390x %arm
            --with-dri-drivers=swrast \
-%endif
-%ifarch %arm
-           --with-dri-drivers=swrast \
+           --with-gallium-drivers="" \
 %endif
            --disable-glut \
            CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
@@ -198,7 +164,7 @@ make realclean
            --disable-glu \
            --disable-glw \
            --disable-glut \
-           --disable-gallium \
+           --with-gallium-drivers="" \
            CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
 sed -i 's/GL_LIB = .*/GL_LIB = IndirectGL/g' configs/autoconf
 make %{?jobs:-j%jobs}
@@ -218,9 +184,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 # global drirc file
 mkdir -p $RPM_BUILD_ROOT/etc
 install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
-%if 0%{?suse_version} > 1020
 %fdupes -s $RPM_BUILD_ROOT/%_mandir
-%endif 
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -235,11 +199,7 @@ rm -rf $RPM_BUILD_ROOT
 %config /etc/drirc
 %{_libdir}/lib*.so.*
 %{_libdir}/dri/
-%{_libdir}/egl/
-%exclude %{_libdir}/dri/nouveau_dri.so
-%if 0%{?suse_version} >= 1130
-%exclude %{_libdir}/dri/nouveau_vieux_dri.so
-%endif
+#%{_libdir}/egl/
 
 %files devel
 %defattr(-,root,root)
@@ -255,6 +215,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libEGL.so
 %{_libdir}/libGLESv1_CM.so
 %{_libdir}/libGLESv2.so
+%{_libdir}/libglapi.so
 %{_libdir}/pkgconfig/dri.pc
 %{_libdir}/pkgconfig/egl.pc
 %{_libdir}/pkgconfig/gl.pc
@@ -262,12 +223,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/glesv1_cm.pc
 %{_libdir}/pkgconfig/glesv2.pc
 %{_mandir}/man3/*
-
-%files nouveau3d
-%defattr(-,root,root)
-%{_libdir}/dri/nouveau_dri.so
-%if 0%{?suse_version} >= 1130
-%{_libdir}/dri/nouveau_vieux_dri.so
-%endif
 
 %changelog
