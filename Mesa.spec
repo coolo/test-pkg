@@ -24,13 +24,16 @@ Release:        1
 
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
-BuildRequires:  bison fdupes flex libtalloc-devel libxml2-python llvm-devel
+BuildRequires:  bison fdupes flex libtalloc-devel libxml2-python
+%ifarch %ix86 x86_64
+BuildRequires:	llvm-devel
+%endif
 Url:            http://www.mesa3d.org
 License:        MIT License (or similar)
 Group:          System/Libraries
 Provides:       xorg-x11-Mesa = %{version} intel-i810-Mesa = %{version} Mesa7 = %{version}
 Obsoletes:      xorg-x11-Mesa < %{version} intel-i810-Mesa < %{version} Mesa7 < %{version}
-Obsoletes:	Mesa-nouveau3d
+Obsoletes:      Mesa-nouveau3d
 AutoReqProv:    on
 # bug437293
 %ifarch ppc64
@@ -48,7 +51,7 @@ Source5:        drirc
 Patch9:         u_GLX-SWrast-Make-GLX-with-SWrast-enabled-work-on-olde.patch
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 # already upstream
-Patch13:	U_Mesa-7.11-llvm3.patch
+Patch13:        U_Mesa-7.11-llvm3.patch
 Patch14:        U_glx-ignore-BadRequest-errors-from-DRI2Connect.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
