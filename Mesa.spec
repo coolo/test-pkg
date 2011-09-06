@@ -24,7 +24,10 @@ Release:        1
 
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
-BuildRequires:  bison fdupes flex libtalloc-devel libxml2-python llvm-devel
+BuildRequires:  bison fdupes flex libtalloc-devel libxml2-python
+%ifarch %ix86 x86_64
+BuildRequires:	llvm-devel
+%endif
 Url:            http://www.mesa3d.org
 License:        MIT License (or similar)
 Group:          System/Libraries
