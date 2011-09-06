@@ -17,7 +17,7 @@
 
 # norootforbuild
 
-%define _version 7.11-rc3
+%define _version 7.11
 
 Version:        7.11
 Release:        1

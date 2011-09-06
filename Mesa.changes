@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Sep  4 21:00:43 UTC 2011 - vljn@ovi.com
+
+- Update to Mesa 7.11 final 
+
+-------------------------------------------------------------------
 Sun Sep  4 12:34:37 CEST 2011 - meissner@suse.de
 
 - llvm is only available for *x86* currently
