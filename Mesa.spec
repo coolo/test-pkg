@@ -20,13 +20,13 @@
 %define _version 7.11-rc3
 
 Version:        7.11
-Release:        1
+Release:        3
 
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
 BuildRequires:  bison fdupes flex libtalloc-devel libxml2-python
 %ifarch %ix86 x86_64
-BuildRequires:	llvm-devel
+BuildRequires:  llvm-devel
 %endif
 Url:            http://www.mesa3d.org
 License:        MIT License (or similar)
