@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Sep  4 12:34:37 CEST 2011 - meissner@suse.de
+
+- llvm is only available for *x86* currently
+
+-------------------------------------------------------------------
 Tue Aug  9 00:51:28 UTC 2011 - stefan.bruens@rwth-aachen.de
 
 - add fix for bfo #28125 (DRI2 prevents indirect glx)
