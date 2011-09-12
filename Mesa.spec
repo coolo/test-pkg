@@ -20,7 +20,7 @@
 %define _version 7.11
 
 Version:        7.11
-Release:        3
+Release:        5
 
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
