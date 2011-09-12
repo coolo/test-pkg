@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Sep 12 23:48:34 UTC 2011 - sndirsch@suse.com
+
+- revert previous change since it actually *broke* the build with
+  Factory 
+
+-------------------------------------------------------------------
 Mon Sep 12 10:47:17 UTC 2011 - idonmez@suse.com
 
 - Fix build with Factory too 
