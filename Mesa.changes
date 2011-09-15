@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Thu Sep 15 06:15:04 UTC 2011 - idonmez@suse.com
+
+- Fix build with newest llvm, fdo#40754
+
+-------------------------------------------------------------------
+Tue Sep 13 12:03:25 UTC 2011 - idonmez@suse.com
+
+- Fix build with Factory 
+
+-------------------------------------------------------------------
 Mon Sep 12 23:48:34 UTC 2011 - sndirsch@suse.com
 
 - revert previous change since it actually *broke* the build with

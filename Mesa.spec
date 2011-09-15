@@ -53,9 +53,7 @@ Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 # already upstream
 Patch13:        U_Mesa-7.11-llvm3.patch
 Patch14:        U_glx-ignore-BadRequest-errors-from-DRI2Connect.diff
-%if 0%{?suse_version} <= 1140
-Patch15:        FIX_BUILD_WITH_LLVM.patch
-%endif
+Patch15:        Mesa-llvm-3.0.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -126,10 +124,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch11 -p1
 %patch13 -p0
 %patch14 -p1
-
-%if 0%{?suse_version} <= 1140
 %patch15 -p1
-%endif
 
 %build
 
