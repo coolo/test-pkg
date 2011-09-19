@@ -35,7 +35,6 @@ Recommends:     bash-lang = %bash_vers
 Suggests:       command-not-found
 Recommends:     bash-doc = %bash_vers
 %endif
-AutoReqProv:    on
 Version:        4.2
 Release:        5
 Summary:        The GNU Bourne-Again Shell
@@ -92,13 +91,6 @@ features from the Korn and C shells (ksh and csh).  Bash is intended to
 be a conformant implementation of the IEEE Posix Shell and Tools
 specification (IEEE Working Group 1003.2).
 
-
-
-Authors:
---------
-    Brian Fox <bfox@gnu.org>
-    Chet Ramey <chet@ins.cwru.edu>
-
 %package -n bash-doc
 License:        GPLv2+
 Summary:        Documentation how to Use the GNU Bourne-Again Shell
@@ -107,7 +99,6 @@ Provides:       bash:%{_infodir}/bash.info.gz
 PreReq:         %install_info_prereq
 Version:        4.2
 Release:        5
-AutoReqProv:    on
 %if %suse_version > 1120
 BuildArch:      noarch
 %endif
@@ -116,12 +107,6 @@ BuildArch:      noarch
 This package contains the documentation for using the bourne shell
 interpreter Bash.
 
-
-
-Authors:
---------
-    Brian Fox <bfox@gnu.org>
-    Chet Ramey <chet@ins.cwru.edu>
 %if %{defined lang_package}
 %lang_package(bash)
 %else
@@ -143,19 +128,11 @@ Summary:        Include Files mandatory for Development of bash loadable builtin
 Group:          Development/Languages/C and C++
 Version:        4.2
 Release:        5
-AutoReqProv:    on
 
 %description -n bash-devel
 This package contains the C header files for writing loadable new
 builtins for the interpreter Bash. Use -I /usr/include/bash/<version>
 on the compilers command line.
-
-
-
-Authors:
---------
-    Brian Fox <bfox@gnu.org>
-    Chet Ramey <chet@ins.cwru.edu>
 
 %package -n bash-loadables
 License:        GPLv2+
@@ -163,7 +140,6 @@ Summary:        Loadable bash builtins
 Group:          System/Shells
 Version:        4.2
 Release:        5
-AutoReqProv:    on
 
 %description -n bash-loadables
 This package contains the examples for the ready-to-dynamic-load
@@ -219,12 +195,6 @@ unlink	      Remove a directory entry.
 whoami	      Print out username of current user.
 
 
-
-Authors:
---------
-    Brian Fox <bfox@gnu.org>
-    Chet Ramey <chet@ins.cwru.edu>
-
 %package -n libreadline6
 License:        GPLv2+
 Summary:        The Readline Library
@@ -242,19 +212,11 @@ Obsoletes:      readline-64bit
 #
 Provides:       readline =  6.2
 Obsoletes:      readline <= 6.1
-AutoReqProv:    on
 
 %description -n libreadline6
 The readline library is used by the Bourne Again Shell (bash, the
 standard command interpreter) for easy editing of command lines.  This
 includes history and search functionality.
-
-
-
-Authors:
---------
-    Brian Fox <bfox@gnu.org>
-    Chet Ramey <chet@ins.cwru.edu>
 
 %package -n readline-devel
 License:        GPLv2+
@@ -268,7 +230,6 @@ Requires:       ncurses-devel
 %if %suse_version > 1020
 Recommends:     readline-doc = %{version}
 %endif
-AutoReqProv:    on
 # bug437293
 %ifarch ppc64
 Obsoletes:      readline-devel-64bit
@@ -279,13 +240,6 @@ Obsoletes:      readline-devel-64bit
 This package contains all necessary include files and libraries needed
 to develop applications that require these.
 
-
-
-Authors:
---------
-    Brian Fox <bfox@gnu.org>
-    Chet Ramey <chet@ins.cwru.edu>
-
 %package -n readline-doc
 License:        GPLv2+
 Summary:        Documentation how to Use and Program with the Readline Library
@@ -294,7 +248,6 @@ Provides:       readline:%{_infodir}/readline.info.gz
 PreReq:         %install_info_prereq
 Version:        6.2
 Release:        5
-AutoReqProv:    on
 %if %suse_version > 1120
 BuildArch:      noarch
 %endif
@@ -302,13 +255,6 @@ BuildArch:      noarch
 %description -n readline-doc
 This package contains the documentation for using the readline library
 as well as programming with the interface of the readline library.
-
-
-
-Authors:
---------
-    Brian Fox <bfox@gnu.org>
-    Chet Ramey <chet@ins.cwru.edu>
 
 %prep
 %setup -q -n bash-%{bash_vers}%{extend} -b1 -b2 -b3
