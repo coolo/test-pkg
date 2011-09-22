@@ -24,7 +24,7 @@ Release:        5
 
 Name:           Mesa
 BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
-BuildRequires:  bison fdupes flex libtalloc-devel libxml2-python
+BuildRequires:  bison fdupes flex libtalloc-devel libudev-devel libxml2-python
 %ifarch %ix86 x86_64
 BuildRequires:  llvm-devel
 %endif
@@ -79,7 +79,7 @@ Authors:
 
 %package devel
 License:        MIT License (or similar)
-Requires:       Mesa = %version xorg-x11-devel libdrm-devel
+Requires:       Mesa = %version xorg-x11-devel libdrm-devel libudev-devel
 Summary:        Libraries, includes and more to develop Mesa applications
 Group:          Development/Libraries/X11
 # bug437293
@@ -138,6 +138,8 @@ autoreconf -fi
            --enable-gles1 \
            --enable-gles2 \
            --with-driver=dri \
+           --with-egl-platforms=x11,drm \
+           --enable-shared-glapi \
            --with-dri-searchpath=/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri \
 %ifarch %ix86 x86_64
            --with-dri-drivers=i810,i915,i965,mach64,r128,r200,radeon,sis,tdfx,unichrome,swrast,mga \
@@ -214,6 +216,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/GLES2
 %{_includedir}/EGL
 %{_includedir}/KHR
+%{_includedir}/gbm.h
 %{_libdir}/libGL.so
 %{_libdir}/libGLU.so
 %{_libdir}/libOSMesa.so
@@ -221,12 +224,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libGLESv1_CM.so
 %{_libdir}/libGLESv2.so
 %{_libdir}/libglapi.so
+%{_libdir}/libgbm.so
 %{_libdir}/pkgconfig/dri.pc
 %{_libdir}/pkgconfig/egl.pc
 %{_libdir}/pkgconfig/gl.pc
 %{_libdir}/pkgconfig/glu.pc
 %{_libdir}/pkgconfig/glesv1_cm.pc
 %{_libdir}/pkgconfig/glesv2.pc
+%{_libdir}/pkgconfig/gbm.pc
 %{_mandir}/man3/*
 
 %changelog
