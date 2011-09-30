@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Sep 29 20:53:53 UTC 2011 - idonmez@suse.com
+
+- Update Mesa-llvm-3.0.patch for new llvm snapshot 
+
+-------------------------------------------------------------------
 Thu Sep 15 06:15:04 UTC 2011 - idonmez@suse.com
 
 - Fix build with newest llvm, fdo#40754
