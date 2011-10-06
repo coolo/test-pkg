@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Oct 06 21:58:00 UTC 2011 - idonmez@suse.com
+
+- Update Mesa-llvm-3.0.patch again to fix compilation 
+
+-------------------------------------------------------------------
 Thu Sep 29 20:53:53 UTC 2011 - idonmez@suse.com
 
 - Update Mesa-llvm-3.0.patch for new llvm snapshot 
