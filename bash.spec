@@ -260,7 +260,6 @@ as well as programming with the interface of the readline library.
 %setup -q -n bash-%{bash_vers}%{extend} -b1 -b2 -b3
 for p in ../bash-%{bash_vers}-patches/*; do
     test -e $p || break
-    test "${p##*/}" = "bash-4.2-pwd.patch" && continue
     echo Patch $p
     patch -s -p0 < $p
 done
