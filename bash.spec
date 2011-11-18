@@ -326,15 +326,13 @@ pushd ../readline-%{rl_vers}%{extend}
       case "${!var}" in
       *${flag}*) return
       esac
+      set -o noclobber
       case "$flag" in
       -Wl,*)
-	  set -o noclobber
-	  echo 'int main () { return 0; }' > ldtest.c
-	  if ${CC:-gcc} -Werror $flag -o /dev/null -xc ldtest.c > /dev/null 2>&1 ; then
+	  if echo 'int main () { return 0; }' | \
+	     ${CC:-gcc} -Werror $flag -o /dev/null -xc - > /dev/null 2>&1 ; then
 	      eval $var=\${$var:+\$$var\ }$flag
 	  fi
-	  set +o noclobber
-	  rm -f ldtest.c
 	  ;;
       *)
 	  if ${CC:-gcc} -Werror $flag -S -o /dev/null -xc /dev/null > /dev/null 2>&1 ; then
@@ -344,6 +342,7 @@ pushd ../readline-%{rl_vers}%{extend}
 	      eval $var=\${$var:+\$$var\ }$flag
 	  fi
       esac
+      set +o noclobber
   }
   echo 'int main () { return !(sizeof(void*) >= 8); }' | gcc -x c -o test64 -
   if ./test64 ; then
@@ -365,7 +364,8 @@ pushd ../readline-%{rl_vers}%{extend}
   cflags -pipe                   CFLAGS
   cflags -Wl,--as-needed         LDFLAGS
   cflags -Wl,-O2                 LDFLAGS
-  cflags -Wl,--hash-size=16699   LDFLAGS
+  cflags -Wl,--hash-size=8599    LDFLAGS
+  cflags -Wl,-Bsymbolic-functions             LDFLAGS
   cflags -Wl,-rpath,%{_ldldir}/%{bash_vers}   LDFLAGS
   CC=gcc
   CC_FOR_BUILD="$CC"
@@ -388,7 +388,9 @@ popd
   # /proc is required for correct configuration
   test -d /dev/fd || { echo "/proc is not mounted!" >&2; exit 1; }
   ln -sf ../readline-%{rl_vers} readline
-  export LD_LIBRARY_PATH=$PWD/../readline-%{rl_vers}
+  LD_LIBRARY_PATH=$PWD/../readline-%{rl_vers}
+  export LD_LIBRARY_PATH
+  LDFLAGS="${LDFLAGS/hash-size=8599/hash-size=16699}"
   CC="gcc -I$PWD -L$PWD/../readline-%{rl_vers}"
 %if %_minsh
   cflags -Os CFLAGS
