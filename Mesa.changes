@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Nov 17 20:34:36 UTC 2011 - vljn@ovi.com
+
+- Update to Mesa 7.11.1 
+  * U_glx-ignore-BadRequest-errors-from-DRI2Connect.diff included
+
+-------------------------------------------------------------------
 Wed Oct 06 21:58:00 UTC 2011 - idonmez@suse.com
 
 - Update Mesa-llvm-3.0.patch again to fix compilation 
