@@ -372,8 +372,9 @@ pushd ../readline-%{rl_vers}%{extend}
   CFLAGS_FOR_BUILD="$CFLAGS"
   LDFLAGS_FOR_BUILD="$LDFLAGS"
   export CC_FOR_BUILD CFLAGS_FOR_BUILD LDFLAGS_FOR_BUILD CFLAGS LDFLAGS CC
-  ./configure --disable-static --build=%{_target_cpu}-suse-linux	\
-	--prefix=%{_prefix}			\
+  ./configure --build=%{_target_cpu}-suse-linux	\
+	--disable-static		\
+	--prefix=%{_prefix}		\
 	--with-curses			\
 	--mandir=%{_mandir}		\
 	--infodir=%{_infodir}		\
