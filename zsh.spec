@@ -129,7 +129,11 @@ perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
     --enable-cap \
     --enable-multibyte \
     --enable-pcre \
-    --with-term-lib=ncursesw \
+%if 0%{?suse_version} >= 1220
+    --with-term-lib="ncursesw tinfo" \
+%else
+    --with-term-lib="ncursesw" \
+%endif
     --enable-cflags="%{optflags} %(ncursesw6-config --cflags)" \
     --enable-ldflags="%(ncursesw6-config --libs)"
 
@@ -170,6 +174,9 @@ install -m 0755 -Dd  %{buildroot}/{etc,bin}
 %if 0%{?suse_version}
 # install SUSE configuration
 install -m 0644 %{SOURCE1} %{SOURCE2} %{SOURCE3} %{buildroot}%{_sysconfdir}
+
+# Create custom completion directory
+mkdir %{buildroot}/etc/zsh_completion.d
 %endif
 
 %if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
@@ -265,6 +272,10 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/zlogin
 %config(noreplace) %{_sysconfdir}/zlogout
 %config(noreplace) %{_sysconfdir}/skel/.zshrc
+%endif
+
+%if 0%{?suse_version}
+%dir /etc/zsh_completion.d
 %endif
 
 %{_bindir}/zsh

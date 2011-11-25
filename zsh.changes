@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Nov 24 09:00:37 UTC 2011 - idoenmez@suse.de
+
+- Add custom completion support via /etc/zsh_completion.d 
+- Fix build with new ncurses library
+
+-------------------------------------------------------------------
 Mon Aug  1 23:17:10 UTC 2011 - crrodriguez@opensuse.org
 
 - Enable pcre module 
