@@ -18,7 +18,7 @@
 
 
 Name:           zsh
-Version:        4.3.12
+Version:        4.3.12+test3
 Release:        4
 License:        BSD
 Summary:        Shell with comprehensive completion
@@ -28,8 +28,7 @@ Group:          System/Shells
 %else
 Group:          System Environment/Shells
 %endif
-#Source0:        ftp://ftp.fu-berlin.de/pub/unix/shells/zsh/zsh-4.3.12.tar.bz2
-Source0:        %{name}-%{version}.tar.bz2
+Source0:        ftp://ftp.zsh.org/pub/development/zsh-4.3.12-test-3.tar.bz2
 Source1:        zshrc
 Source2:        zshenv
 Source3:        zprofile
@@ -42,13 +41,9 @@ Source15:       zshenv.rhs
 Source16:       dotzshrc.rh
 Source17:       zshprompt.pl
 %endif
-Patch1:         %{name}-%{version}-disable-c02cond-test.patch
-# PATCH-FIX-UPSTREAM zsh-findproc.patch idoenmez@suse.de -- Upstream commit 21c39600ef2d74c3e7474c4e5b89805656c6fe4e
-Patch2:         %{name}-findproc.patch
-# PATCH-FIX-UPSTREAM zsh-kill-suspended-job.patch idoenmez@suse.de -- Upstream commit 98b29d02ca17068779f4b8fa2d43c9753386478f 
-Patch3:         %{name}-kill-suspended-job.patch
+Patch1:         %{name}-4.3.12-disable-c02cond-test.patch
 # PATCH-FIX ksh-emulation-syntax-checking.patch -- Import and rework from RHEL (zsh-4.2.6)
-Patch4:         %{name}-4.3.12-ksh-emulation-syntax-checking.patch
+Patch2:         %{name}-4.3.12-ksh-emulation-syntax-checking.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %if 0%{?suse_version}
 PreReq:         %{install_info_prereq}
@@ -99,11 +94,9 @@ mechanism, and more.
 This package contains the Zsh manual in html format.
 
 %prep
-%setup -q
+%setup -q -n %{name}-4.3.12-test-3
 %patch1
 %patch2 -p1
-%patch3 -p1
-%patch4 -p1
 
 ##rpmlint
 # spurious-executable-perm
@@ -256,9 +249,6 @@ fi
     fi
   fi
 %endif
-
-%clean
-rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)

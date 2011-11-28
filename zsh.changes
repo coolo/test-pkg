@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Mon Nov 28 08:36:51 UTC 2011 - idoenmez@suse.de
+
+- Update to 4.2.12-test3
+  * See included ChangeLog for details
+- Drop zsh-findproc.patch and zsh-kill-suspended-job.patch, fixed
+  upstream.
+
+-------------------------------------------------------------------
 Thu Nov 24 09:00:37 UTC 2011 - idoenmez@suse.de
 
 - Add custom completion support via /etc/zsh_completion.d 
