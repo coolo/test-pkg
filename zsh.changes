@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Nov 29 14:19:04 UTC 2011 - idoenmez@suse.de
+
+- Cleanup spec file
+- Make /bin/zsh a symlink to /usr/bin/zsh
+
+-------------------------------------------------------------------
 Mon Nov 28 08:36:51 UTC 2011 - idoenmez@suse.de
 
 - Update to 4.2.12-test3

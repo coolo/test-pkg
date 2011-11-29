@@ -46,13 +46,15 @@ Patch1:         %{name}-4.3.12-disable-c02cond-test.patch
 Patch2:         %{name}-4.3.12-ksh-emulation-syntax-checking.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %if 0%{?suse_version}
-PreReq:         %{install_info_prereq}
+Requires(pre):  %{install_info_prereq}
 %if 0%{?suse_version} >= 1110
 BuildRequires:  fdupes
 BuildRequires:  yodl
 %endif
 %else
-PreReq:         fileutils grep /sbin/install-info
+Requires(pre):  /sbin/install-info
+Requires(pre):  fileutils
+Requires(pre):  grep
 %endif
 
 BuildRequires:  libcap-devel
@@ -60,9 +62,9 @@ BuildRequires:  ncurses-devel
 BuildRequires:  pcre-devel
 %if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
 BuildRequires:  libtermcap-devel
+BuildRequires:  tetex
 BuildRequires:  texi2html
 BuildRequires:  texinfo
-BuildRequires:  tetex
 %endif
 
 %description
@@ -98,8 +100,7 @@ This package contains the Zsh manual in html format.
 %patch1
 %patch2 -p1
 
-##rpmlint
-# spurious-executable-perm
+# Remove executable bit
 chmod 0644 Etc/changelog2html.pl
 
 %if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
@@ -113,7 +114,6 @@ perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
     Util/reporter
 
 %build
-# readd the site-* dir.
 %configure \
     --enable-site-scriptdir=%{_datadir}/%{name}/site/scripts/ \
     --enable-site-fndir=%{_datadir}/%{name}/site/scripts/ \
@@ -153,7 +153,7 @@ rm -f Etc/Makefile* Etc/*.yo
 
 %install
 %if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
-  rm -rf %{buildroot}
+    rm -rf %{buildroot}
 %endif
 
 %if 0%{?suse_version}
@@ -169,7 +169,7 @@ install -m 0755 -Dd  %{buildroot}/{etc,bin}
 install -m 0644 %{SOURCE1} %{SOURCE2} %{SOURCE3} %{buildroot}%{_sysconfdir}
 
 # Create custom completion directory
-mkdir %{buildroot}/etc/zsh_completion.d
+mkdir %{buildroot}%{_sysconfdir}/zsh_completion.d
 %endif
 
 %if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
@@ -185,8 +185,7 @@ install -m 0755 -Dd    %{buildroot}%{_datadir}/%{name}/%{version}/help
 install -m 0644 Help/* %{buildroot}%{_datadir}/%{name}/%{version}/help/
 
 # link zsh binary
-mv %{buildroot}%{_bindir}/zsh %{buildroot}/bin/zsh
-ln -s -f ../../bin/zsh %{buildroot}%{_bindir}/zsh
+ln -sf %{_bindir}/zsh %{buildroot}/bin/zsh
 
 # Remove versioned zsh binary
 rm -f %{buildroot}%{_bindir}/zsh-*
@@ -265,14 +264,13 @@ fi
 %endif
 
 %if 0%{?suse_version}
-%dir /etc/zsh_completion.d
+%dir %{_sysconfdir}/zsh_completion.d
 %endif
 
 %{_bindir}/zsh
 /bin/zsh
 %{_libdir}/zsh/
 %{_datadir}/zsh/
-#exclude %{_datadir}/zsh/htmldoc
 %{_infodir}/zsh.info*.gz
 %{_mandir}/man1/zsh*.1.gz
 
