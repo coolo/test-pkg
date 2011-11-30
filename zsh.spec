@@ -18,7 +18,7 @@
 
 
 Name:           zsh
-Version:        4.3.12+test3
+Version:        4.3.13
 Release:        4
 License:        BSD
 Summary:        Shell with comprehensive completion
@@ -28,7 +28,7 @@ Group:          System/Shells
 %else
 Group:          System Environment/Shells
 %endif
-Source0:        ftp://ftp.zsh.org/pub/development/zsh-4.3.12-test-3.tar.bz2
+Source0:        ftp://ftp.zsh.org/pub/zsh-%{version}.tar.bz2
 Source1:        zshrc
 Source2:        zshenv
 Source3:        zprofile
@@ -42,8 +42,6 @@ Source16:       dotzshrc.rh
 Source17:       zshprompt.pl
 %endif
 Patch1:         %{name}-4.3.12-disable-c02cond-test.patch
-# PATCH-FIX ksh-emulation-syntax-checking.patch -- Import and rework from RHEL (zsh-4.2.6)
-Patch2:         %{name}-4.3.12-ksh-emulation-syntax-checking.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %if 0%{?suse_version}
 Requires(pre):  %{install_info_prereq}
@@ -96,9 +94,8 @@ mechanism, and more.
 This package contains the Zsh manual in html format.
 
 %prep
-%setup -q -n %{name}-4.3.12-test-3
+%setup -q -n %{name}-%{version}
 %patch1
-%patch2 -p1
 
 # Remove executable bit
 chmod 0644 Etc/changelog2html.pl

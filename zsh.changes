@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Nov 30 21:49:26 UTC 2011 - idoenmez@suse.de
+
+- Update to zsh 4.2.13
+  * See included ChangeLog for details
+- Drop zsh-4.3.12-ksh-emulation-syntax-checking.patch, 
+  fixed upstream
+
+-------------------------------------------------------------------
 Tue Nov 29 14:19:04 UTC 2011 - idoenmez@suse.de
 
 - Cleanup spec file
