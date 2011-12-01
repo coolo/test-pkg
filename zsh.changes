@@ -1,7 +1,7 @@
 -------------------------------------------------------------------
 Wed Nov 30 21:49:26 UTC 2011 - idoenmez@suse.de
 
-- Update to zsh 4.2.13
+- Update to zsh 4.3.13
   * There are no significant feature changes to the shell itself, 
     although many bug fixes and improvements to functions.
   * See included ChangeLog for details
@@ -17,7 +17,7 @@ Tue Nov 29 14:19:04 UTC 2011 - idoenmez@suse.de
 -------------------------------------------------------------------
 Mon Nov 28 08:36:51 UTC 2011 - idoenmez@suse.de
 
-- Update to 4.2.12-test3
+- Update to 4.3.12-test3
   * See included ChangeLog for details
 - Drop zsh-findproc.patch and zsh-kill-suspended-job.patch, fixed
   upstream.
