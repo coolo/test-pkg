@@ -2,6 +2,8 @@
 Wed Nov 30 21:49:26 UTC 2011 - idoenmez@suse.de
 
 - Update to zsh 4.2.13
+  * There are no significant feature changes to the shell itself, 
+    although many bug fixes and improvements to functions.
   * See included ChangeLog for details
 - Drop zsh-4.3.12-ksh-emulation-syntax-checking.patch, 
   fixed upstream
