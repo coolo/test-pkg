@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Mon Dec  5 09:40:23 UTC 2011 - idoenmez@suse.de
+
+- Fix license to be MIT, zsh seems to be using the "Modern" variant
+  of the license text.
+- Import git commits 74eed99c312de05e19b54ba6b5d37a0aeb4ba713 and
+  724fd07a67f135c74eba57e9f25fd342201ec722
+
+  * metafy() added null termination even if buffer was not modifiable
+  * Fix uninitialised memory after lexer realloc
+
+-------------------------------------------------------------------
 Wed Nov 30 21:49:26 UTC 2011 - idoenmez@suse.de
 
 - Update to zsh 4.3.13
