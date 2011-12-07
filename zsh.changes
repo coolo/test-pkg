@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Dec  7 13:28:25 UTC 2011 - idonmez@suse.com
+
+- Update to zsh 4.3.14
+  * Drop 74eed99c312de05e19b54ba6b5d37a0aeb4ba713.patch and
+    724fd07a67f135c74eba57e9f25fd342201ec722.patch, fixed upstream
+  * Fix for nanosecond timestamp support
+
+-------------------------------------------------------------------
 Mon Dec  5 09:40:23 UTC 2011 - idoenmez@suse.de
 
 - Fix license to be MIT, zsh seems to be using the "Modern" variant

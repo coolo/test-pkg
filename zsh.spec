@@ -18,7 +18,7 @@
 
 
 Name:           zsh
-Version:        4.3.13
+Version:        4.3.14
 Release:        4
 License:        MIT
 Summary:        Shell with comprehensive completion
@@ -42,9 +42,6 @@ Source16:       dotzshrc.rh
 Source17:       zshprompt.pl
 %endif
 Patch1:         %{name}-4.3.12-disable-c02cond-test.patch
-# Fixes from zsh.git
-Patch100:       724fd07a67f135c74eba57e9f25fd342201ec722.patch
-Patch101:       74eed99c312de05e19b54ba6b5d37a0aeb4ba713.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %if 0%{?suse_version}
 Requires(pre):  %{install_info_prereq}
@@ -99,8 +96,6 @@ This package contains the Zsh manual in html format.
 %prep
 %setup -q -n %{name}-%{version}
 %patch1
-%patch100 -p1
-%patch101 -p1
 
 # Remove executable bit
 chmod 0644 Etc/changelog2html.pl
