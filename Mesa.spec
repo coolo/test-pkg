@@ -14,27 +14,34 @@
 
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
-
-# norootforbuild
-
 %define _version 7.11.1
 
 Version:        7.11.1
-Release:        5
+Release:        0
 
 Name:           Mesa
-BuildRequires:  gcc-c++ libdrm-devel libexpat-devel pkgconfig python-base xorg-x11-devel
-BuildRequires:  bison fdupes flex libtalloc-devel libudev-devel libxml2-python
+BuildRequires:  automake
+BuildRequires:  bison
+BuildRequires:  fdupes
+BuildRequires:  flex
+BuildRequires:  gcc-c++
+BuildRequires:  libdrm-devel
+BuildRequires:  libexpat-devel
+BuildRequires:  libtalloc-devel
+BuildRequires:  libudev-devel
+BuildRequires:  libxml2-python
+BuildRequires:  pkgconfig
+BuildRequires:  python-base
+BuildRequires:  xorg-x11-devel
 %ifarch %ix86 x86_64
 BuildRequires:  llvm-devel
 %endif
 Url:            http://www.mesa3d.org
-License:        MIT License (or similar)
+License:        MIT
 Group:          System/Libraries
 Provides:       xorg-x11-Mesa = %{version} intel-i810-Mesa = %{version} Mesa7 = %{version}
 Obsoletes:      xorg-x11-Mesa < %{version} intel-i810-Mesa < %{version} Mesa7 < %{version}
 Obsoletes:      Mesa-nouveau3d
-AutoReqProv:    on
 # bug437293
 %ifarch ppc64
 Obsoletes:      XFree86-Mesa-64bit < %{version} Mesa-64bit < %{version}
@@ -77,7 +84,6 @@ Authors:
     Brian Paul
 
 %package devel
-License:        MIT License (or similar)
 Requires:       Mesa = %version xorg-x11-devel libdrm-devel libudev-devel
 Summary:        Libraries, includes and more to develop Mesa applications
 Group:          Development/Libraries/X11
