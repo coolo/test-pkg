@@ -15,15 +15,12 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
-
-
 Name:           bash
-BuildRequires:  bison ncurses-devel
+BuildRequires:  bison
+BuildRequires:  ncurses-devel
 %if %suse_version > 1020
 BuildRequires:  fdupes
 %endif
-License:        GPLv2+
-Group:          System/Shells
 %define         bash_vers 4.2
 %define         rl_vers   6.2
 %define         extend    ""
@@ -36,8 +33,10 @@ Suggests:       command-not-found
 Recommends:     bash-doc = %bash_vers
 %endif
 Version:        4.2
-Release:        5
+Release:        0
 Summary:        The GNU Bourne-Again Shell
+License:        GPL-2.0+
+Group:          System/Shells
 Url:            http://www.gnu.org/software/bash/bash.html
 Source0:        ftp://ftp.gnu.org/gnu/bash/bash-%{bash_vers}.tar.gz
 Source1:        ftp://ftp.gnu.org/gnu/readline/readline-%{rl_vers}.tar.gz
@@ -95,13 +94,12 @@ be a conformant implementation of the IEEE Posix Shell and Tools
 specification (IEEE Working Group 1003.2).
 
 %package -n bash-doc
-License:        GPLv2+
 Summary:        Documentation how to Use the GNU Bourne-Again Shell
 Group:          Documentation/Man
 Provides:       bash:%{_infodir}/bash.info.gz
 PreReq:         %install_info_prereq
 Version:        4.2
-Release:        5
+Release:        0
 %if %suse_version > 1120
 BuildArch:      noarch
 %endif
@@ -115,7 +113,6 @@ interpreter Bash.
 %else
 
 %package -n bash-lang
-License:        GPLv2+
 Summary:        Languages for package bash
 Group:          System/Localization
 Provides:       bash-lang = %{version}
@@ -126,11 +123,10 @@ Provides translations to the package bash
 %endif
 
 %package -n bash-devel
-License:        GPLv2+
 Summary:        Include Files mandatory for Development of bash loadable builtins
 Group:          Development/Languages/C and C++
 Version:        4.2
-Release:        5
+Release:        0
 
 %description -n bash-devel
 This package contains the C header files for writing loadable new
@@ -138,11 +134,10 @@ builtins for the interpreter Bash. Use -I /usr/include/bash/<version>
 on the compilers command line.
 
 %package -n bash-loadables
-License:        GPLv2+
 Summary:        Loadable bash builtins
 Group:          System/Shells
 Version:        4.2
-Release:        5
+Release:        0
 
 %description -n bash-loadables
 This package contains the examples for the ready-to-dynamic-load
@@ -199,12 +194,11 @@ whoami	      Print out username of current user.
 
 
 %package -n libreadline6
-License:        GPLv2+
 Summary:        The Readline Library
 Group:          System/Libraries
 Provides:       bash:/%{_lib}/libreadline.so.%{rl_major}
 Version:        6.2
-Release:        5
+Release:        0
 %if %suse_version > 1020
 Recommends:     readline-doc = %{version}
 %endif
@@ -222,12 +216,11 @@ standard command interpreter) for easy editing of command lines.  This
 includes history and search functionality.
 
 %package -n readline-devel
-License:        GPLv2+
 Summary:        Include Files and Libraries mandatory for Development
 Group:          Development/Libraries/C and C++
 Provides:       bash:%{_libdir}/libreadline.a
 Version:        6.2
-Release:        5
+Release:        0
 Requires:       libreadline6 = %{version}
 Requires:       ncurses-devel
 %if %suse_version > 1020
@@ -244,13 +237,12 @@ This package contains all necessary include files and libraries needed
 to develop applications that require these.
 
 %package -n readline-doc
-License:        GPLv2+
 Summary:        Documentation how to Use and Program with the Readline Library
 Group:          System/Libraries
 Provides:       readline:%{_infodir}/readline.info.gz
 PreReq:         %install_info_prereq
 Version:        6.2
-Release:        5
+Release:        0
 %if %suse_version > 1120
 BuildArch:      noarch
 %endif
@@ -316,7 +308,6 @@ done
   MACHTYPE=${CPU}-suse-linux
   export LANG LC_ALL HOSTTYPE MACHTYPE
 pushd ../readline-%{rl_vers}%{extend}
-%{?suse_update_config:%{suse_update_config -f support}}
   autoconf
   cflags ()
   {
@@ -407,7 +398,6 @@ popd
   CC_FOR_BUILD="$CC"
   CFLAGS_FOR_BUILD="$CFLAGS"
   export CC_FOR_BUILD CFLAGS_FOR_BUILD CFLAGS LDFLAGS CC
-%{?suse_update_config:%{suse_update_config -f support}}
   autoconf
   #
   # We have a malloc with our glibc
