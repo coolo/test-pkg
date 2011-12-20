@@ -15,6 +15,7 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
+
 Name:           zsh
 Version:        4.3.15
 Release:        0
@@ -22,9 +23,6 @@ Summary:        Shell with comprehensive completion
 License:        MIT
 Group:          System/Shells
 Url:            http://www.zsh.org
-%if 0%{?suse_version}
-%else
-%endif
 Source0:        ftp://ftp.zsh.org/pub/zsh-%{version}.tar.bz2
 Source1:        zshrc
 Source2:        zshenv
@@ -73,10 +71,7 @@ Zsh is well known for its command line completion.
 %package htmldoc
 
 Summary:        Zsh shell manual in html format
-%if 0%{?suse_version}
-%else
 Obsoletes:      %{name}-html < %{version}
-%endif
 
 %description htmldoc
 The zsh shell is a command interpreter usable as an interactive login
