@@ -15,7 +15,9 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
+
 Name:           bash
+BuildRequires:  autoconf
 BuildRequires:  bison
 BuildRequires:  ncurses-devel
 %if %suse_version > 1020
