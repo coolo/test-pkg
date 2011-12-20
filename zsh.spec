@@ -15,18 +15,15 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
-
-
 Name:           zsh
-Version:        4.3.14
-Release:        4
-License:        MIT
+Version:        4.3.15
+Release:        0
 Summary:        Shell with comprehensive completion
+License:        MIT
+Group:          System/Shells
 Url:            http://www.zsh.org
 %if 0%{?suse_version}
-Group:          System/Shells
 %else
-Group:          System Environment/Shells
 %endif
 Source0:        ftp://ftp.zsh.org/pub/zsh-%{version}.tar.bz2
 Source1:        zshrc
@@ -77,9 +74,7 @@ Zsh is well known for its command line completion.
 
 Summary:        Zsh shell manual in html format
 %if 0%{?suse_version}
-Group:          System/Shells
 %else
-Group:          System Environment/Shells
 Obsoletes:      %{name}-html < %{version}
 %endif
 
