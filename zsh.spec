@@ -36,7 +36,7 @@ Source15:       zshenv.rhs
 Source16:       dotzshrc.rh
 Source17:       zshprompt.pl
 %endif
-Patch1:         %{name}-4.3.12-disable-c02cond-test.patch
+Patch1:         %{name}-4.3.12-fix-c02cond-test.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %if 0%{?suse_version}
 Requires(pre):  %{install_info_prereq}
@@ -71,6 +71,8 @@ Zsh is well known for its command line completion.
 %package htmldoc
 
 Summary:        Zsh shell manual in html format
+Group:          System/Shells
+Provides:       %{name}-html = %{version}
 Obsoletes:      %{name}-html < %{version}
 
 %description htmldoc
@@ -85,7 +87,7 @@ This package contains the Zsh manual in html format.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch1
+%patch1 -p1
 
 # Remove executable bit
 chmod 0644 Etc/changelog2html.pl

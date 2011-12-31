@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat Dec 31 10:44:15 UTC 2011 - idonmez@suse.com
+
+- Instead of disabling c02cond manually, add upstream patch to
+  automatically disable it on noatime mounted systems.
+
+-------------------------------------------------------------------
 Tue Dec 20 09:27:59 UTC 2011 - idonmez@suse.com
 
 - Update to zsh 4.3.15
