@@ -15,8 +15,6 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
-
-
 Name:           zsh
 Version:        4.3.15
 Release:        0

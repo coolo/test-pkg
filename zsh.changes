@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jan 31 11:08:53 UTC 2012 - idonmez@suse.com
+
+- Update _osc completion 
+
+-------------------------------------------------------------------
 Sat Dec 31 10:44:15 UTC 2011 - idonmez@suse.com
 
 - Instead of disabling c02cond manually, add upstream patch to
