@@ -1,7 +1,7 @@
 #
 # spec file for package zsh
 #
-# Copyright (c) 2011 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -14,7 +14,6 @@
 
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
-
 
 Name:           zsh
 Version:        4.3.15
@@ -36,7 +35,8 @@ Source15:       zshenv.rhs
 Source16:       dotzshrc.rh
 Source17:       zshprompt.pl
 %endif
-Patch1:         %{name}-4.3.12-disable-c02cond-test.patch
+Patch1:         %{name}-4.3.12-fix-c02cond-test.patch
+Patch2:         osc.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %if 0%{?suse_version}
 Requires(pre):  %{install_info_prereq}
@@ -71,6 +71,8 @@ Zsh is well known for its command line completion.
 %package htmldoc
 
 Summary:        Zsh shell manual in html format
+Group:          System/Shells
+Provides:       %{name}-html = %{version}
 Obsoletes:      %{name}-html < %{version}
 
 %description htmldoc
@@ -85,7 +87,8 @@ This package contains the Zsh manual in html format.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch1
+%patch1 -p1
+%patch2 -p0
 
 # Remove executable bit
 chmod 0644 Etc/changelog2html.pl
