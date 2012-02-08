@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Feb  7 14:27:18 CET 2012 - hmacht@suse.de
+
+- add zsh-enable-openSUSE-completion-functions.patch: Enable
+  installation of openSUSE completion functions which are upstream
+
+-------------------------------------------------------------------
 Tue Jan 31 11:08:53 UTC 2012 - idonmez@suse.com
 
 - Update _osc completion 
