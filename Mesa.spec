@@ -1,7 +1,7 @@
 #
 # spec file for package Mesa
 #
-# Copyright (c) 2011 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -13,6 +13,9 @@
 # published by the Open Source Initiative.
 
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
+#
+
+
 #
 %define _version 7.11.1
 
@@ -31,8 +34,10 @@ BuildRequires:  libtalloc-devel
 BuildRequires:  libudev-devel
 BuildRequires:  libxml2-python
 BuildRequires:  pkgconfig
+BuildRequires:  pkgconfig(xdamage)
+BuildRequires:  pkgconfig(xext)
 BuildRequires:  python-base
-BuildRequires:  xorg-x11-devel
+BuildRequires:  xorg-x11-util-devel
 %ifarch %ix86 x86_64
 BuildRequires:  llvm-devel
 %endif
@@ -84,7 +89,7 @@ Authors:
     Brian Paul
 
 %package devel
-Requires:       Mesa = %version xorg-x11-devel libdrm-devel libudev-devel
+Requires:       Mesa = %version libdrm-devel libudev-devel
 Summary:        Libraries, includes and more to develop Mesa applications
 Group:          Development/Libraries/X11
 # bug437293
