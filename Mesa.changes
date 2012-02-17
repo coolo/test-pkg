@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Sun Feb 12 19:24:03 UTC 2012 - jengelh@medozas.de
+
+- Update dependencies according to configure.ac,
+  use pkgconfig symbols
+- Parallel build with %_smp_mflags
+- Remove redundant tags/sections
+
+-------------------------------------------------------------------
+Thu Feb  9 20:01:37 UTC 2012 - sndirsch@suse.com
+
+- fixed buildreqs due to splitted xorg-x11-libs 
+
+-------------------------------------------------------------------
 Thu Dec  1 11:15:48 UTC 2011 - coolo@suse.com
 
 - add automake as buildrequire to avoid implicit dependency
