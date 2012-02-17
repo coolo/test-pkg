@@ -1,7 +1,7 @@
 #
 # spec file for package Mesa
 #
-# Copyright (c) 2011 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -14,31 +14,47 @@
 
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
+
+
+#
 %define _version 7.11.1
 
 Version:        7.11.1
 Release:        0
 
 Name:           Mesa
+BuildRequires:  autoconf >= 2.59
 BuildRequires:  automake
 BuildRequires:  bison
 BuildRequires:  fdupes
 BuildRequires:  flex
 BuildRequires:  gcc-c++
-BuildRequires:  libdrm-devel
 BuildRequires:  libexpat-devel
 BuildRequires:  libtalloc-devel
-BuildRequires:  libudev-devel
+BuildRequires:  libtool
 BuildRequires:  libxml2-python
 BuildRequires:  pkgconfig
 BuildRequires:  python-base
-BuildRequires:  xorg-x11-devel
+BuildRequires:  xorg-x11-util-devel
+BuildRequires:  pkgconfig(dri2proto) >= 2.1
+BuildRequires:  pkgconfig(glproto) >= 1.4.11
+BuildRequires:  pkgconfig(libdrm) >= 2.4.24
+BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.24
+BuildRequires:  pkgconfig(libdrm_nouveau) >= 0.6
+BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.24
+BuildRequires:  pkgconfig(libudev) > 150
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(x11-xcb)
+BuildRequires:  pkgconfig(xcb-dri2)
+BuildRequires:  pkgconfig(xcb-glx)
+BuildRequires:  pkgconfig(xdamage)
+BuildRequires:  pkgconfig(xext)
+BuildRequires:  pkgconfig(xfixes)
+BuildRequires:  pkgconfig(xxf86vm)
 %ifarch %ix86 x86_64
 BuildRequires:  llvm-devel
 %endif
 Url:            http://www.mesa3d.org
-License:        MIT
-Group:          System/Libraries
 Provides:       xorg-x11-Mesa = %{version} intel-i810-Mesa = %{version} Mesa7 = %{version}
 Obsoletes:      xorg-x11-Mesa < %{version} intel-i810-Mesa < %{version} Mesa7 < %{version}
 Obsoletes:      Mesa-nouveau3d
@@ -49,6 +65,8 @@ Provides:       XFree86-Mesa-64bit = %{version} Mesa-64bit < %{version}
 %endif
 #
 Summary:        System for rendering interactive 3-D graphics
+License:        MIT
+Group:          System/Libraries
 Source:         MesaLib-%{_version}.tar.bz2
 Source2:        baselibs.conf
 Source3:        README.updates
@@ -84,7 +102,7 @@ Authors:
     Brian Paul
 
 %package devel
-Requires:       Mesa = %version xorg-x11-devel libdrm-devel libudev-devel
+Requires:       Mesa = %version libdrm-devel libudev-devel
 Summary:        Libraries, includes and more to develop Mesa applications
 Group:          Development/Libraries/X11
 # bug437293
@@ -167,7 +185,7 @@ autoreconf -fi
 %endif
            --disable-glut \
            CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
-make %{?jobs:-j%jobs}
+make %{?_smp_mflags}
 make install DESTDIR=$RPM_BUILD_ROOT
 # build and install Indirect Rendering only libGL
 make realclean
@@ -178,13 +196,13 @@ make realclean
            --with-gallium-drivers="" \
            CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
 sed -i 's/GL_LIB = .*/GL_LIB = IndirectGL/g' configs/autoconf
-make %{?jobs:-j%jobs}
+make %{?_smp_mflags}
 cp -a %{_lib}/libIndirectGL.so.* %{_lib}/libOSMesa.so* \
   $RPM_BUILD_ROOT/usr/%{_lib}
 for dir in ../xc/doc/man/{GL/gl,GL/glx,GLU}; do
 pushd $dir
   xmkmf -a
-  make %{?jobs:-j%jobs};
+  make %{?_smp_mflags}
   make install.man DESTDIR=$RPM_BUILD_ROOT MANPATH=%{_mandir} LIBMANSUFFIX=3gl
 popd
 done
@@ -196,9 +214,6 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 mkdir -p $RPM_BUILD_ROOT/etc
 install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %fdupes -s $RPM_BUILD_ROOT/%_mandir
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %post -p /sbin/ldconfig
 
