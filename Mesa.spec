@@ -428,24 +428,43 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %fdupes -s $RPM_BUILD_ROOT/%_mandir
 
 %post   -p /sbin/ldconfig
+
 %postun -p /sbin/ldconfig
+
 %post   -n Mesa-libEGL1 -p /sbin/ldconfig
+
 %postun -n Mesa-libEGL1 -p /sbin/ldconfig
+
 %post   -n Mesa-libGL1 -p /sbin/ldconfig
+
 %postun -n Mesa-libGL1 -p /sbin/ldconfig
+
 %post   -n Mesa-libGLESv1_CM1 -p /sbin/ldconfig
+
 %postun -n Mesa-libGLESv1_CM1 -p /sbin/ldconfig
+
 %post   -n Mesa-libGLESv2-2 -p /sbin/ldconfig
+
 %postun -n Mesa-libGLESv2-2 -p /sbin/ldconfig
+
 %post   -n Mesa-libGLU1 -p /sbin/ldconfig
+
 %postun -n Mesa-libGLU1 -p /sbin/ldconfig
+
 %post   -n Mesa-libIndirectGL1 -p /sbin/ldconfig
+
 %postun -n Mesa-libIndirectGL1 -p /sbin/ldconfig
+
 %post   -n libOSMesa7 -p /sbin/ldconfig
+
 %postun -n libOSMesa7 -p /sbin/ldconfig
+
 %post   -n libgbm1 -p /sbin/ldconfig
+
 %postun -n libgbm1 -p /sbin/ldconfig
+
 %post   -n Mesa-libglapi0 -p /sbin/ldconfig
+
 %postun -n Mesa-libglapi0 -p /sbin/ldconfig
 
 %files
