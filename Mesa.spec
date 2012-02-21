@@ -72,6 +72,7 @@ Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source5:        drirc
+Source6:        %name-rpmlintrc
 # to be upstreamed
 Patch9:         u_GLX-SWrast-Make-GLX-with-SWrast-enabled-work-on-olde.patch
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
@@ -95,16 +96,227 @@ just Mesa or The Mesa 3-D graphics library.
 
 * OpenGL is a trademark of Silicon Graphics Incorporated.
 
+%package -n Mesa-libEGL1
+# Kudos to Debian for the descriptions
+Summary:        Free implementation of the EGL API
+Group:          System/Libraries
 
+%description -n Mesa-libEGL1
+This package contains the EGL native platform graphics interface
+library. EGL provides a platform-agnostic mechanism for creating
+rendering surfaces for use with other graphics libraries, such as
+OpenGL|ES and OpenVG.
 
-Authors:
---------
-    Brian Paul
+This package contains modules to interface with the existing system
+GLX or DRI2 drivers to provide OpenGL via EGL. The Mesa main package
+provides drivers to provide hardware-accelerated OpenGL|ES and OpenVG
+support.
+
+%package -n Mesa-libEGL-devel
+Summary:        Development files for the EGL API
+Group:          Development/Libraries/C and C++
+Requires:       Mesa-libEGL1 = %version
+# Other requires taken care of by pkgconfig already
+
+%description -n Mesa-libEGL-devel
+This package contains the development environment required for
+compiling programs against EGL native platform graphics interface
+library. EGL provides a platform-agnostic mechanism for creating
+rendering surfaces for use with other graphics libraries, such as
+OpenGL|ES and OpenVG.
+
+This package provides the development environment for compiling
+programs against the EGL library.
+
+%package -n Mesa-libGL1
+Summary:        The GL/GLX runtime of the Mesa 3D graphics library
+Group:          System/Libraries
+
+%description -n Mesa-libGL1
+Mesa is a software library for 3D computer graphics that provides a
+generic OpenGL implementation for rendering three-dimensional
+graphics.
+
+GLX ("OpenGL Extension to the X Window System") provides the
+interface connecting OpenGL and the X Window System: it enables
+programs wishing to use OpenGL to do so within a window provided by
+the X Window System.
+
+%package -n Mesa-libGL-devel
+Summary:        GL/GLX development files of the OpenGL API
+Group:          Development/Libraries/C and C++
+Requires:       Mesa-libGL1 = %version
+
+%description -n Mesa-libGL-devel
+Mesa is a software library for 3D computer graphics that provides a
+generic OpenGL implementation for rendering three-dimensional
+graphics.
+
+This package includes headers and static libraries for compiling
+programs with Mesa.
+
+%package -n Mesa-libGLESv1_CM1
+Summary:        Free implementation of the OpenGL|ES 1.x API
+Group:          System/Libraries
+
+%description -n Mesa-libGLESv1_CM1
+OpenGL|ES is a cross-platform API for full-function 2D and 3D
+graphics on embedded systems - including consoles, phones, appliances
+and vehicles. It contains a subset of OpenGL plus a number of
+extensions for the special needs of embedded systems.
+
+OpenGL|ES 1.x provides an API for fixed-function hardware.
+
+%package -n Mesa-libGLESv1_CM-devel
+Summary:        Development files for the EGL API
+Group:          Development/Libraries/C and C++
+Requires:       Mesa-libGLESv1_CM1 = %version
+Requires:       pkgconfig(egl)
+
+%description -n Mesa-libGLESv1_CM-devel
+OpenGL|ES is a cross-platform API for full-function 2D and 3D
+graphics on embedded systems - including consoles, phones, appliances
+and vehicles. It contains a subset of OpenGL plus a number of
+extensions for the special needs of embedded systems.
+
+OpenGL|ES 1.x provides an API for fixed-function hardware.
+
+This package provides a development environment for building programs
+using the OpenGL|ES 1.x APIs.
+
+%package -n Mesa-libGLESv2-2
+Summary:        Free implementation of the OpenGL|ES 2.x API
+Group:          System/Libraries
+
+%description -n Mesa-libGLESv2-2
+OpenGL|ES is a cross-platform API for full-function 2D and 3D
+graphics on embedded systems - including consoles, phones, appliances
+and vehicles. It contains a subset of OpenGL plus a number of
+extensions for the special needs of embedded systems.
+
+OpenGL|ES 2.x provides an API for programmable hardware including
+vertex and fragment shaders.
+
+%package -n Mesa-libGLESv2-devel
+Summary:        Development files for the EGL API
+Group:          Development/Libraries/C and C++
+Requires:       Mesa-libGLESv2-2 = %version
+Requires:       pkgconfig(egl)
+
+%description -n Mesa-libGLESv2-devel
+OpenGL|ES is a cross-platform API for full-function 2D and 3D
+graphics on embedded systems - including consoles, phones, appliances
+and vehicles. It contains a subset of OpenGL plus a number of
+extensions for the special needs of embedded systems.
+
+OpenGL|ES 2.x provides an API for programmable hardware including
+vertex and fragment shaders.
+
+This package provides a development environment for building
+applications using the OpenGL|ES 2.x APIs.
+
+%package -n Mesa-libGLU1
+Summary:        Mesa OpenGL utility library
+Group:          System/Libraries
+
+%description -n Mesa-libGLU1
+GLU offers simple interfaces for building mipmaps; checking for the
+presence of extensions in the OpenGL (or other libraries which follow
+the same conventions for advertising extensions); drawing
+piecewise-linear curves, NURBS, quadrics and other primitives
+(including, but not limited to, teapots); tesselating surfaces;
+setting up projection matrices and unprojecting screen coordinates to
+world coordinates.
+
+This package provides the SGI implementation of GLU shipped with the
+Mesa package.
+
+%package -n Mesa-libGLU-devel
+Summary:        Development files for the EGL API
+Group:          Development/Libraries/C and C++
+Requires:       Mesa-libGLU1 = %version
+
+%description -n Mesa-libGLU-devel
+GLU offers simple interfaces for building mipmaps; checking for the
+presence of extensions in the OpenGL (or other libraries which follow
+the same conventions for advertising extensions); drawing
+piecewise-linear curves, NURBS, quadrics and other primitives
+(including, but not limited to, teapots); tesselating surfaces;
+setting up projection matrices and unprojecting screen coordinates to
+world coordinates.
+
+This package contains includes headers and static libraries for
+compiling programs with GLU.
+
+%package -n Mesa-libIndirectGL1
+# This is the equivalent to Debian's libgl1-mesa-swx11
+Summary:        Free implementation of the OpenGL API
+Group:          System/Libraries
+
+%description -n Mesa-libIndirectGL1
+This library provides a pure software rasterizer; it does not provide
+a direct rendering capable library, or one which uses GLX. For that,
+please see Mesa-libGL1.
+
+%package -n libOSMesa7
+Summary:        Mesa Off-screen rendering extension
+Group:          System/Libraries
+
+%description -n libOSMesa7
+OSmesa is a Mesa extension that allows programs to render to an
+off-screen buffer using the OpenGL API without having to create a
+rendering context on an X Server. It uses a pure software renderer.
+
+%package -n libgbm1
+Summary:        Generic buffer management API
+Group:          System/Libraries
+# as per gbm.pc
+Version:        0.0.0
+Release:        0
+
+%description -n libgbm1
+This package contains the GBM buffer management library. It provides
+a mechanism for allocating buffers for graphics rendering tied to
+Mesa.
+
+GBM is intended to be used as a native platform for EGL on drm or
+openwfd.
+
+%package -n libgbm-devel
+Summary:        Development files for the EGL API
+Group:          Development/Libraries/C and C++
+Version:        0.0.0
+Release:        0
+Requires:       libgbm1 = %version
+
+%description -n libgbm-devel
+This package contains the GBM buffer management library. It provides
+a mechanism for allocating buffers for graphics rendering tied to
+Mesa.
+
+GBM is intended to be used as a native platform for EGL on drm or
+openwfd.
+
+This package provides the development environment for compiling
+programs against the GBM library.
+
+%package -n Mesa-libglapi0
+Summary:        Free implementation of the GL API
+Group:          System/Libraries
+
+%description -n Mesa-libglapi0
+The Mesa GL API module is responsible for dispatching all the gl*
+functions. It is intended to be mainly used by the Mesa-libGLES*
+packages.
 
 %package devel
-Requires:       Mesa = %version libdrm-devel libudev-devel
 Summary:        Libraries, includes and more to develop Mesa applications
 Group:          Development/Libraries/X11
+Requires:       Mesa = %version, Mesa-libEGL-devel = %version
+Requires:       Mesa-libGL-devel = %version, Mesa-libGLESv1_CM-devel = %version
+Requires:       Mesa-libGLESv2-devel = %version, Mesa-libGLU-devel = %version
+Requires:       Mesa-libIndirectGL1 = %version, libOSMesa7 = %version
+Requires:       libgbm-devel, Mesa-libglapi0 = %version
 # bug437293
 %ifarch ppc64
 Obsoletes:      XFree86-Mesa-devel-64bit < %{version} Mesa-devel-64bit < %{version}
@@ -215,42 +427,118 @@ mkdir -p $RPM_BUILD_ROOT/etc
 install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %fdupes -s $RPM_BUILD_ROOT/%_mandir
 
-%post -p /sbin/ldconfig
-
+%post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
+%post   -n Mesa-libEGL1 -p /sbin/ldconfig
+%postun -n Mesa-libEGL1 -p /sbin/ldconfig
+%post   -n Mesa-libGL1 -p /sbin/ldconfig
+%postun -n Mesa-libGL1 -p /sbin/ldconfig
+%post   -n Mesa-libGLESv1_CM1 -p /sbin/ldconfig
+%postun -n Mesa-libGLESv1_CM1 -p /sbin/ldconfig
+%post   -n Mesa-libGLESv2-2 -p /sbin/ldconfig
+%postun -n Mesa-libGLESv2-2 -p /sbin/ldconfig
+%post   -n Mesa-libGLU1 -p /sbin/ldconfig
+%postun -n Mesa-libGLU1 -p /sbin/ldconfig
+%post   -n Mesa-libIndirectGL1 -p /sbin/ldconfig
+%postun -n Mesa-libIndirectGL1 -p /sbin/ldconfig
+%post   -n libOSMesa7 -p /sbin/ldconfig
+%postun -n libOSMesa7 -p /sbin/ldconfig
+%post   -n libgbm1 -p /sbin/ldconfig
+%postun -n libgbm1 -p /sbin/ldconfig
+%post   -n Mesa-libglapi0 -p /sbin/ldconfig
+%postun -n Mesa-libglapi0 -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root)
 %doc docs/README* docs/COPYING
 %config /etc/drirc
-%{_libdir}/lib*.so.*
 %{_libdir}/dri/
 #%{_libdir}/egl/
+
+%files -n Mesa-libEGL1
+%defattr(-,root,root)
+%_libdir/libEGL.so.1*
+
+%files -n Mesa-libEGL-devel
+%defattr(-,root,root)
+%_includedir/EGL
+%_includedir/KHR
+%_libdir/libEGL.so
+%_libdir/pkgconfig/egl.pc
+
+%files -n Mesa-libGL1
+%defattr(-,root,root)
+%_libdir/libGL.so.1*
+
+%files -n Mesa-libGL-devel
+%defattr(-,root,root)
+%dir %_includedir/GL
+%_includedir/GL/*.h
+%exclude %_includedir/GL/glu*.h
+%_libdir/libGL.so
+%_libdir/pkgconfig/gl.pc
+%_mandir/man3/gl[A-Z]*
+
+%files -n Mesa-libGLESv1_CM1
+%defattr(-,root,root)
+%_libdir/libGLESv1_CM.so.1*
+
+%files -n Mesa-libGLESv1_CM-devel
+%defattr(-,root,root)
+%_includedir/GLES
+%_libdir/libGLESv1_CM.so
+%_libdir/pkgconfig/glesv1_cm.pc
+
+%files -n Mesa-libGLESv2-2
+%defattr(-,root,root)
+%_libdir/libGLESv2.so.2*
+
+%files -n Mesa-libGLESv2-devel
+%defattr(-,root,root)
+%_includedir/GLES2
+%_libdir/libGLESv2.so
+%_libdir/pkgconfig/glesv2.pc
+
+%files -n Mesa-libGLU1
+%defattr(-,root,root)
+%_libdir/libGLU.so.1*
+
+%files -n Mesa-libGLU-devel
+%defattr(-,root,root)
+%dir %_includedir/GL
+%_includedir/GL/glu*.h
+%_libdir/libGLU.so
+%_libdir/pkgconfig/glu.pc
+%_mandir/man3/glu*
+
+%files -n Mesa-libIndirectGL1
+%defattr(-,root,root)
+%_libdir/libIndirectGL.so.1*
+
+%files -n libOSMesa7
+%defattr(-,root,root)
+%_libdir/libOSMesa.so.7*
+
+%files -n libgbm1
+%defattr(-,root,root)
+%_libdir/libgbm.so.1*
+
+%files -n libgbm-devel
+%defattr(-,root,root)
+%_includedir/gbm.h
+%_libdir/libgbm.so
+%_libdir/pkgconfig/gbm.pc
+
+%files -n Mesa-libglapi0
+%defattr(-,root,root)
+%_libdir/libglapi.so.0*
 
 %files devel
 %defattr(-,root,root)
 %doc docs/*.html docs/*.spec
-%{_includedir}/GL
-%{_includedir}/GLES
-%{_includedir}/GLES2
-%{_includedir}/EGL
-%{_includedir}/KHR
-%{_includedir}/gbm.h
-%{_libdir}/libGL.so
-%{_libdir}/libGLU.so
-%{_libdir}/libOSMesa.so
-%{_libdir}/libEGL.so
-%{_libdir}/libGLESv1_CM.so
-%{_libdir}/libGLESv2.so
-%{_libdir}/libglapi.so
-%{_libdir}/libgbm.so
-%{_libdir}/pkgconfig/dri.pc
-%{_libdir}/pkgconfig/egl.pc
-%{_libdir}/pkgconfig/gl.pc
-%{_libdir}/pkgconfig/glu.pc
-%{_libdir}/pkgconfig/glesv1_cm.pc
-%{_libdir}/pkgconfig/glesv2.pc
-%{_libdir}/pkgconfig/gbm.pc
-%{_mandir}/man3/*
+%_includedir/GL/internal
+%_libdir/libOSMesa.so
+%_libdir/libglapi.so
+%_libdir/pkgconfig/dri.pc
 
 %changelog

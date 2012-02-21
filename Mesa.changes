@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Feb 21 03:57:14 UTC 2012 - jengelh@medozas.de
+
+- Split shared libraries per shlib pol.
+
+-------------------------------------------------------------------
 Sun Feb 12 19:24:03 UTC 2012 - jengelh@medozas.de
 
 - Update dependencies according to configure.ac,
