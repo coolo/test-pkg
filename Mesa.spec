@@ -19,10 +19,9 @@
 #
 %define _version 7.11.1
 
+Name:           Mesa
 Version:        7.11.1
 Release:        0
-
-Name:           Mesa
 BuildRequires:  autoconf >= 2.59
 BuildRequires:  automake
 BuildRequires:  bison
@@ -55,13 +54,18 @@ BuildRequires:  pkgconfig(xxf86vm)
 BuildRequires:  llvm-devel
 %endif
 Url:            http://www.mesa3d.org
-Provides:       xorg-x11-Mesa = %{version} intel-i810-Mesa = %{version} Mesa7 = %{version}
-Obsoletes:      xorg-x11-Mesa < %{version} intel-i810-Mesa < %{version} Mesa7 < %{version}
+Provides:       Mesa7 = %{version}
+Obsoletes:      Mesa7 < %{version}
+Provides:       intel-i810-Mesa = %{version}
+Obsoletes:      intel-i810-Mesa < %{version}
+Provides:       xorg-x11-Mesa = %{version}
+Obsoletes:      xorg-x11-Mesa < %{version} 
 Obsoletes:      Mesa-nouveau3d
 # bug437293
 %ifarch ppc64
 Obsoletes:      XFree86-Mesa-64bit < %{version} Mesa-64bit < %{version}
-Provides:       XFree86-Mesa-64bit = %{version} Mesa-64bit < %{version}
+Provides:       Mesa-64bit < %{version}
+Provides:       XFree86-Mesa-64bit = %{version}
 %endif
 #
 Summary:        System for rendering interactive 3-D graphics
@@ -82,6 +86,45 @@ Patch15:        Mesa-llvm-3.0.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
+Mesa is a 3-D graphics library with an API which is very similar to
+that of OpenGL.* To the extent that Mesa utilizes the OpenGL command
+syntax or state machine, it is being used with authorization from
+Silicon Graphics, Inc.(SGI). However, the author does not possess an
+OpenGL license from SGI, and makes no claim that Mesa is in any way a
+compatible replacement for OpenGL or associated with SGI. Those who
+want a licensed implementation of OpenGL should contact a licensed
+vendor.
+
+Please do not refer to the library as MesaGL (for legal reasons). It's
+just Mesa or The Mesa 3-D graphics library.
+
+* OpenGL is a trademark of Silicon Graphics Incorporated.
+
+%package devel
+Summary:        Libraries, includes and more to develop Mesa applications
+Group:          Development/Libraries/X11
+Requires:       Mesa = %version
+Requires:       Mesa-libEGL-devel = %version
+Requires:       Mesa-libGL-devel = %version
+Requires:       Mesa-libGLESv1_CM-devel = %version
+Requires:       Mesa-libGLESv2-devel = %version
+Requires:       Mesa-libGLU-devel = %version
+Requires:       Mesa-libIndirectGL1 = %version
+Requires:       libOSMesa7 = %version
+Requires:       Mesa-libglapi0 = %version
+Requires:       libgbm-devel
+# bug437293
+%ifarch ppc64
+Obsoletes:      XFree86-Mesa-devel-64bit < %{version} Mesa-devel-64bit < %{version}
+Provides:       Mesa-devel-64bit = %{version}
+Provides:       XFree86-Mesa-devel-64bit = %{version}
+%endif
+#
+Provides:       Mesa-devel-static = %{version}
+Provides:       xorg-x11-Mesa-devel = %{version}
+Obsoletes:      xorg-x11-Mesa-devel < %{version} Mesa-devel-static < %{version}
+
+%description devel
 Mesa is a 3-D graphics library with an API which is very similar to
 that of OpenGL.* To the extent that Mesa utilizes the OpenGL command
 syntax or state machine, it is being used with authorization from
@@ -308,44 +351,6 @@ Group:          System/Libraries
 The Mesa GL API module is responsible for dispatching all the gl*
 functions. It is intended to be mainly used by the Mesa-libGLES*
 packages.
-
-%package devel
-Summary:        Libraries, includes and more to develop Mesa applications
-Group:          Development/Libraries/X11
-Requires:       Mesa = %version, Mesa-libEGL-devel = %version
-Requires:       Mesa-libGL-devel = %version, Mesa-libGLESv1_CM-devel = %version
-Requires:       Mesa-libGLESv2-devel = %version, Mesa-libGLU-devel = %version
-Requires:       Mesa-libIndirectGL1 = %version, libOSMesa7 = %version
-Requires:       libgbm-devel, Mesa-libglapi0 = %version
-# bug437293
-%ifarch ppc64
-Obsoletes:      XFree86-Mesa-devel-64bit < %{version} Mesa-devel-64bit < %{version}
-Provides:       XFree86-Mesa-devel-64bit = %{version} Mesa-devel-64bit = %{version}
-%endif
-#
-Provides:       xorg-x11-Mesa-devel = %{version} Mesa-devel-static = %{version}
-Obsoletes:      xorg-x11-Mesa-devel < %{version} Mesa-devel-static < %{version}
-
-%description devel
-Mesa is a 3-D graphics library with an API which is very similar to
-that of OpenGL.* To the extent that Mesa utilizes the OpenGL command
-syntax or state machine, it is being used with authorization from
-Silicon Graphics, Inc.(SGI). However, the author does not possess an
-OpenGL license from SGI, and makes no claim that Mesa is in any way a
-compatible replacement for OpenGL or associated with SGI. Those who
-want a licensed implementation of OpenGL should contact a licensed
-vendor.
-
-Please do not refer to the library as MesaGL (for legal reasons). It's
-just Mesa or The Mesa 3-D graphics library.
-
-* OpenGL is a trademark of Silicon Graphics Incorporated.
-
-
-
-Authors:
---------
-    Brian Paul
 
 %prep
 %setup -n %{name}-%{_version} -b4 -q

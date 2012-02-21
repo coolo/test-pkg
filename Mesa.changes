@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Feb 21 19:53:03 UTC 2012 - coolo@suse.com
+
+- fix requires of devel package in moving the %package before the
+  other packages that have custom versions.
+  %version in rpm is tricky - it's the _last_ version before the 
+  macro, not the main one.
+
+-------------------------------------------------------------------
 Tue Feb 21 03:57:14 UTC 2012 - jengelh@medozas.de
 
 - Split shared libraries per shlib pol.
