@@ -381,7 +381,7 @@ autoreconf -fi
            --enable-shared-glapi \
            --with-dri-searchpath=/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri \
 %ifarch %ix86 x86_64
-           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,radeon,sis,tdfx,unichrome,swrast,mga \
+           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,radeon,sis,tdfx,unichrome,swrast,mga,nouveau \
 %if 0%{?suse_version} >= 1130
            --with-gallium-drivers=r300,r600,nouveau \
 %else

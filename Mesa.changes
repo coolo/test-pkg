@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Feb 22 14:14:56 UTC 2012 - sndirsch@suse.com
+
+- readded build of non-gallium nouveau driver ("nouveau_vieux") to
+  support again older NVIDIA GPUs
+
+-------------------------------------------------------------------
 Tue Feb 21 19:53:03 UTC 2012 - coolo@suse.com
 
 - fix requires of devel package in moving the %package before the
