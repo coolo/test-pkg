@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Feb 22 14:27:44 UTC 2012 - jengelh@medozas.de
+
+- use --enable-shared-dricore, saves ~33 MB
+
+-------------------------------------------------------------------
 Wed Feb 22 14:14:56 UTC 2012 - sndirsch@suse.com
 
 - readded build of non-gallium nouveau driver ("nouveau_vieux") to

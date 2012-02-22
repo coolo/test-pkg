@@ -15,7 +15,6 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
-
 #
 %define _version 7.11.1
 
@@ -379,9 +378,10 @@ autoreconf -fi
            --with-driver=dri \
            --with-egl-platforms=x11,drm \
            --enable-shared-glapi \
+           --enable-shared-dricore \
            --with-dri-searchpath=/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri \
 %ifarch %ix86 x86_64
-           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,radeon,sis,tdfx,unichrome,swrast,mga,nouveau \
+           --with-dri-drivers=i810,i915,i965,mach64,nouveau,r128,r200,radeon,sis,tdfx,unichrome,swrast,mga \
 %if 0%{?suse_version} >= 1130
            --with-gallium-drivers=r300,r600,nouveau \
 %else
@@ -389,7 +389,7 @@ autoreconf -fi
 %endif
 %endif
 %ifarch ppc ppc64 %sparc hppa
-           --with-dri-drivers=i810,i915,i965,mach64,r128,r200,radeon,tdfx,unichrome,swrast \
+           --with-dri-drivers=i810,i915,i965,mach64,nouveau,r128,r200,radeon,tdfx,unichrome,swrast \
 %if 0%{?suse_version} >= 1130
            --with-gallium-drivers=r300,r600,nouveau \
 %else
