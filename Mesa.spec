@@ -15,11 +15,12 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
+
 #
-%define _version 7.11.1
+%define _version 8.0.1
 
 Name:           Mesa
-Version:        7.11.1
+Version:        8.0.1
 Release:        0
 BuildRequires:  autoconf >= 2.59
 BuildRequires:  automake
@@ -52,6 +53,7 @@ BuildRequires:  pkgconfig(xxf86vm)
 %ifarch %ix86 x86_64
 BuildRequires:  llvm-devel
 %endif
+BuildRequires:  vim
 Url:            http://www.mesa3d.org
 Provides:       Mesa7 = %{version}
 Obsoletes:      Mesa7 < %{version}
@@ -77,11 +79,8 @@ Source4:        manual-pages.tar.bz2
 Source5:        drirc
 Source6:        %name-rpmlintrc
 # to be upstreamed
-Patch9:         u_GLX-SWrast-Make-GLX-with-SWrast-enabled-work-on-olde.patch
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 # already upstream
-Patch13:        U_Mesa-7.11-llvm3.patch
-Patch15:        Mesa-llvm-3.0.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -109,7 +108,7 @@ Requires:       Mesa-libGLESv1_CM-devel = %version
 Requires:       Mesa-libGLESv2-devel = %version
 Requires:       Mesa-libGLU-devel = %version
 Requires:       Mesa-libIndirectGL1 = %version
-Requires:       libOSMesa7 = %version
+Requires:       libOSMesa8 = %version
 Requires:       Mesa-libglapi0 = %version
 Requires:       libgbm-devel
 # bug437293
@@ -300,11 +299,11 @@ This library provides a pure software rasterizer; it does not provide
 a direct rendering capable library, or one which uses GLX. For that,
 please see Mesa-libGL1.
 
-%package -n libOSMesa7
+%package -n libOSMesa8
 Summary:        Mesa Off-screen rendering extension
 Group:          System/Libraries
 
-%description -n libOSMesa7
+%description -n libOSMesa8
 OSmesa is a Mesa extension that allows programs to render to an
 off-screen buffer using the OpenGL API without having to create a
 rendering context on an X Server. It uses a pure software renderer.
@@ -359,10 +358,7 @@ rm -rf src/glut progs/{demos,redbook,samples,xdemos,glsl}
 rm -f include/GL/{glut.h,uglglutshapes.h,glutf90.h}
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
-%patch9 -p1
-%patch11 -p1
-%patch13 -p0
-%patch15 -p1
+#%patch11 -p1
 
 %build
 
@@ -371,7 +367,6 @@ rm -f src/mesa/depend
 export TALLOC_LIBS=-ltalloc
 export TALLOC_CFLAGS="-I/usr/include"
 autoreconf -fi
-### libGL (disable savage/mga, bnc #402132/#403071; reenable mga, bnc #466635)
 %configure --disable-glw \
            --enable-gles1 \
            --enable-gles2 \
@@ -381,7 +376,7 @@ autoreconf -fi
            --enable-shared-dricore \
            --with-dri-searchpath=/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri \
 %ifarch %ix86 x86_64
-           --with-dri-drivers=i810,i915,i965,mach64,nouveau,r128,r200,radeon,sis,tdfx,unichrome,swrast,mga \
+           --with-dri-drivers=i915,i965,nouveau,r200,radeon,swrast \
 %if 0%{?suse_version} >= 1130
            --with-gallium-drivers=r300,r600,nouveau \
 %else
@@ -389,7 +384,7 @@ autoreconf -fi
 %endif
 %endif
 %ifarch ppc ppc64 %sparc hppa
-           --with-dri-drivers=i810,i915,i965,mach64,nouveau,r128,r200,radeon,tdfx,unichrome,swrast \
+           --with-dri-drivers=i915,i965,nouveau,r200,radeon,swrast \
 %if 0%{?suse_version} >= 1130
            --with-gallium-drivers=r300,r600,nouveau \
 %else
@@ -460,9 +455,9 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 
 %postun -n Mesa-libIndirectGL1 -p /sbin/ldconfig
 
-%post   -n libOSMesa7 -p /sbin/ldconfig
+%post   -n libOSMesa8 -p /sbin/ldconfig
 
-%postun -n libOSMesa7 -p /sbin/ldconfig
+%postun -n libOSMesa8 -p /sbin/ldconfig
 
 %post   -n libgbm1 -p /sbin/ldconfig
 
@@ -539,9 +534,9 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %defattr(-,root,root)
 %_libdir/libIndirectGL.so.1*
 
-%files -n libOSMesa7
+%files -n libOSMesa8
 %defattr(-,root,root)
-%_libdir/libOSMesa.so.7*
+%_libdir/libOSMesa.so.8*
 
 %files -n libgbm1
 %defattr(-,root,root)
