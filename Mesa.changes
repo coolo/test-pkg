@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Feb 24 15:12:22 UTC 2012 - sndirsch@suse.com
+
+- Switch software rasterizer to llvmpipe (gallium driver now)
+  * Performance improvement especially on multicore system.
+- minimal specfile cleanup
+
+-------------------------------------------------------------------
 Fri Feb 24 13:51:15 CET 2012 - meissner@suse.de
 
 - only require drm_intel on intel.
