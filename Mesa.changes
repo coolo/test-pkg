@@ -1,4 +1,52 @@
 -------------------------------------------------------------------
+Thu Feb 23 10:57:09 UTC 2012 - sndirsch@suse.com
+
+- Update to Mesa 8.0.1
+  * Removed all DRI drivers that did not support DRI2. 
+    Specifically, i810, mach64, mga, r128, savage, sis, tdfx, and
+    unichrome were removed.
+  * Removed all remnants of paletted texture support. As required
+    by desktop OpenGL, GL_COLOR_INDEX data can still be uploaded
+    to a color (e.g., RGBA) texture. However, the data cannot be
+    stored internally as color-index.
+  * Removed support for GL_APPLE_client_storage extension.
+  * Removed the classic Mesa r300 and r600 drivers, which are
+    superseded by the gallium drivers for this hardware.
+  * Removed the dead Gallium i965, cell and failover drivers,
+    which were either broken and with nobody in sight to fix
+    the situation or deprecated.
+- obsoletes u_GLX-SWrast-Make-GLX-with-SWrast-enabled-work-on-olde.patch
+  (git commit #63a6fd6603574c1c01324fbeb0863e39d3864c16)
+- obsoletes U_Mesa-7.11-llvm3.patch
+- obsoletes Mesa-llvm-3.0.patch
+- disabled u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
+  for now (obsolete as well?)
+
+-------------------------------------------------------------------
+Wed Feb 22 14:27:44 UTC 2012 - jengelh@medozas.de
+
+- use --enable-shared-dricore, saves ~33 MB
+
+-------------------------------------------------------------------
+Wed Feb 22 14:14:56 UTC 2012 - sndirsch@suse.com
+
+- readded build of non-gallium nouveau driver ("nouveau_vieux") to
+  support again older NVIDIA GPUs
+
+-------------------------------------------------------------------
+Tue Feb 21 19:53:03 UTC 2012 - coolo@suse.com
+
+- fix requires of devel package in moving the %package before the
+  other packages that have custom versions.
+  %version in rpm is tricky - it's the _last_ version before the 
+  macro, not the main one.
+
+-------------------------------------------------------------------
+Tue Feb 21 03:57:14 UTC 2012 - jengelh@medozas.de
+
+- Split shared libraries per shlib pol.
+
+-------------------------------------------------------------------
 Sun Feb 12 19:24:03 UTC 2012 - jengelh@medozas.de
 
 - Update dependencies according to configure.ac,
