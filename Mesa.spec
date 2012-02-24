@@ -38,7 +38,9 @@ BuildRequires:  xorg-x11-util-devel
 BuildRequires:  pkgconfig(dri2proto) >= 2.1
 BuildRequires:  pkgconfig(glproto) >= 1.4.11
 BuildRequires:  pkgconfig(libdrm) >= 2.4.24
+%ifarch x86_64 %ix86
 BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.24
+%endif
 BuildRequires:  pkgconfig(libdrm_nouveau) >= 0.6
 BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.24
 BuildRequires:  pkgconfig(libudev) > 150
@@ -384,7 +386,7 @@ autoreconf -fi
 %endif
 %endif
 %ifarch ppc ppc64 %sparc hppa
-           --with-dri-drivers=i915,i965,nouveau,r200,radeon,swrast \
+           --with-dri-drivers=nouveau,r200,radeon,swrast \
 %if 0%{?suse_version} >= 1130
            --with-gallium-drivers=r300,r600,nouveau \
 %else
