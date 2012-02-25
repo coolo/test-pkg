@@ -38,7 +38,9 @@ BuildRequires:  xorg-x11-util-devel
 BuildRequires:  pkgconfig(dri2proto) >= 2.1
 BuildRequires:  pkgconfig(glproto) >= 1.4.11
 BuildRequires:  pkgconfig(libdrm) >= 2.4.24
+%ifarch x86_64 %ix86
 BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.24
+%endif
 BuildRequires:  pkgconfig(libdrm_nouveau) >= 0.6
 BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.24
 BuildRequires:  pkgconfig(libudev) > 150
@@ -376,20 +378,12 @@ autoreconf -fi
            --enable-shared-dricore \
            --with-dri-searchpath=/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri \
 %ifarch %ix86 x86_64
-           --with-dri-drivers=i915,i965,nouveau,r200,radeon,swrast \
-%if 0%{?suse_version} >= 1130
-           --with-gallium-drivers=r300,r600,nouveau \
-%else
-           --with-gallium-drivers=r300,r600 \
-%endif
+           --with-dri-drivers=i915,i965,nouveau,r200,radeon \
+           --with-gallium-drivers=r300,r600,nouveau,swrast \
 %endif
 %ifarch ppc ppc64 %sparc hppa
-           --with-dri-drivers=i915,i965,nouveau,r200,radeon,swrast \
-%if 0%{?suse_version} >= 1130
-           --with-gallium-drivers=r300,r600,nouveau \
-%else
-           --with-gallium-drivers=r300,r600 \
-%endif
+           --with-dri-drivers=nouveau,r200,radeon \
+           --with-gallium-drivers=r300,r600,nouveau,swrast \
 %endif
 %ifarch s390 s390x %arm
            --with-dri-drivers=swrast \
