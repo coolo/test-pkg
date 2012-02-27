@@ -16,9 +16,8 @@
 #
 
 
-
 Name:           zsh
-Version:        4.3.15
+Version:        4.3.17
 Release:        0
 Summary:        Shell with comprehensive completion
 License:        MIT
@@ -37,9 +36,6 @@ Source15:       zshenv.rhs
 Source16:       dotzshrc.rh
 Source17:       zshprompt.pl
 %endif
-Patch1:         %{name}-4.3.12-fix-c02cond-test.patch
-Patch2:         osc.patch
-Patch3:         zsh-enable-openSUSE-completion-functions.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %if 0%{?suse_version}
 Requires(pre):  %{install_info_prereq}
@@ -90,9 +86,6 @@ This package contains the Zsh manual in html format.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch1 -p1
-%patch2 -p0
-%patch3 -p1
 
 # Remove executable bit
 chmod 0644 Etc/changelog2html.pl

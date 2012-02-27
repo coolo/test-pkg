@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Mon Feb 27 09:11:27 UTC 2012 - idonmez@suse.com
+
+- Update to version 4.3.17
+  * Contains fixes for possible speed regression introduced 
+    in 4.3.15 (new option HASH_EXECUTABLES_ONLY)
+  * Improvements to (bash) completion and shell emulation mode 
+- Drop all the patches, all upstream
+
+-------------------------------------------------------------------
 Tue Feb  7 14:27:18 CET 2012 - hmacht@suse.de
 
 - add zsh-enable-openSUSE-completion-functions.patch: Enable
