@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Mar  1 08:22:41 UTC 2012 - coolo@suse.com
+
+- fix baselibs.conf after update of libOSMesa
+- do not put the date in generated code, this breaks build-compare
+  for little to no gain as we know the build date from rpm header
+
+-------------------------------------------------------------------
 Fri Feb 24 15:12:22 UTC 2012 - sndirsch@suse.com
 
 - Switch software rasterizer to llvmpipe (gallium driver now)
