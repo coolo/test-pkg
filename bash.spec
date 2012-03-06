@@ -40,6 +40,7 @@ Summary:        The GNU Bourne-Again Shell
 License:        GPL-2.0+
 Group:          System/Shells
 Url:            http://www.gnu.org/software/bash/bash.html
+# Git:          http://git.savannah.gnu.org/cgit/bash.git
 Source0:        ftp://ftp.gnu.org/gnu/bash/bash-%{bash_vers}.tar.gz
 Source1:        ftp://ftp.gnu.org/gnu/readline/readline-%{rl_vers}.tar.gz
 Source2:        bash-%{bash_vers}-patches.tar.bz2
@@ -255,11 +256,12 @@ as well as programming with the interface of the readline library.
 
 %prep
 %setup -q -n bash-%{bash_vers}%{extend} -b1 -b2 -b3
-for p in ../bash-%{bash_vers}-patches/*; do
-    test -e $p || break
-    test "${p##*/}" = "bash-4.2-pwd.patch" && continue
-    echo Patch $p
-    patch -s -p0 < $p
+for patch in ../bash-%{bash_vers}-patches/*; do
+    level=-p1
+    test -e $patch || break
+    [[ $(head -n 1 $patch) =~ From ]] || level=-p0
+    echo Patch $patch
+    patch -s $level < $patch
 done
 unset p
 %patch1  -p0 -b .manual
