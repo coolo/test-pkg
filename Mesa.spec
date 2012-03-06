@@ -62,11 +62,12 @@ Obsoletes:      Mesa7 < %{version}
 Provides:       intel-i810-Mesa = %{version}
 Obsoletes:      intel-i810-Mesa < %{version}
 Provides:       xorg-x11-Mesa = %{version}
-Obsoletes:      xorg-x11-Mesa < %{version} 
 Obsoletes:      Mesa-nouveau3d
+Obsoletes:      xorg-x11-Mesa < %{version}
 # bug437293
 %ifarch ppc64
-Obsoletes:      XFree86-Mesa-64bit < %{version} Mesa-64bit < %{version}
+Obsoletes:      Mesa-64bit < %{version}
+Obsoletes:      XFree86-Mesa-64bit < %{version}
 Provides:       Mesa-64bit < %{version}
 Provides:       XFree86-Mesa-64bit = %{version}
 %endif
@@ -80,6 +81,8 @@ Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source5:        drirc
 Source6:        %name-rpmlintrc
+# PATCH-FIX-OPENSUSE do not put dates in sources to fix build-compare
+Patch1:         Mesa-nodate.diff
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 # already upstream
@@ -110,19 +113,21 @@ Requires:       Mesa-libGLESv1_CM-devel = %version
 Requires:       Mesa-libGLESv2-devel = %version
 Requires:       Mesa-libGLU-devel = %version
 Requires:       Mesa-libIndirectGL1 = %version
-Requires:       libOSMesa8 = %version
 Requires:       Mesa-libglapi0 = %version
+Requires:       libOSMesa8 = %version
 Requires:       libgbm-devel
 # bug437293
 %ifarch ppc64
-Obsoletes:      XFree86-Mesa-devel-64bit < %{version} Mesa-devel-64bit < %{version}
+Obsoletes:      Mesa-devel-64bit < %{version}
+Obsoletes:      XFree86-Mesa-devel-64bit < %{version}
 Provides:       Mesa-devel-64bit = %{version}
 Provides:       XFree86-Mesa-devel-64bit = %{version}
 %endif
 #
 Provides:       Mesa-devel-static = %{version}
 Provides:       xorg-x11-Mesa-devel = %{version}
-Obsoletes:      xorg-x11-Mesa-devel < %{version} Mesa-devel-static < %{version}
+Obsoletes:      Mesa-devel-static < %{version}
+Obsoletes:      xorg-x11-Mesa-devel < %{version}
 
 %description devel
 Mesa is a 3-D graphics library with an API which is very similar to
@@ -354,6 +359,7 @@ packages.
 
 %prep
 %setup -n %{name}-%{_version} -b4 -q
+%patch1 -p1
 # no need to build (GLUT-)Demos
 rm -rf src/glut progs/{demos,redbook,samples,xdemos,glsl}
 # we use freeglut
