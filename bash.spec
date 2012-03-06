@@ -73,6 +73,7 @@ Patch14:        bash-4.2-sigrestart.patch
 Patch15:        bash-3.2-longjmp.dif
 Patch16:        bash-4.0-setlocale.dif
 Patch17:        bash-4.0-headers.dif
+Patch18:        bash-4.2-nsec.dif
 Patch20:        readline-%{rl_vers}.dif
 Patch21:        readline-4.3-input.dif
 Patch22:        readline-6.1-wrap.patch
@@ -281,6 +282,7 @@ unset p
 %patch15 -p0 -b .longjmp
 %patch16 -p0 -b .setlocale
 %patch17 -p0 -b .headers
+%patch18 -p0 -b .nsec
 %patch21 -p0 -b .zerotty
 %patch22 -p0 -b .wrap
 %patch23 -p0 -b .conf
@@ -571,8 +573,9 @@ EOF
 %install_info_delete --info-dir=%{_infodir} %{_infodir}/readline.info.gz
 
 %clean
+LD_LIBRARY_PATH=%{buildroot}/%{_lib} \
 ldd -u -r %{buildroot}/bin/bash || true
-ldd -u -r %{buildroot}%{_libdir}/libreadline.so || true
+ldd -u -r %{buildroot}/%{_lib}/libreadline.so.* || true
 %{?buildroot: %{__rm} -rf %{buildroot}}
 
 %files
