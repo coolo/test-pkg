@@ -270,7 +270,7 @@ unset p
 %patch3  -p0 -b .2.4.4
 %patch4  -p0 -b .evalexp
 %patch5  -p0 -b .warnlc
-%patch6  -p0 -b .endpw
+#%patch6  -p0 -b .endpw
 %patch7  -p0 -b .decl
 %patch8  -p0 -b .async
 %patch9  -p0 -b .extended_quote
@@ -287,7 +287,7 @@ unset p
 %patch22 -p0 -b .wrap
 %patch23 -p0 -b .conf
 %patch24 -p0 -b .metamode
-%patch25 -p0 -b .endpw
+#%patch25 -p0 -b .endpw
 %patch40 -p0 -b .bashrc
 %patch46 -p0 -b .notimestamp
 %patch0  -p0 -b .0
@@ -301,7 +301,7 @@ done
 %patch22 -p2 -b .wrap
 %patch23 -p2 -b .conf
 %patch24 -p2 -b .metamode
-%patch25 -p2 -b .endpw
+#%patch25 -p2 -b .endpw
 %patch30 -p0 -b .destdir
 %patch20 -p0 -b .0
 
