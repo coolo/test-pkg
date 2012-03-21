@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Mar 21 14:55:19 UTC 2012 - sndirsch@suse.com
+
+- U_gallium-rtasm-properly-detect-SSE-and-SSE2.patch 
+  * gallium/rtasm: properly detect SSE and SSE2;  this should fix
+    crashes on ancient processors. (bnc#728737)
+
+-------------------------------------------------------------------
 Thu Mar  1 08:22:41 UTC 2012 - coolo@suse.com
 
 - fix baselibs.conf after update of libOSMesa

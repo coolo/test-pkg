@@ -86,6 +86,7 @@ Patch1:         Mesa-nodate.diff
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 # already upstream
+Patch12:        U_gallium-rtasm-properly-detect-SSE-and-SSE2.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -367,6 +368,7 @@ rm -f include/GL/{glut.h,uglglutshapes.h,glutf90.h}
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
+%patch12 -p1
 
 %build
 
