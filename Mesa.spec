@@ -86,6 +86,7 @@ Patch1:         Mesa-nodate.diff
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 # already upstream
+Patch12:        U_gallium-rtasm-properly-detect-SSE-and-SSE2.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -367,6 +368,7 @@ rm -f include/GL/{glut.h,uglglutshapes.h,glutf90.h}
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
+%patch12 -p1
 
 %build
 
@@ -384,6 +386,7 @@ autoreconf -fi
            --enable-shared-dricore \
            --with-dri-searchpath=/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri \
 %ifarch %ix86 x86_64
+           --enable-gallium-llvm \
            --with-dri-drivers=i915,i965,nouveau,r200,radeon \
            --with-gallium-drivers=r300,r600,nouveau,swrast \
 %endif
