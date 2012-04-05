@@ -16,7 +16,6 @@
 #
 
 
-
 Name:           bash
 BuildRequires:  autoconf
 BuildRequires:  bison
@@ -65,7 +64,6 @@ Patch5:         bash-3.0-warn-locale.patch
 Patch6:         bash-4.2-endpw.dif
 Patch7:         bash-3.0-decl.patch
 Patch8:         bash-4.0-async-bnc523667.dif
-Patch9:         bash-4.0-extended_quote.patch
 Patch10:        bash-3.2-printf.patch
 Patch11:        bash-4.0-loadables.dif
 Patch12:        bash-4.1-completion.dif
@@ -274,7 +272,6 @@ unset p
 #%patch6  -p0 -b .endpw
 %patch7  -p0 -b .decl
 %patch8  -p0 -b .async
-%patch9  -p0 -b .extended_quote
 %patch10 -p0 -b .printf
 %patch11 -p0 -b .plugins
 %patch12 -p0 -b .completion
