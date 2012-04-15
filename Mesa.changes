@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Apr 15 18:10:39 CEST 2012 - ro@suse.de
+
+- use same dri drivers on ia64 as on ppc (no drm_intel) 
+
+-------------------------------------------------------------------
 Wed Mar 21 23:21:24 UTC 2012 - ryanbach@adelphia.net
 
 -- Updated software rasterizer to use llvmpipe the advanced,

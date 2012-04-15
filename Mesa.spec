@@ -390,7 +390,7 @@ autoreconf -fi
            --with-dri-drivers=i915,i965,nouveau,r200,radeon \
            --with-gallium-drivers=r300,r600,nouveau,swrast \
 %endif
-%ifarch ppc ppc64 %sparc hppa
+%ifarch ia64 ppc ppc64 %sparc hppa
            --with-dri-drivers=nouveau,r200,radeon \
            --with-gallium-drivers=r300,r600,nouveau,swrast \
 %endif
