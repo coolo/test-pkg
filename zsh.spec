@@ -109,11 +109,7 @@ perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
     --enable-cap \
     --enable-multibyte \
     --enable-pcre \
-%if 0%{?suse_version} >= 1220
-    --with-term-lib="ncursesw tinfo" \
-%else
     --with-term-lib="ncursesw" \
-%endif
     --enable-cflags="%{optflags} %(ncursesw6-config --cflags)" \
     --enable-ldflags="%(ncursesw6-config --libs)"
 
