@@ -17,10 +17,11 @@
 
 
 #
-%define _version 8.0.1
+%define _version 8.0.2
+%define _name_archive mesa
 
 Name:           Mesa
-Version:        8.0.1
+Version:        8.0.2
 Release:        0
 BuildRequires:  autoconf >= 2.59
 BuildRequires:  automake
@@ -75,7 +76,7 @@ Provides:       XFree86-Mesa-64bit = %{version}
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
 Group:          System/Libraries
-Source:         MesaLib-%{_version}.tar.bz2
+Source:         %{_name_archive}-%{_version}.tar.gz
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
@@ -85,8 +86,6 @@ Source6:        %name-rpmlintrc
 Patch1:         Mesa-nodate.diff
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
-# already upstream
-Patch12:        U_gallium-rtasm-properly-detect-SSE-and-SSE2.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -359,7 +358,7 @@ functions. It is intended to be mainly used by the Mesa-libGLES*
 packages.
 
 %prep
-%setup -n %{name}-%{_version} -b4 -q
+%setup -n %{_name_archive}-%{_version} -b4 -q
 %patch1 -p1
 # no need to build (GLUT-)Demos
 rm -rf src/glut progs/{demos,redbook,samples,xdemos,glsl}
@@ -368,7 +367,6 @@ rm -f include/GL/{glut.h,uglglutshapes.h,glutf90.h}
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
-%patch12 -p1
 
 %build
 
