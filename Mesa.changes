@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Apr 23 15:09:29 UTC 2012 - vljn@ovi.com
+
+- Enable xa state tracker and svga gallium drivers (vmwgfx stack)
+
+-------------------------------------------------------------------
 Sun Apr 15 18:10:39 CEST 2012 - ro@suse.de
 
 - use same dri drivers on ia64 as on ppc (no drm_intel) 

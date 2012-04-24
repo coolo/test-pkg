@@ -348,6 +348,35 @@ openwfd.
 This package provides the development environment for compiling
 programs against the GBM library.
 
+%package -n libxatracker1
+Summary:        XA state tracker
+Group:          System/Libraries
+Version:        1.0.0
+Release:        0
+
+%description -n libxatracker1
+This package contains the XA state tracker for gallium3D driver.
+It superseeds the Xorg state tracker and provides an infrastructure
+to accelerate Xorg 2D operations. It is currently used by vmwgfx 
+video driver.
+
+%package -n libxatracker-devel
+Summary:        Development files for the XA API
+Group:          Development/Libraries/C and C++
+Version:        1.0.0
+Release:        0
+Requires:       libxatracker1 = %version
+
+%description -n libxatracker-devel
+This package contains the XA state tracker for gallium3D driver.
+It superseeds the Xorg state tracker and provides an infrastructure
+to accelerate Xorg 2D operations. It is currently used by vmwgfx 
+video driver.
+
+This package provides the development environment for compiling
+programs against the XA state tracker.
+
+
 %package -n Mesa-libglapi0
 Summary:        Free implementation of the GL API
 Group:          System/Libraries
@@ -356,6 +385,7 @@ Group:          System/Libraries
 The Mesa GL API module is responsible for dispatching all the gl*
 functions. It is intended to be mainly used by the Mesa-libGLES*
 packages.
+
 
 %prep
 %setup -n %{_name_archive}-%{_version} -b4 -q
@@ -382,11 +412,12 @@ autoreconf -fi
            --with-egl-platforms=x11,drm \
            --enable-shared-glapi \
            --enable-shared-dricore \
+           --enable-xa \
            --with-dri-searchpath=/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri \
 %ifarch %ix86 x86_64
            --enable-gallium-llvm \
            --with-dri-drivers=i915,i965,nouveau,r200,radeon \
-           --with-gallium-drivers=r300,r600,nouveau,swrast \
+           --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
 %endif
 %ifarch ia64 ppc ppc64 %sparc hppa
            --with-dri-drivers=nouveau,r200,radeon \
@@ -463,6 +494,10 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %post   -n libgbm1 -p /sbin/ldconfig
 
 %postun -n libgbm1 -p /sbin/ldconfig
+
+%post   -n libxatracker1 -p /sbin/ldconfig
+
+%postun -n libxatracker1 -p /sbin/ldconfig
 
 %post   -n Mesa-libglapi0 -p /sbin/ldconfig
 
@@ -548,6 +583,16 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_includedir/gbm.h
 %_libdir/libgbm.so
 %_libdir/pkgconfig/gbm.pc
+
+%files -n libxatracker1
+%defattr(-,root,root)
+%_libdir/libxatracker.so.1*
+
+%files -n libxatracker-devel
+%defattr(-,root,root)
+%_includedir/xa_*.h
+%_libdir/libxatracker.so
+%_libdir/pkgconfig/xatracker.pc
 
 %files -n Mesa-libglapi0
 %defattr(-,root,root)
