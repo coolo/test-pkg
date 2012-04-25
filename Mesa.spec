@@ -390,10 +390,6 @@ packages.
 %prep
 %setup -n %{_name_archive}-%{_version} -b4 -q
 %patch1 -p1
-# no need to build (GLUT-)Demos
-rm -rf src/glut progs/{demos,redbook,samples,xdemos,glsl}
-# we use freeglut
-rm -f include/GL/{glut.h,uglglutshapes.h,glutf90.h}
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
@@ -405,14 +401,14 @@ rm -f src/mesa/depend
 export TALLOC_LIBS=-ltalloc
 export TALLOC_CFLAGS="-I/usr/include"
 autoreconf -fi
-%configure --disable-glw \
-           --enable-gles1 \
+%configure --enable-gles1 \
            --enable-gles2 \
            --with-driver=dri \
            --with-egl-platforms=x11,drm \
            --enable-shared-glapi \
            --enable-shared-dricore \
            --enable-xa \
+           --enable-texture-float \
            --with-dri-searchpath=/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri \
 %ifarch %ix86 x86_64
            --enable-gallium-llvm \
@@ -427,7 +423,6 @@ autoreconf -fi
            --with-dri-drivers=swrast \
            --with-gallium-drivers="" \
 %endif
-           --disable-glut \
            CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
 make %{?_smp_mflags}
 make install DESTDIR=$RPM_BUILD_ROOT
@@ -435,8 +430,6 @@ make install DESTDIR=$RPM_BUILD_ROOT
 make realclean
 %configure --with-driver=xlib \
            --disable-glu \
-           --disable-glw \
-           --disable-glut \
            --with-gallium-drivers="" \
            CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
 sed -i 's/GL_LIB = .*/GL_LIB = IndirectGL/g' configs/autoconf
