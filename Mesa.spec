@@ -17,10 +17,11 @@
 
 
 #
-%define _version 8.0.1
+%define _version 8.0.2
+%define _name_archive mesa
 
 Name:           Mesa
-Version:        8.0.1
+Version:        8.0.2
 Release:        0
 BuildRequires:  autoconf >= 2.59
 BuildRequires:  automake
@@ -75,7 +76,7 @@ Provides:       XFree86-Mesa-64bit = %{version}
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
 Group:          System/Libraries
-Source:         MesaLib-%{_version}.tar.bz2
+Source:         %{_name_archive}-%{_version}.tar.gz
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
@@ -85,8 +86,8 @@ Source6:        %name-rpmlintrc
 Patch1:         Mesa-nodate.diff
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
-# already upstream
-Patch12:        U_gallium-rtasm-properly-detect-SSE-and-SSE2.patch
+# Patch from upstream master to resolve build issues with llvm 3.1
+Patch12:        upstream-llvm-patch.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -349,6 +350,35 @@ openwfd.
 This package provides the development environment for compiling
 programs against the GBM library.
 
+%package -n libxatracker1
+Summary:        XA state tracker
+Group:          System/Libraries
+Version:        1.0.0
+Release:        0
+
+%description -n libxatracker1
+This package contains the XA state tracker for gallium3D driver.
+It superseeds the Xorg state tracker and provides an infrastructure
+to accelerate Xorg 2D operations. It is currently used by vmwgfx 
+video driver.
+
+%package -n libxatracker-devel
+Summary:        Development files for the XA API
+Group:          Development/Libraries/C and C++
+Version:        1.0.0
+Release:        0
+Requires:       libxatracker1 = %version
+
+%description -n libxatracker-devel
+This package contains the XA state tracker for gallium3D driver.
+It superseeds the Xorg state tracker and provides an infrastructure
+to accelerate Xorg 2D operations. It is currently used by vmwgfx 
+video driver.
+
+This package provides the development environment for compiling
+programs against the XA state tracker.
+
+
 %package -n Mesa-libglapi0
 Summary:        Free implementation of the GL API
 Group:          System/Libraries
@@ -358,13 +388,10 @@ The Mesa GL API module is responsible for dispatching all the gl*
 functions. It is intended to be mainly used by the Mesa-libGLES*
 packages.
 
+
 %prep
-%setup -n %{name}-%{_version} -b4 -q
+%setup -n %{_name_archive}-%{_version} -b4 -q
 %patch1 -p1
-# no need to build (GLUT-)Demos
-rm -rf src/glut progs/{demos,redbook,samples,xdemos,glsl}
-# we use freeglut
-rm -f include/GL/{glut.h,uglglutshapes.h,glutf90.h}
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
@@ -377,20 +404,21 @@ rm -f src/mesa/depend
 export TALLOC_LIBS=-ltalloc
 export TALLOC_CFLAGS="-I/usr/include"
 autoreconf -fi
-%configure --disable-glw \
-           --enable-gles1 \
+%configure --enable-gles1 \
            --enable-gles2 \
            --with-driver=dri \
            --with-egl-platforms=x11,drm \
            --enable-shared-glapi \
            --enable-shared-dricore \
+           --enable-xa \
+           --enable-texture-float \
            --with-dri-searchpath=/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri \
 %ifarch %ix86 x86_64
            --enable-gallium-llvm \
            --with-dri-drivers=i915,i965,nouveau,r200,radeon \
-           --with-gallium-drivers=r300,r600,nouveau,swrast \
+           --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
 %endif
-%ifarch ppc ppc64 %sparc hppa
+%ifarch ia64 ppc ppc64 %sparc hppa
            --with-dri-drivers=nouveau,r200,radeon \
            --with-gallium-drivers=r300,r600,nouveau,swrast \
 %endif
@@ -398,7 +426,6 @@ autoreconf -fi
            --with-dri-drivers=swrast \
            --with-gallium-drivers="" \
 %endif
-           --disable-glut \
            CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
 make %{?_smp_mflags}
 make install DESTDIR=$RPM_BUILD_ROOT
@@ -406,8 +433,6 @@ make install DESTDIR=$RPM_BUILD_ROOT
 make realclean
 %configure --with-driver=xlib \
            --disable-glu \
-           --disable-glw \
-           --disable-glut \
            --with-gallium-drivers="" \
            CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
 sed -i 's/GL_LIB = .*/GL_LIB = IndirectGL/g' configs/autoconf
@@ -465,6 +490,10 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %post   -n libgbm1 -p /sbin/ldconfig
 
 %postun -n libgbm1 -p /sbin/ldconfig
+
+%post   -n libxatracker1 -p /sbin/ldconfig
+
+%postun -n libxatracker1 -p /sbin/ldconfig
 
 %post   -n Mesa-libglapi0 -p /sbin/ldconfig
 
@@ -550,6 +579,16 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_includedir/gbm.h
 %_libdir/libgbm.so
 %_libdir/pkgconfig/gbm.pc
+
+%files -n libxatracker1
+%defattr(-,root,root)
+%_libdir/libxatracker.so.1*
+
+%files -n libxatracker-devel
+%defattr(-,root,root)
+%_includedir/xa_*.h
+%_libdir/libxatracker.so
+%_libdir/pkgconfig/xatracker.pc
 
 %files -n Mesa-libglapi0
 %defattr(-,root,root)

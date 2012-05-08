@@ -1,4 +1,29 @@
 -------------------------------------------------------------------
+Wed Apr 25 14:14:35 UTC 2012 - tittiatcoke@gmail.com
+
+- Added patches from upstream Master to enable building with 
+  llvm 3.1
+
+-------------------------------------------------------------------
+Wed Apr 25 13:17:59 UTC 2012 - sndirsch@suse.com
+
+- For full OpenGL 3.0 compliance, it is necessary to
+  have floating-point textures, so Mesa is now compiled with
+  "--enable-texture-float" parameter to have OpenGL 3.0 support.
+- disabling glut/glw no longer required since it's no longer
+  shipped with Mesa
+
+-------------------------------------------------------------------
+Mon Apr 23 15:09:29 UTC 2012 - vljn@ovi.com
+
+- Enable xa state tracker and svga gallium drivers (vmwgfx stack)
+
+-------------------------------------------------------------------
+Sun Apr 15 18:10:39 CEST 2012 - ro@suse.de
+
+- use same dri drivers on ia64 as on ppc (no drm_intel) 
+
+-------------------------------------------------------------------
 Wed Mar 21 23:21:24 UTC 2012 - ryanbach@adelphia.net
 
 -- Updated software rasterizer to use llvmpipe the advanced,
