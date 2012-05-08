@@ -86,6 +86,8 @@ Source6:        %name-rpmlintrc
 Patch1:         Mesa-nodate.diff
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
+# Patch from upstream master to resolve build issues with llvm 3.1
+Patch12:        upstream-llvm-patch.diff
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -393,6 +395,7 @@ packages.
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
+%patch12 -p1
 
 %build
 
