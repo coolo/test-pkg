@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed May 16 10:28:30 UTC 2012 - adrian@suse.de
+
+- fix build on platforms without gallium (s390 & arm)
+
+-------------------------------------------------------------------
 Wed Apr 25 14:14:35 UTC 2012 - tittiatcoke@gmail.com
 
 - Added patches from upstream Master to enable building with 

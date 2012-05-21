@@ -491,9 +491,10 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 
 %postun -n libgbm1 -p /sbin/ldconfig
 
+%ifnarch s390 s390x %arm
 %post   -n libxatracker1 -p /sbin/ldconfig
-
 %postun -n libxatracker1 -p /sbin/ldconfig
+%endif
 
 %post   -n Mesa-libglapi0 -p /sbin/ldconfig
 
@@ -580,6 +581,7 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_libdir/libgbm.so
 %_libdir/pkgconfig/gbm.pc
 
+%ifnarch s390 s390x %arm
 %files -n libxatracker1
 %defattr(-,root,root)
 %_libdir/libxatracker.so.1*
@@ -589,6 +591,7 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_includedir/xa_*.h
 %_libdir/libxatracker.so
 %_libdir/pkgconfig/xatracker.pc
+%endif
 
 %files -n Mesa-libglapi0
 %defattr(-,root,root)
