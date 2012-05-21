@@ -17,11 +17,11 @@
 
 
 #
-%define _version 8.0.2
+%define _version 8.0.3
 %define _name_archive mesa
 
 Name:           Mesa
-Version:        8.0.2
+Version:        8.0.3
 Release:        0
 BuildRequires:  autoconf >= 2.59
 BuildRequires:  automake
