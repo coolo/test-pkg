@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon May 21 12:32:23 UTC 2012 - sndirsch@suse.com
+
+- Trivial change to Version 8.0.3; tarball from here:
+  http://cgit.freedesktop.org/mesa/mesa/snapshot/mesa-8.0.3.tar.gz 
+
+-------------------------------------------------------------------
 Wed May 16 10:28:30 UTC 2012 - adrian@suse.de
 
 - fix build on platforms without gallium (s390 & arm)
