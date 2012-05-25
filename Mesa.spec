@@ -583,7 +583,7 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_libdir/libgbm.so
 %_libdir/pkgconfig/gbm.pc
 
-%ifnarch s390 s390x %arm
+%ifnarch s390 s390x %arm ppc ppc64
 
 %files -n libxatracker1
 %defattr(-,root,root)
