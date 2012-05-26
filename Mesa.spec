@@ -16,6 +16,8 @@
 #
 
 
+%define glamor 1
+
 #
 %define _version 8.0.3
 %define _name_archive mesa
@@ -412,6 +414,10 @@ autoreconf -fi
            --enable-shared-dricore \
            --enable-xa \
            --enable-texture-float \
+%if %glamor
+           --enable-gbm \
+           --enable-glx-tls \
+%endif
            --with-dri-searchpath=/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri \
 %ifarch %ix86 x86_64
            --enable-gallium-llvm \
