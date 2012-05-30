@@ -1,7 +1,7 @@
 -------------------------------------------------------------------
 Wed May 30 16:56:11 UTC 2012 - fcrozat@suse.com
 
-- Add mesa-8.0.1-fix-16bpp.patch (Fedora): fix 16bpp mode under
+- Add u_mesa-8.0.1-fix-16bpp.patch (Fedora): fix 16bpp mode under
   llvmpipe.
 
 -------------------------------------------------------------------
