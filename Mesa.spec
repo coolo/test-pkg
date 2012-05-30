@@ -90,6 +90,8 @@ Patch1:         Mesa-nodate.diff
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 # Patch from upstream master to resolve build issues with llvm 3.1
 Patch12:        upstream-llvm-patch.diff
+# Patch from Fedora, fix 16bpp in llvmpipe
+Patch13:        mesa-8.0.1-fix-16bpp.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -398,6 +400,7 @@ packages.
 rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
 %patch12 -p1
+%patch13 -p1
 
 %build
 
