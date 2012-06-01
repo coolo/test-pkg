@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Wed May 30 16:56:11 UTC 2012 - fcrozat@suse.com
+
+- Add u_mesa-8.0.1-fix-16bpp.patch (Fedora): fix 16bpp mode under
+  llvmpipe.
+
+-------------------------------------------------------------------
+Sat May 26 22:29:41 UTC 2012 - sndirsch@suse.com
+
+- added configure options "--enable-gbm --enable-glx-tls" (required
+  for glamor support)
+
+-------------------------------------------------------------------
 Fri May 25 15:57:25 UTC 2012 - meissner@suse.com
 
 - libxatracker is also not built on ppc*.
