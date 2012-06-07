@@ -16,8 +16,10 @@
 #
 
 
+
 Name:           bash
 BuildRequires:  autoconf
+BuildRequires:  audit-devel
 BuildRequires:  bison
 BuildRequires:  ncurses-devel
 %if %suse_version > 1020
