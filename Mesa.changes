@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Jun  8 14:05:30 UTC 2012 - sndirsch@suse.com
+
+- let libGL1-Mesa require Mesa, since that package includes the DRI
+  drivers (including the "swrast" DRI driver for software rendering)
+  (bnc#765241)
+
+-------------------------------------------------------------------
 Wed May 30 16:56:11 UTC 2012 - fcrozat@suse.com
 
 - Add u_mesa-8.0.1-fix-16bpp.patch (Fedora): fix 16bpp mode under
