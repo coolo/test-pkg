@@ -185,6 +185,7 @@ programs against the EGL library.
 %package -n Mesa-libGL1
 Summary:        The GL/GLX runtime of the Mesa 3D graphics library
 Group:          System/Libraries
+Requires:       Mesa = %version
 
 %description -n Mesa-libGL1
 Mesa is a software library for 3D computer graphics that provides a
