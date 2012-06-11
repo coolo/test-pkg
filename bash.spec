@@ -16,10 +16,9 @@
 #
 
 
-
 Name:           bash
-BuildRequires:  autoconf
 BuildRequires:  audit-devel
+BuildRequires:  autoconf
 BuildRequires:  bison
 BuildRequires:  ncurses-devel
 %if %suse_version > 1020
@@ -83,6 +82,7 @@ Patch24:        readline-6.2-metamode.patch
 Patch25:        readline-6.2-endpw.dif
 Patch30:        readline-6.2-destdir.patch
 Patch40:        bash-4.1-bash.bashrc.dif
+Patch42:        audit-patch
 Patch46:        man2html-no-timestamp.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
@@ -289,6 +289,7 @@ unset p
 %patch24 -p0 -b .metamode
 #%patch25 -p0 -b .endpw
 %patch40 -p0 -b .bashrc
+%patch42 -p1 -b .audit
 %patch46 -p0 -b .notimestamp
 %patch0  -p0 -b .0
 pushd ../readline-%{rl_vers}%{extend}
