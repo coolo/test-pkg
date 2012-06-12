@@ -92,6 +92,8 @@ Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 Patch12:        upstream-llvm-patch.diff
 # Patch from Fedora, fix 16bpp in llvmpipe
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
+# Patch to remove OS ABI tag from libGL, so it is no longer preferred over libGLs without OS ABI tag
+Patch14:        u_remove-os-abi-tag.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -402,6 +404,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
 %patch12 -p1
 %patch13 -p1
+%patch14 -p1
 
 %build
 

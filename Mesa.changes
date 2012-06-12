@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Jun 12 10:19:01 UTC 2012 - sndirsch@suse.com
+
+- u_remove-os-abi-tag.patch 
+  * Remove OS ABI tag from libGL, so it is no longer preferred over
+    libGLs without OS ABI tag (bnc#765294, fdo#26663)
+
+-------------------------------------------------------------------
 Fri Jun  8 14:05:30 UTC 2012 - sndirsch@suse.com
 
 - let libGL1-Mesa require Mesa, since that package includes the DRI
