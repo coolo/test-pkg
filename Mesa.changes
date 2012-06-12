@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jun 12 15:53:50 UTC 2012 - sndirsch@suse.com
+
+- enabled build of XvMC/VDPAU state trackers for Nouveau, R300,
+  R600, Softpipe (Software implementation)
+
+-------------------------------------------------------------------
 Tue Jun 12 10:19:01 UTC 2012 - sndirsch@suse.com
 
 - u_remove-os-abi-tag.patch 
