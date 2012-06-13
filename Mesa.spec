@@ -392,56 +392,72 @@ Summary:        XVMC state tracker for Nouveau
 Group:          System/Libraries
 
 %description -n libXvMC_nouveau
-This package contains the XvMC state tracker for Nouveau.
+This package contains the XvMC state tracker for Nouveau. This is
+still "work in progress", i.e. expect poor video quality, choppy
+videos and artefacts all over.
 
 %package -n libXvMC_r300
 Summary:        XVMC state tracker for R300
 Group:          System/Libraries
 
 %description -n libXvMC_r300
-This package contains the XvMC state tracker for R300.
+This package contains the XvMC state tracker for R300. This is 
+still "work in progress", i.e. expect poor video quality, choppy
+videos and artefacts all over.
 
 %package -n libXvMC_r600
 Summary:        XVMC state tracker for R600
 Group:          System/Libraries
 
 %description -n libXvMC_r600
-This package contains the XvMC state tracker for R600.
+This package contains the XvMC state tracker for R600. This is 
+still "work in progress", i.e. expect poor video quality, choppy
+videos and artefacts all over.
 
 %package -n libXvMC_softpipe
 Summary:        Software implementation of XVMC state tracker
 Group:          System/Libraries
 
 %description -n libXvMC_softpipe
-This package contains the Software implementation of the XvMC state tracker.
+This package contains the Software implementation of the XvMC
+state tracker. This is still "work in progress", i.e. expect
+poor video quality, choppy videos and artefacts all over.
 
 %package -n libvdpau_nouveau
 Summary:        XVMC state tracker for Nouveau
 Group:          System/Libraries
 
 %description -n libvdpau_nouveau
-This package contains the VDPAU state tracker for Nouveau.
+This package contains the VDPAU state tracker for Nouveau. This is
+still "work in progress", i.e. expect poor video quality, choppy
+videos and artefacts all over.
 
 %package -n libvdpau_r300
 Summary:        XVMC state tracker for R300
 Group:          System/Libraries
 
 %description -n libvdpau_r300
-This package contains the VDPAU state tracker for R300.
+This package contains the VDPAU state tracker for R300. This is 
+still "work in progress", i.e. expect poor video quality, choppy
+videos and artefacts all over.
 
 %package -n libvdpau_r600
 Summary:        XVMC state tracker for R600
 Group:          System/Libraries
 
 %description -n libvdpau_r600
-This package contains the VDPAU state tracker for R600.
+This package contains the VDPAU state tracker for R600. This is 
+still "work in progress", i.e. expect poor video quality, choppy
+videos and artefacts all over.
 
 %package -n libvdpau_softpipe
 Summary:        Software implementation of XVMC state tracker
 Group:          System/Libraries
 
 %description -n libvdpau_softpipe
-This package contains the Software implementation of the VDPAU state tracker.
+This package contains the Software implementation of the VDPAU
+state tracker. This is still "work in progress", i.e. expect
+poor video quality, choppy videos and artefacts all over.
 
 %package -n Mesa-libglapi0
 Summary:        Free implementation of the GL API
