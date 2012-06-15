@@ -58,6 +58,8 @@ BuildRequires:  pkgconfig(xxf86vm)
 %ifarch %ix86 x86_64
 BuildRequires:  llvm-devel
 %endif
+BuildRequires:  libXvMC-devel
+BuildRequires:  libvdpau-devel
 BuildRequires:  vim
 Url:            http://www.mesa3d.org
 Provides:       Mesa7 = %{version}
@@ -92,6 +94,8 @@ Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 Patch12:        upstream-llvm-patch.diff
 # Patch from Fedora, fix 16bpp in llvmpipe
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
+# Patch to remove OS ABI tag from libGL, so it is no longer preferred over libGLs without OS ABI tag
+Patch14:        u_remove-os-abi-tag.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -383,6 +387,77 @@ video driver.
 This package provides the development environment for compiling
 programs against the XA state tracker.
 
+%package -n libXvMC_nouveau
+Summary:        XVMC state tracker for Nouveau
+Group:          System/Libraries
+
+%description -n libXvMC_nouveau
+This package contains the XvMC state tracker for Nouveau. This is
+still "work in progress", i.e. expect poor video quality, choppy
+videos and artefacts all over.
+
+%package -n libXvMC_r300
+Summary:        XVMC state tracker for R300
+Group:          System/Libraries
+
+%description -n libXvMC_r300
+This package contains the XvMC state tracker for R300. This is 
+still "work in progress", i.e. expect poor video quality, choppy
+videos and artefacts all over.
+
+%package -n libXvMC_r600
+Summary:        XVMC state tracker for R600
+Group:          System/Libraries
+
+%description -n libXvMC_r600
+This package contains the XvMC state tracker for R600. This is 
+still "work in progress", i.e. expect poor video quality, choppy
+videos and artefacts all over.
+
+%package -n libXvMC_softpipe
+Summary:        Software implementation of XVMC state tracker
+Group:          System/Libraries
+
+%description -n libXvMC_softpipe
+This package contains the Software implementation of the XvMC
+state tracker. This is still "work in progress", i.e. expect
+poor video quality, choppy videos and artefacts all over.
+
+%package -n libvdpau_nouveau
+Summary:        XVMC state tracker for Nouveau
+Group:          System/Libraries
+
+%description -n libvdpau_nouveau
+This package contains the VDPAU state tracker for Nouveau. This is
+still "work in progress", i.e. expect poor video quality, choppy
+videos and artefacts all over.
+
+%package -n libvdpau_r300
+Summary:        XVMC state tracker for R300
+Group:          System/Libraries
+
+%description -n libvdpau_r300
+This package contains the VDPAU state tracker for R300. This is 
+still "work in progress", i.e. expect poor video quality, choppy
+videos and artefacts all over.
+
+%package -n libvdpau_r600
+Summary:        XVMC state tracker for R600
+Group:          System/Libraries
+
+%description -n libvdpau_r600
+This package contains the VDPAU state tracker for R600. This is 
+still "work in progress", i.e. expect poor video quality, choppy
+videos and artefacts all over.
+
+%package -n libvdpau_softpipe
+Summary:        Software implementation of XVMC state tracker
+Group:          System/Libraries
+
+%description -n libvdpau_softpipe
+This package contains the Software implementation of the VDPAU
+state tracker. This is still "work in progress", i.e. expect
+poor video quality, choppy videos and artefacts all over.
 
 %package -n Mesa-libglapi0
 Summary:        Free implementation of the GL API
@@ -402,6 +477,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
 %patch12 -p1
 %patch13 -p1
+%patch14 -p1
 
 %build
 
@@ -427,6 +503,8 @@ autoreconf -fi
            --enable-gallium-llvm \
            --with-dri-drivers=i915,i965,nouveau,r200,radeon \
            --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
+           --enable-vdpau \
+           --enable-xvmc \
 %endif
 %ifarch ia64 ppc ppc64 %sparc hppa
            --with-dri-drivers=nouveau,r200,radeon \
@@ -506,6 +584,27 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %post   -n libxatracker1 -p /sbin/ldconfig
 
 %postun -n libxatracker1 -p /sbin/ldconfig
+
+%post   -n libXvMC_nouveau
+%postun -n libXvMC_nouveau
+
+%post   -n libXvMC_r300
+%postun -n libXvMC_r300
+
+%post   -n libXvMC_r600
+%postun -n libXvMC_r600
+
+%post   -n libXvMC_softpipe
+%postun -n libXvMC_softpipe
+
+%post   -n libvdpau_r300
+%postun -n libvdpau_r300
+
+%post   -n libvdpau_r600
+%postun -n libvdpau_r600
+
+%post   -n libvdpau_softpipe
+%postun -n libvdpau_softpipe
 %endif
 
 %post   -n Mesa-libglapi0 -p /sbin/ldconfig
@@ -604,6 +703,54 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_includedir/xa_*.h
 %_libdir/libxatracker.so
 %_libdir/pkgconfig/xatracker.pc
+
+%files -n libXvMC_nouveau
+%defattr(-,root,root)
+%_libdir/libXvMCnouveau.so
+%_libdir/libXvMCnouveau.so.1
+%_libdir/libXvMCnouveau.so.1.0
+
+%files -n libXvMC_r300 
+%defattr(-,root,root)
+%_libdir/libXvMCr300.so
+%_libdir/libXvMCr300.so.1
+%_libdir/libXvMCr300.so.1.0
+
+%files -n libXvMC_r600 
+%defattr(-,root,root)
+%_libdir/libXvMCr600.so
+%_libdir/libXvMCr600.so.1
+%_libdir/libXvMCr600.so.1.0
+
+%files -n libXvMC_softpipe
+%defattr(-,root,root)
+%_libdir/libXvMCsoftpipe.so
+%_libdir/libXvMCsoftpipe.so.1
+%_libdir/libXvMCsoftpipe.so.1.0
+
+%files -n libvdpau_nouveau
+%defattr(-,root,root)
+%_libdir/vdpau/libvdpau_nouveau.so
+%_libdir/vdpau/libvdpau_nouveau.so.1
+%_libdir/vdpau/libvdpau_nouveau.so.1.0
+
+%files -n libvdpau_r300
+%defattr(-,root,root)
+%_libdir/vdpau/libvdpau_r300.so
+%_libdir/vdpau/libvdpau_r300.so.1
+%_libdir/vdpau/libvdpau_r300.so.1.0
+
+%files -n libvdpau_r600
+%defattr(-,root,root)
+%_libdir/vdpau/libvdpau_r600.so
+%_libdir/vdpau/libvdpau_r600.so.1
+%_libdir/vdpau/libvdpau_r600.so.1.0
+
+%files -n libvdpau_softpipe
+%defattr(-,root,root)
+%_libdir/vdpau/libvdpau_softpipe.so
+%_libdir/vdpau/libvdpau_softpipe.so.1
+%_libdir/vdpau/libvdpau_softpipe.so.1.0
 %endif
 
 %files -n Mesa-libglapi0
