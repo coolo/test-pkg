@@ -60,7 +60,6 @@ BuildRequires:  llvm-devel
 %endif
 BuildRequires:  libXvMC-devel
 BuildRequires:  libvdpau-devel
-BuildRequires:  vim
 Url:            http://www.mesa3d.org
 Provides:       Mesa7 = %{version}
 Obsoletes:      Mesa7 < %{version}
