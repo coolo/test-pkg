@@ -38,7 +38,7 @@ Recommends:     bash-doc = %bash_vers
 Version:        4.2
 Release:        0
 Summary:        The GNU Bourne-Again Shell
-License:        GPL-2.0+
+License:        GPL-3.0+
 Group:          System/Shells
 Url:            http://www.gnu.org/software/bash/bash.html
 # Git:          http://git.savannah.gnu.org/cgit/bash.git
