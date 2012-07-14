@@ -19,11 +19,11 @@
 %define glamor 1
 
 #
-%define _version 8.0.3
+%define _version 8.0.4
 %define _name_archive mesa
 
 Name:           Mesa
-Version:        8.0.3
+Version:        8.0.4
 Release:        0
 BuildRequires:  autoconf >= 2.59
 BuildRequires:  automake
@@ -79,7 +79,7 @@ Provides:       XFree86-Mesa-64bit = %{version}
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
 Group:          System/Libraries
-Source:         %{_name_archive}-%{_version}.tar.gz
+Source:         %{_name_archive}-%{_version}.tar.bz2
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
