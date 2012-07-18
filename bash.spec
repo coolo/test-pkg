@@ -20,10 +20,11 @@ Name:           bash
 BuildRequires:  audit-devel
 BuildRequires:  autoconf
 BuildRequires:  bison
-BuildRequires:  ncurses-devel
 %if %suse_version > 1020
 BuildRequires:  fdupes
 %endif
+BuildRequires:  makeinfo
+BuildRequires:  ncurses-devel
 %define         bash_vers 4.2
 %define         rl_vers   6.2
 %define         extend    ""
@@ -80,6 +81,7 @@ Patch22:        readline-6.1-wrap.patch
 Patch23:        readline-5.2-conf.patch
 Patch24:        readline-6.2-metamode.patch
 Patch25:        readline-6.2-endpw.dif
+Patch26:        readline-6.2-msgdynamic.patch
 Patch30:        readline-6.2-destdir.patch
 Patch40:        bash-4.1-bash.bashrc.dif
 Patch42:        audit-patch
@@ -288,6 +290,7 @@ unset p
 %patch23 -p0 -b .conf
 %patch24 -p0 -b .metamode
 #%patch25 -p0 -b .endpw
+%patch26 -p0 -b .msgdy
 %patch40 -p0 -b .bashrc
 %patch42 -p1 -b .audit
 %patch46 -p0 -b .notimestamp
@@ -303,6 +306,7 @@ done
 %patch23 -p2 -b .conf
 %patch24 -p2 -b .metamode
 #%patch25 -p2 -b .endpw
+%patch26 -p2 -b .msgdy
 %patch30 -p0 -b .destdir
 %patch20 -p0 -b .0
 
@@ -349,6 +353,21 @@ pushd ../readline-%{rl_vers}%{extend}
       LARGEFILE="-D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
   fi
   rm -f ./test64
+  (cat > rl.map)<<-'EOF'
+	{
+	local:
+	    _rl*;
+	    xfree;
+	    xmalloc;
+	    xrealloc;
+	};
+	EOF
+  (cat > dyn.map)<<-'EOF'
+	{
+	    *;
+	    !rl_*stream;
+	}
+	EOF
   CFLAGS="$RPM_OPT_FLAGS $LARGEFILE -D_GNU_SOURCE -DRECYCLES_PIDS -Wall -g"
   LDFLAGS=""
   cflags -std=gnu89              CFLAGS
@@ -363,8 +382,9 @@ pushd ../readline-%{rl_vers}%{extend}
   cflags -Wl,--as-needed         LDFLAGS
   cflags -Wl,-O2                 LDFLAGS
   cflags -Wl,--hash-size=8599    LDFLAGS
-  cflags -Wl,-Bsymbolic-functions             LDFLAGS
   cflags -Wl,-rpath,%{_ldldir}/%{bash_vers}   LDFLAGS
+  cflags -Wl,--version-script=${PWD}/rl.map   LDFLAGS
+  cflags -Wl,--dynamic-list=${PWD}/dyn.map    LDFLAGS
   CC=gcc
   CC_FOR_BUILD="$CC"
   CFLAGS_FOR_BUILD="$CFLAGS"
@@ -383,6 +403,9 @@ pushd ../readline-%{rl_vers}%{extend}
   ln -sf shlib/libreadline.so.%{rl_vers} libreadline.so.%{rl_major}
   ln -sf shlib/libhistory.so.%{rl_vers} libhistory.so
   ln -sf shlib/libhistory.so.%{rl_vers} libhistory.so.%{rl_major}
+  LDFLAGS=${LDFLAGS/-Wl,--version-script=*rl.map/}
+  LDFLAGS=${LDFLAGS/-Wl,--dynamic-list=*dyn.map/}
+  LDFLAGS_FOR_BUILD="$LDFLAGS"
 popd
   # /proc is required for correct configuration
   test -d /dev/fd || { echo "/proc is not mounted!" >&2; exit 1; }
