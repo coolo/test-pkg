@@ -43,6 +43,9 @@ Requires(pre):  %{install_info_prereq}
 BuildRequires:  fdupes
 BuildRequires:  yodl
 %endif
+%if 0%{?suse_version} >= 1210
+BuildRequires:  makeinfo
+%endif
 %else
 Requires(pre):  /sbin/install-info
 Requires(pre):  fileutils
