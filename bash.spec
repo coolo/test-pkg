@@ -356,7 +356,7 @@ pushd ../readline-%{rl_vers}%{extend}
   (cat > rl.map)<<-'EOF'
 	{
 	local:
-	    _rl*;
+	/*  _rl*; */
 	    xfree;
 	    xmalloc;
 	    xrealloc;
