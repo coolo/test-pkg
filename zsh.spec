@@ -43,6 +43,9 @@ Requires(pre):  %{install_info_prereq}
 BuildRequires:  fdupes
 BuildRequires:  yodl
 %endif
+%if 0%{?suse_version} >= 1210
+BuildRequires:  makeinfo
+%endif
 %else
 Requires(pre):  /sbin/install-info
 Requires(pre):  fileutils
@@ -109,11 +112,7 @@ perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
     --enable-cap \
     --enable-multibyte \
     --enable-pcre \
-%if 0%{?suse_version} >= 1220
-    --with-term-lib="ncursesw tinfo" \
-%else
     --with-term-lib="ncursesw" \
-%endif
     --enable-cflags="%{optflags} %(ncursesw6-config --cflags)" \
     --enable-ldflags="%(ncursesw6-config --libs)"
 
