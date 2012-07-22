@@ -45,6 +45,7 @@ BuildRequires:  yodl
 %endif
 %if 0%{?suse_version} >= 1210
 BuildRequires:  makeinfo
+BuildRequires:  texinfo
 %endif
 %else
 Requires(pre):  /sbin/install-info
