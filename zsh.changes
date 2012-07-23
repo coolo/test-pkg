@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Jul 22 13:20:50 UTC 2012 - coolo@suse.com
+
+- we need tex2html too, which is provided by texinfo
+
+-------------------------------------------------------------------
 Thu Jul 19 07:58:15 UTC 2012 - coolo@suse.com
 
 - buildrequire makeinfo to fix build
