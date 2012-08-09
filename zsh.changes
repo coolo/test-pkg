@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Aug  9 21:11:47 UTC 2012 - idonmez@suse.com
+
+- Version update to 5.0.0
+  * No real changes since 4.3.17
+
+-------------------------------------------------------------------
 Sun Jul 22 13:20:50 UTC 2012 - coolo@suse.com
 
 - we need tex2html too, which is provided by texinfo
