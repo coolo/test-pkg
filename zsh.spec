@@ -17,13 +17,13 @@
 
 
 Name:           zsh
-Version:        4.3.17
+Version:        5.0.0
 Release:        0
 Summary:        Shell with comprehensive completion
 License:        MIT
 Group:          System/Shells
 Url:            http://www.zsh.org
-Source0:        ftp://ftp.zsh.org/pub/zsh-%{version}.tar.bz2
+Source0:        http://sourceforge.net/projects/zsh/files/zsh/%{version}/zsh-%{version}.tar.bz2
 Source1:        zshrc
 Source2:        zshenv
 Source3:        zprofile
