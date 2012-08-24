@@ -2,7 +2,7 @@
 Thu Aug 23 15:29:34 UTC 2012 - fcrozat@suse.com
 
 - Add u_mesa-8.0-llvmpipe-shmget.patch (Fedora): use shmget under
-  llvmpipe, if available and if bpp isn't 24.
+  llvmpipe, if available (bnc#766498).
 - Update u_mesa-8.0.1-fix-16bpp.patch to work with shmget patch.
 
 -------------------------------------------------------------------
