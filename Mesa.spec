@@ -96,6 +96,8 @@ Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch to remove OS ABI tag from libGL, so it is no longer preferred over libGLs without OS ABI tag
 Patch14:        u_remove-os-abi-tag.patch
 Patch15:        U_i965-gen7-Reduce-GT1-WM-thread-count-according-to-up.patch
+# Patch from Fedora, use shmget when available, under llvmpipe
+Patch16:        u_mesa-8.0-llvmpipe-shmget.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -476,6 +478,7 @@ packages.
 rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
 %patch12 -p1
+%patch16 -p1
 %patch13 -p1
 %patch14 -p1
 %patch15 -p1
