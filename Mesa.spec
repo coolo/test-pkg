@@ -17,15 +17,13 @@
 
 
 %define glamor 1
-
-#
-%define _version 8.0.4
+%define _version 8.0.98.24
 %define _name_archive mesa
 
 Name:           Mesa
-Version:        8.0.4
+Version:        8.0.98.24
 Release:        0
-BuildRequires:  autoconf >= 2.59
+BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
 BuildRequires:  bison
 BuildRequires:  fdupes
@@ -79,7 +77,7 @@ Provides:       XFree86-Mesa-64bit = %{version}
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
 Group:          System/Libraries
-Source:         %{_name_archive}-%{_version}.tar.bz2
+Source:         %{_name_archive}-%{version}.tar.bz2
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
@@ -89,13 +87,10 @@ Source6:        %name-rpmlintrc
 Patch1:         Mesa-nodate.diff
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
-# Patch from upstream master to resolve build issues with llvm 3.1
-Patch12:        upstream-llvm-patch.diff
 # Patch from Fedora, fix 16bpp in llvmpipe
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch to remove OS ABI tag from libGL, so it is no longer preferred over libGLs without OS ABI tag
 Patch14:        u_remove-os-abi-tag.patch
-Patch15:        U_i965-gen7-Reduce-GT1-WM-thread-count-according-to-up.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch16:        u_mesa-8.0-llvmpipe-shmget.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -124,9 +119,9 @@ Requires:       Mesa-libGL-devel = %version
 Requires:       Mesa-libGLESv1_CM-devel = %version
 Requires:       Mesa-libGLESv2-devel = %version
 Requires:       Mesa-libGLU-devel = %version
-Requires:       Mesa-libIndirectGL1 = %version
-Requires:       Mesa-libglapi0 = %version
-Requires:       libOSMesa8 = %version
+Requires:       Mesa-libIndirectGL-devel = %version
+Requires:       Mesa-libglapi-devel = %version
+Requires:       libOSMesa-devel = %version
 Requires:       libgbm-devel
 # bug437293
 %ifarch ppc64
@@ -319,6 +314,16 @@ This library provides a pure software rasterizer; it does not provide
 a direct rendering capable library, or one which uses GLX. For that,
 please see Mesa-libGL1.
 
+%package -n Mesa-libIndirectGL-devel
+Summary:        Development Files for the free implementation of the OpenGL API
+Group:          Development/Libraries/C and C++
+Requires:       Mesa-libIndirectGL1 = %version
+
+%description -n Mesa-libIndirectGL-devel
+This library provides a pure software rasterizer; it does not provide
+a direct rendering capable library, or one which uses GLX. For that,
+please see Mesa-libGL1.
+
 %package -n libOSMesa8
 Summary:        Mesa Off-screen rendering extension
 Group:          System/Libraries
@@ -327,6 +332,35 @@ Group:          System/Libraries
 OSmesa is a Mesa extension that allows programs to render to an
 off-screen buffer using the OpenGL API without having to create a
 rendering context on an X Server. It uses a pure software renderer.
+
+%package -n libOSMesa-devel
+Summary:        Development files for the Mesa Offscreen Rendering extension
+Group:          Development/Libraries/C and C++
+Requires:       libOSMesa8 = %version
+
+%description -n libOSMesa-devel
+Development files for the OSmesa Mesa extension that allows programs to render to an
+off-screen buffer using the OpenGL API without having to create a
+rendering context on an X Server. It uses a pure software renderer.
+
+%package -n Mesa-libglapi0
+Summary:        Free implementation of the GL API
+Group:          System/Libraries
+
+%description -n Mesa-libglapi0
+The Mesa GL API module is responsible for dispatching all the gl*
+functions. It is intended to be mainly used by the Mesa-libGLES*
+packages.
+
+%package -n Mesa-libglapi-devel
+Summary:        Development files for the free implementation of the GL API
+Group:          Development/Libraries/C and C++
+Requires:       Mesa-libglapi0 = %version
+
+%description -n Mesa-libglapi-devel
+Development files for the Mesa GL API module which is responsible for 
+dispatching all the gl* functions. It is intended to be mainly used by
+the Mesa-libGLES* packages.
 
 %package -n libgbm1
 Summary:        Generic buffer management API
@@ -461,27 +495,15 @@ This package contains the Software implementation of the VDPAU
 state tracker. This is still "work in progress", i.e. expect
 poor video quality, choppy videos and artefacts all over.
 
-%package -n Mesa-libglapi0
-Summary:        Free implementation of the GL API
-Group:          System/Libraries
-
-%description -n Mesa-libglapi0
-The Mesa GL API module is responsible for dispatching all the gl*
-functions. It is intended to be mainly used by the Mesa-libGLES*
-packages.
-
-
 %prep
 %setup -n %{_name_archive}-%{_version} -b4 -q
 %patch1 -p1
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
-%patch12 -p1
 %patch16 -p1
 %patch13 -p1
 %patch14 -p1
-%patch15 -p1
 
 %build
 
@@ -522,15 +544,19 @@ autoreconf -fi
 make %{?_smp_mflags}
 make install DESTDIR=$RPM_BUILD_ROOT
 # build and install Indirect Rendering only libGL
-make realclean
-%configure --with-driver=xlib \
+make clean-local
+%configure --enable-xlib-glx \
+           --enable-osmesa \
            --disable-glu \
+           --disable-dri \
+           --with-egl-platforms=x11 \
            --with-gallium-drivers="" \
+           --with-gl-lib-name=IndirectGL \
            CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
-sed -i 's/GL_LIB = .*/GL_LIB = IndirectGL/g' configs/autoconf
+
 make %{?_smp_mflags}
-cp -a %{_lib}/libIndirectGL.so.* %{_lib}/libOSMesa.so* \
-  $RPM_BUILD_ROOT/usr/%{_lib}
+make install DESTDIR=$RPM_BUILD_ROOT
+
 for dir in ../xc/doc/man/{GL/gl,GL/glx,GLU}; do
 pushd $dir
   xmkmf -a
@@ -620,7 +646,7 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %doc docs/README* docs/COPYING
 %config /etc/drirc
 %{_libdir}/dri/
-#%{_libdir}/egl/
+%_libdir/libdricore8*.so.*
 
 %files -n Mesa-libEGL1
 %defattr(-,root,root)
@@ -632,6 +658,7 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_includedir/KHR
 %_libdir/libEGL.so
 %_libdir/pkgconfig/egl.pc
+%_libdir/libEGL.la
 
 %files -n Mesa-libGL1
 %defattr(-,root,root)
@@ -644,6 +671,7 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %exclude %_includedir/GL/glu*.h
 %_libdir/libGL.so
 %_libdir/pkgconfig/gl.pc
+%_libdir/libGL.la
 %_mandir/man3/gl[A-Z]*
 
 %files -n Mesa-libGLESv1_CM1
@@ -654,6 +682,7 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %defattr(-,root,root)
 %_includedir/GLES
 %_libdir/libGLESv1_CM.so
+%_libdir/libGLESv1_CM.la
 %_libdir/pkgconfig/glesv1_cm.pc
 
 %files -n Mesa-libGLESv2-2
@@ -664,6 +693,7 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %defattr(-,root,root)
 %_includedir/GLES2
 %_libdir/libGLESv2.so
+%_libdir/libGLESv2.la
 %_libdir/pkgconfig/glesv2.pc
 
 %files -n Mesa-libGLU1
@@ -682,9 +712,20 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %defattr(-,root,root)
 %_libdir/libIndirectGL.so.1*
 
+%files -n Mesa-libIndirectGL-devel
+%defattr(-,root,root)
+%_libdir/libIndirectGL.so
+%_libdir/libIndirectGL.la
+
 %files -n libOSMesa8
 %defattr(-,root,root)
-%_libdir/libOSMesa.so.8*
+%_libdir/libOSMesa.so.*
+
+%files -n libOSMesa-devel
+%defattr(-,root,root)
+%_libdir/libOSMesa.so
+%_libdir/libOSMesa.la
+%_libdir/pkgconfig/osmesa.pc
 
 %files -n libgbm1
 %defattr(-,root,root)
@@ -694,6 +735,7 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %defattr(-,root,root)
 %_includedir/gbm.h
 %_libdir/libgbm.so
+%_libdir/libgbm.la
 %_libdir/pkgconfig/gbm.pc
 
 %ifnarch s390 s390x %arm ppc ppc64
@@ -761,12 +803,17 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %defattr(-,root,root)
 %_libdir/libglapi.so.0*
 
+%files -n Mesa-libglapi-devel
+%defattr(-,root,root)
+%_libdir/libglapi.la
+
 %files devel
 %defattr(-,root,root)
 %doc docs/*.html docs/*.spec
 %_includedir/GL/internal
-%_libdir/libOSMesa.so
 %_libdir/libglapi.so
+%_libdir/libdricore8*.so
+%_libdir/libdricore8*.la
 %_libdir/pkgconfig/dri.pc
 
 %changelog
