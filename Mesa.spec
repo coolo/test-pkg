@@ -17,11 +17,11 @@
 
 
 %define glamor 1
-%define _version 8.0.98.24
+%define _version 8.0.98.25
 %define _name_archive mesa
 
 Name:           Mesa
-Version:        8.0.98.24
+Version:        8.0.98.25
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -44,6 +44,7 @@ BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.24
 %endif
 BuildRequires:  pkgconfig(libdrm_nouveau) >= 0.6
 BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.24
+BuildRequires:  pkgconfig(libkms)
 BuildRequires:  pkgconfig(libudev) > 150
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(x11-xcb)
@@ -514,10 +515,9 @@ export TALLOC_CFLAGS="-I/usr/include"
 autoreconf -fi
 %configure --enable-gles1 \
            --enable-gles2 \
-           --with-driver=dri \
+           --enable-dri \
            --with-egl-platforms=x11,drm \
            --enable-shared-glapi \
-           --enable-shared-dricore \
            --enable-xa \
            --enable-texture-float \
 %if %glamor

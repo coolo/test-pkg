@@ -2,6 +2,7 @@
 Fri Aug 24 22:22:28 UTC 2012 - tobias.johannes.klausmann@mni.thm.de
 
 - Update to 8.1 prerelease:
+  + Rewrite the configuration parts of the spec file
   + Changed u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
     to apply!
   + Changed u_remove-os-abi-tag.patch to apply! (Removed parts of it)
