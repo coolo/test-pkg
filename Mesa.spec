@@ -17,11 +17,11 @@
 
 
 %define glamor 1
-%define _version 8.0.98.25
+%define _version 8.98.1
 %define _name_archive mesa
 
 Name:           Mesa
-Version:        8.0.98.25
+Version:        8.98.1
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -119,7 +119,6 @@ Requires:       Mesa-libEGL-devel = %version
 Requires:       Mesa-libGL-devel = %version
 Requires:       Mesa-libGLESv1_CM-devel = %version
 Requires:       Mesa-libGLESv2-devel = %version
-Requires:       Mesa-libGLU-devel = %version
 Requires:       Mesa-libIndirectGL-devel = %version
 Requires:       Mesa-libglapi-devel = %version
 Requires:       libOSMesa-devel = %version
@@ -272,39 +271,6 @@ vertex and fragment shaders.
 This package provides a development environment for building
 applications using the OpenGL|ES 2.x APIs.
 
-%package -n Mesa-libGLU1
-Summary:        Mesa OpenGL utility library
-Group:          System/Libraries
-
-%description -n Mesa-libGLU1
-GLU offers simple interfaces for building mipmaps; checking for the
-presence of extensions in the OpenGL (or other libraries which follow
-the same conventions for advertising extensions); drawing
-piecewise-linear curves, NURBS, quadrics and other primitives
-(including, but not limited to, teapots); tesselating surfaces;
-setting up projection matrices and unprojecting screen coordinates to
-world coordinates.
-
-This package provides the SGI implementation of GLU shipped with the
-Mesa package.
-
-%package -n Mesa-libGLU-devel
-Summary:        Development files for the EGL API
-Group:          Development/Libraries/C and C++
-Requires:       Mesa-libGLU1 = %version
-
-%description -n Mesa-libGLU-devel
-GLU offers simple interfaces for building mipmaps; checking for the
-presence of extensions in the OpenGL (or other libraries which follow
-the same conventions for advertising extensions); drawing
-piecewise-linear curves, NURBS, quadrics and other primitives
-(including, but not limited to, teapots); tesselating surfaces;
-setting up projection matrices and unprojecting screen coordinates to
-world coordinates.
-
-This package contains includes headers and static libraries for
-compiling programs with GLU.
-
 %package -n Mesa-libIndirectGL1
 # This is the equivalent to Debian's libgl1-mesa-swx11
 Summary:        Free implementation of the OpenGL API
@@ -325,11 +291,11 @@ This library provides a pure software rasterizer; it does not provide
 a direct rendering capable library, or one which uses GLX. For that,
 please see Mesa-libGL1.
 
-%package -n libOSMesa8
+%package -n libOSMesa9
 Summary:        Mesa Off-screen rendering extension
 Group:          System/Libraries
 
-%description -n libOSMesa8
+%description -n libOSMesa9
 OSmesa is a Mesa extension that allows programs to render to an
 off-screen buffer using the OpenGL API without having to create a
 rendering context on an X Server. It uses a pure software renderer.
@@ -337,7 +303,7 @@ rendering context on an X Server. It uses a pure software renderer.
 %package -n libOSMesa-devel
 Summary:        Development files for the Mesa Offscreen Rendering extension
 Group:          Development/Libraries/C and C++
-Requires:       libOSMesa8 = %version
+Requires:       libOSMesa9 = %version
 
 %description -n libOSMesa-devel
 Development files for the OSmesa Mesa extension that allows programs to render to an
@@ -487,6 +453,15 @@ This package contains the VDPAU state tracker for R600. This is
 still "work in progress", i.e. expect poor video quality, choppy
 videos and artefacts all over.
 
+#%package -n libvdpau_radeonsi
+#Summary:        XVMC state tracker for radeonsi
+#Group:          System/Libraries
+
+#%description -n libvdpau_radeonsi
+#This package contains the VDPAU state tracker for radeonsi. This is 
+#still "work in progress", i.e. expect poor video quality, choppy
+#videos and artefacts all over.
+
 %package -n libvdpau_softpipe
 Summary:        Software implementation of XVMC state tracker
 Group:          System/Libraries
@@ -513,6 +488,7 @@ rm -f src/mesa/depend
 export TALLOC_LIBS=-ltalloc
 export TALLOC_CFLAGS="-I/usr/include"
 autoreconf -fi
+###           --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga \
 %configure --enable-gles1 \
            --enable-gles2 \
            --enable-dri \
@@ -557,7 +533,8 @@ make clean-local
 make %{?_smp_mflags}
 make install DESTDIR=$RPM_BUILD_ROOT
 
-for dir in ../xc/doc/man/{GL/gl,GL/glx,GLU}; do
+#for dir in ../xc/doc/man/{GL/gl,GL/glx,GLU}; do
+for dir in ../xc/doc/man/{GL/gl,GL/glx}; do
 pushd $dir
   xmkmf -a
   make %{?_smp_mflags}
@@ -593,17 +570,13 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 
 %postun -n Mesa-libGLESv2-2 -p /sbin/ldconfig
 
-%post   -n Mesa-libGLU1 -p /sbin/ldconfig
-
-%postun -n Mesa-libGLU1 -p /sbin/ldconfig
-
 %post   -n Mesa-libIndirectGL1 -p /sbin/ldconfig
 
 %postun -n Mesa-libIndirectGL1 -p /sbin/ldconfig
 
-%post   -n libOSMesa8 -p /sbin/ldconfig
+%post   -n libOSMesa9 -p /sbin/ldconfig
 
-%postun -n libOSMesa8 -p /sbin/ldconfig
+%postun -n libOSMesa9 -p /sbin/ldconfig
 
 %post   -n libgbm1 -p /sbin/ldconfig
 
@@ -633,6 +606,9 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %post   -n libvdpau_r600
 %postun -n libvdpau_r600
 
+#%post   -n libvdpau_radeonsi
+#%postun -n libvdpau_radeonsi
+
 %post   -n libvdpau_softpipe
 %postun -n libvdpau_softpipe
 %endif
@@ -646,7 +622,7 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %doc docs/README* docs/COPYING
 %config /etc/drirc
 %{_libdir}/dri/
-%_libdir/libdricore8*.so.*
+%_libdir/libdricore9*.so.*
 
 %files -n Mesa-libEGL1
 %defattr(-,root,root)
@@ -668,7 +644,6 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %defattr(-,root,root)
 %dir %_includedir/GL
 %_includedir/GL/*.h
-%exclude %_includedir/GL/glu*.h
 %_libdir/libGL.so
 %_libdir/pkgconfig/gl.pc
 %_libdir/libGL.la
@@ -696,18 +671,6 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_libdir/libGLESv2.la
 %_libdir/pkgconfig/glesv2.pc
 
-%files -n Mesa-libGLU1
-%defattr(-,root,root)
-%_libdir/libGLU.so.1*
-
-%files -n Mesa-libGLU-devel
-%defattr(-,root,root)
-%dir %_includedir/GL
-%_includedir/GL/glu*.h
-%_libdir/libGLU.so
-%_libdir/pkgconfig/glu.pc
-%_mandir/man3/glu*
-
 %files -n Mesa-libIndirectGL1
 %defattr(-,root,root)
 %_libdir/libIndirectGL.so.1*
@@ -717,7 +680,7 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_libdir/libIndirectGL.so
 %_libdir/libIndirectGL.la
 
-%files -n libOSMesa8
+%files -n libOSMesa9
 %defattr(-,root,root)
 %_libdir/libOSMesa.so.*
 
@@ -792,6 +755,12 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_libdir/vdpau/libvdpau_r600.so.1
 %_libdir/vdpau/libvdpau_r600.so.1.0
 
+#%files -n libvdpau_radeonsi
+#%defattr(-,root,root)
+#%_libdir/vdpau/libvdpau_radeonsi.so
+#%_libdir/vdpau/libvdpau_radeonsi.so.1
+#%_libdir/vdpau/libvdpau_radeonsi.so.1.0
+
 %files -n libvdpau_softpipe
 %defattr(-,root,root)
 %_libdir/vdpau/libvdpau_softpipe.so
@@ -812,8 +781,8 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %doc docs/*.html docs/*.spec
 %_includedir/GL/internal
 %_libdir/libglapi.so
-%_libdir/libdricore8*.so
-%_libdir/libdricore8*.la
+%_libdir/libdricore9*.so
+%_libdir/libdricore9*.la
 %_libdir/pkgconfig/dri.pc
 
 %changelog
