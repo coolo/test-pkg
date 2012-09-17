@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Fri Aug 24 22:22:28 UTC 2012 - tobias.johannes.klausmann@mni.thm.de
+
+- Update to 8.1 prerelease:
+  + Added radeonsi to the dri drivers for x86/x86_64
+  + Rewrite the configuration parts of the spec file
+  + Changed u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
+    to apply!
+  + Changed u_remove-os-abi-tag.patch to apply! (Removed parts of it)
+  + Changed u_mesa-8.0.1-fix-16bpp.patch to apply! (Removed parts of it)
+  + Remove upstreamed patches: (double checked)
+    - upstream-llvm-patch.diff
+    - U_i965-gen7-Reduce-GT1-WM-thread-count-according-to-up.patch
+
+-------------------------------------------------------------------
 Thu Aug 23 15:29:34 UTC 2012 - fcrozat@suse.com
 
 - Add u_mesa-8.0-llvmpipe-shmget.patch (Fedora): use shmget under
