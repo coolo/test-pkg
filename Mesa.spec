@@ -17,11 +17,11 @@
 
 
 %define glamor 1
-%define _version 8.98.1
+%define _version 8.98.5
 %define _name_archive mesa
 
 Name:           Mesa
-Version:        8.98.1
+Version:        8.98.5
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -489,6 +489,7 @@ export TALLOC_LIBS=-ltalloc
 export TALLOC_CFLAGS="-I/usr/include"
 autoreconf -fi
 ###           --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga \
+###           --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
 %configure --enable-gles1 \
            --enable-gles2 \
            --enable-dri \
