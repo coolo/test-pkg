@@ -532,7 +532,13 @@ make clean-local
            CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
 
 make %{?_smp_mflags}
-make install DESTDIR=$RPM_BUILD_ROOT
+cp -a %{_lib}/libIndirectGL.so* \
+   src/mesa/drivers/x11/libIndirectGL.la \
+   %{_lib}/libOSMesa.so* \
+   src/mesa/drivers/osmesa/libOSMesa.la \
+   $RPM_BUILD_ROOT/usr/%{_lib}
+install -m 644 src/mesa/drivers/osmesa/osmesa.pc \
+   $RPM_BUILD_ROOT/usr/%{_lib}/pkgconfig
 
 #for dir in ../xc/doc/man/{GL/gl,GL/glx,GLU}; do
 for dir in ../xc/doc/man/{GL/gl,GL/glx}; do

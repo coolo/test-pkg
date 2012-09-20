@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Sep 20 13:05:15 UTC 2012 - sndirsch@suse.com
+
+- instead of using "make install" for installing libIndirectGL/
+  libOSMesa, do install these libs manually, so we no longer end
+  up with linking *everything* against libIndirectGL (instead of
+  having it correctly linked against GL!)
+
+-------------------------------------------------------------------
 Fri Aug 24 22:22:28 UTC 2012 - tobias.johannes.klausmann@mni.thm.de
 
 - Update to 8.1 prerelease:
