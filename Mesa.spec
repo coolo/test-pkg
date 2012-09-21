@@ -532,9 +532,10 @@ make clean-local
            CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
 
 make %{?_smp_mflags}
-cp -a %{_lib}/libIndirectGL.so* \
-   src/mesa/drivers/x11/libIndirectGL.la \
-   %{_lib}/libOSMesa.so* \
+cp -a \
+   src/mesa/drivers/x11/.libs/libIndirectGL.so* \
+   ./src/mesa/drivers/x11/libIndirectGL.la \
+   src/mesa/drivers/osmesa/.libs/libOSMesa.so* \
    src/mesa/drivers/osmesa/libOSMesa.la \
    $RPM_BUILD_ROOT/usr/%{_lib}
 install -m 644 src/mesa/drivers/osmesa/osmesa.pc \
@@ -651,6 +652,7 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %defattr(-,root,root)
 %dir %_includedir/GL
 %_includedir/GL/*.h
+%exclude %_includedir/GL/osmesa.h
 %_libdir/libGL.so
 %_libdir/pkgconfig/gl.pc
 %_libdir/libGL.la
@@ -689,10 +691,12 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 
 %files -n libOSMesa9
 %defattr(-,root,root)
-%_libdir/libOSMesa.so.*
+%_libdir/libOSMesa.so.8.0.0
+%_libdir/libOSMesa.so.8
 
 %files -n libOSMesa-devel
 %defattr(-,root,root)
+%_includedir/GL/osmesa.h
 %_libdir/libOSMesa.so
 %_libdir/libOSMesa.la
 %_libdir/pkgconfig/osmesa.pc
