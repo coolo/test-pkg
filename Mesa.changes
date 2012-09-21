@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Sep 21 07:08:05 UTC 2012 - coolo@suse.com
+
+- fix baselibs.conf after package split
+
+-------------------------------------------------------------------
 Thu Sep 20 13:05:15 UTC 2012 - sndirsch@suse.com
 
 - instead of using "make install" for installing libIndirectGL/
