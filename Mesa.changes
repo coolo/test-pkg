@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Sep 24 17:04:35 UTC 2012 - sndirsch@suse.com
+
+- removed any .la file
+- moved libglapi.so from Mesa-devel to Mesa-libglapi-devel package;
+  Mesa-devel requires Mesa-libglapi-devel package anyway
+
+-------------------------------------------------------------------
 Fri Sep 21 08:28:28 UTC 2012 - sndirsch@suse.com
 
 - fixed libOSMesa packaging (only a dangling symlink has been
