@@ -17,11 +17,11 @@
 
 
 %define glamor 1
-%define _version 8.98.1
+%define _version 8.98.5
 %define _name_archive mesa
 
 Name:           Mesa
-Version:        8.98.1
+Version:        8.98.5
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -489,6 +489,7 @@ export TALLOC_LIBS=-ltalloc
 export TALLOC_CFLAGS="-I/usr/include"
 autoreconf -fi
 ###           --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga \
+###           --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
 %configure --enable-gles1 \
            --enable-gles2 \
            --enable-dri \
@@ -519,6 +520,7 @@ autoreconf -fi
            CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
 make %{?_smp_mflags}
 make install DESTDIR=$RPM_BUILD_ROOT
+find $RPM_BUILD_ROOT -name "*.la" -exec rm {} \;
 # build and install Indirect Rendering only libGL
 make clean-local
 %configure --enable-xlib-glx \
@@ -531,7 +533,12 @@ make clean-local
            CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
 
 make %{?_smp_mflags}
-make install DESTDIR=$RPM_BUILD_ROOT
+cp -a \
+   src/mesa/drivers/x11/.libs/libIndirectGL.so* \
+   src/mesa/drivers/osmesa/.libs/libOSMesa.so* \
+   $RPM_BUILD_ROOT/usr/%{_lib}
+install -m 644 src/mesa/drivers/osmesa/osmesa.pc \
+   $RPM_BUILD_ROOT/usr/%{_lib}/pkgconfig
 
 #for dir in ../xc/doc/man/{GL/gl,GL/glx,GLU}; do
 for dir in ../xc/doc/man/{GL/gl,GL/glx}; do
@@ -634,7 +641,6 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_includedir/KHR
 %_libdir/libEGL.so
 %_libdir/pkgconfig/egl.pc
-%_libdir/libEGL.la
 
 %files -n Mesa-libGL1
 %defattr(-,root,root)
@@ -644,9 +650,9 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %defattr(-,root,root)
 %dir %_includedir/GL
 %_includedir/GL/*.h
+%exclude %_includedir/GL/osmesa.h
 %_libdir/libGL.so
 %_libdir/pkgconfig/gl.pc
-%_libdir/libGL.la
 %_mandir/man3/gl[A-Z]*
 
 %files -n Mesa-libGLESv1_CM1
@@ -657,7 +663,6 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %defattr(-,root,root)
 %_includedir/GLES
 %_libdir/libGLESv1_CM.so
-%_libdir/libGLESv1_CM.la
 %_libdir/pkgconfig/glesv1_cm.pc
 
 %files -n Mesa-libGLESv2-2
@@ -668,7 +673,6 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %defattr(-,root,root)
 %_includedir/GLES2
 %_libdir/libGLESv2.so
-%_libdir/libGLESv2.la
 %_libdir/pkgconfig/glesv2.pc
 
 %files -n Mesa-libIndirectGL1
@@ -678,16 +682,16 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %files -n Mesa-libIndirectGL-devel
 %defattr(-,root,root)
 %_libdir/libIndirectGL.so
-%_libdir/libIndirectGL.la
 
 %files -n libOSMesa9
 %defattr(-,root,root)
-%_libdir/libOSMesa.so.*
+%_libdir/libOSMesa.so.8.0.0
+%_libdir/libOSMesa.so.8
 
 %files -n libOSMesa-devel
 %defattr(-,root,root)
+%_includedir/GL/osmesa.h
 %_libdir/libOSMesa.so
-%_libdir/libOSMesa.la
 %_libdir/pkgconfig/osmesa.pc
 
 %files -n libgbm1
@@ -698,7 +702,6 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %defattr(-,root,root)
 %_includedir/gbm.h
 %_libdir/libgbm.so
-%_libdir/libgbm.la
 %_libdir/pkgconfig/gbm.pc
 
 %ifnarch s390 s390x %arm ppc ppc64
@@ -774,15 +777,13 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 
 %files -n Mesa-libglapi-devel
 %defattr(-,root,root)
-%_libdir/libglapi.la
+%_libdir/libglapi.so
 
 %files devel
 %defattr(-,root,root)
 %doc docs/*.html docs/*.spec
 %_includedir/GL/internal
-%_libdir/libglapi.so
 %_libdir/libdricore9*.so
-%_libdir/libdricore9*.la
 %_libdir/pkgconfig/dri.pc
 
 %changelog
