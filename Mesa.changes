@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Sep 25 15:28:52 UTC 2012 - tobias.johannes.klausmann@mni.thm.de
+
+- Update the Mesa 9.0 Git Snapshot
+  + Add the Git CommitID to the buildscript
+  + Minor cleanup of the buildscript
+
+-------------------------------------------------------------------
 Mon Sep 24 17:04:35 UTC 2012 - sndirsch@suse.com
 
 - removed any .la file
