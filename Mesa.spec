@@ -17,11 +17,12 @@
 
 
 %define glamor 1
-%define _version 8.98.5
+%define _version 8.98.8
 %define _name_archive mesa
+%define _id b1ce5749b996d6ce3dcf9bbd1537c46d14e62adb
 
 Name:           Mesa
-Version:        8.98.5
+Version:        8.98.8
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -540,7 +541,6 @@ cp -a \
 install -m 644 src/mesa/drivers/osmesa/osmesa.pc \
    $RPM_BUILD_ROOT/usr/%{_lib}/pkgconfig
 
-#for dir in ../xc/doc/man/{GL/gl,GL/glx,GLU}; do
 for dir in ../xc/doc/man/{GL/gl,GL/glx}; do
 pushd $dir
   xmkmf -a
