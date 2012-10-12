@@ -17,12 +17,11 @@
 
 
 %define glamor 1
-%define _version 8.98.8
+%define _version 9.0
 %define _name_archive mesa
-%define _id b1ce5749b996d6ce3dcf9bbd1537c46d14e62adb
 
 Name:           Mesa
-Version:        8.98.8
+Version:        9.0
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
