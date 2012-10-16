@@ -212,7 +212,7 @@ This package includes headers and static libraries for compiling
 programs with Mesa.
 
 %package -n Mesa-libGLESv1_CM1
-Summary:        Free implementation of the OpenGL|ES 1.x API
+Summary:        Free implementation of the OpenGL|ES 1.x Common Profile API
 Group:          System/Libraries
 
 %description -n Mesa-libGLESv1_CM1
@@ -224,7 +224,7 @@ extensions for the special needs of embedded systems.
 OpenGL|ES 1.x provides an API for fixed-function hardware.
 
 %package -n Mesa-libGLESv1_CM-devel
-Summary:        Development files for the EGL API
+Summary:        Development files for the OpenGL ES 1.x API
 Group:          Development/Libraries/C and C++
 Requires:       Mesa-libGLESv1_CM1 = %version
 Requires:       pkgconfig(egl)
@@ -241,7 +241,7 @@ This package provides a development environment for building programs
 using the OpenGL|ES 1.x APIs.
 
 %package -n Mesa-libGLESv2-2
-Summary:        Free implementation of the OpenGL|ES 2.x API
+Summary:        Free implementation of the OpenGL|ES 2.x, 3.x API
 Group:          System/Libraries
 
 %description -n Mesa-libGLESv2-2
@@ -254,7 +254,7 @@ OpenGL|ES 2.x provides an API for programmable hardware including
 vertex and fragment shaders.
 
 %package -n Mesa-libGLESv2-devel
-Summary:        Development files for the EGL API
+Summary:        Development files for the OpenGL ES 2.x, 3.x API
 Group:          Development/Libraries/C and C++
 Requires:       Mesa-libGLESv2-2 = %version
 Requires:       pkgconfig(egl)
@@ -269,7 +269,7 @@ OpenGL|ES 2.x provides an API for programmable hardware including
 vertex and fragment shaders.
 
 This package provides a development environment for building
-applications using the OpenGL|ES 2.x APIs.
+applications using the OpenGL|ES 2.x and 3.x APIs.
 
 %package -n Mesa-libIndirectGL1
 # This is the equivalent to Debian's libgl1-mesa-swx11
