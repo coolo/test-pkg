@@ -82,6 +82,7 @@ Patch23:        readline-5.2-conf.patch
 Patch24:        readline-6.2-metamode.patch
 Patch25:        readline-6.2-endpw.dif
 Patch26:        readline-6.2-msgdynamic.patch
+Patch27:        readline-6.2-xmalloc.dif
 Patch30:        readline-6.2-destdir.patch
 Patch40:        bash-4.1-bash.bashrc.dif
 Patch42:        audit-patch
@@ -307,6 +308,7 @@ done
 %patch24 -p2 -b .metamode
 #%patch25 -p2 -b .endpw
 %patch26 -p2 -b .msgdy
+%patch27 -p0 -b .xm
 %patch30 -p0 -b .destdir
 %patch20 -p0 -b .0
 
@@ -353,15 +355,6 @@ pushd ../readline-%{rl_vers}%{extend}
       LARGEFILE="-D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
   fi
   rm -f ./test64
-  (cat > rl.map)<<-'EOF'
-	{
-	local:
-	/*  _rl*; */
-	    xfree;
-	    xmalloc;
-	    xrealloc;
-	};
-	EOF
   (cat > dyn.map)<<-'EOF'
 	{
 	    *;
@@ -383,7 +376,6 @@ pushd ../readline-%{rl_vers}%{extend}
   cflags -Wl,-O2                 LDFLAGS
   cflags -Wl,--hash-size=8599    LDFLAGS
   cflags -Wl,-rpath,%{_ldldir}/%{bash_vers}   LDFLAGS
-  cflags -Wl,--version-script=${PWD}/rl.map   LDFLAGS
   cflags -Wl,--dynamic-list=${PWD}/dyn.map    LDFLAGS
   CC=gcc
   CC_FOR_BUILD="$CC"
