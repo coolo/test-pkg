@@ -44,6 +44,7 @@ BuildRequires:  fdupes
 BuildRequires:  yodl
 %endif
 %if 0%{?suse_version} >= 1210
+BuildRequires:  groff
 BuildRequires:  makeinfo
 BuildRequires:  texinfo
 %endif
