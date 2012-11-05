@@ -23,7 +23,9 @@ BuildRequires:  bison
 %if %suse_version > 1020
 BuildRequires:  fdupes
 %endif
+%if %suse_version > 1220
 BuildRequires:  makeinfo
+%endif
 BuildRequires:  ncurses-devel
 %define         bash_vers 4.2
 %define         rl_vers   6.2
