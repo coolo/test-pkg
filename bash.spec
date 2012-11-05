@@ -323,7 +323,9 @@ done
   MACHTYPE=${CPU}-suse-linux
   export LANG LC_ALL HOSTTYPE MACHTYPE
 pushd ../readline-%{rl_vers}%{extend}
+%if %suse_version >= 1100
   autoconf
+%endif
   cflags ()
   {
       local flag=$1; shift
