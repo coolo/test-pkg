@@ -183,6 +183,7 @@ rm -f %{buildroot}%{_bindir}/zsh-*
 %endif
 
 %check
+%if ! 0%{?qemu_user_space_build}
 %if 0%{?suse_version}
 make check
 %else
@@ -197,7 +198,7 @@ mv Test/E01options.ztst Test/E01options.ztst.mvd
 %endif
   ZTST_verbose=0 make test
 %endif
-
+%endif
 %preun
 %if 0%{?suse_version}
   :

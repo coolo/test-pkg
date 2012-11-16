@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Nov 16 03:49:21 UTC 2012 - crrodriguez@opensuse.org
+
+- Test suite runs flaky in qemu-arm, disable it for now. 
+
+-------------------------------------------------------------------
 Fri Oct 26 14:58:46 UTC 2012 - coolo@suse.com
 
 - buildrequire groff needed to build helpfiles
