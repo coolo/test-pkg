@@ -17,11 +17,11 @@
 
 
 %define glamor 1
-%define _version 9.0
-%define _name_archive mesa
+%define _version 9.0.1
+%define _name_archive MesaLib
 
 Name:           Mesa
-Version:        9.0
+Version:        9.0.1
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -472,7 +472,7 @@ state tracker. This is still "work in progress", i.e. expect
 poor video quality, choppy videos and artefacts all over.
 
 %prep
-%setup -n %{_name_archive}-%{_version} -b4 -q
+%setup -n %{name}-%{_version} -b4 -q
 %patch1 -p1
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
