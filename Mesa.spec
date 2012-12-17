@@ -525,7 +525,6 @@ find $RPM_BUILD_ROOT -name "*.la" -exec rm {} \;
 make clean-local
 %configure --enable-xlib-glx \
            --enable-osmesa \
-           --disable-glu \
            --disable-dri \
            --with-egl-platforms=x11 \
            --with-gallium-drivers="" \
