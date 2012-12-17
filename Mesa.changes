@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Dec 14 11:00:21 UTC 2012 - tobias.johannes.klausmann@mni.thm.de
+
+- Remove unrecognized configure option "--disable-glu"
+
+-------------------------------------------------------------------
 Mon Dec 10 13:22:01 UTC 2012 - sndirsch@suse.com
 
 - Update to Version 9.0.1
