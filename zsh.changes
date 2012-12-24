@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Mon Dec 24 15:53:42 UTC 2012 - idonmez@suse.com
+
+- Update to version 5.0.2
+  * Numeric constants in mathematical contexts can contain
+    underscores.
+  * functions -T turns on tracing for specific functions.
+- See the included NEWS file for other changes.
+
+-------------------------------------------------------------------
 Fri Nov 16 03:49:21 UTC 2012 - crrodriguez@opensuse.org
 
 - Test suite runs flaky in qemu-arm, disable it for now. 
