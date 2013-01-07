@@ -1,7 +1,7 @@
 #
 # spec file for package Mesa
 #
-# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -554,6 +554,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 mkdir -p $RPM_BUILD_ROOT/etc
 install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %fdupes -s $RPM_BUILD_ROOT/%_mandir
+sed -i -e '/^Libs.private/d' -e '/^Requires.private/d' %{buildroot}%{_libdir}/pkgconfig/*.pc
 
 %post   -p /sbin/ldconfig
 

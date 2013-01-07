@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Sat Jan  5 15:28:51 UTC 2013 - crrodriguez@opensuse.org
+
+- Remove Requires.private and Libs.private from *.pc files
+ * Both are needed only for static linking
+ * This package provides only shared libraries
+ * the rpm pkgconfig dependency generator considers "Requires.private"
+   a valid dependency even though there are no static libraries in the 
+   packages
+ * This cause bloat and hides broken "buildRequires" in other packages.
+
+-------------------------------------------------------------------
 Fri Dec 14 11:00:21 UTC 2012 - tobias.johannes.klausmann@mni.thm.de
 
 - Remove unrecognized configure option "--disable-glu"
