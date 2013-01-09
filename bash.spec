@@ -88,6 +88,7 @@ Patch27:        readline-6.2-xmalloc.dif
 Patch30:        readline-6.2-destdir.patch
 Patch40:        bash-4.1-bash.bashrc.dif
 Patch42:        audit-patch
+Patch43:        audit-rl-patch
 Patch46:        man2html-no-timestamp.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
@@ -132,6 +133,7 @@ Requires:       bash = %{version}
 Provides translations to the package bash
 %endif
 
+%if 0%suse_version >= 1100
 %package -n bash-devel
 Summary:        Include Files mandatory for Development of bash loadable builtins
 Group:          Development/Languages/C and C++
@@ -142,6 +144,7 @@ Release:        0
 This package contains the C header files for writing loadable new
 builtins for the interpreter Bash. Use -I /usr/include/bash/<version>
 on the compilers command line.
+%endif
 
 %package -n bash-loadables
 Summary:        Loadable bash builtins
@@ -209,7 +212,7 @@ Group:          System/Libraries
 Provides:       bash:/%{_lib}/libreadline.so.%{rl_major}
 Version:        6.2
 Release:        0
-%if %suse_version > 1020
+%if 0%suse_version > 1020
 Recommends:     readline-doc = %{version}
 %endif
 # bug437293
@@ -233,7 +236,7 @@ Version:        6.2
 Release:        0
 Requires:       libreadline6 = %{version}
 Requires:       ncurses-devel
-%if %suse_version > 1020
+%if 0%suse_version > 1020
 Recommends:     readline-doc = %{version}
 %endif
 # bug437293
@@ -253,7 +256,7 @@ Provides:       readline:%{_infodir}/readline.info.gz
 PreReq:         %install_info_prereq
 Version:        6.2
 Release:        0
-%if %suse_version > 1120
+%if 0%suse_version > 1120
 BuildArch:      noarch
 %endif
 
@@ -295,7 +298,9 @@ unset p
 #%patch25 -p0 -b .endpw
 %patch26 -p0 -b .msgdy
 %patch40 -p0 -b .bashrc
+%if 0%suse_version >= 1100
 %patch42 -p1 -b .audit
+%endif
 %patch46 -p0 -b .notimestamp
 %patch0  -p0 -b .0
 pushd ../readline-%{rl_vers}%{extend}
@@ -312,6 +317,9 @@ done
 %patch26 -p2 -b .msgdy
 %patch27 -p0 -b .xm
 %patch30 -p0 -b .destdir
+%if 0%suse_version >= 1100
+%patch43 -p1 -b .audit
+%endif
 %patch20 -p0 -b .0
 
 %build
@@ -627,6 +635,7 @@ ldd -u -r %{buildroot}/%{_lib}/libreadline.so.* || true
 %doc %{_mandir}/man1/rbash.1.gz
 %doc %{_defaultdocdir}/bash/
 
+%if 0%suse_version >= 1100
 %files -n bash-devel
 %defattr(-,root,root)
 %dir /%{_includedir}/bash/
@@ -634,6 +643,7 @@ ldd -u -r %{buildroot}/%{_lib}/libreadline.so.* || true
 %dir /%{_includedir}/bash/%{bash_vers}/builtins/
 /%{_incdir}/bash/%{bash_vers}/*.h
 /%{_incdir}/bash/%{bash_vers}/builtins/*.h
+%endif
 
 %files -n bash-loadables
 %defattr(-,root,root)
