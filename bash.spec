@@ -323,7 +323,7 @@ done
   MACHTYPE=${CPU}-suse-linux
   export LANG LC_ALL HOSTTYPE MACHTYPE
 pushd ../readline-%{rl_vers}%{extend}
-%if %suse_version >= 1100
+%if 0%suse_version >= 1100
   autoconf
 %endif
   cflags ()
@@ -424,7 +424,9 @@ popd
   CC_FOR_BUILD="$CC"
   CFLAGS_FOR_BUILD="$CFLAGS"
   export CC_FOR_BUILD CFLAGS_FOR_BUILD CFLAGS LDFLAGS CC
+%if 0%suse_version >= 1100
   autoconf
+%endif
   #
   # We have a malloc with our glibc
   #
