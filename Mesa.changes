@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jan 18 17:04:12 UTC 2013 - rbrownccb@opensuse.org
+- Add requires for Mesa to Mesa-libGL1 in baselibs.conf
+ * Mesa required for many applications in wine
+ * wine-32bit pulls through Mesa-libGL1-32bit without Mesa-32bit
+
+-------------------------------------------------------------------
 Sat Jan  5 15:28:51 UTC 2013 - crrodriguez@opensuse.org
 
 - Remove Requires.private and Libs.private from *.pc files
