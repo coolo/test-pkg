@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sat Jan 19 14:32:46 UTC 2013 - dmueller@suse.com
+
+- enable llvm backend also for ARM
+
+-------------------------------------------------------------------
 Fri Jan 18 17:04:12 UTC 2013 - rbrownccb@opensuse.org
 - Add requires for Mesa to Mesa-libGL1 in baselibs.conf
  * Mesa required for many applications in wine
