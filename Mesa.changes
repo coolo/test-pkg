@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jan 23 11:55:36 UTC 2013 - sndirsch@suse.com
+
+- reverted removing Libs.private/Requires.private in pkgconfig
+  files
+
+-------------------------------------------------------------------
 Sat Jan 19 14:32:46 UTC 2013 - dmueller@suse.com
 
 - enable llvm backend also for ARM

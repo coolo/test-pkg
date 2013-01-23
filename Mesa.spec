@@ -554,7 +554,10 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 mkdir -p $RPM_BUILD_ROOT/etc
 install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %fdupes -s $RPM_BUILD_ROOT/%_mandir
-sed -i -e '/^Libs.private/d' -e '/^Requires.private/d' %{buildroot}%{_libdir}/pkgconfig/*.pc
+### disabled for now on request of Coolo
+### "please take out this libs things from Cristian for 12.3 - I have no interest in debugging
+###  broken build dependencies at this point"
+#sed -i -e '/^Libs.private/d' -e '/^Requires.private/d' %{buildroot}%{_libdir}/pkgconfig/*.pc
 
 %post   -p /sbin/ldconfig
 
