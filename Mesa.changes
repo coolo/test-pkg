@@ -1,4 +1,32 @@
 -------------------------------------------------------------------
+Wed Jan 23 11:55:36 UTC 2013 - sndirsch@suse.com
+
+- reverted removing Libs.private/Requires.private in pkgconfig
+  files
+
+-------------------------------------------------------------------
+Sat Jan 19 14:32:46 UTC 2013 - dmueller@suse.com
+
+- enable llvm backend also for ARM
+
+-------------------------------------------------------------------
+Fri Jan 18 17:04:12 UTC 2013 - rbrownccb@opensuse.org
+- Add requires for Mesa to Mesa-libGL1 in baselibs.conf
+ * Mesa required for many applications in wine
+ * wine-32bit pulls through Mesa-libGL1-32bit without Mesa-32bit
+
+-------------------------------------------------------------------
+Sat Jan  5 15:28:51 UTC 2013 - crrodriguez@opensuse.org
+
+- Remove Requires.private and Libs.private from *.pc files
+ * Both are needed only for static linking
+ * This package provides only shared libraries
+ * the rpm pkgconfig dependency generator considers "Requires.private"
+   a valid dependency even though there are no static libraries in the 
+   packages
+ * This cause bloat and hides broken "buildRequires" in other packages.
+
+-------------------------------------------------------------------
 Fri Dec 14 11:00:21 UTC 2012 - tobias.johannes.klausmann@mni.thm.de
 
 - Remove unrecognized configure option "--disable-glu"
