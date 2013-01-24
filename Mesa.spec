@@ -1,7 +1,7 @@
 #
 # spec file for package Mesa
 #
-# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -54,7 +54,7 @@ BuildRequires:  pkgconfig(xdamage)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xfixes)
 BuildRequires:  pkgconfig(xxf86vm)
-%ifarch %ix86 x86_64
+%ifarch %arm %ix86 x86_64
 BuildRequires:  llvm-devel
 %endif
 BuildRequires:  libXvMC-devel
@@ -502,7 +502,7 @@ autoreconf -fi
            --enable-glx-tls \
 %endif
            --with-dri-searchpath=/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri \
-%ifarch %ix86 x86_64
+%ifarch %arm %ix86 x86_64
            --enable-gallium-llvm \
            --with-dri-drivers=i915,i965,nouveau,r200,radeon \
            --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
@@ -554,6 +554,10 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 mkdir -p $RPM_BUILD_ROOT/etc
 install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %fdupes -s $RPM_BUILD_ROOT/%_mandir
+### disabled for now on request of Coolo
+### "please take out this libs things from Cristian for 12.3 - I have no interest in debugging
+###  broken build dependencies at this point"
+#sed -i -e '/^Libs.private/d' -e '/^Requires.private/d' %{buildroot}%{_libdir}/pkgconfig/*.pc
 
 %post   -p /sbin/ldconfig
 
