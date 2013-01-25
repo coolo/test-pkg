@@ -1,4 +1,24 @@
 -------------------------------------------------------------------
+Thu Jan 24 14:48:18 UTC 2013 - sndirsch@suse.com
+
+- update to Mesa 9.0.2: a bugfix release
+ * [KMS] mesa demo spectex broken on rv280 (fdo#22576)
+ * KMS/R200: Bad shading in NWN since Mesa rewrite (fdo#26809)
+ * [bisected regression] Oglc fbo(negative.invalidParams3)
+   Segmentation fault (fdo#45877)
+ * st_glsl_to_tgsi.cpp:4006:dst_register: Assertion 
+   `index < VERT_RESULT_MAX' failed (fdo#54402)
+ * Memoryleak with glPopAttrib only on Intel GM45 (fdo#55175)
+ * glcpp accepts junk after #else/#elif/#endif tokens (fdo#56442)
+ * EGL sets error to EGL_SUCCESS when DRI driver fails to create
+   context (fdo#56706)
+ * Webgl conformance shader-with-non-reserved-words crash. (fdo#57622)
+ * r200: Culling is broken when rendering to an FBO (fdo#57842)
+ * r300g: blend sfactor=GL_DST_COLOR fails with FBOs (fdo#57984)
+ * [llvmpipe] src/gallium/auxiliary/gallivm/lp_bld_tgsi_info.c:75:analyse_src: Assertion `src->Index < (sizeof(ctx->imm)/sizeof((ctx->imm)[0]))' failed. (fdo#58545)
+ * src/glsl/tests/Makefile.am missing $(top_srcdir)/include (fdo#59383)
+
+-------------------------------------------------------------------
 Wed Jan 23 11:55:36 UTC 2013 - sndirsch@suse.com
 
 - reverted removing Libs.private/Requires.private in pkgconfig
