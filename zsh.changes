@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sun Jan 27 20:53:10 UTC 2013 - dmitry_r@opensuse.org
+
+- Fix zypper completion [bnc#752112]
+  * zsh-zypper-completion.patch
+- Fix osc completion (SUSE versions)
+  * zsh-osc-suseversion.patch
+
+-------------------------------------------------------------------
 Mon Dec 24 15:53:42 UTC 2012 - idonmez@suse.com
 
 - Update to version 5.0.2
