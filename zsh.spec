@@ -1,7 +1,7 @@
 #
 # spec file for package zsh
 #
-# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -36,6 +36,8 @@ Source15:       zshenv.rhs
 Source16:       dotzshrc.rh
 Source17:       zshprompt.pl
 %endif
+Patch1:         zsh-zypper-completion.patch
+Patch2:         zsh-osc-suseversion.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %if 0%{?suse_version}
 Requires(pre):  %{install_info_prereq}
@@ -91,6 +93,8 @@ This package contains the Zsh manual in html format.
 
 %prep
 %setup -q -n %{name}-%{version}
+%patch1 -p1
+%patch2 -p1
 
 # Remove executable bit
 chmod 0644 Etc/changelog2html.pl
