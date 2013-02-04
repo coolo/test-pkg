@@ -36,16 +36,20 @@ BuildRequires:  libxml2-python
 BuildRequires:  pkgconfig
 BuildRequires:  python-base
 BuildRequires:  xorg-x11-util-devel
-BuildRequires:  pkgconfig(dri2proto) >= 2.1
-BuildRequires:  pkgconfig(glproto) >= 1.4.11
+BuildRequires:  pkgconfig(dri2proto) >= 2.6
+BuildRequires:  pkgconfig(glproto) >= 1.4.14
 BuildRequires:  pkgconfig(libdrm) >= 2.4.24
 %ifarch x86_64 %ix86
-BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.24
+BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.34
 %endif
-BuildRequires:  pkgconfig(libdrm_nouveau) >= 0.6
-BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.24
-BuildRequires:  pkgconfig(libkms)
+BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.3
+BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.31
+BuildRequires:  pkgconfig(libkms) >= 1.0.0
 BuildRequires:  pkgconfig(libudev) > 150
+%if 0%{?suse_version} >= 1230
+BuildRequires:  pkgconfig(wayland-client)
+BuildRequires:  pkgconfig(wayland-server)
+%endif
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(x11-xcb)
 BuildRequires:  pkgconfig(xcb-dri2)
@@ -362,6 +366,31 @@ openwfd.
 This package provides the development environment for compiling
 programs against the GBM library.
 
+%if 0%{?suse_version} >= 1230
+
+%package -n libwayland-egl1
+Summary:        Additional egl functions for wayland
+Group:          System/Libraries
+Version:        1.0.0
+Release:        0
+
+%description -n libwayland-egl1
+This package provides additional functions for egl-using programs
+that run within the wayland framework. This allows for applications
+that need not run full-screen and cooperate with a compositor.
+
+%package -n libwayland-egl1-devel
+Summary:        Development files for libwayland-egl1
+Group:          Development/Libraries/C and C++
+Version:        1.0.0
+Release:        0
+Requires:       libwayland-egl1 = %version
+
+%description -n libwayland-egl1-devel
+This package is required to link wayland client applications to the EGL
+implementation of Mesa.
+%endif
+
 %package -n libxatracker1
 Summary:        XA state tracker
 Group:          System/Libraries
@@ -487,13 +516,18 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 rm -f src/mesa/depend
 export TALLOC_LIBS=-ltalloc
 export TALLOC_CFLAGS="-I/usr/include"
+%if 0%{?suse_version} >= 1230
+egl_platforms=x11,drm,wayland
+%else
+egl_platforms=x11,drm
+%endif
 autoreconf -fi
 ###           --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga \
 ###           --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
 %configure --enable-gles1 \
            --enable-gles2 \
            --enable-dri \
-           --with-egl-platforms=x11,drm \
+           --with-egl-platforms=$egl_platforms \
            --enable-shared-glapi \
            --enable-xa \
            --enable-texture-float \
@@ -626,6 +660,12 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 
 %postun -n Mesa-libglapi0 -p /sbin/ldconfig
 
+%if 0%{?suse_version} >= 1230
+%post   -n libwayland-egl1 -p /sbin/ldconfig
+
+%postun -n libwayland-egl1 -p /sbin/ldconfig
+%endif
+
 %files
 %defattr(-,root,root)
 %doc docs/README* docs/COPYING
@@ -695,6 +735,17 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_includedir/GL/osmesa.h
 %_libdir/libOSMesa.so
 %_libdir/pkgconfig/osmesa.pc
+
+%if 0%{?suse_version} >= 1230
+%files -n libwayland-egl1
+%defattr(-,root,root)
+%_libdir/libwayland-egl.so.1*
+
+%files -n libwayland-egl1-devel
+%defattr(-,root,root)
+%_libdir/libwayland-egl.so
+%_libdir/pkgconfig/wayland-egl.pc
+%endif
 
 %files -n libgbm1
 %defattr(-,root,root)
