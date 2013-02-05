@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Feb  4 13:37:01 UTC 2013 - duwe@suse.com
+
+- enable build of subpackage libwayland-egl1
+
+-------------------------------------------------------------------
 Thu Jan 24 14:48:18 UTC 2013 - sndirsch@suse.com
 
 - update to Mesa 9.0.2: a bugfix release
