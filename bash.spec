@@ -90,6 +90,7 @@ Patch40:        bash-4.1-bash.bashrc.dif
 Patch42:        audit-patch
 Patch43:        audit-rl-patch
 Patch46:        man2html-no-timestamp.patch
+Patch47:        config-guess-sub-update.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
@@ -302,6 +303,7 @@ unset p
 %patch42 -p1 -b .audit
 %endif
 %patch46 -p0 -b .notimestamp
+%patch47
 %patch0  -p0 -b .0
 pushd ../readline-%{rl_vers}%{extend}
 for p in ../readline-%{rl_vers}-patches/*; do
@@ -321,6 +323,7 @@ done
 %patch43 -p1 -b .audit
 %endif
 %patch20 -p0 -b .0
+%patch47
 
 %build
   LANG=POSIX
@@ -351,10 +354,10 @@ pushd ../readline-%{rl_vers}%{extend}
 	  fi
 	  ;;
       *)
-	  if ${CC:-gcc} -Werror $flag -S -o /dev/null -xc /dev/null > /dev/null 2>&1 ; then
+	  if ${CC:-gcc} -Werror ${flag/#-Wno-/-W} -S -o /dev/null -xc /dev/null > /dev/null 2>&1 ; then
 	      eval $var=\${$var:+\$$var\ }$flag
 	  fi
-	  if ${CXX:-g++} -Werror $flag -S -o /dev/null -xc++ /dev/null > /dev/null 2>&1 ; then
+	  if ${CXX:-g++} -Werror ${flag/#-Wno-/-W} -S -o /dev/null -xc++ /dev/null > /dev/null 2>&1 ; then
 	      eval $var=\${$var:+\$$var\ }$flag
 	  fi
       esac
