@@ -1,4 +1,38 @@
 -------------------------------------------------------------------
+Thu Feb 21 23:23:22 UTC 2013 - hrvoje.senjan@gmail.com
+
+- update to Mesa 9.0.3: a bugfix release
+ * Pink artifacts on objects in the distance in ETQW/Quake 4 
+   (fdo#25201)
+ * configure: Doesn't check for python libxml2 (fdo#31598)
+ * [softpipe] piglit glsl-max-varyings regression (fdo#40404)
+ * [bisected] Oglc pxconv-gettex(basic.allCases) regressed (fdo#47220)
+ * [bisected i965]Oglc shad-compiler(advanced.TestLessThani) 
+   regressed(fdo#48629)
+ * [swrast] piglit fbo-generatemipmap-filtering regression 
+   (fdo#54240)
+ * [sandybridge][uxa] graphics very glitchy and always flickering 
+   (fdo#56920)
+ * [GM45] Chrome experiment "Stars" crash: brw_fs_emit.cpp:708:
+   brw_reg brw_reg_from_fs_reg(fs_reg*): Assertion „!"not reached"“ 
+   failed. (fdo#57166)
+ * build test failure: nouveau_fbo.c:198:3: error: too few arguments to 
+   function 'nouveau_renderbuffer_del' (fdo#57746)
+ * [swrast] Mesa 9.1-devel implementation error: Unable to 
+   delete renderbuffer, no context (fdo#57754)
+ * [IVB] Graphical glitches in 0 A.D (fdo#58680)
+ * [softpipe] util/u_tile.c:795:pipe_put_tile_z: Assertion `0' failed. 
+   (fdo#58972)
+ * [bisected] Mesa build fails: clientattrib.c:33:22: fatal error: indirect.h: 
+   No such file or directory (fdo#59364)
+ * [ILK/SNB/IVB Bisected]Oglc vertexshader(advanced.TestLightsTwoSided) 
+   causes GPU hung (fdo#59700)
+ * [swrast] piglit ext_framebuffer_multisample-interpolation 0 
+   centroid-edges regression (fdo#59873)
+ * [Bisected]Piglit glx_extension_string_sanity fail (fdo#60052)
+ * Planeshift: triangles where grass would be (fdo#60172)
+
+-------------------------------------------------------------------
 Mon Feb  4 13:37:01 UTC 2013 - duwe@suse.com
 
 - enable build of subpackage libwayland-egl1
