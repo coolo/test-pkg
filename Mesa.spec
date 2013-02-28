@@ -98,6 +98,8 @@ Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 Patch14:        u_remove-os-abi-tag.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch16:        u_mesa-8.0-llvmpipe-shmget.patch
+# bnc#802718, bfo#59876: GLX replies are parsed incorrectly when using libxcb and AIGLX
+Patch18:        U_glx-fix-glGetTexLevelParameteriv-for-indirect-render.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -509,6 +511,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch16 -p1
 %patch13 -p1
 %patch14 -p1
+%patch18 -p1
 
 %build
 

@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Feb 26 23:23:46 UTC 2013 - stefan.bruens@rwth-aachen.de
+
+- fix_glx_indirect_reply_bfo#59876.diff
+  * GLX replies are parsed incorrectly when using libxcb and AIGLX,
+    happens for most replies where data is embedded in the header.
+    (bfo#59876, bnc#802718) 
+
+-------------------------------------------------------------------
 Thu Feb 21 23:23:22 UTC 2013 - hrvoje.senjan@gmail.com
 
 - update to Mesa 9.0.3: a bugfix release
