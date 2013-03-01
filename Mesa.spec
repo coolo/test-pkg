@@ -539,7 +539,7 @@ autoreconf -fi
            --enable-glx-tls \
 %endif
            --with-dri-searchpath=/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri \
-%ifarch %arm %ix86 x86_64
+%ifarch armv7hl %ix86 x86_64
            --enable-gallium-llvm \
            --with-dri-drivers=i915,i965,nouveau,r200,radeon \
            --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
@@ -550,7 +550,7 @@ autoreconf -fi
            --with-dri-drivers=nouveau,r200,radeon \
            --with-gallium-drivers=r300,r600,nouveau,swrast \
 %endif
-%ifarch s390 s390x %arm
+%ifarch s390 s390x armv5tel aarch64
            --with-dri-drivers=swrast \
            --with-gallium-drivers="" \
 %endif
@@ -628,7 +628,7 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 
 %postun -n libgbm1 -p /sbin/ldconfig
 
-%ifnarch s390 s390x %arm
+%ifnarch s390 s390x %arm aarch64
 
 %post   -n libxatracker1 -p /sbin/ldconfig
 
@@ -760,7 +760,7 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_libdir/libgbm.so
 %_libdir/pkgconfig/gbm.pc
 
-%ifnarch s390 s390x %arm ppc ppc64
+%ifnarch s390 s390x %arm ppc ppc64 aarch64
 
 %files -n libxatracker1
 %defattr(-,root,root)
