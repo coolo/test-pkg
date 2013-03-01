@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Feb 28 18:07:05 UTC 2013 - dmueller@suse.com
+
+- only enable swrast for aarch64 for now 
+
+-------------------------------------------------------------------
 Tue Feb 26 23:23:46 UTC 2013 - stefan.bruens@rwth-aachen.de
 
 - fix_glx_indirect_reply_bfo#59876.diff
