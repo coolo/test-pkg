@@ -1,4 +1,36 @@
 -------------------------------------------------------------------
+Sat Mar  2 02:51:10 UTC 2013 - tobias.johannes.klausmann@mni.thm.de
+
+- Update to Mesa 9.1:
+  Mesa 9.1 implements the OpenGL 3.1 API, but the version reported by 
+  glGetString(GL_VERSION) or glGetIntegerv(GL_MAJOR_VERSION) / 
+  glGetIntegerv(GL_MINOR_VERSION) depends on the particular driver
+  being used. Some drivers don't support all the features required
+  in OpenGL 3.1. OpenGL 3.1 is only available if requested at context
+  creation because GL_ARB_compatibility is not supported.
+- New features:
+  + GL_ARB_map_buffer_alignment
+  + GL_ARB_texture_cube_map_array
+- Changes:
+  + Removed VAAPI state tracker (unmaintained and broken)
+  + Removed i965's broken hardware implementation of GL_NV_vertex_program
+  + Removed swrast support for GL_NV_vertex_program
+  + Removed swrast support for GL_NV_fragment_program
+  + Removed OpenVMS support (unmaintained and broken)
+- Changes to package(s):
+  + Rename libwayland-egl1-devel -> libwayland-egl-devel
+  + Add a GLES3 Development package
+  + Removed patches: 
+  Mesa-nodate.diff (patch1)
+    No dates are put into the build anymore
+  U_glx-fix-glGetTexLevelParameteriv-for-indirect-render.patch (patch18)
+    Included in this release
+  + Remove BuildRequires we dont need:
+    http://cgit.freedesktop.org/mesa/mesa/commit/?id=
+    af6aeae4e1286a8858e040602db338de6a1367dc
+  + Update Required package versions
+
+-------------------------------------------------------------------
 Thu Feb 28 18:07:05 UTC 2013 - dmueller@suse.com
 
 - only enable swrast for aarch64 for now 
