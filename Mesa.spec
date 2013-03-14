@@ -17,11 +17,11 @@
 
 
 %define glamor 1
-%define _version 9.0.3
+%define _version 9.1
 %define _name_archive MesaLib
 
 Name:           Mesa
-Version:        9.0.3
+Version:        9.1
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -36,14 +36,12 @@ BuildRequires:  libxml2-python
 BuildRequires:  pkgconfig
 BuildRequires:  python-base
 BuildRequires:  xorg-x11-util-devel
-BuildRequires:  pkgconfig(dri2proto) >= 2.6
-BuildRequires:  pkgconfig(glproto) >= 1.4.14
 BuildRequires:  pkgconfig(libdrm) >= 2.4.24
 %ifarch x86_64 %ix86
 BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.34
 %endif
-BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.3
-BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.31
+BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.33
+BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.40
 BuildRequires:  pkgconfig(libkms) >= 1.0.0
 BuildRequires:  pkgconfig(libudev) > 150
 %if 0%{?suse_version} >= 1230
@@ -63,6 +61,7 @@ BuildRequires:  llvm-devel
 %endif
 BuildRequires:  libXvMC-devel
 BuildRequires:  libvdpau-devel
+
 Url:            http://www.mesa3d.org
 Provides:       Mesa7 = %{version}
 Obsoletes:      Mesa7 < %{version}
@@ -88,8 +87,6 @@ Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source5:        drirc
 Source6:        %name-rpmlintrc
-# PATCH-FIX-OPENSUSE do not put dates in sources to fix build-compare
-Patch1:         Mesa-nodate.diff
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 # Patch from Fedora, fix 16bpp in llvmpipe
@@ -98,8 +95,7 @@ Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 Patch14:        u_remove-os-abi-tag.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch16:        u_mesa-8.0-llvmpipe-shmget.patch
-# bnc#802718, bfo#59876: GLX replies are parsed incorrectly when using libxcb and AIGLX
-Patch18:        U_glx-fix-glGetTexLevelParameteriv-for-indirect-render.patch
+
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -129,6 +125,9 @@ Requires:       Mesa-libIndirectGL-devel = %version
 Requires:       Mesa-libglapi-devel = %version
 Requires:       libOSMesa-devel = %version
 Requires:       libgbm-devel
+%if 0%{?suse_version} >= 1230
+Requires:       libwayland-egl-devel
+%endif
 # bug437293
 %ifarch ppc64
 Obsoletes:      Mesa-devel-64bit < %{version}
@@ -247,7 +246,7 @@ This package provides a development environment for building programs
 using the OpenGL|ES 1.x APIs.
 
 %package -n Mesa-libGLESv2-2
-Summary:        Free implementation of the OpenGL|ES 2.x, 3.x API
+Summary:        Free implementation of the OpenGL|ES 2.x API
 Group:          System/Libraries
 
 %description -n Mesa-libGLESv2-2
@@ -260,7 +259,7 @@ OpenGL|ES 2.x provides an API for programmable hardware including
 vertex and fragment shaders.
 
 %package -n Mesa-libGLESv2-devel
-Summary:        Development files for the OpenGL ES 2.x, 3.x API
+Summary:        Development files for the OpenGL ES 2.x API
 Group:          Development/Libraries/C and C++
 Requires:       Mesa-libGLESv2-2 = %version
 Requires:       pkgconfig(egl)
@@ -275,7 +274,22 @@ OpenGL|ES 2.x provides an API for programmable hardware including
 vertex and fragment shaders.
 
 This package provides a development environment for building
-applications using the OpenGL|ES 2.x and 3.x APIs.
+applications using the OpenGL|ES 2.x APIs.
+
+%package -n Mesa-libGLESv3-devel
+Summary:        Development files for the OpenGL ES 3.x API
+Group:          Development/Libraries/C and C++
+#Requires:       Mesa-libGLESv3-3 = %version
+Requires:       pkgconfig(egl)
+
+%description -n Mesa-libGLESv3-devel
+OpenGL|ES is a cross-platform API for full-function 2D and 3D
+graphics on embedded systems - including consoles, phones, appliances
+and vehicles. It contains a subset of OpenGL plus a number of
+extensions for the special needs of embedded systems.
+
+This package provides a development environment for building
+applications using the OpenGL|ES 3.x APIs.
 
 %package -n Mesa-libIndirectGL1
 # This is the equivalent to Debian's libgl1-mesa-swx11
@@ -381,14 +395,14 @@ This package provides additional functions for egl-using programs
 that run within the wayland framework. This allows for applications
 that need not run full-screen and cooperate with a compositor.
 
-%package -n libwayland-egl1-devel
+%package -n libwayland-egl-devel
 Summary:        Development files for libwayland-egl1
 Group:          Development/Libraries/C and C++
 Version:        1.0.0
 Release:        0
 Requires:       libwayland-egl1 = %version
 
-%description -n libwayland-egl1-devel
+%description -n libwayland-egl-devel
 This package is required to link wayland client applications to the EGL
 implementation of Mesa.
 %endif
@@ -504,14 +518,12 @@ poor video quality, choppy videos and artefacts all over.
 
 %prep
 %setup -n %{name}-%{_version} -b4 -q
-%patch1 -p1
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
 %patch16 -p1
 %patch13 -p1
 %patch14 -p1
-%patch18 -p1
 
 %build
 
@@ -527,6 +539,7 @@ egl_platforms=x11,drm
 autoreconf -fi
 ###           --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga \
 ###           --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
+###           --with-gallium-drivers=r300,nouveau,swrast,svga \
 %configure --enable-gles1 \
            --enable-gles2 \
            --enable-dri \
@@ -559,10 +572,11 @@ make %{?_smp_mflags}
 make install DESTDIR=$RPM_BUILD_ROOT
 find $RPM_BUILD_ROOT -name "*.la" -exec rm {} \;
 # build and install Indirect Rendering only libGL
-make clean-local
+####
+make distclean-generic
 %configure --enable-xlib-glx \
+	   --disable-dri \
            --enable-osmesa \
-           --disable-dri \
            --with-egl-platforms=x11 \
            --with-gallium-drivers="" \
            --with-gl-lib-name=IndirectGL \
@@ -720,6 +734,12 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_libdir/libGLESv2.so
 %_libdir/pkgconfig/glesv2.pc
 
+%files -n Mesa-libGLESv3-devel
+%defattr(-,root,root)
+%_includedir/GLES3
+#%_libdir/libGLESv3.so
+#%_libdir/pkgconfig/glesv3.pc
+
 %files -n Mesa-libIndirectGL1
 %defattr(-,root,root)
 %_libdir/libIndirectGL.so.1*
@@ -744,10 +764,11 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %defattr(-,root,root)
 %_libdir/libwayland-egl.so.1*
 
-%files -n libwayland-egl1-devel
+%files -n libwayland-egl-devel
 %defattr(-,root,root)
 %_libdir/libwayland-egl.so
 %_libdir/pkgconfig/wayland-egl.pc
+
 %endif
 
 %files -n libgbm1
@@ -776,43 +797,43 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %defattr(-,root,root)
 %_libdir/libXvMCnouveau.so
 %_libdir/libXvMCnouveau.so.1
-%_libdir/libXvMCnouveau.so.1.0
+%_libdir/libXvMCnouveau.so.1.0.0
 
 %files -n libXvMC_r300 
 %defattr(-,root,root)
 %_libdir/libXvMCr300.so
 %_libdir/libXvMCr300.so.1
-%_libdir/libXvMCr300.so.1.0
+%_libdir/libXvMCr300.so.1.0.0
 
 %files -n libXvMC_r600 
 %defattr(-,root,root)
 %_libdir/libXvMCr600.so
 %_libdir/libXvMCr600.so.1
-%_libdir/libXvMCr600.so.1.0
+%_libdir/libXvMCr600.so.1.0.0
 
 %files -n libXvMC_softpipe
 %defattr(-,root,root)
 %_libdir/libXvMCsoftpipe.so
 %_libdir/libXvMCsoftpipe.so.1
-%_libdir/libXvMCsoftpipe.so.1.0
+%_libdir/libXvMCsoftpipe.so.1.0.0
 
 %files -n libvdpau_nouveau
 %defattr(-,root,root)
 %_libdir/vdpau/libvdpau_nouveau.so
 %_libdir/vdpau/libvdpau_nouveau.so.1
-%_libdir/vdpau/libvdpau_nouveau.so.1.0
+%_libdir/vdpau/libvdpau_nouveau.so.1.0.0
 
 %files -n libvdpau_r300
 %defattr(-,root,root)
 %_libdir/vdpau/libvdpau_r300.so
 %_libdir/vdpau/libvdpau_r300.so.1
-%_libdir/vdpau/libvdpau_r300.so.1.0
+%_libdir/vdpau/libvdpau_r300.so.1.0.0
 
 %files -n libvdpau_r600
 %defattr(-,root,root)
 %_libdir/vdpau/libvdpau_r600.so
 %_libdir/vdpau/libvdpau_r600.so.1
-%_libdir/vdpau/libvdpau_r600.so.1.0
+%_libdir/vdpau/libvdpau_r600.so.1.0.0
 
 #%files -n libvdpau_radeonsi
 #%defattr(-,root,root)
@@ -824,7 +845,7 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %defattr(-,root,root)
 %_libdir/vdpau/libvdpau_softpipe.so
 %_libdir/vdpau/libvdpau_softpipe.so.1
-%_libdir/vdpau/libvdpau_softpipe.so.1.0
+%_libdir/vdpau/libvdpau_softpipe.so.1.0.0
 %endif
 
 %files -n Mesa-libglapi0
