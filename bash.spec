@@ -27,6 +27,7 @@ BuildRequires:  fdupes
 BuildRequires:  makeinfo
 %endif
 BuildRequires:  ncurses-devel
+BuildRequires:  screen
 %define         bash_vers 4.2
 %define         rl_vers   6.2
 %define         extend    ""
@@ -73,6 +74,7 @@ Patch11:        bash-4.0-loadables.dif
 Patch12:        bash-4.1-completion.dif
 Patch13:        bash-4.2-nscdunmap.dif
 Patch14:        bash-4.2-sigrestart.patch
+# PATCH-FIX-UPSTREAM bnc#382214 -- disabled due bnc#806628 by -DBNC382214=0
 Patch15:        bash-3.2-longjmp.dif
 Patch16:        bash-4.0-setlocale.dif
 Patch17:        bash-4.0-headers.dif
@@ -329,6 +331,22 @@ done
   LANG=POSIX
   LC_ALL=$LANG
   unset LC_CTYPE
+  SCREENDIR=$(mktemp -d ${PWD}/screen.XXXXXX) || exit 1
+  SCREENRC=${SCREENDIR}/bash
+  export SCREENRC SCREENDIR
+  exec 0< /dev/null
+  SCREENLOG=${SCREENDIR}/log
+  cat > $SCREENRC<<-EOF
+	deflogin off
+	logfile $SCREENLOG
+	logfile flush 1
+	logtstamp off
+	log on
+	setsid on
+	scrollback 0
+	silence on
+	utf8 on
+	EOF
   CPU=$(uname -m 2> /dev/null)
   HOSTTYPE=${CPU}
   MACHTYPE=${CPU}-suse-linux
@@ -387,6 +405,7 @@ pushd ../readline-%{rl_vers}%{extend}
   cflags -Wno-unused-parameter   CFLAGS
   cflags -ftree-loop-linear      CFLAGS
   cflags -pipe                   CFLAGS
+  cflags -DBNC382214=0           CFLAGS
   cflags -Wl,--as-needed         LDFLAGS
   cflags -Wl,-O2                 LDFLAGS
   cflags -Wl,--hash-size=8599    LDFLAGS
@@ -509,9 +528,13 @@ popd
 	--enable-separate-helpfiles=%{_datadir}/bash/helpfiles \
 	$READLINE
   make %{?do_profiling:CFLAGS="$CFLAGS %cflags_profile_generate"} \
-      all printenv recho zecho xcase
+	all printenv recho zecho xcase
   TMPDIR=$(mktemp -d /tmp/bash.XXXXXXXXXX) || exit 1
-  env -i HOME=$PWD TERM=$TERM LD_LIBRARY_PATH=$LD_LIBRARY_PATH TMPDIR=$TMPDIR make TESTSCRIPT=%{SOURCE4} check
+  > $SCREENLOG
+  env -i HOME=$PWD TERM=$TERM LD_LIBRARY_PATH=$LD_LIBRARY_PATH TMPDIR=$TMPDIR \
+	SCREENRC=$SCREENRC SCREENDIR=$SCREENDIR \
+	screen -L -D -m make TESTSCRIPT=%{SOURCE4} check
+  cat $SCREENLOG
   make %{?do_profiling:CFLAGS="$CFLAGS %cflags_profile_feedback" clean} all
   make -C examples/loadables/
   make documentation
