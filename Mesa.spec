@@ -81,7 +81,7 @@ Provides:       XFree86-Mesa-64bit = %{version}
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
 Group:          System/Libraries
-Source:         %{_name_archive}-%{version}.tar.bz2
+Source:         ftp://ftp.freedesktop.org/pub/mesa/%{version}/%{_name_archive}-%{version}.tar.bz2
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
