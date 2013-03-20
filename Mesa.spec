@@ -17,11 +17,11 @@
 
 
 %define glamor 1
-%define _version 9.1
+%define _version 9.1.1
 %define _name_archive MesaLib
 
 Name:           Mesa
-Version:        9.1
+Version:        9.1.1
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
