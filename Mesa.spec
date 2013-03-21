@@ -93,6 +93,8 @@ Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch to remove OS ABI tag from libGL, so it is no longer preferred over libGLs without OS ABI tag
 Patch14:        u_remove-os-abi-tag.patch
+# Patch to fix glapi_dispatch include 
+Patch15:        u_mesa-glapi_dispatch.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch16:        u_mesa-8.0-llvmpipe-shmget.patch
 
@@ -524,6 +526,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch16 -p1
 %patch13 -p1
 %patch14 -p1
+%patch15 -p1
 
 %build
 
@@ -545,7 +548,6 @@ autoreconf -fi
            --enable-dri \
            --with-egl-platforms=$egl_platforms \
            --enable-shared-glapi \
-           --enable-xa \
            --enable-texture-float \
 %if %glamor
            --enable-gbm \
@@ -553,6 +555,7 @@ autoreconf -fi
 %endif
            --with-dri-searchpath=/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri \
 %ifarch armv7hl %ix86 x86_64
+           --enable-xa \
            --enable-gallium-llvm \
            --with-dri-drivers=i915,i965,nouveau,r200,radeon \
            --with-gallium-drivers=r300,r600,nouveau,swrast,svga \

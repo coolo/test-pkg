@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Mar 21 12:19:56 UTC 2013 - dvaleev@suse.com
+
+- Don't enable xa on ppc and ppc64
+- Fix glapi_dispatch #bfo56710 (u_mesa-glapi_dispatch.patch) 
+
+-------------------------------------------------------------------
 Wed Mar 20 11:10:38 UTC 2013 - hrvoje.senjan@gmail.com
 
 - update to Mesa 9.1.1: a bugfix release
