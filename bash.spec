@@ -27,6 +27,7 @@ BuildRequires:  fdupes
 BuildRequires:  makeinfo
 %endif
 BuildRequires:  ncurses-devel
+BuildRequires:  patchutils
 BuildRequires:  screen
 %define         bash_vers 4.2
 %define         rl_vers   6.2
@@ -269,14 +270,19 @@ as well as programming with the interface of the readline library.
 
 %prep
 %setup -q -n bash-%{bash_vers}%{extend} -b1 -b2 -b3
+typeset -i level
 for patch in ../bash-%{bash_vers}-patches/*; do
-    level=-p1
     test -e $patch || break
-    [[ $(head -n 1 $patch) =~ From ]] || level=-p0
+    let level=0 || true
+    file=$(lsdiff --files=1 $patch)
+    if test ! -e $file ; then
+	file=${file#*/}
+	let level++ || true
+    fi
+    test -e $file || exit 1
     echo Patch $patch
-    patch -s $level < $patch
+    patch -s -p$level < $patch
 done
-unset p
 %patch1  -p0 -b .manual
 %patch2  -p0 -b .security
 %patch3  -p0 -b .2.4.4
@@ -308,10 +314,16 @@ unset p
 %patch47
 %patch0  -p0 -b .0
 pushd ../readline-%{rl_vers}%{extend}
-for p in ../readline-%{rl_vers}-patches/*; do
-    test -e $p || break
-    echo Patch $p
-    patch -s -p0 < $p
+for patch in ../readline-%{rl_vers}-patches/*; do
+    test -e $patch || break
+    let level=0 || true
+    file=$(lsdiff --files=1 $patch)
+    if test ! -e $file ; then
+	file=${file#*/}
+	let level++ || true
+    fi
+    echo Patch $patch
+    patch -s -p$level < $patch
 done
 %patch21 -p2 -b .zerotty
 %patch22 -p2 -b .wrap
