@@ -38,6 +38,7 @@ Source17:       zshprompt.pl
 %endif
 Patch1:         zsh-zypper-completion.patch
 Patch2:         zsh-osc-suseversion.patch
+Patch3:         trim-unneeded-completions.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %if 0%{?suse_version}
 Requires(pre):  %{install_info_prereq}
@@ -95,6 +96,9 @@ This package contains the Zsh manual in html format.
 %setup -q -n %{name}-%{version}
 %patch1 -p1
 %patch2 -p1
+%if 0%{?suse_version}
+%patch3 -p1
+%endif
 
 # Remove executable bit
 chmod 0644 Etc/changelog2html.pl
@@ -111,8 +115,9 @@ perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
 
 %build
 %configure \
-    --enable-site-scriptdir=%{_datadir}/%{name}/site/scripts/ \
-    --enable-site-fndir=%{_datadir}/%{name}/site/scripts/ \
+    --enable-fndir=%{_datadir}/%{name}/${version}/functions \
+    --enable-site-fndir=%{_datadir}/%{name}/site-functions \
+    --enable-function-subdirs \
     --enable-maildir-support \
     --with-tcsetpgrp \
     --enable-cap \
