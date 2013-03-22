@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Mar 21 10:17:56 UTC 2013 - idonmez@suse.com
+
+- Fix custom completion support via /etc/zsh_completion.d
+- Add trim-unneeded-completions.patch to remove unneeded completions
+  when building for openSUSE
+
+-------------------------------------------------------------------
 Sun Jan 27 20:53:10 UTC 2013 - dmitry_r@opensuse.org
 
 - Fix zypper completion [bnc#752112]
