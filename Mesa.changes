@@ -1,4 +1,45 @@
 -------------------------------------------------------------------
+Thu Mar 21 12:19:56 UTC 2013 - dvaleev@suse.com
+
+- Don't enable xa on ppc and ppc64
+- Fix glapi_dispatch #bfo56710 (u_mesa-glapi_dispatch.patch) 
+
+-------------------------------------------------------------------
+Wed Mar 20 11:10:38 UTC 2013 - hrvoje.senjan@gmail.com
+
+- update to Mesa 9.1.1: a bugfix release
+ * [GM45] mesa demos spriteblast render incorrectly (fdo#30232)
+ * [gles2] Ironlake: gl_PointCoord takes no effect for point sprites
+   (fd0#32429)
+ * Mesa 7.11-devel implementation error: Unexpected program target 
+   in destroy_program_variants_cb() (fdo#38086)
+ * [snb] corrupted GLSL built-in function results when using Uniform 
+   Buffer contents as arguments (fdo#57121)
+ * Garbled UI in Team Fortress 2 and Counter-Strike: Source 
+   (fdo#58042)
+ * Texture flicker with fragment shader (fdo#58960)
+ * [i965]Oglc fbblit(advanced.blitFb-3d-cube.mirror.both) fails 
+   (fdo#59495)
+ * [IVB] 3DMMES2.0 Taiji performance reduced by ~13% with 
+   gnome-session enable compositing (fdo#59783)
+ * build - libvdpau_softpipe fails at runtime. (fdo#60121)
+ * gbm_dri_bo_create fails to initialize bo->base.base.format 
+   (fdo#60143)
+ * Corruption with DMA ring on cayman (fdo#60802)
+ * r600g: add htile support cause gpu lockup in Dishonored wine. 
+   (fdo#60848)
+ * [softpipe] piglit interpolation-noperspective-gl_BackColor-flat-fixed 
+   regression (fdo#60938)
+ * alloc_layout_array tx * ty assertion failure when making pbuffer 
+   current (fdo#61012)
+ * Segfault in glBitmap when called with PBO source (fdo#61026)
+
+-------------------------------------------------------------------
+Mon Mar 18 11:00:12 UTC 2013 - mmeister@suse.com
+
+- Added Download Link to Source section in spec file
+
+-------------------------------------------------------------------
 Sat Mar  2 02:51:10 UTC 2013 - tobias.johannes.klausmann@mni.thm.de
 
 - Update to Mesa 9.1:
