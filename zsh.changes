@@ -1,7 +1,7 @@
 -------------------------------------------------------------------
 Thu Mar 21 10:17:56 UTC 2013 - idonmez@suse.com
 
-- Fix custom completion support via /etc/zsh_completion.d
+- Fix custom completion support via /etc/zsh_completion.d (bnc#811356)
 - Add trim-unneeded-completions.patch to remove unneeded completions
   when building for openSUSE
 
