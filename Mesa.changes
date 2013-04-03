@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Apr  3 07:46:47 UTC 2013 - coolo@suse.com
+
+- fix baselibs.conf
+
+-------------------------------------------------------------------
 Thu Mar 21 12:19:56 UTC 2013 - dvaleev@suse.com
 
 - Don't enable xa on ppc and ppc64
