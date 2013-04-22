@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Apr 22 09:22:02 UTC 2013 - idonmez@suse.com
+
+- Don't set globdots it might lead to unexpected problems (bnc#815556) 
+
+-------------------------------------------------------------------
 Thu Mar 21 10:17:56 UTC 2013 - idonmez@suse.com
 
 - Fix custom completion support via /etc/zsh_completion.d (bnc#811356)
