@@ -1,4 +1,27 @@
 -------------------------------------------------------------------
+Thu May  2 12:03:55 UTC 2013 - hrvoje.senjan@gmail.com
+
+- update to Mesa 9.1.2:
+ * [965gm] green artifacts when using GLSL in XBMC (fdo#44567)
+ * many new symbols in libxatracker after recent automake work 
+   (fdo#59238)
+ * [SNB/IVB/HSW Bisected]Oglc draw-buffers2(advanced.blending.none) 
+   segfault (fdo#59445)
+ * [i965 Bisected]Oglc fbblit(advanced.blitFb-3d-cube.mirror.both) 
+   fails (fdo#59495)
+ * [r300g] Unigine Heaven 3.0: all objects are black (fdo#60503)
+ * Firefox 18.0.2 Crash On Nvidia GeForce2 (fdo#60510)
+ * [SNB Bisected] kwin_gles screen corruption (fdo#61197)
+ * [IVB] corrupt rendering with UBOs (fdo#61317)
+ * glEdgeFlag can't be set to false (fdo#61395)
+ * nullpointer dereference causes xorg-server segfault when nouveau 
+   DRI driver is loaded (fdo#61947)
+ * llvmpipe: Fragment Shader with "return" in main causes back 
+   output (fdo#62357)
+ * other bugfixes
+- Drop u_remove-os-abi-tag.patch, fdo#26663 is fixed with this release
+
+-------------------------------------------------------------------
 Wed Apr  3 07:46:47 UTC 2013 - coolo@suse.com
 
 - fix baselibs.conf
@@ -15,7 +38,7 @@ Wed Mar 20 11:10:38 UTC 2013 - hrvoje.senjan@gmail.com
 - update to Mesa 9.1.1: a bugfix release
  * [GM45] mesa demos spriteblast render incorrectly (fdo#30232)
  * [gles2] Ironlake: gl_PointCoord takes no effect for point sprites
-   (fd0#32429)
+   (fdo#32429)
  * Mesa 7.11-devel implementation error: Unexpected program target 
    in destroy_program_variants_cb() (fdo#38086)
  * [snb] corrupted GLSL built-in function results when using Uniform 

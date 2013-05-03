@@ -17,11 +17,11 @@
 
 
 %define glamor 1
-%define _version 9.1.1
+%define _version 9.1.2
 %define _name_archive MesaLib
 
 Name:           Mesa
-Version:        9.1.1
+Version:        9.1.2
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -91,12 +91,10 @@ Source6:        %name-rpmlintrc
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 # Patch from Fedora, fix 16bpp in llvmpipe
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
-# Patch to remove OS ABI tag from libGL, so it is no longer preferred over libGLs without OS ABI tag
-Patch14:        u_remove-os-abi-tag.patch
 # Patch to fix glapi_dispatch include 
-Patch15:        u_mesa-glapi_dispatch.patch
+Patch14:        u_mesa-glapi_dispatch.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
-Patch16:        u_mesa-8.0-llvmpipe-shmget.patch
+Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -523,7 +521,6 @@ poor video quality, choppy videos and artefacts all over.
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
-%patch16 -p1
 %patch13 -p1
 %patch14 -p1
 %patch15 -p1
