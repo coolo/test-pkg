@@ -17,11 +17,11 @@
 
 
 %define glamor 1
-%define _version 9.1.2
+%define _version 9.1.3
 %define _name_archive MesaLib
 
 Name:           Mesa
-Version:        9.1.2
+Version:        9.1.3
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -551,7 +551,7 @@ autoreconf -fi
            --enable-glx-tls \
 %endif
            --with-dri-searchpath=/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri \
-%ifarch armv7hl %ix86 x86_64
+%ifarch %ix86 x86_64
            --enable-xa \
            --enable-gallium-llvm \
            --with-dri-drivers=i915,i965,nouveau,r200,radeon \
@@ -559,11 +559,19 @@ autoreconf -fi
            --enable-vdpau \
            --enable-xvmc \
 %endif
+%ifarch %arm
+           --enable-xa \
+           --enable-gallium-llvm \
+           --with-dri-drivers=nouveau \
+           --with-gallium-drivers=nouveau,swrast,svga \
+           --enable-vdpau \
+           --enable-xvmc \
+%endif
 %ifarch ia64 ppc ppc64 %sparc hppa
            --with-dri-drivers=nouveau,r200,radeon \
            --with-gallium-drivers=r300,r600,nouveau,swrast \
 %endif
-%ifarch s390 s390x armv5tel aarch64
+%ifarch s390 s390x aarch64
            --with-dri-drivers=swrast \
            --with-gallium-drivers="" \
 %endif
@@ -642,7 +650,7 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 
 %postun -n libgbm1 -p /sbin/ldconfig
 
-%ifnarch s390 s390x %arm aarch64
+%ifnarch s390 s390x aarch64
 
 %post   -n libxatracker1 -p /sbin/ldconfig
 
@@ -651,10 +659,8 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %post   -n libXvMC_nouveau
 %postun -n libXvMC_nouveau
 
-%post   -n libXvMC_r300
-%postun -n libXvMC_r300
-
 %post   -n libXvMC_r600
+
 %postun -n libXvMC_r600
 
 %post   -n libXvMC_softpipe
@@ -671,6 +677,11 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 
 %post   -n libvdpau_softpipe
 %postun -n libvdpau_softpipe
+%endif
+
+%ifarch %ix86 x86_64
+%post   -n libXvMC_r300
+%postun -n libXvMC_r300
 %endif
 
 %post   -n Mesa-libglapi0 -p /sbin/ldconfig
@@ -781,7 +792,7 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_libdir/libgbm.so
 %_libdir/pkgconfig/gbm.pc
 
-%ifnarch s390 s390x %arm ppc ppc64 aarch64
+%ifnarch s390 s390x ppc ppc64 aarch64
 
 %files -n libxatracker1
 %defattr(-,root,root)
@@ -799,6 +810,7 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_libdir/libXvMCnouveau.so.1
 %_libdir/libXvMCnouveau.so.1.0.0
 
+%ifarch %ix86 x86_64
 %files -n libXvMC_r300 
 %defattr(-,root,root)
 %_libdir/libXvMCr300.so
@@ -811,18 +823,6 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_libdir/libXvMCr600.so.1
 %_libdir/libXvMCr600.so.1.0.0
 
-%files -n libXvMC_softpipe
-%defattr(-,root,root)
-%_libdir/libXvMCsoftpipe.so
-%_libdir/libXvMCsoftpipe.so.1
-%_libdir/libXvMCsoftpipe.so.1.0.0
-
-%files -n libvdpau_nouveau
-%defattr(-,root,root)
-%_libdir/vdpau/libvdpau_nouveau.so
-%_libdir/vdpau/libvdpau_nouveau.so.1
-%_libdir/vdpau/libvdpau_nouveau.so.1.0.0
-
 %files -n libvdpau_r300
 %defattr(-,root,root)
 %_libdir/vdpau/libvdpau_r300.so
@@ -834,6 +834,19 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_libdir/vdpau/libvdpau_r600.so
 %_libdir/vdpau/libvdpau_r600.so.1
 %_libdir/vdpau/libvdpau_r600.so.1.0.0
+%endif
+
+%files -n libXvMC_softpipe
+%defattr(-,root,root)
+%_libdir/libXvMCsoftpipe.so
+%_libdir/libXvMCsoftpipe.so.1
+%_libdir/libXvMCsoftpipe.so.1.0.0
+
+%files -n libvdpau_nouveau
+%defattr(-,root,root)
+%_libdir/vdpau/libvdpau_nouveau.so
+%_libdir/vdpau/libvdpau_nouveau.so.1
+%_libdir/vdpau/libvdpau_nouveau.so.1.0.0
 
 #%files -n libvdpau_radeonsi
 #%defattr(-,root,root)
