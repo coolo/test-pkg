@@ -61,6 +61,7 @@ BuildRequires:  llvm-devel
 %endif
 BuildRequires:  libXvMC-devel
 BuildRequires:  libvdpau-devel
+BuildRequires:  zlib-devel
 
 Url:            http://www.mesa3d.org
 Provides:       Mesa7 = %{version}
@@ -95,6 +96,7 @@ Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 Patch14:        u_mesa-glapi_dispatch.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
+Patch16:        llvm-3.3.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -524,6 +526,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch13 -p1
 %patch14 -p1
 %patch15 -p1
+%patch16
 
 %build
 

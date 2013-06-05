@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue May 28 14:57:52 UTC 2013 - mhrusecky@suse.com
+
+- fixed compilation against latest lvm: llvm-3.3.patch
+
+-------------------------------------------------------------------
 Tue May 21 23:50:51 UTC 2013 - hrvoje.senjan@gmail.com
 
 - update to Mesa 9.1.3:
