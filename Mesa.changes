@@ -1,4 +1,31 @@
 -------------------------------------------------------------------
+Tue Jul  2 13:00:05 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Update to Mesa 9.1.4:
+ * [bisected i965] Bus error (core dumped) on oglc texdecaltile 
+   (fdo#37871)
+ * egl/opengles1/tri_x11 renders wrong (fdo#42182)
+ * [SNB IVB HSW] mesa demo test texleak bus error (fdo#44958)
+ * [snb] crash in texsubimage to a large atlas in clutter 
+   (fdo#53494)
+ * glDrawElements segfault when compiled into display list 
+   (fdo#60518)
+ * src/mesa/drivers/dri/common/xmlpool.h:96:29: fatal error: 
+   xmlpool/options.h (fdo#61821)
+ * r300g regression (RV380): Strange rendering of light sources in 
+   Penumbra (bisected) (fdo#63520)
+ * [HSW] support new haswell graphics [8086:0a2e] (fdo#63701)
+ * [gm45, bisected] some piglit glsl 1.10 built-in-functions tests 
+   crash (fdo#64727)
+ * [llvmpipe] SIGSEGV src/gallium/state_trackers/glx/xlib/glx_api.c:1374 
+   (fdo#64745)
+ * [llvmpipe] SIGSEGV src/gallium/state_trackers/glx/xlib/glx_api.c:1363 
+   (fdo#64934)
+ * segfault in _mesa_get_format_datatype and _mesa_get_color_read_type 
+   when state dumping with glretrace (fdo#65173)
+- Droped llvm-3.3.patch, it's included in this release
+
+-------------------------------------------------------------------
 Tue May 28 14:57:52 UTC 2013 - mhrusecky@suse.com
 
 - fixed compilation against latest lvm: llvm-3.3.patch
