@@ -17,11 +17,11 @@
 
 
 %define glamor 1
-%define _version 9.1.3
+%define _version 9.1.4
 %define _name_archive MesaLib
 
 Name:           Mesa
-Version:        9.1.3
+Version:        9.1.4
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -96,7 +96,6 @@ Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 Patch14:        u_mesa-glapi_dispatch.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
-Patch16:        llvm-3.3.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -526,7 +525,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch13 -p1
 %patch14 -p1
 %patch15 -p1
-%patch16
 
 %build
 
