@@ -80,6 +80,8 @@ Patch15:        bash-3.2-longjmp.dif
 Patch16:        bash-4.0-setlocale.dif
 Patch17:        bash-4.0-headers.dif
 Patch18:        bash-4.2-nsec.dif
+# PATCH-EXTEND-SUSE bnc#828877 -- xterm resizing does not pass to all sub clients
+Patch19:        bash-4.2-winch.dif
 Patch20:        readline-%{rl_vers}.dif
 Patch21:        readline-4.3-input.dif
 Patch22:        readline-6.1-wrap.patch
@@ -300,6 +302,7 @@ done
 %patch16 -p0 -b .setlocale
 %patch17 -p0 -b .headers
 %patch18 -p0 -b .nsec
+%patch19 -p0 -b .winch
 %patch21 -p0 -b .zerotty
 %patch22 -p0 -b .wrap
 %patch23 -p0 -b .conf
