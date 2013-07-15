@@ -1,4 +1,36 @@
 -------------------------------------------------------------------
+Fri Jul  5 12:07:10 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Update to 9.2 snapshot:
+* New features:
+ * Mesa 9.2 implements the OpenGL 3.1 API - OpenGL 3.1 is only 
+   available if requested at context creation because 
+   GL_ARB_compatibility is not supported
+ * GL_ARB_texture_buffer_range
+ * GL_ARB_texture_multisample
+ * GL_ARB_texture_storage_multisample
+ * GL_ARB_texture_query_lod
+ * Enable GL_ARB_texture_storage on radeon, r200, and nouveau
+ * Added new freedreno gallium driver
+ * OSMesa interface for gallium llvmpipe/softpipe drivers
+ * Gallium Heads-Up Display (HUD) feature for performance monitoring
+* Changes:
+ * Removed d3d1x state tracker (unused, unmaintained and broken)
+ * Removed GL_EXT_clip_volume_hint because no driver had enabled 
+   it since 2007.
+ * Removed GL_MESA_resize_buffers because it was only really 
+   implemented by the (unsupported) GDI driver.
+ * GL_EXT_separate_shader_objects has been removed from all Gallium 
+   drivers, because it disallows a critical GLSL shader optimization. 
+   GL_ARB_separate_shader_objects doesn't have this issue.
+- Unlock radeonsi libvdpau
+- Enable gallium egl
+- added U_gallium-egl-gbm-use-wayland-cflags.patch, needed so gbm
+  uses pkgconfig flags, instead of relying on "common" wayland dir
+- Added llvm_r600 define, for enableing llvm shared-libs and 
+  r600-llvm-compiler. Off for now, until we have fixed llvm
+
+-------------------------------------------------------------------
 Tue Jul  2 13:00:05 UTC 2013 - hrvoje.senjan@gmail.com
 
 - Update to Mesa 9.1.4:
