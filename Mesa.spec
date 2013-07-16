@@ -17,11 +17,14 @@
 
 
 %define glamor 1
-%define _version 9.1.4
-%define _name_archive MesaLib
+%define egl_gallium 1
+%define llvm_r600 0
+
+%define _version 9.1.98.01
+%define _name_archive mesa
 
 Name:           Mesa
-Version:        9.1.4
+Version:        9.1.98.01
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -29,6 +32,9 @@ BuildRequires:  bison
 BuildRequires:  fdupes
 BuildRequires:  flex
 BuildRequires:  gcc-c++
+%if %llvm_r600
+BuildRequires:  libelf-devel
+%endif
 BuildRequires:  libexpat-devel
 BuildRequires:  libtalloc-devel
 BuildRequires:  libtool
@@ -38,10 +44,10 @@ BuildRequires:  python-base
 BuildRequires:  xorg-x11-util-devel
 BuildRequires:  pkgconfig(libdrm) >= 2.4.24
 %ifarch x86_64 %ix86
-BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.34
+BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.38
 %endif
-BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.33
-BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.40
+BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.41
+BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.45
 BuildRequires:  pkgconfig(libkms) >= 1.0.0
 BuildRequires:  pkgconfig(libudev) > 150
 %if 0%{?suse_version} >= 1230
@@ -56,12 +62,12 @@ BuildRequires:  pkgconfig(xdamage)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xfixes)
 BuildRequires:  pkgconfig(xxf86vm)
+BuildRequires:  pkgconfig(zlib)
 %ifarch %arm %ix86 x86_64
 BuildRequires:  llvm-devel
 %endif
 BuildRequires:  libXvMC-devel
 BuildRequires:  libvdpau-devel
-BuildRequires:  zlib-devel
 
 Url:            http://www.mesa3d.org
 Provides:       Mesa7 = %{version}
@@ -82,7 +88,8 @@ Provides:       XFree86-Mesa-64bit = %{version}
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
 Group:          System/Libraries
-Source:         ftp://ftp.freedesktop.org/pub/mesa/%{version}/%{_name_archive}-%{version}.tar.bz2
+#Source:         ftp://ftp.freedesktop.org/pub/mesa/%{version}/%{_name_archive}-%{version}.tar.bz2
+Source:         %{_name_archive}-%{version}.tar.bz2
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
@@ -92,10 +99,12 @@ Source6:        %name-rpmlintrc
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 # Patch from Fedora, fix 16bpp in llvmpipe
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
-# Patch to fix glapi_dispatch include 
+# Patch to fix glapi_dispatch include
 Patch14:        u_mesa-glapi_dispatch.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
+# PATCH-FIX-UPSTREAM gallium-egl-gbm-use-wayland-cflags.patch -- use pkgconfig for finding wayland
+Patch16:        U_gallium-egl-gbm-use-wayland-cflags.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -346,7 +355,7 @@ Group:          Development/Libraries/C and C++
 Requires:       Mesa-libglapi0 = %version
 
 %description -n Mesa-libglapi-devel
-Development files for the Mesa GL API module which is responsible for 
+Development files for the Mesa GL API module which is responsible for
 dispatching all the gl* functions. It is intended to be mainly used by
 the Mesa-libGLES* packages.
 
@@ -417,7 +426,7 @@ Release:        0
 %description -n libxatracker1
 This package contains the XA state tracker for gallium3D driver.
 It superseeds the Xorg state tracker and provides an infrastructure
-to accelerate Xorg 2D operations. It is currently used by vmwgfx 
+to accelerate Xorg 2D operations. It is currently used by vmwgfx
 video driver.
 
 %package -n libxatracker-devel
@@ -430,7 +439,7 @@ Requires:       libxatracker1 = %version
 %description -n libxatracker-devel
 This package contains the XA state tracker for gallium3D driver.
 It superseeds the Xorg state tracker and provides an infrastructure
-to accelerate Xorg 2D operations. It is currently used by vmwgfx 
+to accelerate Xorg 2D operations. It is currently used by vmwgfx
 video driver.
 
 This package provides the development environment for compiling
@@ -450,7 +459,7 @@ Summary:        XVMC state tracker for R300
 Group:          System/Libraries
 
 %description -n libXvMC_r300
-This package contains the XvMC state tracker for R300. This is 
+This package contains the XvMC state tracker for R300. This is
 still "work in progress", i.e. expect poor video quality, choppy
 videos and artefacts all over.
 
@@ -459,7 +468,7 @@ Summary:        XVMC state tracker for R600
 Group:          System/Libraries
 
 %description -n libXvMC_r600
-This package contains the XvMC state tracker for R600. This is 
+This package contains the XvMC state tracker for R600. This is
 still "work in progress", i.e. expect poor video quality, choppy
 videos and artefacts all over.
 
@@ -486,7 +495,7 @@ Summary:        XVMC state tracker for R300
 Group:          System/Libraries
 
 %description -n libvdpau_r300
-This package contains the VDPAU state tracker for R300. This is 
+This package contains the VDPAU state tracker for R300. This is
 still "work in progress", i.e. expect poor video quality, choppy
 videos and artefacts all over.
 
@@ -495,18 +504,20 @@ Summary:        XVMC state tracker for R600
 Group:          System/Libraries
 
 %description -n libvdpau_r600
-This package contains the VDPAU state tracker for R600. This is 
+This package contains the VDPAU state tracker for R600. This is
 still "work in progress", i.e. expect poor video quality, choppy
 videos and artefacts all over.
 
-#%package -n libvdpau_radeonsi
-#Summary:        XVMC state tracker for radeonsi
-#Group:          System/Libraries
+%if %llvm_r600
+%package -n libvdpau_radeonsi
+Summary:        XVMC state tracker for radeonsi
+Group:          System/Libraries
 
-#%description -n libvdpau_radeonsi
-#This package contains the VDPAU state tracker for radeonsi. This is 
-#still "work in progress", i.e. expect poor video quality, choppy
-#videos and artefacts all over.
+%description -n libvdpau_radeonsi
+This package contains the VDPAU state tracker for radeonsi. This is
+still "work in progress", i.e. expect poor video quality, choppy
+videos and artefacts all over.
+%endif
 
 %package -n libvdpau_softpipe
 Summary:        Software implementation of XVMC state tracker
@@ -518,13 +529,16 @@ state tracker. This is still "work in progress", i.e. expect
 poor video quality, choppy videos and artefacts all over.
 
 %prep
-%setup -n %{name}-%{_version} -b4 -q
+%setup -n %{_name_archive}-%{_version} -b4 -q
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
 %patch13 -p1
 %patch14 -p1
 %patch15 -p1
+%if %egl_gallium
+%patch16 -p1
+%endif
 
 %build
 
@@ -551,12 +565,21 @@ autoreconf -fi
            --enable-gbm \
            --enable-glx-tls \
 %endif
+%if %egl_gallium
+           --enable-gallium-egl \
+%endif
            --with-dri-searchpath=/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri \
 %ifarch %ix86 x86_64
            --enable-xa \
            --enable-gallium-llvm \
            --with-dri-drivers=i915,i965,nouveau,r200,radeon \
+%if %llvm_r600
+           --with-llvm-shared-libs \
+           --enable-r600-llvm-compiler \
+           --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga \
+%else
            --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
+%endif
            --enable-vdpau \
            --enable-xvmc \
 %endif
@@ -584,29 +607,29 @@ find $RPM_BUILD_ROOT -name "*.la" -exec rm {} \;
 ####
 make distclean-generic
 %configure --enable-xlib-glx \
-	   --disable-dri \
-           --enable-osmesa \
-           --with-egl-platforms=x11 \
-           --with-gallium-drivers="" \
-           --with-gl-lib-name=IndirectGL \
-           CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
+            --disable-dri \
+            --enable-osmesa \
+            --with-egl-platforms=x11 \
+            --with-gallium-drivers="" \
+            --with-gl-lib-name=IndirectGL \
+            CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
 
 make %{?_smp_mflags}
 cp -a \
-   src/mesa/drivers/x11/.libs/libIndirectGL.so* \
-   src/mesa/drivers/osmesa/.libs/libOSMesa.so* \
-   $RPM_BUILD_ROOT/usr/%{_lib}
+    src/mesa/drivers/x11/.libs/libIndirectGL.so* \
+    src/mesa/drivers/osmesa/.libs/libOSMesa.so* \
+    $RPM_BUILD_ROOT/usr/%{_lib}
 install -m 644 src/mesa/drivers/osmesa/osmesa.pc \
-   $RPM_BUILD_ROOT/usr/%{_lib}/pkgconfig
+    $RPM_BUILD_ROOT/usr/%{_lib}/pkgconfig
 
 for dir in ../xc/doc/man/{GL/gl,GL/glx}; do
-pushd $dir
-  xmkmf -a
-  make %{?_smp_mflags}
-  make install.man DESTDIR=$RPM_BUILD_ROOT MANPATH=%{_mandir} LIBMANSUFFIX=3gl
-popd
+ pushd $dir
+   xmkmf -a
+   make %{?_smp_mflags}
+   make install.man DESTDIR=$RPM_BUILD_ROOT MANPATH=%{_mandir} LIBMANSUFFIX=3gl
+ popd
 done
-# DRI driver update mechanism
+#DRI driver update mechanism
 mkdir -p $RPM_BUILD_ROOT/usr/%{_lib}/dri/updates
 install -m 644 $RPM_SOURCE_DIR/README.updates \
   $RPM_BUILD_ROOT/usr/%{_lib}/dri/updates
@@ -673,8 +696,10 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %post   -n libvdpau_r600
 %postun -n libvdpau_r600
 
-#%post   -n libvdpau_radeonsi
-#%postun -n libvdpau_radeonsi
+%if %llvm_r600
+%post   -n libvdpau_radeonsi
+%postun -n libvdpau_radeonsi
+%endif
 
 %post   -n libvdpau_softpipe
 %postun -n libvdpau_softpipe
@@ -700,6 +725,12 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %doc docs/README* docs/COPYING
 %config /etc/drirc
 %{_libdir}/dri/
+%if %egl_gallium
+%dir %_libdir/egl/
+%_libdir/egl/egl_gallium.so
+%dir %_libdir/gallium-pipe/
+%_libdir/gallium-pipe/pipe_*.so
+%endif
 %_libdir/libdricore9*.so.*
 
 %files -n Mesa-libEGL1
@@ -786,6 +817,10 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %files -n libgbm1
 %defattr(-,root,root)
 %_libdir/libgbm.so.1*
+%if %egl_gallium
+%dir %_libdir/gbm/
+%_libdir/gbm/gbm_gallium_drm.so
+%endif
 
 %files -n libgbm-devel
 %defattr(-,root,root)
@@ -812,13 +847,13 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_libdir/libXvMCnouveau.so.1.0.0
 
 %ifarch %ix86 x86_64
-%files -n libXvMC_r300 
+%files -n libXvMC_r300
 %defattr(-,root,root)
 %_libdir/libXvMCr300.so
 %_libdir/libXvMCr300.so.1
 %_libdir/libXvMCr300.so.1.0.0
 
-%files -n libXvMC_r600 
+%files -n libXvMC_r600
 %defattr(-,root,root)
 %_libdir/libXvMCr600.so
 %_libdir/libXvMCr600.so.1
@@ -849,11 +884,13 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_libdir/vdpau/libvdpau_nouveau.so.1
 %_libdir/vdpau/libvdpau_nouveau.so.1.0.0
 
-#%files -n libvdpau_radeonsi
-#%defattr(-,root,root)
-#%_libdir/vdpau/libvdpau_radeonsi.so
-#%_libdir/vdpau/libvdpau_radeonsi.so.1
-#%_libdir/vdpau/libvdpau_radeonsi.so.1.0
+%if %llvm_r600
+%files -n libvdpau_radeonsi
+%defattr(-,root,root)
+%_libdir/vdpau/libvdpau_radeonsi.so
+%_libdir/vdpau/libvdpau_radeonsi.so.1
+%_libdir/vdpau/libvdpau_radeonsi.so.1.0.0
+%endif
 
 %files -n libvdpau_softpipe
 %defattr(-,root,root)
@@ -872,7 +909,7 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 
 %files devel
 %defattr(-,root,root)
-%doc docs/*.html docs/*.spec
+%doc docs/*.html
 %_includedir/GL/internal
 %_libdir/libdricore9*.so
 %_libdir/pkgconfig/dri.pc
