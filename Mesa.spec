@@ -18,7 +18,7 @@
 
 %define glamor 1
 %define egl_gallium 1
-%define llvm_r600 0
+%define llvm_r600 1
 
 %define _version 9.1.98.01
 %define _name_archive mesa
