@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jul 17 02:38:03 UTC 2013 - sndirsch@suse.com
+
+- The llvm with the R600 backend is finally in Factory, lets use it :) 
+
+-------------------------------------------------------------------
 Fri Jul  5 12:07:10 UTC 2013 - hrvoje.senjan@gmail.com
 
 - Update to 9.2 snapshot:
