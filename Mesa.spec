@@ -19,6 +19,9 @@
 %define glamor 1
 %define egl_gallium 1
 %define llvm_r600 1
+%ifarch ppc ppc64
+%define llvm_r600 0 
+%endif
 
 %define _version 9.1.98.01
 %define _name_archive mesa
@@ -705,7 +708,7 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %postun -n libvdpau_softpipe
 %endif
 
-%ifarch %ix86 x86_64
+%ifarch ppc ppc64 %ix86 x86_64
 %post   -n libXvMC_r300
 %postun -n libXvMC_r300
 %endif
@@ -840,13 +843,16 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_libdir/libxatracker.so
 %_libdir/pkgconfig/xatracker.pc
 
+%endif
+
+%ifnarch s390 s390x aarch64
+
 %files -n libXvMC_nouveau
 %defattr(-,root,root)
 %_libdir/libXvMCnouveau.so
 %_libdir/libXvMCnouveau.so.1
 %_libdir/libXvMCnouveau.so.1.0.0
 
-%ifarch %ix86 x86_64
 %files -n libXvMC_r300
 %defattr(-,root,root)
 %_libdir/libXvMCr300.so
@@ -870,7 +876,6 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_libdir/vdpau/libvdpau_r600.so
 %_libdir/vdpau/libvdpau_r600.so.1
 %_libdir/vdpau/libvdpau_r600.so.1.0.0
-%endif
 
 %files -n libXvMC_softpipe
 %defattr(-,root,root)
@@ -884,19 +889,20 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_libdir/vdpau/libvdpau_nouveau.so.1
 %_libdir/vdpau/libvdpau_nouveau.so.1.0.0
 
+%files -n libvdpau_softpipe
+%defattr(-,root,root)
+%_libdir/vdpau/libvdpau_softpipe.so
+%_libdir/vdpau/libvdpau_softpipe.so.1
+%_libdir/vdpau/libvdpau_softpipe.so.1.0.0
+
+%endif
+
 %if %llvm_r600
 %files -n libvdpau_radeonsi
 %defattr(-,root,root)
 %_libdir/vdpau/libvdpau_radeonsi.so
 %_libdir/vdpau/libvdpau_radeonsi.so.1
 %_libdir/vdpau/libvdpau_radeonsi.so.1.0.0
-%endif
-
-%files -n libvdpau_softpipe
-%defattr(-,root,root)
-%_libdir/vdpau/libvdpau_softpipe.so
-%_libdir/vdpau/libvdpau_softpipe.so.1
-%_libdir/vdpau/libvdpau_softpipe.so.1.0.0
 %endif
 
 %files -n Mesa-libglapi0

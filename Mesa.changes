@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Jul 25 15:41:25 UTC 2013 - dvaleev@suse.com
+
+- adjust filelist so powerpc build could succeed
+- disable llvm_r600 for powerpc for now.
+
+-------------------------------------------------------------------
 Wed Jul 17 02:38:03 UTC 2013 - sndirsch@suse.com
 
 - The llvm with the R600 backend is finally in Factory, lets use it :) 
