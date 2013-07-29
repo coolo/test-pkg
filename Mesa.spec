@@ -108,6 +108,7 @@ Patch14:        u_mesa-glapi_dispatch.patch
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
 # PATCH-FIX-UPSTREAM gallium-egl-gbm-use-wayland-cflags.patch -- use pkgconfig for finding wayland
 Patch16:        U_gallium-egl-gbm-use-wayland-cflags.patch
+Patch17:        u_mesa-9.0-i965-Make-sure-we-do-render-between-two-hiz-flushes.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -542,6 +543,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %if %egl_gallium
 %patch16 -p1
 %endif
+%patch17 -p1
 
 %build
 
@@ -606,6 +608,11 @@ autoreconf -fi
 make %{?_smp_mflags}
 make install DESTDIR=$RPM_BUILD_ROOT
 find $RPM_BUILD_ROOT -name "*.la" -exec rm {} \;
+
+# Make a symlink to libGL.so.1.2 for compatibility (bnc#809359, bnc#831306)
+test -f $RPM_BUILD_ROOT%{_libdir}/libGL.so.1.2 || \
+  ln -s `readlink $RPM_BUILD_ROOT%{_libdir}/libGL.so.1` $RPM_BUILD_ROOT%{_libdir}/libGL.so.1.2
+
 # build and install Indirect Rendering only libGL
 ####
 make distclean-generic

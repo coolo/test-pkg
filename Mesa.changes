@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Mon Jul 29 12:55:23 UTC 2013 - sndirsch@suse.com
+
+- Make a symlink to libGL.so.1.2 for compatibility (bnc#809359, 
+  bnc#831306) 
+- u_mesa-9.0-i965-Make-sure-we-do-render-between-two-hiz-flushes.patch
+  * Prevent hangs with rc6. (bnc#804910, bnc#831306)
+
+-------------------------------------------------------------------
 Thu Jul 25 15:41:25 UTC 2013 - dvaleev@suse.com
 
 - adjust filelist so powerpc build could succeed
