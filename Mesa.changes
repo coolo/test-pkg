@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Aug  8 13:40:55 UTC 2013 - schwab@suse.de
+
+- Don't enable gallium-egl without Gallium
+- Enable llvm_r600 only on %ix86 x86_64
+
+-------------------------------------------------------------------
 Mon Jul 29 12:55:23 UTC 2013 - sndirsch@suse.com
 
 - Make a symlink to libGL.so.1.2 for compatibility (bnc#809359, 
