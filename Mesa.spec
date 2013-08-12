@@ -17,9 +17,15 @@
 
 
 %define glamor 1
+%ifnarch s390 s390x aarch64
+# Requires non-empty --with-gallium-drivers
 %define egl_gallium 1
+%else
+%define egl_gallium 0
+%endif
+%ifarch %ix86 x86_64
 %define llvm_r600 1
-%ifarch ppc ppc64
+%else
 %define llvm_r600 0 
 %endif
 
@@ -512,7 +518,6 @@ This package contains the VDPAU state tracker for R600. This is
 still "work in progress", i.e. expect poor video quality, choppy
 videos and artefacts all over.
 
-%if %llvm_r600
 %package -n libvdpau_radeonsi
 Summary:        XVMC state tracker for radeonsi
 Group:          System/Libraries
@@ -521,7 +526,6 @@ Group:          System/Libraries
 This package contains the VDPAU state tracker for radeonsi. This is
 still "work in progress", i.e. expect poor video quality, choppy
 videos and artefacts all over.
-%endif
 
 %package -n libvdpau_softpipe
 Summary:        Software implementation of XVMC state tracker
