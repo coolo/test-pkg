@@ -596,7 +596,7 @@ autoreconf -fi
            --enable-xa \
            --enable-gallium-llvm \
            --with-dri-drivers=nouveau \
-           --with-gallium-drivers=nouveau,swrast,svga \
+           --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
            --enable-vdpau \
            --enable-xvmc \
 %endif

@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Aug 13 14:30:06 UTC 2013 - dmueller@suse.com
+
+- fix build on armv7 
+
+-------------------------------------------------------------------
 Mon Aug 12 19:16:12 UTC 2013 - hrvoje.senjan@gmail.com
 
 - Update to new snapshot from 9.2 branch:
