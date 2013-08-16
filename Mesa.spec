@@ -29,11 +29,11 @@
 %define llvm_r600 0 
 %endif
 
-%define _version 9.1.98.01
+%define _version 9.1.98.02
 %define _name_archive mesa
 
 Name:           Mesa
-Version:        9.1.98.01
+Version:        9.1.98.02
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -596,7 +596,7 @@ autoreconf -fi
            --enable-xa \
            --enable-gallium-llvm \
            --with-dri-drivers=nouveau \
-           --with-gallium-drivers=nouveau,swrast,svga \
+           --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
            --enable-vdpau \
            --enable-xvmc \
 %endif
