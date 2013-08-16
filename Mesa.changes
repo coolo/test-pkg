@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Tue Aug 13 14:30:06 UTC 2013 - dmueller@suse.com
+
+- fix build on armv7 
+
+-------------------------------------------------------------------
+Mon Aug 12 19:16:12 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Update to new snapshot from 9.2 branch:
+ * various bugfixes since the previous snapshot
+ * i965 Gen6+ requires Kernel 3.6 or later
+ * Added support for UVD (2.2 and 3.0) video decoding on r600g and
+   radeonsi through VDPAU (requires Kernel 3.10 or later)
+
+-------------------------------------------------------------------
 Thu Aug  8 13:40:55 UTC 2013 - schwab@suse.de
 
 - Don't enable gallium-egl without Gallium
