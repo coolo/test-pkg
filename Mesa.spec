@@ -29,11 +29,11 @@
 %define llvm_r600 0 
 %endif
 
-%define _version 9.1.98.02
-%define _name_archive mesa
+%define _version 9.2.0-rc1
+%define _name_archive MesaLib
 
 Name:           Mesa
-Version:        9.1.98.02
+Version:        9.2.0~rc1
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -97,8 +97,7 @@ Provides:       XFree86-Mesa-64bit = %{version}
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
 Group:          System/Libraries
-#Source:         ftp://ftp.freedesktop.org/pub/mesa/%{version}/%{_name_archive}-%{version}.tar.bz2
-Source:         %{_name_archive}-%{version}.tar.bz2
+Source:         ftp://freedesktop.org/pub/mesa/9.2/%{_name_archive}-%{_version}.tar.bz2
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
@@ -537,7 +536,7 @@ state tracker. This is still "work in progress", i.e. expect
 poor video quality, choppy videos and artefacts all over.
 
 %prep
-%setup -n %{_name_archive}-%{_version} -b4 -q
+%setup -n %{name}-%{_version} -b4 -q
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
