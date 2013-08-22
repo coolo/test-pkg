@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Aug 20 13:12:17 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Update to 9.2 rc1
+ * bugfixes over previous snapshot
+
+-------------------------------------------------------------------
 Tue Aug 13 14:30:06 UTC 2013 - dmueller@suse.com
 
 - fix build on armv7 
