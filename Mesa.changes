@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Aug 23 12:23:15 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Fix baselibs from previous change (there is no Mesa-libEGL1-devel),
+  but Mesa-libEGL-devel
+
+-------------------------------------------------------------------
 Fri Aug 23 10:54:18 UTC 2013 - hrvoje.senjan@gmail.com
 
 - Update to 9.2 rc2
