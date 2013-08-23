@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Aug 23 15:03:44 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Stop versioning libgbm1/devel and libwayland-egl/devel by itself,
+  they now follow general Mesa version
+
+-------------------------------------------------------------------
 Fri Aug 23 12:23:15 UTC 2013 - hrvoje.senjan@gmail.com
 
 - Fix baselibs from previous change (there is no Mesa-libEGL1-devel),
