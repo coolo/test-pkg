@@ -29,11 +29,11 @@
 %define llvm_r600 0 
 %endif
 
-%define _version 9.2.0-rc1
+%define _version 9.2.0
 %define _name_archive MesaLib
 
 Name:           Mesa
-Version:        9.2.0~rc1
+Version:        9.2.0
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -371,9 +371,6 @@ the Mesa-libGLES* packages.
 %package -n libgbm1
 Summary:        Generic buffer management API
 Group:          System/Libraries
-# as per gbm.pc
-Version:        0.0.0
-Release:        0
 
 %description -n libgbm1
 This package contains the GBM buffer management library. It provides
@@ -386,8 +383,6 @@ openwfd.
 %package -n libgbm-devel
 Summary:        Development files for the EGL API
 Group:          Development/Libraries/C and C++
-Version:        0.0.0
-Release:        0
 Requires:       libgbm1 = %version
 
 %description -n libgbm-devel
@@ -406,8 +401,6 @@ programs against the GBM library.
 %package -n libwayland-egl1
 Summary:        Additional egl functions for wayland
 Group:          System/Libraries
-Version:        1.0.0
-Release:        0
 
 %description -n libwayland-egl1
 This package provides additional functions for egl-using programs
@@ -417,8 +410,6 @@ that need not run full-screen and cooperate with a compositor.
 %package -n libwayland-egl-devel
 Summary:        Development files for libwayland-egl1
 Group:          Development/Libraries/C and C++
-Version:        1.0.0
-Release:        0
 Requires:       libwayland-egl1 = %version
 
 %description -n libwayland-egl-devel
