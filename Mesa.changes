@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Aug 30 09:10:22 UTC 2013 - idonmez@suse.com
+
+- Enable llvmpipe and xa on s390x 
+
+-------------------------------------------------------------------
 Tue Aug 27 23:56:19 UTC 2013 - tobias.johannes.klausmann@mni.thm.de
 
 - Update to final version 9.2:
