@@ -72,7 +72,7 @@ BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xfixes)
 BuildRequires:  pkgconfig(xxf86vm)
 BuildRequires:  pkgconfig(zlib)
-%ifarch %arm %ix86 x86_64
+%ifarch %arm s390x %ix86 x86_64
 BuildRequires:  llvm-devel
 %endif
 BuildRequires:  libXvMC-devel
@@ -594,9 +594,15 @@ autoreconf -fi
            --with-dri-drivers=nouveau,r200,radeon \
            --with-gallium-drivers=r300,r600,nouveau,swrast \
 %endif
-%ifarch s390 s390x aarch64
+%ifarch s390 aarch64
            --with-dri-drivers=swrast \
            --with-gallium-drivers="" \
+%endif
+%ifarch s390x
+        --enable-xa \
+        --enable-gallium-llvm \
+        --with-dri-drivers=swrast \
+        --with-gallium-drivers=swrast,svga \
 %endif
            CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
 make %{?_smp_mflags}
@@ -678,7 +684,7 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 
 %postun -n libgbm1 -p /sbin/ldconfig
 
-%ifnarch s390 s390x aarch64
+%ifnarch s390 aarch64
 
 %post   -n libxatracker1 -p /sbin/ldconfig
 
@@ -832,7 +838,7 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_libdir/libgbm.so
 %_libdir/pkgconfig/gbm.pc
 
-%ifnarch s390 s390x ppc ppc64 aarch64
+%ifnarch s390 ppc ppc64 aarch64
 
 %files -n libxatracker1
 %defattr(-,root,root)
@@ -878,24 +884,26 @@ install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
 %_libdir/vdpau/libvdpau_r600.so.1
 %_libdir/vdpau/libvdpau_r600.so.1.0.0
 
-%files -n libXvMC_softpipe
-%defattr(-,root,root)
-%_libdir/libXvMCsoftpipe.so
-%_libdir/libXvMCsoftpipe.so.1
-%_libdir/libXvMCsoftpipe.so.1.0.0
-
 %files -n libvdpau_nouveau
 %defattr(-,root,root)
 %_libdir/vdpau/libvdpau_nouveau.so
 %_libdir/vdpau/libvdpau_nouveau.so.1
 %_libdir/vdpau/libvdpau_nouveau.so.1.0.0
 
+%endif
+
+%ifnarch s390 aarch64
+%files -n libXvMC_softpipe
+%defattr(-,root,root)
+%_libdir/libXvMCsoftpipe.so
+%_libdir/libXvMCsoftpipe.so.1
+%_libdir/libXvMCsoftpipe.so.1.0.0
+
 %files -n libvdpau_softpipe
 %defattr(-,root,root)
 %_libdir/vdpau/libvdpau_softpipe.so
 %_libdir/vdpau/libvdpau_softpipe.so.1
 %_libdir/vdpau/libvdpau_softpipe.so.1.0.0
-
 %endif
 
 %if %llvm_r600
