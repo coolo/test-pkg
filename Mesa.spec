@@ -112,8 +112,9 @@ Patch14:        u_mesa-glapi_dispatch.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
 # PATCH-FIX-UPSTREAM gallium-egl-gbm-use-wayland-cflags.patch -- use pkgconfig for finding wayland
-Patch16:        U_gallium-egl-gbm-use-wayland-cflags.patch
+Patch16:        u_gallium-egl-gbm-use-wayland-cflags.patch
 Patch17:        u_mesa-9.0-i965-Make-sure-we-do-render-between-two-hiz-flushes.patch
+Patch18:        u_wayland-egl-pc-require-wayland.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -538,6 +539,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch16 -p1
 %endif
 %patch17 -p1
+%patch18 -p1
 
 %build
 
