@@ -107,13 +107,10 @@ Source6:        %name-rpmlintrc
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 # Patch from Fedora, fix 16bpp in llvmpipe
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
-# Patch to fix glapi_dispatch include
-Patch14:        u_mesa-glapi_dispatch.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
 # PATCH-FIX-UPSTREAM gallium-egl-gbm-use-wayland-cflags.patch -- use pkgconfig for finding wayland
 Patch16:        u_gallium-egl-gbm-use-wayland-cflags.patch
-Patch17:        u_mesa-9.0-i965-Make-sure-we-do-render-between-two-hiz-flushes.patch
 Patch18:        u_wayland-egl-pc-require-wayland.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -533,12 +530,10 @@ poor video quality, choppy videos and artefacts all over.
 rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
 %patch13 -p1
-%patch14 -p1
 %patch15 -p1
 %if %egl_gallium
 %patch16 -p1
 %endif
-%patch17 -p1
 %patch18 -p1
 
 %build
