@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Sep 10 14:31:07 UTC 2013 - tobias.johannes.klausmann@mni.thm.de
+
+- Remove custom drirc, ship the upstream drirc
+
+-------------------------------------------------------------------
 Tue Sep 10 13:02:29 UTC 2013 - tobias.johannes.klausmann@mni.thm.de
 
 - Drop upstreamed patches as proposed by Johannes Obermayr:

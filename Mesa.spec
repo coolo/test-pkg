@@ -101,7 +101,6 @@ Source:         ftp://freedesktop.org/pub/mesa/9.2/%{_name_archive}-%{_version}.
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
-Source5:        drirc
 Source6:        %name-rpmlintrc
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
@@ -640,9 +639,7 @@ done
 mkdir -p $RPM_BUILD_ROOT/usr/%{_lib}/dri/updates
 install -m 644 $RPM_SOURCE_DIR/README.updates \
   $RPM_BUILD_ROOT/usr/%{_lib}/dri/updates
-# global drirc file
-mkdir -p $RPM_BUILD_ROOT/etc
-install -m 644 $RPM_SOURCE_DIR/drirc $RPM_BUILD_ROOT/etc
+
 %fdupes -s $RPM_BUILD_ROOT/%_mandir
 ### disabled for now on request of Coolo
 ### "please take out this libs things from Cristian for 12.3 - I have no interest in debugging
