@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Tue Sep 10 14:31:07 UTC 2013 - tobias.johannes.klausmann@mni.thm.de
+
+- Remove custom drirc, ship the upstream drirc
+
+-------------------------------------------------------------------
+Tue Sep 10 13:02:29 UTC 2013 - tobias.johannes.klausmann@mni.thm.de
+
+- Drop upstreamed patches as proposed by Johannes Obermayr:
+  + Patch14: u_mesa-glapi_dispatch.patch
+    Upstream: http://cgit.freedesktop.org/mesa/mesa/commit/?id=5ea43e6
+  + Patch17: u_mesa-9.0-i965-Make-sure-we-do-render-between-two-hiz-flushes.patch
+    Upstream: http://cgit.freedesktop.org/mesa/mesa/commit/?id=1dfea55
+
+-------------------------------------------------------------------
 Mon Sep  9 09:59:50 UTC 2013 - duwe@suse.com
 
 - u_wayland-egl-pc-require-wayland.patch: after finding wayland
