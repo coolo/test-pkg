@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Sep 12 12:13:11 UTC 2013 - schwab@suse.de
+
+- drirc is only installed if there are hardware DRI drivers
+
+-------------------------------------------------------------------
 Tue Sep 10 14:31:07 UTC 2013 - tobias.johannes.klausmann@mni.thm.de
 
 - Remove custom drirc, ship the upstream drirc
