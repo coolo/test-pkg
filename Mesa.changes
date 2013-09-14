@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Sep 13 12:53:33 UTC 2013 - duwe@suse.com
+
+- wayland-egl-pc-require-wayland is now mainline
+
+-------------------------------------------------------------------
 Thu Sep 12 12:13:11 UTC 2013 - schwab@suse.de
 
 - drirc is only installed if there are hardware DRI drivers

@@ -110,7 +110,7 @@ Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
 # PATCH-FIX-UPSTREAM gallium-egl-gbm-use-wayland-cflags.patch -- use pkgconfig for finding wayland
 Patch16:        u_gallium-egl-gbm-use-wayland-cflags.patch
-Patch18:        u_wayland-egl-pc-require-wayland.patch
+Patch18:        U_wayland-egl-pc-require-wayland.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
