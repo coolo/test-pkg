@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Mon Sep 16 12:44:53 UTC 2013 - sndirsch@suse.com
+
+- updated to latest available version of
+  * u_mesa-8.0-llvmpipe-shmget.patch
+  * u_mesa-8.0.1-fix-16bpp.patch
+  and applying it now in the opposite order.
+
+-------------------------------------------------------------------
 Fri Sep 13 12:53:33 UTC 2013 - duwe@suse.com
 
 - wayland-egl-pc-require-wayland is now mainline
