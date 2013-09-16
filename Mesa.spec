@@ -528,8 +528,8 @@ poor video quality, choppy videos and artefacts all over.
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
-%patch13 -p1
 %patch15 -p1
+%patch13 -p1
 %if %egl_gallium
 %patch16 -p1
 %endif
