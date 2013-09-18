@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Tue Sep 17 17:50:56 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Added U_radeon-winsys-pad-IBs-to-a-multiple-of-8-DWs.patch from
+  upstream -- aligns the gfx, compute, and dma IBs to 8 DW boundries.
+  Additionally, r6xx hardware requires at least 4
+  DW alignment to avoid a hw bug.  This also aligns the DMA
+  IBs to 8 DW which is required for the DMA engine.
+
+-------------------------------------------------------------------
 Mon Sep 16 12:44:53 UTC 2013 - sndirsch@suse.com
 
 - updated to latest available version of
