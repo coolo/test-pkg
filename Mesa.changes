@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Fri Sep 20 10:42:36 UTC 2013 - sndirsch@suse.com
+
+- Disable u_mesa-8.0-llvmpipe-shmget.patch, 
+  u_mesa-8.0.1-fix-16bpp.patch since these are considered wrong by
+  the author
+- remove libIndirectGL (packages), since it is most likely no
+  longer used by anyone ...
+- use --enable-osmesa, since we no longer have this extra build
+  for libIndirectGL 
+
+-------------------------------------------------------------------
 Tue Sep 17 17:50:56 UTC 2013 - hrvoje.senjan@gmail.com
 
 - Added U_radeon-winsys-pad-IBs-to-a-multiple-of-8-DWs.patch from
