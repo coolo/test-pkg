@@ -111,6 +111,8 @@ Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
 # PATCH-FIX-UPSTREAM gallium-egl-gbm-use-wayland-cflags.patch -- use pkgconfig for finding wayland
 Patch16:        u_gallium-egl-gbm-use-wayland-cflags.patch
 Patch18:        U_wayland-egl-pc-require-wayland.patch
+# PATCH-FIX-UPSTREAM U_radeon-winsys-pad-IBs-to-a-multiple-of-8-DWs.patch -- from http://cgit.freedesktop.org/mesa/mesa/commit/?id=a81beee37e0dd7b75422448420e8e8b0b4b76c1e
+Patch19:        U_radeon-winsys-pad-IBs-to-a-multiple-of-8-DWs.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -534,6 +536,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch16 -p1
 %endif
 %patch18 -p1
+%patch19 -p1
 
 %build
 
