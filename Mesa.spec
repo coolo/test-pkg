@@ -72,7 +72,7 @@ BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xfixes)
 BuildRequires:  pkgconfig(xxf86vm)
 BuildRequires:  pkgconfig(zlib)
-%ifarch %arm s390x %ix86 x86_64
+%ifarch %arm ppc64 s390x %ix86 x86_64
 BuildRequires:  llvm-devel
 %endif
 BuildRequires:  libXvMC-devel
@@ -566,7 +566,7 @@ autoreconf -fi
            --enable-vdpau \
            --enable-xvmc \
 %endif
-%ifarch %arm
+%ifarch %arm ppc64
            --enable-xa \
            --enable-gallium-llvm \
            --with-dri-drivers=nouveau \
@@ -574,7 +574,7 @@ autoreconf -fi
            --enable-vdpau \
            --enable-xvmc \
 %endif
-%ifarch ia64 ppc ppc64 %sparc hppa
+%ifarch ia64 ppc %sparc hppa
            --with-dri-drivers=nouveau,r200,radeon \
            --with-gallium-drivers=r300,r600,nouveau,swrast \
 %endif
@@ -791,7 +791,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %_libdir/libgbm.so
 %_libdir/pkgconfig/gbm.pc
 
-%ifnarch s390 ppc ppc64 aarch64
+%ifnarch s390 ppc aarch64
 
 %files -n libxatracker1
 %defattr(-,root,root)

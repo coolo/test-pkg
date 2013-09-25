@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Sep 23 08:53:00 UTC 2013 - idonmez@suse.com
+
+- Enable llvmpipe on PPC64 
+
+-------------------------------------------------------------------
 Fri Sep 20 10:42:36 UTC 2013 - sndirsch@suse.com
 
 - Disable u_mesa-8.0-llvmpipe-shmget.patch, 
