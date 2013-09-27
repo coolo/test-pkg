@@ -72,7 +72,7 @@ BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xfixes)
 BuildRequires:  pkgconfig(xxf86vm)
 BuildRequires:  pkgconfig(zlib)
-%ifarch %arm s390x %ix86 x86_64
+%ifarch %arm ppc64 s390x %ix86 x86_64
 BuildRequires:  llvm-devel
 %endif
 BuildRequires:  libXvMC-devel
@@ -83,6 +83,8 @@ Provides:       Mesa7 = %{version}
 Obsoletes:      Mesa7 < %{version}
 Provides:       intel-i810-Mesa = %{version}
 Obsoletes:      intel-i810-Mesa < %{version}
+Provides:       Mesa-libIndirectGL1 = %{version}
+Obsoletes:      Mesa-libIndirectGL1 < %{version}
 Provides:       xorg-x11-Mesa = %{version}
 Obsoletes:      Mesa-nouveau3d
 Obsoletes:      xorg-x11-Mesa < %{version}
@@ -139,7 +141,6 @@ Requires:       Mesa-libEGL-devel = %version
 Requires:       Mesa-libGL-devel = %version
 Requires:       Mesa-libGLESv1_CM-devel = %version
 Requires:       Mesa-libGLESv2-devel = %version
-Requires:       Mesa-libIndirectGL-devel = %version
 Requires:       Mesa-libglapi-devel = %version
 Requires:       libOSMesa-devel = %version
 Requires:       libgbm-devel
@@ -158,6 +159,8 @@ Provides:       Mesa-devel-static = %{version}
 Provides:       xorg-x11-Mesa-devel = %{version}
 Obsoletes:      Mesa-devel-static < %{version}
 Obsoletes:      xorg-x11-Mesa-devel < %{version}
+Provides:       Mesa-libIndirectGL-devel = %{version}
+Obsoletes:      Mesa-libIndirectGL-devel < %{version}
 
 %description devel
 Mesa is a 3-D graphics library with an API which is very similar to
@@ -308,26 +311,6 @@ extensions for the special needs of embedded systems.
 
 This package provides a development environment for building
 applications using the OpenGL|ES 3.x APIs.
-
-%package -n Mesa-libIndirectGL1
-# This is the equivalent to Debian's libgl1-mesa-swx11
-Summary:        Free implementation of the OpenGL API
-Group:          System/Libraries
-
-%description -n Mesa-libIndirectGL1
-This library provides a pure software rasterizer; it does not provide
-a direct rendering capable library, or one which uses GLX. For that,
-please see Mesa-libGL1.
-
-%package -n Mesa-libIndirectGL-devel
-Summary:        Development Files for the free implementation of the OpenGL API
-Group:          Development/Libraries/C and C++
-Requires:       Mesa-libIndirectGL1 = %version
-
-%description -n Mesa-libIndirectGL-devel
-This library provides a pure software rasterizer; it does not provide
-a direct rendering capable library, or one which uses GLX. For that,
-please see Mesa-libGL1.
 
 %package -n libOSMesa9
 Summary:        Mesa Off-screen rendering extension
@@ -530,8 +513,9 @@ poor video quality, choppy videos and artefacts all over.
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
-%patch15 -p1
-%patch13 -p1
+# Both patches are considered wrong by the author -> disable them
+#%patch15 -p1
+#%patch13 -p1
 %if %egl_gallium
 %patch16 -p1
 %endif
@@ -559,6 +543,7 @@ autoreconf -fi
            --with-egl-platforms=$egl_platforms \
            --enable-shared-glapi \
            --enable-texture-float \
+           --enable-osmesa \
 %if %glamor
            --enable-gbm \
            --enable-glx-tls \
@@ -581,7 +566,7 @@ autoreconf -fi
            --enable-vdpau \
            --enable-xvmc \
 %endif
-%ifarch %arm
+%ifarch %arm ppc64
            --enable-xa \
            --enable-gallium-llvm \
            --with-dri-drivers=nouveau \
@@ -589,7 +574,7 @@ autoreconf -fi
            --enable-vdpau \
            --enable-xvmc \
 %endif
-%ifarch ia64 ppc ppc64 %sparc hppa
+%ifarch ia64 ppc %sparc hppa
            --with-dri-drivers=nouveau,r200,radeon \
            --with-gallium-drivers=r300,r600,nouveau,swrast \
 %endif
@@ -611,25 +596,6 @@ find $RPM_BUILD_ROOT -name "*.la" -exec rm {} \;
 # Make a symlink to libGL.so.1.2 for compatibility (bnc#809359, bnc#831306)
 test -f $RPM_BUILD_ROOT%{_libdir}/libGL.so.1.2 || \
   ln -s `readlink $RPM_BUILD_ROOT%{_libdir}/libGL.so.1` $RPM_BUILD_ROOT%{_libdir}/libGL.so.1.2
-
-# build and install Indirect Rendering only libGL
-####
-make distclean-generic
-%configure --enable-xlib-glx \
-            --disable-dri \
-            --enable-osmesa \
-            --with-egl-platforms=x11 \
-            --with-gallium-drivers="" \
-            --with-gl-lib-name=IndirectGL \
-            CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
-
-make %{?_smp_mflags}
-cp -a \
-    src/mesa/drivers/x11/.libs/libIndirectGL.so* \
-    src/mesa/drivers/osmesa/.libs/libOSMesa.so* \
-    $RPM_BUILD_ROOT/usr/%{_lib}
-install -m 644 src/mesa/drivers/osmesa/osmesa.pc \
-    $RPM_BUILD_ROOT/usr/%{_lib}/pkgconfig
 
 for dir in ../xc/doc/man/{GL/gl,GL/glx}; do
  pushd $dir
@@ -668,10 +634,6 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %post   -n Mesa-libGLESv2-2 -p /sbin/ldconfig
 
 %postun -n Mesa-libGLESv2-2 -p /sbin/ldconfig
-
-%post   -n Mesa-libIndirectGL1 -p /sbin/ldconfig
-
-%postun -n Mesa-libIndirectGL1 -p /sbin/ldconfig
 
 %post   -n libOSMesa9 -p /sbin/ldconfig
 
@@ -792,14 +754,6 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 #%_libdir/libGLESv3.so
 #%_libdir/pkgconfig/glesv3.pc
 
-%files -n Mesa-libIndirectGL1
-%defattr(-,root,root)
-%_libdir/libIndirectGL.so.1*
-
-%files -n Mesa-libIndirectGL-devel
-%defattr(-,root,root)
-%_libdir/libIndirectGL.so
-
 %files -n libOSMesa9
 %defattr(-,root,root)
 %_libdir/libOSMesa.so.8.0.0
@@ -837,7 +791,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %_libdir/libgbm.so
 %_libdir/pkgconfig/gbm.pc
 
-%ifnarch s390 ppc ppc64 aarch64
+%ifnarch s390 ppc aarch64
 
 %files -n libxatracker1
 %defattr(-,root,root)
