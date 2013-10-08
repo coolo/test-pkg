@@ -1,18 +1,36 @@
 -------------------------------------------------------------------
+Sat Oct  5 15:12:19 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Update to version 9.2.1
+ * Use of uninitialized stack variable with brw_search_cache()
+   (fdo#66779)
+ * Valgrind errors in mesa (fdo#68233)
+ * Automatic mipmap generation with texture compression produces
+   borders that fade to black (fdo#68250)
+ * Unigine demo crash (fdo#68637)
+ * GLSL ES: structs members can't have precision qualifiers
+   anymore in 9.2 (fdo#68753)
+ * Piglit tex-shadow2drect fails (fdo#69525)
+- Dropped U_radeon-winsys-pad-IBs-to-a-multiple-of-8-DWs.patch,
+  U_wayland-egl-pc-require-wayland.patch and
+  u_gallium-egl-gbm-use-wayland-cflags.patch they are included in
+  this release
+
+-------------------------------------------------------------------
 Mon Sep 23 08:53:00 UTC 2013 - idonmez@suse.com
 
-- Enable llvmpipe on PPC64 
+- Enable llvmpipe on PPC64
 
 -------------------------------------------------------------------
 Fri Sep 20 10:42:36 UTC 2013 - sndirsch@suse.com
 
-- Disable u_mesa-8.0-llvmpipe-shmget.patch, 
+- Disable u_mesa-8.0-llvmpipe-shmget.patch,
   u_mesa-8.0.1-fix-16bpp.patch since these are considered wrong by
   the author
 - remove libIndirectGL (packages), since it is most likely no
   longer used by anyone ...
 - use --enable-osmesa, since we no longer have this extra build
-  for libIndirectGL 
+  for libIndirectGL
 
 -------------------------------------------------------------------
 Tue Sep 17 17:50:56 UTC 2013 - hrvoje.senjan@gmail.com
@@ -64,7 +82,7 @@ Mon Sep  9 09:59:50 UTC 2013 - duwe@suse.com
 -------------------------------------------------------------------
 Fri Aug 30 09:10:22 UTC 2013 - idonmez@suse.com
 
-- Enable llvmpipe and xa on s390x 
+- Enable llvmpipe and xa on s390x
 
 -------------------------------------------------------------------
 Tue Aug 27 23:56:19 UTC 2013 - tobias.johannes.klausmann@mni.thm.de
@@ -84,12 +102,12 @@ Tue Aug 27 23:56:19 UTC 2013 - tobias.johannes.klausmann@mni.thm.de
   + Added new freedreno gallium driver
   + OSMesa interface for gallium llvmpipe/softpipe drivers
   + Gallium Heads-Up Display (HUD) feature for performance monitoring
-  + Added support for UVD (2.2 and 3.0) video decoding on r600g and radeonsi 
+  + Added support for UVD (2.2 and 3.0) video decoding on r600g and radeonsi
     through VDPAU (requires Kernel 3.10 or later)
 - Changes:
   + Removed d3d1x state tracker (unused, unmaintained and broken)
   + Removed GL_EXT_clip_volume_hint because no driver had enabled it since 2007.
-  + Removed GL_MESA_resize_buffers because it was only really implemented by the 
+  + Removed GL_MESA_resize_buffers because it was only really implemented by the
     (unsupported) GDI driver.
   + GL_EXT_separate_shader_objects has been removed from all Gallium drivers,
     because it disallows a critical GLSL shader optimization.
@@ -124,7 +142,7 @@ Tue Aug 20 13:12:17 UTC 2013 - hrvoje.senjan@gmail.com
 -------------------------------------------------------------------
 Tue Aug 13 14:30:06 UTC 2013 - dmueller@suse.com
 
-- fix build on armv7 
+- fix build on armv7
 
 -------------------------------------------------------------------
 Mon Aug 12 19:16:12 UTC 2013 - hrvoje.senjan@gmail.com
@@ -144,8 +162,8 @@ Thu Aug  8 13:40:55 UTC 2013 - schwab@suse.de
 -------------------------------------------------------------------
 Mon Jul 29 12:55:23 UTC 2013 - sndirsch@suse.com
 
-- Make a symlink to libGL.so.1.2 for compatibility (bnc#809359, 
-  bnc#831306) 
+- Make a symlink to libGL.so.1.2 for compatibility (bnc#809359,
+  bnc#831306)
 - u_mesa-9.0-i965-Make-sure-we-do-render-between-two-hiz-flushes.patch
   * Prevent hangs with rc6. (bnc#804910, bnc#831306)
 
@@ -158,15 +176,15 @@ Thu Jul 25 15:41:25 UTC 2013 - dvaleev@suse.com
 -------------------------------------------------------------------
 Wed Jul 17 02:38:03 UTC 2013 - sndirsch@suse.com
 
-- The llvm with the R600 backend is finally in Factory, lets use it :) 
+- The llvm with the R600 backend is finally in Factory, lets use it :)
 
 -------------------------------------------------------------------
 Fri Jul  5 12:07:10 UTC 2013 - hrvoje.senjan@gmail.com
 
 - Update to 9.2 snapshot:
 * New features:
- * Mesa 9.2 implements the OpenGL 3.1 API - OpenGL 3.1 is only 
-   available if requested at context creation because 
+ * Mesa 9.2 implements the OpenGL 3.1 API - OpenGL 3.1 is only
+   available if requested at context creation because
    GL_ARB_compatibility is not supported
  * GL_ARB_texture_buffer_range
  * GL_ARB_texture_multisample
@@ -178,44 +196,44 @@ Fri Jul  5 12:07:10 UTC 2013 - hrvoje.senjan@gmail.com
  * Gallium Heads-Up Display (HUD) feature for performance monitoring
 * Changes:
  * Removed d3d1x state tracker (unused, unmaintained and broken)
- * Removed GL_EXT_clip_volume_hint because no driver had enabled 
+ * Removed GL_EXT_clip_volume_hint because no driver had enabled
    it since 2007.
- * Removed GL_MESA_resize_buffers because it was only really 
+ * Removed GL_MESA_resize_buffers because it was only really
    implemented by the (unsupported) GDI driver.
- * GL_EXT_separate_shader_objects has been removed from all Gallium 
-   drivers, because it disallows a critical GLSL shader optimization. 
+ * GL_EXT_separate_shader_objects has been removed from all Gallium
+   drivers, because it disallows a critical GLSL shader optimization.
    GL_ARB_separate_shader_objects doesn't have this issue.
 - Unlock radeonsi libvdpau
 - Enable gallium egl
 - added U_gallium-egl-gbm-use-wayland-cflags.patch, needed so gbm
   uses pkgconfig flags, instead of relying on "common" wayland dir
-- Added llvm_r600 define, for enableing llvm shared-libs and 
+- Added llvm_r600 define, for enableing llvm shared-libs and
   r600-llvm-compiler. Off for now, until we have fixed llvm
 
 -------------------------------------------------------------------
 Tue Jul  2 13:00:05 UTC 2013 - hrvoje.senjan@gmail.com
 
 - Update to Mesa 9.1.4:
- * [bisected i965] Bus error (core dumped) on oglc texdecaltile 
+ * [bisected i965] Bus error (core dumped) on oglc texdecaltile
    (fdo#37871)
  * egl/opengles1/tri_x11 renders wrong (fdo#42182)
  * [SNB IVB HSW] mesa demo test texleak bus error (fdo#44958)
- * [snb] crash in texsubimage to a large atlas in clutter 
+ * [snb] crash in texsubimage to a large atlas in clutter
    (fdo#53494)
- * glDrawElements segfault when compiled into display list 
+ * glDrawElements segfault when compiled into display list
    (fdo#60518)
- * src/mesa/drivers/dri/common/xmlpool.h:96:29: fatal error: 
+ * src/mesa/drivers/dri/common/xmlpool.h:96:29: fatal error:
    xmlpool/options.h (fdo#61821)
- * r300g regression (RV380): Strange rendering of light sources in 
+ * r300g regression (RV380): Strange rendering of light sources in
    Penumbra (bisected) (fdo#63520)
  * [HSW] support new haswell graphics [8086:0a2e] (fdo#63701)
- * [gm45, bisected] some piglit glsl 1.10 built-in-functions tests 
+ * [gm45, bisected] some piglit glsl 1.10 built-in-functions tests
    crash (fdo#64727)
- * [llvmpipe] SIGSEGV src/gallium/state_trackers/glx/xlib/glx_api.c:1374 
+ * [llvmpipe] SIGSEGV src/gallium/state_trackers/glx/xlib/glx_api.c:1374
    (fdo#64745)
- * [llvmpipe] SIGSEGV src/gallium/state_trackers/glx/xlib/glx_api.c:1363 
+ * [llvmpipe] SIGSEGV src/gallium/state_trackers/glx/xlib/glx_api.c:1363
    (fdo#64934)
- * segfault in _mesa_get_format_datatype and _mesa_get_color_read_type 
+ * segfault in _mesa_get_format_datatype and _mesa_get_color_read_type
    when state dumping with glretrace (fdo#65173)
 - Droped llvm-3.3.patch, it's included in this release
 
@@ -228,26 +246,26 @@ Tue May 28 14:57:52 UTC 2013 - mhrusecky@suse.com
 Tue May 21 23:50:51 UTC 2013 - hrvoje.senjan@gmail.com
 
 - update to Mesa 9.1.3:
- * Second Life viewers from release 2.7.4.235167 to the last 
+ * Second Life viewers from release 2.7.4.235167 to the last
    3.4.0.264911 crash on start. (fdo#39251)
- * [wine] GLX_DONT_CARE does not work for GLX_DRAWABLE_TYPE or 
+ * [wine] GLX_DONT_CARE does not work for GLX_DRAWABLE_TYPE or
    GLX_RENDER_TYPE (fdo#47478)
- * [SNB bisected] SNB hang with rc6 and hiz on glxgears 
+ * [SNB bisected] SNB hang with rc6 and hiz on glxgears
    (and other GL apps) immediately after xinit. (fdo#56416)
- * [GLSL1.40 IVB/HSW]Piglit spec/glsl-1.40/compiler_built-in-functions/inverse-mat2.frag 
+ * [GLSL1.40 IVB/HSW]Piglit spec/glsl-1.40/compiler_built-in-functions/inverse-mat2.frag
    fails (fdo#57436)
- * [ivb] Mesa 9.1 performance regression on KWin's Lanczos 
+ * [ivb] Mesa 9.1 performance regression on KWin's Lanczos
    shader (fdo#61554)
- * abort is an incredibly not-smart way to handle IR validation 
+ * abort is an incredibly not-smart way to handle IR validation
    (fdo#61773)
  * solaris build broken with missing ffsll (fdo#62868)
- * glXChooseFBConfig with GLX_DRAWABLE_TYPE, GLX_DONT_CARE fails 
+ * glXChooseFBConfig with GLX_DRAWABLE_TYPE, GLX_DONT_CARE fails
    (fdo#62999)
- * EGL X11 Regression: Maximum swap interval is 0 (worked with 9.0) 
+ * EGL X11 Regression: Maximum swap interval is 0 (worked with 9.0)
    (fdo#63078)
- * [i965 Bisected]Ogles1conform/Ogles2conform/Ogles3conform cases 
+ * [i965 Bisected]Ogles1conform/Ogles2conform/Ogles3conform cases
    segfault (fdo#63447)
- * [SNB 9.1 Bisected]Ogles2conform GL2ExtensionTests/depth_texture_cube_map/depth_texture_cube_map.test 
+ * [SNB 9.1 Bisected]Ogles2conform GL2ExtensionTests/depth_texture_cube_map/depth_texture_cube_map.test
    fail (fdo#64662)
 
 -------------------------------------------------------------------
@@ -255,20 +273,20 @@ Thu May  2 12:03:55 UTC 2013 - hrvoje.senjan@gmail.com
 
 - update to Mesa 9.1.2:
  * [965gm] green artifacts when using GLSL in XBMC (fdo#44567)
- * many new symbols in libxatracker after recent automake work 
+ * many new symbols in libxatracker after recent automake work
    (fdo#59238)
- * [SNB/IVB/HSW Bisected]Oglc draw-buffers2(advanced.blending.none) 
+ * [SNB/IVB/HSW Bisected]Oglc draw-buffers2(advanced.blending.none)
    segfault (fdo#59445)
- * [i965 Bisected]Oglc fbblit(advanced.blitFb-3d-cube.mirror.both) 
+ * [i965 Bisected]Oglc fbblit(advanced.blitFb-3d-cube.mirror.both)
    fails (fdo#59495)
  * [r300g] Unigine Heaven 3.0: all objects are black (fdo#60503)
  * Firefox 18.0.2 Crash On Nvidia GeForce2 (fdo#60510)
  * [SNB Bisected] kwin_gles screen corruption (fdo#61197)
  * [IVB] corrupt rendering with UBOs (fdo#61317)
  * glEdgeFlag can't be set to false (fdo#61395)
- * nullpointer dereference causes xorg-server segfault when nouveau 
+ * nullpointer dereference causes xorg-server segfault when nouveau
    DRI driver is loaded (fdo#61947)
- * llvmpipe: Fragment Shader with "return" in main causes back 
+ * llvmpipe: Fragment Shader with "return" in main causes back
    output (fdo#62357)
  * other bugfixes
 - Drop u_remove-os-abi-tag.patch, fdo#26663 is fixed with this release
@@ -276,7 +294,7 @@ Thu May  2 12:03:55 UTC 2013 - hrvoje.senjan@gmail.com
 -------------------------------------------------------------------
 Wed Apr  3 17:30:11 UTC 2013 - dmueller@suse.com
 
-- do not build x86* specific drivers on ARM, only enable 
+- do not build x86* specific drivers on ARM, only enable
   nouveau,swrast,svga for ARM platforms
 
 -------------------------------------------------------------------
@@ -288,7 +306,7 @@ Wed Apr  3 07:46:47 UTC 2013 - coolo@suse.com
 Thu Mar 21 12:19:56 UTC 2013 - dvaleev@suse.com
 
 - Don't enable xa on ppc and ppc64
-- Fix glapi_dispatch #bfo56710 (u_mesa-glapi_dispatch.patch) 
+- Fix glapi_dispatch #bfo56710 (u_mesa-glapi_dispatch.patch)
 
 -------------------------------------------------------------------
 Wed Mar 20 11:10:38 UTC 2013 - hrvoje.senjan@gmail.com
@@ -297,26 +315,26 @@ Wed Mar 20 11:10:38 UTC 2013 - hrvoje.senjan@gmail.com
  * [GM45] mesa demos spriteblast render incorrectly (fdo#30232)
  * [gles2] Ironlake: gl_PointCoord takes no effect for point sprites
    (fdo#32429)
- * Mesa 7.11-devel implementation error: Unexpected program target 
+ * Mesa 7.11-devel implementation error: Unexpected program target
    in destroy_program_variants_cb() (fdo#38086)
- * [snb] corrupted GLSL built-in function results when using Uniform 
+ * [snb] corrupted GLSL built-in function results when using Uniform
    Buffer contents as arguments (fdo#57121)
- * Garbled UI in Team Fortress 2 and Counter-Strike: Source 
+ * Garbled UI in Team Fortress 2 and Counter-Strike: Source
    (fdo#58042)
  * Texture flicker with fragment shader (fdo#58960)
- * [i965]Oglc fbblit(advanced.blitFb-3d-cube.mirror.both) fails 
+ * [i965]Oglc fbblit(advanced.blitFb-3d-cube.mirror.both) fails
    (fdo#59495)
- * [IVB] 3DMMES2.0 Taiji performance reduced by ~13% with 
+ * [IVB] 3DMMES2.0 Taiji performance reduced by ~13% with
    gnome-session enable compositing (fdo#59783)
  * build - libvdpau_softpipe fails at runtime. (fdo#60121)
- * gbm_dri_bo_create fails to initialize bo->base.base.format 
+ * gbm_dri_bo_create fails to initialize bo->base.base.format
    (fdo#60143)
  * Corruption with DMA ring on cayman (fdo#60802)
- * r600g: add htile support cause gpu lockup in Dishonored wine. 
+ * r600g: add htile support cause gpu lockup in Dishonored wine.
    (fdo#60848)
- * [softpipe] piglit interpolation-noperspective-gl_BackColor-flat-fixed 
+ * [softpipe] piglit interpolation-noperspective-gl_BackColor-flat-fixed
    regression (fdo#60938)
- * alloc_layout_array tx * ty assertion failure when making pbuffer 
+ * alloc_layout_array tx * ty assertion failure when making pbuffer
    current (fdo#61012)
  * Segfault in glBitmap when called with PBO source (fdo#61026)
 
@@ -329,8 +347,8 @@ Mon Mar 18 11:00:12 UTC 2013 - mmeister@suse.com
 Sat Mar  2 02:51:10 UTC 2013 - tobias.johannes.klausmann@mni.thm.de
 
 - Update to Mesa 9.1:
-  Mesa 9.1 implements the OpenGL 3.1 API, but the version reported by 
-  glGetString(GL_VERSION) or glGetIntegerv(GL_MAJOR_VERSION) / 
+  Mesa 9.1 implements the OpenGL 3.1 API, but the version reported by
+  glGetString(GL_VERSION) or glGetIntegerv(GL_MAJOR_VERSION) /
   glGetIntegerv(GL_MINOR_VERSION) depends on the particular driver
   being used. Some drivers don't support all the features required
   in OpenGL 3.1. OpenGL 3.1 is only available if requested at context
@@ -347,7 +365,7 @@ Sat Mar  2 02:51:10 UTC 2013 - tobias.johannes.klausmann@mni.thm.de
 - Changes to package(s):
   + Rename libwayland-egl1-devel -> libwayland-egl-devel
   + Add a GLES3 Development package
-  + Removed patches: 
+  + Removed patches:
   Mesa-nodate.diff (patch1)
     No dates are put into the build anymore
   U_glx-fix-glGetTexLevelParameteriv-for-indirect-render.patch (patch18)
@@ -360,7 +378,7 @@ Sat Mar  2 02:51:10 UTC 2013 - tobias.johannes.klausmann@mni.thm.de
 -------------------------------------------------------------------
 Thu Feb 28 18:07:05 UTC 2013 - dmueller@suse.com
 
-- only enable swrast for aarch64 for now 
+- only enable swrast for aarch64 for now
 
 -------------------------------------------------------------------
 Tue Feb 26 23:23:46 UTC 2013 - stefan.bruens@rwth-aachen.de
@@ -368,38 +386,38 @@ Tue Feb 26 23:23:46 UTC 2013 - stefan.bruens@rwth-aachen.de
 - fix_glx_indirect_reply_bfo#59876.diff
   * GLX replies are parsed incorrectly when using libxcb and AIGLX,
     happens for most replies where data is embedded in the header.
-    (bfo#59876, bnc#802718) 
+    (bfo#59876, bnc#802718)
 
 -------------------------------------------------------------------
 Thu Feb 21 23:23:22 UTC 2013 - hrvoje.senjan@gmail.com
 
 - update to Mesa 9.0.3: a bugfix release
- * Pink artifacts on objects in the distance in ETQW/Quake 4 
+ * Pink artifacts on objects in the distance in ETQW/Quake 4
    (fdo#25201)
  * configure: Doesn't check for python libxml2 (fdo#31598)
  * [softpipe] piglit glsl-max-varyings regression (fdo#40404)
  * [bisected] Oglc pxconv-gettex(basic.allCases) regressed (fdo#47220)
- * [bisected i965]Oglc shad-compiler(advanced.TestLessThani) 
+ * [bisected i965]Oglc shad-compiler(advanced.TestLessThani)
    regressed(fdo#48629)
- * [swrast] piglit fbo-generatemipmap-filtering regression 
+ * [swrast] piglit fbo-generatemipmap-filtering regression
    (fdo#54240)
- * [sandybridge][uxa] graphics very glitchy and always flickering 
+ * [sandybridge][uxa] graphics very glitchy and always flickering
    (fdo#56920)
  * [GM45] Chrome experiment "Stars" crash: brw_fs_emit.cpp:708:
-   brw_reg brw_reg_from_fs_reg(fs_reg*): Assertion „!"not reached"“ 
+   brw_reg brw_reg_from_fs_reg(fs_reg*): Assertion „!"not reached"“
    failed. (fdo#57166)
- * build test failure: nouveau_fbo.c:198:3: error: too few arguments to 
+ * build test failure: nouveau_fbo.c:198:3: error: too few arguments to
    function 'nouveau_renderbuffer_del' (fdo#57746)
- * [swrast] Mesa 9.1-devel implementation error: Unable to 
+ * [swrast] Mesa 9.1-devel implementation error: Unable to
    delete renderbuffer, no context (fdo#57754)
  * [IVB] Graphical glitches in 0 A.D (fdo#58680)
- * [softpipe] util/u_tile.c:795:pipe_put_tile_z: Assertion `0' failed. 
+ * [softpipe] util/u_tile.c:795:pipe_put_tile_z: Assertion `0' failed.
    (fdo#58972)
- * [bisected] Mesa build fails: clientattrib.c:33:22: fatal error: indirect.h: 
+ * [bisected] Mesa build fails: clientattrib.c:33:22: fatal error: indirect.h:
    No such file or directory (fdo#59364)
- * [ILK/SNB/IVB Bisected]Oglc vertexshader(advanced.TestLightsTwoSided) 
+ * [ILK/SNB/IVB Bisected]Oglc vertexshader(advanced.TestLightsTwoSided)
    causes GPU hung (fdo#59700)
- * [swrast] piglit ext_framebuffer_multisample-interpolation 0 
+ * [swrast] piglit ext_framebuffer_multisample-interpolation 0
    centroid-edges regression (fdo#59873)
  * [Bisected]Piglit glx_extension_string_sanity fail (fdo#60052)
  * Planeshift: triangles where grass would be (fdo#60172)
@@ -417,7 +435,7 @@ Thu Jan 24 14:48:18 UTC 2013 - sndirsch@suse.com
  * KMS/R200: Bad shading in NWN since Mesa rewrite (fdo#26809)
  * [bisected regression] Oglc fbo(negative.invalidParams3)
    Segmentation fault (fdo#45877)
- * st_glsl_to_tgsi.cpp:4006:dst_register: Assertion 
+ * st_glsl_to_tgsi.cpp:4006:dst_register: Assertion
    `index < VERT_RESULT_MAX' failed (fdo#54402)
  * Memoryleak with glPopAttrib only on Intel GM45 (fdo#55175)
  * glcpp accepts junk after #else/#elif/#endif tokens (fdo#56442)
@@ -453,7 +471,7 @@ Sat Jan  5 15:28:51 UTC 2013 - crrodriguez@opensuse.org
  * Both are needed only for static linking
  * This package provides only shared libraries
  * the rpm pkgconfig dependency generator considers "Requires.private"
-   a valid dependency even though there are no static libraries in the 
+   a valid dependency even though there are no static libraries in the
    packages
  * This cause bloat and hides broken "buildRequires" in other packages.
 
@@ -471,7 +489,7 @@ Mon Dec 10 13:22:01 UTC 2012 - sndirsch@suse.com
 -------------------------------------------------------------------
 Tue Oct 16 18:09:16 UTC 2012 - sndirsch@suse.com
 
-- improved packages descriptions 
+- improved packages descriptions
 
 -------------------------------------------------------------------
 Mon Oct  8 23:36:24 UTC 2012 - tobias.johannes.klausmann@mni.thm.de
@@ -500,7 +518,7 @@ Mon Sep 24 17:04:35 UTC 2012 - sndirsch@suse.com
 Fri Sep 21 08:28:28 UTC 2012 - sndirsch@suse.com
 
 - fixed libOSMesa packaging (only a dangling symlink has been
-  packaged) 
+  packaged)
 
 -------------------------------------------------------------------
 Fri Sep 21 07:08:05 UTC 2012 - coolo@suse.com
@@ -563,7 +581,7 @@ Tue Jun 12 15:53:50 UTC 2012 - sndirsch@suse.com
 -------------------------------------------------------------------
 Tue Jun 12 10:19:01 UTC 2012 - sndirsch@suse.com
 
-- u_remove-os-abi-tag.patch 
+- u_remove-os-abi-tag.patch
   * Remove OS ABI tag from libGL, so it is no longer preferred over
     libGLs without OS ABI tag (bnc#765294, fdo#26663)
 
@@ -595,7 +613,7 @@ Fri May 25 15:57:25 UTC 2012 - meissner@suse.com
 Mon May 21 12:32:23 UTC 2012 - sndirsch@suse.com
 
 - Trivial change to Version 8.0.3; tarball from here:
-  http://cgit.freedesktop.org/mesa/mesa/snapshot/mesa-8.0.3.tar.gz 
+  http://cgit.freedesktop.org/mesa/mesa/snapshot/mesa-8.0.3.tar.gz
 
 -------------------------------------------------------------------
 Wed May 16 10:28:30 UTC 2012 - adrian@suse.de
@@ -605,7 +623,7 @@ Wed May 16 10:28:30 UTC 2012 - adrian@suse.de
 -------------------------------------------------------------------
 Wed Apr 25 14:14:35 UTC 2012 - tittiatcoke@gmail.com
 
-- Added patches from upstream Master to enable building with 
+- Added patches from upstream Master to enable building with
   llvm 3.1
 
 -------------------------------------------------------------------
@@ -625,7 +643,7 @@ Mon Apr 23 15:09:29 UTC 2012 - vljn@ovi.com
 -------------------------------------------------------------------
 Sun Apr 15 18:10:39 CEST 2012 - ro@suse.de
 
-- use same dri drivers on ia64 as on ppc (no drm_intel) 
+- use same dri drivers on ia64 as on ppc (no drm_intel)
 
 -------------------------------------------------------------------
 Wed Mar 21 23:21:24 UTC 2012 - ryanbach@adelphia.net
@@ -642,7 +660,7 @@ Wed Mar 21 18:06:27 UTC 2012 - jengelh@medozas.de
 -------------------------------------------------------------------
 Wed Mar 21 14:55:19 UTC 2012 - sndirsch@suse.com
 
-- U_gallium-rtasm-properly-detect-SSE-and-SSE2.patch 
+- U_gallium-rtasm-properly-detect-SSE-and-SSE2.patch
   * gallium/rtasm: properly detect SSE and SSE2;  this should fix
     crashes on ancient processors. (bnc#728737)
 
@@ -669,7 +687,7 @@ Fri Feb 24 13:51:15 CET 2012 - meissner@suse.de
 Thu Feb 23 10:57:09 UTC 2012 - sndirsch@suse.com
 
 - Update to Mesa 8.0.1
-  * Removed all DRI drivers that did not support DRI2. 
+  * Removed all DRI drivers that did not support DRI2.
     Specifically, i810, mach64, mga, r128, savage, sis, tdfx, and
     unichrome were removed.
   * Removed all remnants of paletted texture support. As required
@@ -705,7 +723,7 @@ Tue Feb 21 19:53:03 UTC 2012 - coolo@suse.com
 
 - fix requires of devel package in moving the %package before the
   other packages that have custom versions.
-  %version in rpm is tricky - it's the _last_ version before the 
+  %version in rpm is tricky - it's the _last_ version before the
   macro, not the main one.
 
 -------------------------------------------------------------------
@@ -724,7 +742,7 @@ Sun Feb 12 19:24:03 UTC 2012 - jengelh@medozas.de
 -------------------------------------------------------------------
 Thu Feb  9 20:01:37 UTC 2012 - sndirsch@suse.com
 
-- fixed buildreqs due to splitted xorg-x11-libs 
+- fixed buildreqs due to splitted xorg-x11-libs
 
 -------------------------------------------------------------------
 Thu Dec  1 11:15:48 UTC 2011 - coolo@suse.com
@@ -734,18 +752,18 @@ Thu Dec  1 11:15:48 UTC 2011 - coolo@suse.com
 -------------------------------------------------------------------
 Thu Nov 17 20:34:36 UTC 2011 - vljn@ovi.com
 
-- Update to Mesa 7.11.1 
+- Update to Mesa 7.11.1
   * U_glx-ignore-BadRequest-errors-from-DRI2Connect.diff included
 
 -------------------------------------------------------------------
 Wed Oct 06 21:58:00 UTC 2011 - idonmez@suse.com
 
-- Update Mesa-llvm-3.0.patch again to fix compilation 
+- Update Mesa-llvm-3.0.patch again to fix compilation
 
 -------------------------------------------------------------------
 Thu Sep 29 20:53:53 UTC 2011 - idonmez@suse.com
 
-- Update Mesa-llvm-3.0.patch for new llvm snapshot 
+- Update Mesa-llvm-3.0.patch for new llvm snapshot
 
 -------------------------------------------------------------------
 Thu Sep 15 06:15:04 UTC 2011 - idonmez@suse.com
@@ -755,18 +773,18 @@ Thu Sep 15 06:15:04 UTC 2011 - idonmez@suse.com
 -------------------------------------------------------------------
 Tue Sep 13 12:03:25 UTC 2011 - idonmez@suse.com
 
-- Fix build with Factory 
+- Fix build with Factory
 
 -------------------------------------------------------------------
 Mon Sep 12 23:48:34 UTC 2011 - sndirsch@suse.com
 
 - revert previous change since it actually *broke* the build with
-  Factory 
+  Factory
 
 -------------------------------------------------------------------
 Mon Sep 12 10:47:17 UTC 2011 - idonmez@suse.com
 
-- Fix build with Factory too 
+- Fix build with Factory too
 
 -------------------------------------------------------------------
 Fri Sep  9 15:08:02 UTC 2011 - vljn@ovi.com
@@ -776,7 +794,7 @@ Fri Sep  9 15:08:02 UTC 2011 - vljn@ovi.com
 -------------------------------------------------------------------
 Sun Sep  4 21:00:43 UTC 2011 - vljn@ovi.com
 
-- Update to Mesa 7.11 final 
+- Update to Mesa 7.11 final
 
 -------------------------------------------------------------------
 Sun Sep  4 12:34:37 CEST 2011 - meissner@suse.de
@@ -869,12 +887,12 @@ Wed May 19 18:10:53 UTC 2011 - idoenmez@novell.com
 -------------------------------------------------------------------
 Tue May 17 07:31:21 UTC 2011 - eich@suse.de
 
-- Add packaging information for GLES2 devel files. 
+- Add packaging information for GLES2 devel files.
 
 -------------------------------------------------------------------
 Mon May 16 18:23:39 UTC 2011 - eich@suse.de
 
-- Add GLES2 support. 
+- Add GLES2 support.
 
 -------------------------------------------------------------------
 Fri May  6 16:46:21 UTC 2011 - mhopf@novell.com
@@ -912,14 +930,14 @@ Mon Dec 20 14:34:44 UTC 2010 - sndirsch@novell.com
 Sat Nov  6 08:36:11 UTC 2010 - sndirsch@novell.com
 
 - 0001-Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
-  * Fix crash in swrast when setting a texture for a pixmap 
+  * Fix crash in swrast when setting a texture for a pixmap
     (bnc #641297)
 - readd swrastg DRI driver
 
 -------------------------------------------------------------------
 Wed Nov  3 20:45:02 UTC 2010 - sndirsch@novell.com
 
-- exclude swrastg DRI driver (bnc #641297) 
+- exclude swrastg DRI driver (bnc #641297)
 
 -------------------------------------------------------------------
 Fri Oct  8 21:35:56 CEST 2010 - meissner@suse.de
@@ -936,7 +954,7 @@ Thu Oct  7 07:35:31 UTC 2010 - sndirsch@novell.com
 -------------------------------------------------------------------
 Tue Oct  5 06:57:26 UTC 2010 - sndirsch@novell.com
 
-- MesaLib 7.9 
+- MesaLib 7.9
 - obsoletes commit-73dab75.diff
 
 -------------------------------------------------------------------
@@ -954,7 +972,7 @@ Wed Sep 29 12:01:23 UTC 2010 - sndirsch@novell.com
 -------------------------------------------------------------------
 Mon Sep 27 18:28:46 UTC 2010 - sndirsch@novell.com
 
-- updated to MesaLib 7.9-RC1 
+- updated to MesaLib 7.9-RC1
 
 -------------------------------------------------------------------
 Wed Sep 15 12:29:11 UTC 2010 - sndirsch@novell.com
@@ -974,7 +992,7 @@ Wed Sep 15 03:54:37 UTC 2010 - sndirsch@novell.com
 Thu Sep  9 12:45:55 UTC 2010 - sndirsch@novell.com
 
 - use TALLOC_LIBS/TALLOC_CFLAGS env. variables which obsolete the
-  requirement for a patched libtalloc-devel package, i.e. 
+  requirement for a patched libtalloc-devel package, i.e.
   talloc.pc is no longer required.
 
 -------------------------------------------------------------------
@@ -990,7 +1008,7 @@ Sun Aug 29 05:05:58 CEST 2010 - sndirsch@suse.de
 -------------------------------------------------------------------
 Fri Jul 23 22:52:14 CEST 2010 - sndirsch@suse.de
 
-- reenable build of mga DRI driver (bnc #466635) 
+- reenable build of mga DRI driver (bnc #466635)
 
 -------------------------------------------------------------------
 Wed Jul  7 00:00:00 CEST 2010 - johannesobermayr@gmx.de
@@ -1032,7 +1050,7 @@ Sat May 22 16:00:55 CEST 2010 - sndirsch@suse.de
 Sat Apr 10 22:03:00 CEST 2010 - sndirsch@suse.de
 
 - removed legal check since affected source files no longer exist
-- removed obsolete missing_Makefile.diff 
+- removed obsolete missing_Makefile.diff
 - specfile cleanup
 
 -------------------------------------------------------------------
@@ -1041,22 +1059,22 @@ Tue Apr  6 02:09:57 CEST 2010 - sndirsch@suse.de
 - Mesa 7.8.1
   * The primary purpose of this release is to fix a significant
     error in Mesa's copy of glxext.h and the libGL code that uses
-    it. The release also contains some other bug fixes. 
+    it. The release also contains some other bug fixes.
 
 -------------------------------------------------------------------
 Mon Mar 29 14:42:48 CEST 2010 - sndirsch@suse.de
 
-- update to 7.8 final release 
+- update to 7.8 final release
 
 -------------------------------------------------------------------
 Thu Mar 18 01:23:56 CET 2010 - ro@suse.de
 
-- use 7.8-rc1 tarballs 
+- use 7.8-rc1 tarballs
 
 -------------------------------------------------------------------
 Wed Mar 17 21:56:33 CET 2010 - ro@suse.de
 
-- update to 7.8 
+- update to 7.8
   - dos, ggi and classic svga drivers removed along with
     their header files
 - re-enable nouveau driver
@@ -1070,12 +1088,12 @@ Sun Feb 28 22:10:09 CET 2010 - sndirsch@suse.de
 -------------------------------------------------------------------
 Fri Jan 22 14:19:15 CET 2010 - ro@suse.de
 
-- fix build for ppc 
+- fix build for ppc
 
 -------------------------------------------------------------------
 Tue Dec 22 04:55:36 CET 2009 - sndirsch@suse.de
 
-- Mesa 7.7 final release 
+- Mesa 7.7 final release
 
 -------------------------------------------------------------------
 Fri Dec 18 21:29:08 CET 2009 - sndirsch@suse.de
@@ -1094,7 +1112,7 @@ Tue Dec 15 21:21:51 CET 2009 - jengelh@medozas.de
 Tue Dec  8 03:53:06 CET 2009 - sndirsch@suse.de
 
 - Mesa 7.7 RC2
-  * more bug fixes 
+  * more bug fixes
 
 -------------------------------------------------------------------
 Wed Dec  2 00:46:37 CET 2009 - sndirsch@suse.de
@@ -1171,7 +1189,7 @@ Tue Sep 29 21:33:56 CEST 2009 - sndirsch@suse.de
 Mon Sep 28 22:08:52 CEST 2009 - sndirsch@suse.de
 
 - Mesa 7.5.1
-  * bug-fix release fixing issues found since the 7.5.1 release.  
+  * bug-fix release fixing issues found since the 7.5.1 release.
     - Detect B43 chipset in Intel driver
     - Assorted bug fixes for i965/i945 drivers
     - Fixed Gallium glDrawPixels(GL_STENCIL_INDEX) failure.
@@ -1193,13 +1211,13 @@ Fri Sep 11 15:21:56 CEST 2009 - sndirsch@suse.de
 -------------------------------------------------------------------
 Fri Sep  4 00:02:13 CEST 2009 - sndirsch@suse.de
 
-- Mesa 7.5.1 
-  * bug-fix release fixing issues found since the 7.5 release.  
+- Mesa 7.5.1
+  * bug-fix release fixing issues found since the 7.5 release.
 
 -------------------------------------------------------------------
 Sun Aug  2 21:48:08 UTC 2009 - jansimon.moeller@opensuse.org
 
-- add ARM variant to configure 
+- add ARM variant to configure
 
 -------------------------------------------------------------------
 Fri Jul 31 12:39:02 CEST 2009 - sndirsch@suse.de
@@ -1221,7 +1239,7 @@ Sat Jul 18 04:16:04 CEST 2009 - sndirsch@suse.de
 Wed Jun 24 04:43:35 CEST 2009 - sndirsch@suse.de
 
 - Mesa 7.4.4
-  * Fixed i965/i915 segfault in screen destruction (bfo #22408) 
+  * Fixed i965/i915 segfault in screen destruction (bfo #22408)
 - adjusted intel_release_static_region.patch
 - obsoletes Mesa-intel_unref_fb.patch
 
@@ -1230,7 +1248,7 @@ Tue Jun 23 13:53:06 CEST 2009 - sndirsch@suse.de
 
 - Mesa-intel_unref_fb.patch
   * intel: call _mesa_unreference_framebuffer() in
-    intelDestroyBuffer(). This was a call to 
+    intelDestroyBuffer(). This was a call to
     _mesa_reference_framebuffer(ptr, NULL) but the NULL pointer is
     incorrect in Mesa 7.4.x. Fixes a failed assertion during screen
     tear-down.
@@ -1257,14 +1275,14 @@ Sat Jun 20 03:35:17 CEST 2009 - sndirsch@suse.de
 Tue May 19 22:23:57 CEST 2009 - sndirsch@suse.de
 
 - mesa_7_4_branch-commit-63cde0e.diff
-  * commit, which introduced a regression; revert it (bnc #504578) 
+  * commit, which introduced a regression; revert it (bnc #504578)
 
 -------------------------------------------------------------------
 Fri May 15 18:25:09 CEST 2009 - sndirsch@suse.de
 
 - Mesa 7.4.2
   * Fixed segfault when rendering to front buffer with DRI 1.
-  * Fixed swrast texture rectangle bug when wrap mode = 
+  * Fixed swrast texture rectangle bug when wrap mode =
     GL_CLAMP_TO_BORDER and filter mode = GL_LINEAR. (bug 21461)
   * Fixed texture object mem leak during context destruction.
   * Fixed a state validation bug in glCopyTex[Sub]Image()
@@ -1293,20 +1311,20 @@ Sat Apr 18 20:25:22 CEST 2009 - sndirsch@suse.de
   * Fixed potential deadlock in object hash functions
   * Fix a couple bugs surrounding front-buffer rendering with
     DRI2, but this is not quite complete.
-  * Fixed glPopAttrib() bug when restoring user clip planes   
+  * Fixed glPopAttrib() bug when restoring user clip planes
 
 -------------------------------------------------------------------
 Sat Mar 28 04:58:00 CET 2009 - sndirsch@suse.de
 
 - Mesa 7.4 (final)
   * This is a stable release that just fixes bugs since the 7.3
-    release. 
+    release.
 
 -------------------------------------------------------------------
 Thu Mar 26 08:22:52 CET 2009 - sndirsch@suse.de
 
 - Mesa 7.4-rc2
-  * more patches cherry-picked from the master branch 
+  * more patches cherry-picked from the master branch
 
 -------------------------------------------------------------------
 Sat Mar 21 04:34:04 CET 2009 - sndirsch@suse.de
@@ -1335,7 +1353,7 @@ Wed Feb 25 15:51:31 CET 2009 - sndirsch@suse.de
 
 - update to Mesa 7.3
 - obsoletes MesaLib-7.2_intel-2008-q3_793c3b9-46921a5.diff,
-  commit-7d99ddc.diff, commit-b4bf9ac.diff, 
+  commit-7d99ddc.diff, commit-b4bf9ac.diff,
   i965_aperture_call_for_Q3.patch, mesa-7.1-fix-i8xx-vbos.patch
 
 -------------------------------------------------------------------
@@ -1372,7 +1390,7 @@ Tue Jan 13 12:34:56 CET 2009 - olh@suse.de
 Fri Jan  9 19:00:00 CET 2009 - sndirsch@suse.de
 
 - /etc/drirc
-  * disable vblank_mode/force_s3tc_enable and enable 
+  * disable vblank_mode/force_s3tc_enable and enable
     disable_lowimpact_fallback for r300 driver to fix performance
     issues with GoogleEarth and OpenOffice.Org (bnc #438666)
 
@@ -1395,7 +1413,7 @@ Fri Nov 28 03:37:26 CET 2008 - sndirsch@suse.de
 -------------------------------------------------------------------
 Sat Nov 22 11:45:33 CET 2008 - sndirsch@suse.de
 
-- disabled VBlank also for i965 DRI driver (bfo #17967) 
+- disabled VBlank also for i965 DRI driver (bfo #17967)
 
 -------------------------------------------------------------------
 Mon Nov 17 18:35:37 CET 2008 - sndirsch@suse.de
@@ -1433,7 +1451,7 @@ Tue Oct 21 06:01:30 CEST 2008 - sndirsch@suse.de
 Thu Oct  9 09:56:11 CEST 2008 - sndirsch@suse.de
 
 - Mesa 7.2_intel-2008-q3_793c3b9
-  * Intel-2008-Q3-RC3 release (Mesa 7.2 + GEM code) 
+  * Intel-2008-Q3-RC3 release (Mesa 7.2 + GEM code)
 
 -------------------------------------------------------------------
 Sat Sep 27 05:48:56 CEST 2008 - sndirsch@suse.de
@@ -1471,13 +1489,13 @@ Thu Aug 28 12:51:22 CEST 2008 - sndirsch@suse.de
 -------------------------------------------------------------------
 Wed Aug 27 16:38:12 CEST 2008 - sndirsch@suse.de
 
-- updated to Mesa 7.1 final release 
+- updated to Mesa 7.1 final release
 
 -------------------------------------------------------------------
 Mon Aug 18 03:18:55 CEST 2008 - sndirsch@suse.de
 
 - reverted commit 1724334 to get RGB, Double-buffered visuals back;
-  otherwise even GL applications like glxgears no longer start 
+  otherwise even GL applications like glxgears no longer start
   (bfo #17069)
 
 -------------------------------------------------------------------
@@ -1506,7 +1524,7 @@ Mon Aug  4 14:52:07 CEST 2008 - sndirsch@suse.de
 Fri Aug  1 23:28:45 CEST 2008 - sndirsch@suse.de
 
 - commit-c71fa34.diff
-  * added null texObj ptr check (bfo #15567, bnc #402687) 
+  * added null texObj ptr check (bfo #15567, bnc #402687)
 
 -------------------------------------------------------------------
 Thu Jul 10 23:10:25 CEST 2008 - sndirsch@suse.de
@@ -1517,25 +1535,25 @@ Thu Jul 10 23:10:25 CEST 2008 - sndirsch@suse.de
 -------------------------------------------------------------------
 Wed Jul  9 09:50:25 CEST 2008 - sndirsch@suse.de
 
-- no dri.pc for s390/s390x 
+- no dri.pc for s390/s390x
 
 -------------------------------------------------------------------
 Tue Jul  8 22:51:32 CEST 2008 - sndirsch@suse.de
 
 - disable_ttm_warning.diff
-  * disables confusing warning, that TTM cannot be initialized 
+  * disables confusing warning, that TTM cannot be initialized
 
 -------------------------------------------------------------------
 Fri Jul  4 22:15:48 CEST 2008 - sndirsch@suse.de
 
-- udpated to Mesa 7.1-pre 
+- udpated to Mesa 7.1-pre
 
 -------------------------------------------------------------------
 Mon Apr 14 23:56:57 CEST 2008 - sndirsch@suse.de
 
 - unichrome-context.diff
   * Do not clear the current context before attempting to use it.
-    (bnc #285496) 
+    (bnc #285496)
 - no longer need to use LIBGL_ALWAYS_INDIRECT=1 on via hardware
   (bnc #285496)
 
@@ -1548,18 +1566,18 @@ Thu Apr 10 12:54:45 CEST 2008 - ro@suse.de
 -------------------------------------------------------------------
 Sat Apr  5 03:42:11 CEST 2008 - sndirsch@suse.de
 
-- update to Mesa bugfix release 7.0.3 (final) 
+- update to Mesa bugfix release 7.0.3 (final)
 
 -------------------------------------------------------------------
 Wed Apr  2 09:33:27 CEST 2008 - sndirsch@suse.de
 
-- update to Mesa bugfix release 7.0.3 RC3 
+- update to Mesa bugfix release 7.0.3 RC3
   * obsoletes commit-185320a.diff
 
 -------------------------------------------------------------------
 Thu Mar 13 12:43:53 CET 2008 - sndirsch@suse.de
 
-- commit-185320a.diff 
+- commit-185320a.diff
   Only call ProgramStringNotify if program parsing succeeded.
   Wine intentionally tries some out-of-spec programs to test
   strictness, and calling ProgramStringNotify on the results
@@ -1587,7 +1605,7 @@ Wed Jan 23 12:23:16 CET 2008 - sndirsch@suse.de
 - update to Mesa bugfix release 7.0.3 RC1
   * Added missing glw.pc.in file to release tarball
   * Fix GLUT/Fortran issues
-  * GLSL gl_FrontLightModelProduct.sceneColor variable wasn't 
+  * GLSL gl_FrontLightModelProduct.sceneColor variable wasn't
     defined
   * Fix crash upon GLSL variable array indexes (not yet supported)
   * Two-sided stencil test didn't work in software rendering
@@ -1603,37 +1621,37 @@ Sat Nov 10 19:13:45 CET 2007 - sndirsch@suse.de
 
 - updated to Mesa 7.0.2
   * New features:
-    - Updated Windows VC7 project files 
-    - Added DESTDIR variable for 'make install' 
-    - Added pkg-config files for gl, glu, glut and glw libraries 
-    - Added bluegene-xlc-osmesa and catamount-osmesa-pgi configs 
+    - Updated Windows VC7 project files
+    - Added DESTDIR variable for 'make install'
+    - Added pkg-config files for gl, glu, glut and glw libraries
+    - Added bluegene-xlc-osmesa and catamount-osmesa-pgi configs
     - Support for Intel G33/Q33/Q35 graphics chipsets
   * Bug fixes:
-    - Fixed a vertex buffer wrapping issue (bug 9962) 
+    - Fixed a vertex buffer wrapping issue (bug 9962)
     - Added mutex protection around texture object reference
-      counters 
+      counters
     - Added checking/support for additional chips in the i915/i945
-      family (see 11978) 
-    - Fixed a blending/banding issue (bug 11931) 
-    - Fixed a GLU matrix inversion bug (#6748) 
+      family (see 11978)
+    - Fixed a blending/banding issue (bug 11931)
+    - Fixed a GLU matrix inversion bug (#6748)
     - Fixed problem with large glDrawArrays calls and indirect
-      rendering (bug 12141) 
-    - Fixed an assortment of i965 driver bugs 
-    - Fixed x86-64 vertex transformation bug (12216) 
+      rendering (bug 12141)
+    - Fixed an assortment of i965 driver bugs
+    - Fixed x86-64 vertex transformation bug (12216)
     - Fixed X server crash caused by multiple indirect rendering
-      clients 
+      clients
     - Parsing of state.texgen in ARB vertex/fragment programs
-      didn't work (bug 12313) 
-    - Fixed a glCopyPixels/glPixelZoom bug (12417) 
+      didn't work (bug 12313)
+    - Fixed a glCopyPixels/glPixelZoom bug (12417)
     - Fixed a bug when using glMaterial in display lists (10604)
-    - Fixed a few GLUT/Fortran issues (Bill Mitchell) 
-    - Fixed Blender crash bug (12164) 
-    - Fixed some issues preventing cross-compiling 
-    - Fixed up broken GL_ATI_separate_stencil extension 
-    - glDrawArrays(count=0) led to a crash 
-    - Fix SSE code gen memory leak, possible crash 
-    - Fixed MMX 565 rgb conversion problem (bug 12614) 
-    - Added -fno-strict-aliasing and -fPIC flags for gcc 
+    - Fixed a few GLUT/Fortran issues (Bill Mitchell)
+    - Fixed Blender crash bug (12164)
+    - Fixed some issues preventing cross-compiling
+    - Fixed up broken GL_ATI_separate_stencil extension
+    - glDrawArrays(count=0) led to a crash
+    - Fix SSE code gen memory leak, possible crash
+    - Fixed MMX 565 rgb conversion problem (bug 12614)
+    - Added -fno-strict-aliasing and -fPIC flags for gcc
     - Fixed Blender crash in Unichrome driver (bug 13142)
 
 -------------------------------------------------------------------
@@ -1649,13 +1667,13 @@ Wed Nov  7 16:38:11 CET 2007 - sndirsch@suse.de
 Sun Nov  4 22:46:31 CET 2007 - sndirsch@suse.de
 
 - pic.diff
-  * fixes shared lib on i386 (X.Org Bug #1809) 
+  * fixes shared lib on i386 (X.Org Bug #1809)
 
 -------------------------------------------------------------------
 Wed Oct 31 08:53:24 CET 2007 - sndirsch@suse.de
 
-- updated to Mesa 7.0.2 RC1 
-- obsoletes disable-libGL-warning.diff, i915-g33.diff and 
+- updated to Mesa 7.0.2 RC1
+- obsoletes disable-libGL-warning.diff, i915-g33.diff and
   i915tex-g33.diff
 - adjusted link-shared.diff and static.diff
 
@@ -1670,12 +1688,12 @@ Mon Aug 13 03:06:02 CEST 2007 - sndirsch@suse.de
 Sun Aug 12 10:59:23 CEST 2007 - sndirsch@suse.de
 
 - disable-libGL-warning.diff:
-  * ignore unsupported visual 0x4b (Bug #247471, X.Org Bug #6689)   
+  * ignore unsupported visual 0x4b (Bug #247471, X.Org Bug #6689)
 
 -------------------------------------------------------------------
 Sat Aug  4 05:54:46 CEST 2007 - sndirsch@suse.de
 
-- updated to bugfix relelase 7.0.1 
+- updated to bugfix relelase 7.0.1
 
 -------------------------------------------------------------------
 Wed Jul  4 05:08:57 CEST 2007 - sndirsch@suse.de
@@ -1686,7 +1704,7 @@ Wed Jul  4 05:08:57 CEST 2007 - sndirsch@suse.de
 -------------------------------------------------------------------
 Sat Jun 23 04:51:48 CEST 2007 - sndirsch@suse.de
 
-- updated to final release 7.0 
+- updated to final release 7.0
 
 -------------------------------------------------------------------
 Thu Jun 21 15:23:36 CEST 2007 - sndirsch@suse.de
@@ -1723,8 +1741,8 @@ Tue May 22 15:56:20 CEST 2007 - dmueller@suse.de
 Mon May 14 20:45:34 CEST 2007 - sndirsch@suse.de
 
 - link-shared.diff:
-  * use shared lib for DRI drivers to save a lot of space (Bug 
-    #272875) 
+  * use shared lib for DRI drivers to save a lot of space (Bug
+    #272875)
 
 -------------------------------------------------------------------
 Mon Apr 30 22:26:51 CEST 2007 - sndirsch@suse.de
@@ -1761,7 +1779,7 @@ Wed Apr 25 19:31:11 CEST 2007 - sndirsch@suse.de
 -------------------------------------------------------------------
 Tue Apr 24 18:50:51 CEST 2007 - sndirsch@suse.de
 
-- 3rd release candidate 
+- 3rd release candidate
   * updated Windows/VC8 project files.
 
 -------------------------------------------------------------------
@@ -1795,7 +1813,7 @@ Sat Apr 21 17:18:32 CEST 2007 - sndirsch@suse.de
 Tue Apr 10 15:29:53 CEST 2007 - sndirsch@suse.de
 
 - Mesa-6.5.2-fix_radeon_cliprect.diff:
-  * fixes X.Org Bug #9876 
+  * fixes X.Org Bug #9876
 
 -------------------------------------------------------------------
 Wed Apr  4 22:03:24 CEST 2007 - sndirsch@suse.de
@@ -1842,21 +1860,21 @@ Sat Dec  2 22:13:17 CET 2006 - sndirsch@suse.de
 
 - updated to Mesa 6.5.2
   * New features
-    - New DRI memory manager system. Currently used by the i915tex 
+    - New DRI memory manager system. Currently used by the i915tex
       driver. Other DRI drivers will be updated to use the new memory
       manager in coming months. To use the new driver you'll need the
       most recent DRM library and drivers (version 2.2 or later) and a
       recent xf86-video-intel driver module from X.org. New features
-      resulting from this work include: 
-      * EXT_framebuffer_objects, render to texture 
-      * ARB_pixel_buffer_objects 
+      resulting from this work include:
+      * EXT_framebuffer_objects, render to texture
+      * ARB_pixel_buffer_objects
       * Accelerated CopyTexSubimage, DrawPixels, ReadPixels, CopyPixels
-      * Accelerated texture uploads from pixel buffer objects 
+      * Accelerated texture uploads from pixel buffer objects
       * Potentially texturing directly from the pixel buffer object
-        (zero copy texturing). 
-    - New Intel i965 DRI driver 
-    - New minstall script to replace normal install program 
-    - Faster fragment program execution in software 
+        (zero copy texturing).
+    - New Intel i965 DRI driver
+    - New minstall script to replace normal install program
+    - Faster fragment program execution in software
     - Added (or fixed) support for GLX_SGI_make_current_read to the
       following drivers:
       * radeon
@@ -1866,27 +1884,27 @@ Sat Dec  2 22:13:17 CET 2006 - sndirsch@suse.de
     - Added support for ARB_occlusion_query to the tdfx driver
       (Ian Romanick).
   * Bug fixes
-    - fixed invalid memory read while rendering textured points (bug 8320) 
-    - fixed problems with freebsd-dri configuration (bug 8344) 
-    - Mesa's fake glxGetCurrentContext() wasn't thread-aware 
-    - OPTION NV_position_invariant didn't work in NV vertex programs 
-    - glDrawPixels into a user-created framebuffer object could crash Xlib driver 
-    - Line clipping was broken in some circumstances 
-    - fragment.fogcoord register didn't always contain the correct value 
-    - RGBA logicops didn't work reliably in some DRI drivers 
-    - Fixed broken RGBA LogicOps in Intel DRI drivers 
-    - Fixed some fragment program bugs in Intel i915 DRI driver 
-    - Fixed glGetVertexAttribfvARB bug 8883 
-    - Implemented glGetUniform[fi]vARB() functions 
-    - Fixed glDrawPixels(GL_COLOR_INDEX, GL_BITMAP) segfault (bug 9044) 
-    - Fixed some gluBuild2DMipmaps() bugs (Greg McGarragh) 
-    - Fixed broken "mgl" name mangling 
+    - fixed invalid memory read while rendering textured points (bug 8320)
+    - fixed problems with freebsd-dri configuration (bug 8344)
+    - Mesa's fake glxGetCurrentContext() wasn't thread-aware
+    - OPTION NV_position_invariant didn't work in NV vertex programs
+    - glDrawPixels into a user-created framebuffer object could crash Xlib driver
+    - Line clipping was broken in some circumstances
+    - fragment.fogcoord register didn't always contain the correct value
+    - RGBA logicops didn't work reliably in some DRI drivers
+    - Fixed broken RGBA LogicOps in Intel DRI drivers
+    - Fixed some fragment program bugs in Intel i915 DRI driver
+    - Fixed glGetVertexAttribfvARB bug 8883
+    - Implemented glGetUniform[fi]vARB() functions
+    - Fixed glDrawPixels(GL_COLOR_INDEX, GL_BITMAP) segfault (bug 9044)
+    - Fixed some gluBuild2DMipmaps() bugs (Greg McGarragh)
+    - Fixed broken "mgl" name mangling
     - Indirect rending was broken for glMap* functions (bug 8899)
   * Internal code changes
     - The device driver functions ResizeBuffers and GetBufferSize have
-      been decprecated. 
+      been decprecated.
     - OpenGL 2.0 and 2.1 support is nearly done. We need to do quite a
-      bit more testing of the shading language functions. 
+      bit more testing of the shading language functions.
 
 -------------------------------------------------------------------
 Thu Nov 23 23:40:15 CET 2006 - sndirsch@suse.de
@@ -1896,7 +1914,7 @@ Thu Nov 23 23:40:15 CET 2006 - sndirsch@suse.de
 -------------------------------------------------------------------
 Fri Nov 10 15:04:00 CET 2006 - sndirsch@suse.de
 
-- fixed typos (Bug #219732) 
+- fixed typos (Bug #219732)
 
 -------------------------------------------------------------------
 Wed Oct 18 14:00:35 CEST 2006 - sndirsch@suse.de
@@ -1906,7 +1924,7 @@ Wed Oct 18 14:00:35 CEST 2006 - sndirsch@suse.de
 -------------------------------------------------------------------
 Tue Oct 10 10:06:09 CEST 2006 - sndirsch@suse.de
 
-- fixed build on s390x 
+- fixed build on s390x
 
 -------------------------------------------------------------------
 Mon Oct  9 20:16:59 CEST 2006 - sndirsch@suse.de
@@ -1969,9 +1987,9 @@ Mon Sep 18 15:47:21 CEST 2006 - sndirsch@suse.de
 -------------------------------------------------------------------
 Sat Sep  9 10:28:30 CEST 2006 - sndirsch@suse.de
 
-- removed two source files with imcompatible license from Mesa 
+- removed two source files with imcompatible license from Mesa
   tarball (Bug #204110)
-- added a check to specfile to make sure that these will not be 
+- added a check to specfile to make sure that these will not be
   reintroduced with the next Mesa update again (Bug #204110)
 
 -------------------------------------------------------------------
@@ -1991,17 +2009,17 @@ Thu Aug 17 15:04:18 CEST 2006 - sndirsch@suse.de
 Mon Jul 31 16:07:25 CEST 2006 - sndirsch@suse.de
 
 - updated to Mesa 6.5_20060712; required by xorg-server 1.1.99.3
-- cleanup 
+- cleanup
 
 -------------------------------------------------------------------
 Wed Jul 19 17:04:39 CEST 2006 - ro@suse.de
 
-- adapt to /usr/lib move 
+- adapt to /usr/lib move
 
 -------------------------------------------------------------------
 Sun Jun 25 19:10:51 CEST 2006 - sndirsch@suse.de
 
-- fixed build for X.Org 7.1 
+- fixed build for X.Org 7.1
 
 -------------------------------------------------------------------
 Wed Jun 21 21:41:05 CEST 2006 - sndirsch@suse.de
@@ -2034,7 +2052,7 @@ Fri Jun 16 15:00:25 CEST 2006 - dreveman@suse.de
 -------------------------------------------------------------------
 Tue May 23 09:34:12 CEST 2006 - sndirsch@suse.de
 
-- no longer remove NVIDIA installer in %pre 
+- no longer remove NVIDIA installer in %pre
 
 -------------------------------------------------------------------
 Mon May 22 22:30:52 CEST 2006 - sndirsch@suse.de
@@ -2143,7 +2161,7 @@ Tue Nov 15 16:18:27 CET 2005 - sndirsch@suse.de
 -------------------------------------------------------------------
 Wed Nov  9 18:21:49 CET 2005 - sndirsch@suse.de
 
-- fixed libOSMesa build 
+- fixed libOSMesa build
 
 -------------------------------------------------------------------
 Tue Nov  8 18:03:24 CET 2005 - sndirsch@suse.de
@@ -2153,12 +2171,12 @@ Tue Nov  8 18:03:24 CET 2005 - sndirsch@suse.de
 -------------------------------------------------------------------
 Tue Nov  8 08:16:52 CET 2005 - sndirsch@suse.de
 
-- added include files for SGI's OpenGL Xt/Motif widgets, e.g. 
+- added include files for SGI's OpenGL Xt/Motif widgets, e.g.
   required by z88 package
   * GLwMDrawA.h
   * GLwDrawAP.h
   * GLwMDrawAP.h
-  * GLwDrawA.h 
+  * GLwDrawA.h
 - enabled Motif support in libGLw, also required by z88 package
 
 -------------------------------------------------------------------
@@ -2175,17 +2193,17 @@ Fri Oct 28 16:13:41 CEST 2005 - sndirsch@suse.de
 -------------------------------------------------------------------
 Tue Oct 25 19:38:16 CEST 2005 - sndirsch@suse.de
 
-- fixed DRI driver path for 64bit platforms 
+- fixed DRI driver path for 64bit platforms
 
 -------------------------------------------------------------------
 Tue Oct 25 04:40:34 CEST 2005 - sndirsch@suse.de
 
-- update to Mesa 6.4 
+- update to Mesa 6.4
 
 -------------------------------------------------------------------
 Mon Oct 24 22:43:24 CEST 2005 - sndirsch@suse.de
 
-- build DRI compatible libGL 
+- build DRI compatible libGL
 
 -------------------------------------------------------------------
 Fri Oct 21 06:09:53 CEST 2005 - sndirsch@suse.de
@@ -2199,10 +2217,10 @@ Fri Oct 21 06:09:53 CEST 2005 - sndirsch@suse.de
 -------------------------------------------------------------------
 Wed Oct 19 12:53:49 CEST 2005 - sndirsch@suse.de
 
-- no longer install libglide (disables 3Dfx DRI support) 
+- no longer install libglide (disables 3Dfx DRI support)
 
 -------------------------------------------------------------------
 Sun Oct  2 22:15:48 CEST 2005 - sndirsch@suse.de
 
-- created package 
+- created package
 

@@ -26,14 +26,14 @@
 %ifarch %ix86 x86_64
 %define llvm_r600 1
 %else
-%define llvm_r600 0 
+%define llvm_r600 0
 %endif
 
-%define _version 9.2.0
+%define _version 9.2.1
 %define _name_archive MesaLib
 
 Name:           Mesa
-Version:        9.2.0
+Version:        9.2.1
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -99,7 +99,7 @@ Provides:       XFree86-Mesa-64bit = %{version}
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
 Group:          System/Libraries
-Source:         ftp://freedesktop.org/pub/mesa/9.2/%{_name_archive}-%{_version}.tar.bz2
+Source:         ftp://ftp.freedesktop.org/pub/mesa/9.2.1/%{_name_archive}-%{_version}.tar.bz2
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
@@ -110,11 +110,6 @@ Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
-# PATCH-FIX-UPSTREAM gallium-egl-gbm-use-wayland-cflags.patch -- use pkgconfig for finding wayland
-Patch16:        u_gallium-egl-gbm-use-wayland-cflags.patch
-Patch18:        U_wayland-egl-pc-require-wayland.patch
-# PATCH-FIX-UPSTREAM U_radeon-winsys-pad-IBs-to-a-multiple-of-8-DWs.patch -- from http://cgit.freedesktop.org/mesa/mesa/commit/?id=a81beee37e0dd7b75422448420e8e8b0b4b76c1e
-Patch19:        U_radeon-winsys-pad-IBs-to-a-multiple-of-8-DWs.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -516,11 +511,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 # Both patches are considered wrong by the author -> disable them
 #%patch15 -p1
 #%patch13 -p1
-%if %egl_gallium
-%patch16 -p1
-%endif
-%patch18 -p1
-%patch19 -p1
 
 %build
 
