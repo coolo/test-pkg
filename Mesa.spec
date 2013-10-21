@@ -29,11 +29,11 @@
 %define llvm_r600 0
 %endif
 
-%define _version 9.2.1
+%define _version 9.2.2
 %define _name_archive MesaLib
 
 Name:           Mesa
-Version:        9.2.1
+Version:        9.2.2
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -99,7 +99,7 @@ Provides:       XFree86-Mesa-64bit = %{version}
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
 Group:          System/Libraries
-Source:         ftp://ftp.freedesktop.org/pub/mesa/9.2.1/%{_name_archive}-%{_version}.tar.bz2
+Source:         ftp://ftp.freedesktop.org/pub/mesa/%{_version}/%{_name_archive}-%{_version}.tar.bz2
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
