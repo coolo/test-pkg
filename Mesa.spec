@@ -461,6 +461,7 @@ poor video quality, choppy videos and artefacts all over.
 %package -n libvdpau_nouveau
 Summary:        XVMC state tracker for Nouveau
 Group:          System/Libraries
+Supplements:    xf86-video-nouveau
 
 %description -n libvdpau_nouveau
 This package contains the VDPAU state tracker for Nouveau. This is
@@ -470,6 +471,7 @@ videos and artefacts all over.
 %package -n libvdpau_r300
 Summary:        XVMC state tracker for R300
 Group:          System/Libraries
+Supplements:    xf86-video-ati
 
 %description -n libvdpau_r300
 This package contains the VDPAU state tracker for R300. This is
@@ -479,6 +481,7 @@ videos and artefacts all over.
 %package -n libvdpau_r600
 Summary:        XVMC state tracker for R600
 Group:          System/Libraries
+Supplements:    xf86-video-ati
 
 %description -n libvdpau_r600
 This package contains the VDPAU state tracker for R600. This is
@@ -488,6 +491,7 @@ videos and artefacts all over.
 %package -n libvdpau_radeonsi
 Summary:        XVMC state tracker for radeonsi
 Group:          System/Libraries
+Supplements:    xf86-video-ati
 
 %description -n libvdpau_radeonsi
 This package contains the VDPAU state tracker for radeonsi. This is
