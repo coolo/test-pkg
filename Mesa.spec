@@ -464,14 +464,11 @@ Group:          System/Libraries
 Supplements:    xf86-video-nouveau
 
 %description -n libvdpau_nouveau
-This package contains the VDPAU state tracker for Nouveau. This is
-still "work in progress", i.e. expect poor video quality, choppy
-videos and artefacts all over.
+This package contains the VDPAU state tracker for Nouveau. 
 
 %package -n libvdpau_r300
 Summary:        XVMC state tracker for R300
 Group:          System/Libraries
-Supplements:    xf86-video-ati
 
 %description -n libvdpau_r300
 This package contains the VDPAU state tracker for R300. This is
@@ -484,9 +481,7 @@ Group:          System/Libraries
 Supplements:    xf86-video-ati
 
 %description -n libvdpau_r600
-This package contains the VDPAU state tracker for R600. This is
-still "work in progress", i.e. expect poor video quality, choppy
-videos and artefacts all over.
+This package contains the VDPAU state tracker for R600. 
 
 %package -n libvdpau_radeonsi
 Summary:        XVMC state tracker for radeonsi
@@ -494,9 +489,7 @@ Group:          System/Libraries
 Supplements:    xf86-video-ati
 
 %description -n libvdpau_radeonsi
-This package contains the VDPAU state tracker for radeonsi. This is
-still "work in progress", i.e. expect poor video quality, choppy
-videos and artefacts all over.
+This package contains the VDPAU state tracker for radeonsi. 
 
 %package -n libvdpau_softpipe
 Summary:        Software implementation of XVMC state tracker
@@ -504,8 +497,7 @@ Group:          System/Libraries
 
 %description -n libvdpau_softpipe
 This package contains the Software implementation of the VDPAU
-state tracker. This is still "work in progress", i.e. expect
-poor video quality, choppy videos and artefacts all over.
+state tracker. 
 
 %prep
 %setup -n %{name}-%{_version} -b4 -q
