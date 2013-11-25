@@ -17,7 +17,7 @@
 
 
 %define glamor 1
-%ifnarch s390 s390x aarch64
+%ifnarch s390 s390x aarch64 m68k
 # Requires non-empty --with-gallium-drivers
 %define egl_gallium 1
 %else
@@ -564,7 +564,7 @@ autoreconf -fi
            --with-dri-drivers=nouveau,r200,radeon \
            --with-gallium-drivers=r300,r600,nouveau,swrast \
 %endif
-%ifarch s390 aarch64
+%ifarch s390 aarch64 m68k
            --with-dri-drivers=swrast \
            --with-gallium-drivers="" \
 %endif
@@ -629,7 +629,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 
 %postun -n libgbm1 -p /sbin/ldconfig
 
-%ifnarch s390 aarch64
+%ifnarch s390 aarch64 m68k
 
 %post   -n libxatracker1 -p /sbin/ldconfig
 
@@ -678,7 +678,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %files
 %defattr(-,root,root)
 %doc docs/README* docs/COPYING
-%ifnarch s390 aarch64
+%ifnarch s390 aarch64 m68k
 %config /etc/drirc
 %endif
 %{_libdir}/dri/
@@ -777,7 +777,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %_libdir/libgbm.so
 %_libdir/pkgconfig/gbm.pc
 
-%ifnarch s390 ppc aarch64
+%ifnarch s390 ppc aarch64 m68k
 
 %files -n libxatracker1
 %defattr(-,root,root)
@@ -791,7 +791,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 
 %endif
 
-%ifnarch s390 s390x aarch64
+%ifnarch s390 s390x aarch64 m68k
 
 %files -n libXvMC_nouveau
 %defattr(-,root,root)
@@ -831,7 +831,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 
 %endif
 
-%ifnarch s390 aarch64
+%ifnarch s390 aarch64 m68k
 %files -n libXvMC_softpipe
 %defattr(-,root,root)
 %_libdir/libXvMCsoftpipe.so
