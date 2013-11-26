@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Nov 12 13:56:37 UTC 2013 - schwab@suse.de
+
+- Add support for m68k
+
+-------------------------------------------------------------------
 Fri Oct 25 10:37:04 UTC 2013 - sndirsch@suse.com
 
 - no longer install install libvdpau_r300 subpackage by default and
