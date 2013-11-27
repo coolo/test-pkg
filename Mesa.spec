@@ -29,11 +29,11 @@
 %define llvm_r600 0
 %endif
 
-%define _version 9.2.2
+%define _version 9.2.3
 %define _name_archive MesaLib
 
 Name:           Mesa
-Version:        9.2.2
+Version:        9.2.3
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
