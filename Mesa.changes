@@ -1,4 +1,36 @@
 -------------------------------------------------------------------
+Sat Nov 16 18:51:58 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Update to version 9.2.3
+ * st/mesa: move out of memory check in st_draw_vbo()
+ * osmesa: fix broken triangle/line drawing when using float 
+   color buffer
+ * Remove error when calling glGenQueries/glDeleteQueries while 
+   a query is active
+ * Bump version to 9.2.3
+ * i965: CS writes/reads should use I915_GEM_INSTRUCTION
+ * i965: Fix texture buffer rendering after a whole buffer 
+   replacement.
+ * i965: Emit post-sync non-zero flush before 
+   3DSTATE_GS_SVB_INDEX.
+ * i965: Emit post-sync non-zero flush before 
+   3DSTATE_DRAWING_RECTANGLE.
+ * i965: Also guard 3DSTATE_DRAWING_RECTANGLE with a 
+   flush in blorp.
+ * i965: Move post-sync non-zero flush for 3DSTATE_MULTISAMPLE.
+ * i965: Also emit HIER_DEPTH and STENCIL packets when 
+   disabling depth.
+ * i965: Also emit HiZ and Stencil packets when 
+   disabling depth on Gen6.
+ * wayland: Don't rely on static variable for 
+   identifying wl_drm buffers
+ * radeonsi: fix blitting the last 2 mipmap levels of 
+   compressed textures
+ * meta: enable vertex attributes in the context of the 
+   newly created array object
+ * mesa: fixes for MSVC 2013
+
+-------------------------------------------------------------------
 Tue Nov 12 13:56:37 UTC 2013 - schwab@suse.de
 
 - Add support for m68k
