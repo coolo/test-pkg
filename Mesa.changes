@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Dec  2 10:54:26 UTC 2013 - sndirsch@suse.com
+
+- disable the build of egl-wayland support on openSUSE 12.3, since
+  Mesa 10.0 requires a higher wayland version than we have on
+  openSUSE 12.3
+
+-------------------------------------------------------------------
 Wed Nov 27 14:54:04 UTC 2013 - tobias.johannes.klausmann@mni.thm.de
 
 - Update to version 10.0.0:

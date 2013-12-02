@@ -60,7 +60,7 @@ BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.41
 BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.45
 BuildRequires:  pkgconfig(libkms) >= 1.0.0
 BuildRequires:  pkgconfig(libudev) > 150
-%if 0%{?suse_version} >= 1230
+%if 0%{?suse_version} >= 1310
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-server)
 %endif
@@ -142,7 +142,7 @@ Requires:       Mesa-libGLESv2-devel = %version
 Requires:       Mesa-libglapi-devel = %version
 Requires:       libOSMesa-devel = %version
 Requires:       libgbm-devel
-%if 0%{?suse_version} >= 1230
+%if 0%{?suse_version} >= 1310
 Requires:       libwayland-egl-devel
 %endif
 # bug437293
@@ -376,7 +376,7 @@ openwfd.
 This package provides the development environment for compiling
 programs against the GBM library.
 
-%if 0%{?suse_version} >= 1230
+%if 0%{?suse_version} >= 1310
 
 %package -n libwayland-egl1
 Summary:        Additional egl functions for wayland
@@ -481,7 +481,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 rm -f src/mesa/depend
 export TALLOC_LIBS=-ltalloc
 export TALLOC_CFLAGS="-I/usr/include"
-%if 0%{?suse_version} >= 1230
+%if 0%{?suse_version} >= 1310
 egl_platforms=x11,drm,wayland
 %else
 egl_platforms=x11,drm
@@ -623,7 +623,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 
 %postun -n Mesa-libglapi0 -p /sbin/ldconfig
 
-%if 0%{?suse_version} >= 1230
+%if 0%{?suse_version} >= 1310
 %post   -n libwayland-egl1 -p /sbin/ldconfig
 
 %postun -n libwayland-egl1 -p /sbin/ldconfig
@@ -704,7 +704,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %_libdir/libOSMesa.so
 %_libdir/pkgconfig/osmesa.pc
 
-%if 0%{?suse_version} >= 1230
+%if 0%{?suse_version} >= 1310
 %files -n libwayland-egl1
 %defattr(-,root,root)
 %_libdir/libwayland-egl.so.1*
