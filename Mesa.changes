@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Dec  6 07:02:50 UTC 2013 - adrian@suse.de
+
+- disable llvm support for ppc64le, llvm does not support ppc64le
+
+-------------------------------------------------------------------
 Mon Dec  2 10:54:26 UTC 2013 - sndirsch@suse.com
 
 - disable the build of egl-wayland support on openSUSE 12.3, since

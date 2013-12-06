@@ -52,7 +52,9 @@ BuildRequires:  pkgconfig
 BuildRequires:  python-base
 BuildRequires:  xorg-x11-util-devel
 BuildRequires:  pkgconfig(libdrm) >= 2.4.24
+%ifnarch ppc64le
 BuildRequires:  pkgconfig(xshmfence)
+%endif
 %ifarch x86_64 %ix86
 BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.38
 %endif
@@ -597,7 +599,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 
 %postun -n libgbm1 -p /sbin/ldconfig
 
-%ifnarch s390 aarch64 m68k
+%ifnarch s390 aarch64 m68k ppc64le
 
 %post   -n libxatracker2 -p /sbin/ldconfig
 
@@ -605,6 +607,9 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 
 %post   -n libXvMC_nouveau
 %postun -n libXvMC_nouveau
+
+%endif
+%ifnarch s390 s390x aarch64 m68k
 
 %post   -n libXvMC_r600
 
@@ -730,7 +735,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %_libdir/libgbm.so
 %_libdir/pkgconfig/gbm.pc
 
-%ifnarch s390 ppc aarch64 m68k
+%ifnarch s390 ppc aarch64 m68k ppc64le
 
 %files -n libxatracker2
 %defattr(-,root,root)
@@ -744,13 +749,22 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 
 %endif
 
-%ifnarch s390 s390x aarch64 m68k
+%ifnarch s390 s390x aarch64 m68k ppc64le
 
 %files -n libXvMC_nouveau
 %defattr(-,root,root)
 %_libdir/libXvMCnouveau.so
 %_libdir/libXvMCnouveau.so.1
 %_libdir/libXvMCnouveau.so.1.0.0
+
+%files -n libvdpau_nouveau
+%defattr(-,root,root)
+%_libdir/vdpau/libvdpau_nouveau.so
+%_libdir/vdpau/libvdpau_nouveau.so.1
+%_libdir/vdpau/libvdpau_nouveau.so.1.0.0
+
+%endif
+%ifnarch s390 s390x aarch64 m68k
 
 %files -n libXvMC_r600
 %defattr(-,root,root)
@@ -763,12 +777,6 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %_libdir/vdpau/libvdpau_r600.so
 %_libdir/vdpau/libvdpau_r600.so.1
 %_libdir/vdpau/libvdpau_r600.so.1.0.0
-
-%files -n libvdpau_nouveau
-%defattr(-,root,root)
-%_libdir/vdpau/libvdpau_nouveau.so
-%_libdir/vdpau/libvdpau_nouveau.so.1
-%_libdir/vdpau/libvdpau_nouveau.so.1.0.0
 
 %endif
 
