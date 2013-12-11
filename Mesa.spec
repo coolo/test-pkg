@@ -29,11 +29,11 @@
 %define llvm_r600 0
 %endif
 
-%define _version 9.2.3
+%define _version 10.0.0
 %define _name_archive MesaLib
 
 Name:           Mesa
-Version:        9.2.3
+Version:        10.0.0
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -52,6 +52,9 @@ BuildRequires:  pkgconfig
 BuildRequires:  python-base
 BuildRequires:  xorg-x11-util-devel
 BuildRequires:  pkgconfig(libdrm) >= 2.4.24
+%ifnarch ppc64le
+BuildRequires:  pkgconfig(xshmfence)
+%endif
 %ifarch x86_64 %ix86
 BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.38
 %endif
@@ -59,14 +62,16 @@ BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.41
 BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.45
 BuildRequires:  pkgconfig(libkms) >= 1.0.0
 BuildRequires:  pkgconfig(libudev) > 150
-%if 0%{?suse_version} >= 1230
+%if 0%{?suse_version} >= 1310
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-server)
 %endif
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(x11-xcb)
 BuildRequires:  pkgconfig(xcb-dri2)
+BuildRequires:  pkgconfig(xcb-dri3)
 BuildRequires:  pkgconfig(xcb-glx)
+BuildRequires:  pkgconfig(xcb-present)
 BuildRequires:  pkgconfig(xdamage)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xfixes)
@@ -99,7 +104,7 @@ Provides:       XFree86-Mesa-64bit = %{version}
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
 Group:          System/Libraries
-Source:         ftp://ftp.freedesktop.org/pub/mesa/%{_version}/%{_name_archive}-%{_version}.tar.bz2
+Source:         %{_name_archive}-%{_version}.tar.bz2
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
@@ -139,7 +144,7 @@ Requires:       Mesa-libGLESv2-devel = %version
 Requires:       Mesa-libglapi-devel = %version
 Requires:       libOSMesa-devel = %version
 Requires:       libgbm-devel
-%if 0%{?suse_version} >= 1230
+%if 0%{?suse_version} >= 1310
 Requires:       libwayland-egl-devel
 %endif
 # bug437293
@@ -373,7 +378,7 @@ openwfd.
 This package provides the development environment for compiling
 programs against the GBM library.
 
-%if 0%{?suse_version} >= 1230
+%if 0%{?suse_version} >= 1310
 
 %package -n libwayland-egl1
 Summary:        Additional egl functions for wayland
@@ -394,13 +399,13 @@ This package is required to link wayland client applications to the EGL
 implementation of Mesa.
 %endif
 
-%package -n libxatracker1
+%package -n libxatracker2
 Summary:        XA state tracker
 Group:          System/Libraries
 Version:        1.0.0
 Release:        0
 
-%description -n libxatracker1
+%description -n libxatracker2
 This package contains the XA state tracker for gallium3D driver.
 It superseeds the Xorg state tracker and provides an infrastructure
 to accelerate Xorg 2D operations. It is currently used by vmwgfx
@@ -411,7 +416,7 @@ Summary:        Development files for the XA API
 Group:          Development/Libraries/C and C++
 Version:        1.0.0
 Release:        0
-Requires:       libxatracker1 = %version
+Requires:       libxatracker2 = %version
 
 %description -n libxatracker-devel
 This package contains the XA state tracker for gallium3D driver.
@@ -431,15 +436,6 @@ This package contains the XvMC state tracker for Nouveau. This is
 still "work in progress", i.e. expect poor video quality, choppy
 videos and artefacts all over.
 
-%package -n libXvMC_r300
-Summary:        XVMC state tracker for R300
-Group:          System/Libraries
-
-%description -n libXvMC_r300
-This package contains the XvMC state tracker for R300. This is
-still "work in progress", i.e. expect poor video quality, choppy
-videos and artefacts all over.
-
 %package -n libXvMC_r600
 Summary:        XVMC state tracker for R600
 Group:          System/Libraries
@@ -449,15 +445,6 @@ This package contains the XvMC state tracker for R600. This is
 still "work in progress", i.e. expect poor video quality, choppy
 videos and artefacts all over.
 
-%package -n libXvMC_softpipe
-Summary:        Software implementation of XVMC state tracker
-Group:          System/Libraries
-
-%description -n libXvMC_softpipe
-This package contains the Software implementation of the XvMC
-state tracker. This is still "work in progress", i.e. expect
-poor video quality, choppy videos and artefacts all over.
-
 %package -n libvdpau_nouveau
 Summary:        XVMC state tracker for Nouveau
 Group:          System/Libraries
@@ -465,15 +452,6 @@ Supplements:    xf86-video-nouveau
 
 %description -n libvdpau_nouveau
 This package contains the VDPAU state tracker for Nouveau. 
-
-%package -n libvdpau_r300
-Summary:        XVMC state tracker for R300
-Group:          System/Libraries
-
-%description -n libvdpau_r300
-This package contains the VDPAU state tracker for R300. This is
-still "work in progress", i.e. expect poor video quality, choppy
-videos and artefacts all over.
 
 %package -n libvdpau_r600
 Summary:        XVMC state tracker for R600
@@ -491,20 +469,11 @@ Supplements:    xf86-video-ati
 %description -n libvdpau_radeonsi
 This package contains the VDPAU state tracker for radeonsi. 
 
-%package -n libvdpau_softpipe
-Summary:        Software implementation of XVMC state tracker
-Group:          System/Libraries
-
-%description -n libvdpau_softpipe
-This package contains the Software implementation of the VDPAU
-state tracker. 
-
 %prep
 %setup -n %{name}-%{_version} -b4 -q
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
-# Both patches are considered wrong by the author -> disable them
 #%patch15 -p1
 #%patch13 -p1
 
@@ -514,7 +483,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 rm -f src/mesa/depend
 export TALLOC_LIBS=-ltalloc
 export TALLOC_CFLAGS="-I/usr/include"
-%if 0%{?suse_version} >= 1230
+%if 0%{?suse_version} >= 1310
 egl_platforms=x11,drm,wayland
 %else
 egl_platforms=x11,drm
@@ -542,6 +511,7 @@ autoreconf -fi
            --enable-xa \
            --enable-gallium-llvm \
            --with-dri-drivers=i915,i965,nouveau,r200,radeon \
+           --enable-opencl-icd \
 %if %llvm_r600
            --with-llvm-shared-libs \
            --enable-r600-llvm-compiler \
@@ -629,24 +599,21 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 
 %postun -n libgbm1 -p /sbin/ldconfig
 
-%ifnarch s390 aarch64 m68k
+%ifnarch s390 aarch64 m68k ppc64le
 
-%post   -n libxatracker1 -p /sbin/ldconfig
+%post   -n libxatracker2 -p /sbin/ldconfig
 
-%postun -n libxatracker1 -p /sbin/ldconfig
+%postun -n libxatracker2 -p /sbin/ldconfig
 
 %post   -n libXvMC_nouveau
 %postun -n libXvMC_nouveau
 
+%endif
+%ifnarch s390 s390x aarch64 m68k
+
 %post   -n libXvMC_r600
 
 %postun -n libXvMC_r600
-
-%post   -n libXvMC_softpipe
-%postun -n libXvMC_softpipe
-
-%post   -n libvdpau_r300
-%postun -n libvdpau_r300
 
 %post   -n libvdpau_r600
 %postun -n libvdpau_r600
@@ -655,21 +622,13 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %post   -n libvdpau_radeonsi
 %postun -n libvdpau_radeonsi
 %endif
-
-%post   -n libvdpau_softpipe
-%postun -n libvdpau_softpipe
-%endif
-
-%ifarch ppc ppc64 %ix86 x86_64
-%post   -n libXvMC_r300
-%postun -n libXvMC_r300
 %endif
 
 %post   -n Mesa-libglapi0 -p /sbin/ldconfig
 
 %postun -n Mesa-libglapi0 -p /sbin/ldconfig
 
-%if 0%{?suse_version} >= 1230
+%if 0%{?suse_version} >= 1310
 %post   -n libwayland-egl1 -p /sbin/ldconfig
 
 %postun -n libwayland-egl1 -p /sbin/ldconfig
@@ -688,7 +647,6 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %dir %_libdir/gallium-pipe/
 %_libdir/gallium-pipe/pipe_*.so
 %endif
-%_libdir/libdricore9*.so.*
 
 %files -n Mesa-libEGL1
 %defattr(-,root,root)
@@ -751,7 +709,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %_libdir/libOSMesa.so
 %_libdir/pkgconfig/osmesa.pc
 
-%if 0%{?suse_version} >= 1230
+%if 0%{?suse_version} >= 1310
 %files -n libwayland-egl1
 %defattr(-,root,root)
 %_libdir/libwayland-egl.so.1*
@@ -777,11 +735,11 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %_libdir/libgbm.so
 %_libdir/pkgconfig/gbm.pc
 
-%ifnarch s390 ppc aarch64 m68k
+%ifnarch s390 ppc aarch64 m68k ppc64le
 
-%files -n libxatracker1
+%files -n libxatracker2
 %defattr(-,root,root)
-%_libdir/libxatracker.so.1*
+%_libdir/libxatracker.so.2*
 
 %files -n libxatracker-devel
 %defattr(-,root,root)
@@ -791,37 +749,13 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 
 %endif
 
-%ifnarch s390 s390x aarch64 m68k
+%ifnarch s390 s390x aarch64 m68k ppc64le
 
 %files -n libXvMC_nouveau
 %defattr(-,root,root)
 %_libdir/libXvMCnouveau.so
 %_libdir/libXvMCnouveau.so.1
 %_libdir/libXvMCnouveau.so.1.0.0
-
-%files -n libXvMC_r300
-%defattr(-,root,root)
-%_libdir/libXvMCr300.so
-%_libdir/libXvMCr300.so.1
-%_libdir/libXvMCr300.so.1.0.0
-
-%files -n libXvMC_r600
-%defattr(-,root,root)
-%_libdir/libXvMCr600.so
-%_libdir/libXvMCr600.so.1
-%_libdir/libXvMCr600.so.1.0.0
-
-%files -n libvdpau_r300
-%defattr(-,root,root)
-%_libdir/vdpau/libvdpau_r300.so
-%_libdir/vdpau/libvdpau_r300.so.1
-%_libdir/vdpau/libvdpau_r300.so.1.0.0
-
-%files -n libvdpau_r600
-%defattr(-,root,root)
-%_libdir/vdpau/libvdpau_r600.so
-%_libdir/vdpau/libvdpau_r600.so.1
-%_libdir/vdpau/libvdpau_r600.so.1.0.0
 
 %files -n libvdpau_nouveau
 %defattr(-,root,root)
@@ -830,19 +764,20 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %_libdir/vdpau/libvdpau_nouveau.so.1.0.0
 
 %endif
+%ifnarch s390 s390x aarch64 m68k
 
-%ifnarch s390 aarch64 m68k
-%files -n libXvMC_softpipe
+%files -n libXvMC_r600
 %defattr(-,root,root)
-%_libdir/libXvMCsoftpipe.so
-%_libdir/libXvMCsoftpipe.so.1
-%_libdir/libXvMCsoftpipe.so.1.0.0
+%_libdir/libXvMCr600.so
+%_libdir/libXvMCr600.so.1
+%_libdir/libXvMCr600.so.1.0.0
 
-%files -n libvdpau_softpipe
+%files -n libvdpau_r600
 %defattr(-,root,root)
-%_libdir/vdpau/libvdpau_softpipe.so
-%_libdir/vdpau/libvdpau_softpipe.so.1
-%_libdir/vdpau/libvdpau_softpipe.so.1.0.0
+%_libdir/vdpau/libvdpau_r600.so
+%_libdir/vdpau/libvdpau_r600.so.1
+%_libdir/vdpau/libvdpau_r600.so.1.0.0
+
 %endif
 
 %if %llvm_r600
@@ -865,7 +800,6 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %defattr(-,root,root)
 %doc docs/*.html
 %_includedir/GL/internal
-%_libdir/libdricore9*.so
 %_libdir/pkgconfig/dri.pc
 
 %changelog
