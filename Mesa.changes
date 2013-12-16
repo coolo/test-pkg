@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sat Dec 14 00:09:45 UTC 2013 - tobias.johannes.klausmann@mni.thm.de
+
+- Update to version 10.0.1:
+  This version of Mesa fixes the regression that Mesa 10.0 could not
+  be loaded by any released version of the X server.
+
+-------------------------------------------------------------------
 Fri Dec  6 07:02:50 UTC 2013 - adrian@suse.de
 
 - disable llvm support for ppc64le, llvm does not support ppc64le
