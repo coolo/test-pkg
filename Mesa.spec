@@ -637,9 +637,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %files
 %defattr(-,root,root)
 %doc docs/README* docs/COPYING
-%ifnarch s390 aarch64 m68k
 %config /etc/drirc
-%endif
 %{_libdir}/dri/
 %if %egl_gallium
 %dir %_libdir/egl/
