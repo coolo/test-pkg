@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Dec 17 11:38:52 UTC 2013 - schwab@suse.de
+
+- Make proper use of %build and %install
+- Use verbose make rules
+
+-------------------------------------------------------------------
 Mon Dec 16 15:17:23 UTC 2013 - schwab@suse.de
 
 - Fix filelist: /etc/drirc is now always installed
