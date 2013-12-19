@@ -478,8 +478,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch13 -p1
 
 %build
-
-%install
 rm -f src/mesa/depend
 export TALLOC_LIBS=-ltalloc
 export TALLOC_CFLAGS="-I/usr/include"
@@ -545,7 +543,9 @@ autoreconf -fi
         --with-gallium-drivers=swrast,svga \
 %endif
            CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
-make %{?_smp_mflags}
+make %{?_smp_mflags} V=1
+
+%install
 make install DESTDIR=$RPM_BUILD_ROOT
 find $RPM_BUILD_ROOT -name "*.la" -exec rm {} \;
 
