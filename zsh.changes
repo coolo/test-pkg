@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Wed Dec 25 12:25:03 UTC 2013 - idonmez@suse.com
+
+- Update to version 5.0.4
+  * Small bugfix release
+- Add zsh-pipefix.patch to import pipe fixes from zsh.git
+- Remove upstream patches
+  * zsh-osc-suseversion.patch
+  * zsh-zypper-completion.patch
+
+-------------------------------------------------------------------
 Mon Apr 22 09:22:02 UTC 2013 - idonmez@suse.com
 
 - Don't set globdots it might lead to unexpected problems (bnc#815556) 
