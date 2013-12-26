@@ -17,7 +17,7 @@
 
 
 Name:           zsh
-Version:        5.0.2
+Version:        5.0.4
 Release:        0
 Summary:        Shell with comprehensive completion
 License:        MIT
@@ -36,9 +36,8 @@ Source15:       zshenv.rhs
 Source16:       dotzshrc.rh
 Source17:       zshprompt.pl
 %endif
-Patch1:         zsh-zypper-completion.patch
-Patch2:         zsh-osc-suseversion.patch
-Patch3:         trim-unneeded-completions.patch
+Patch1:         trim-unneeded-completions.patch
+Patch2:         zsh-pipefix.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %if 0%{?suse_version}
 Requires(pre):  %{install_info_prereq}
@@ -94,11 +93,10 @@ This package contains the Zsh manual in html format.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch1 -p1
-%patch2 -p1
 %if 0%{?suse_version}
-%patch3 -p1
+%patch1 -p1
 %endif
+%patch2 -p1
 
 # Remove executable bit
 chmod 0644 Etc/changelog2html.pl
@@ -128,15 +126,6 @@ perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
     --enable-ldflags="%(ncursesw6-config --libs)"
 
 make all info html
-
-# make help text files
-install -d Help
-pushd Help/
-troff -Tlatin1 -t -mandoc ../Doc/zshbuiltins.1 | \
-	grotty -cbou | \
-	sed -e 's/±/{+|-}/' | \
-	../Util/helpfiles
-popd
 
 # generate intro.ps
 groff -Tps -ms Doc/intro.ms > intro.ps
@@ -179,7 +168,7 @@ done
 
 # install help files
 install -m 0755 -Dd    %{buildroot}%{_datadir}/%{name}/%{version}/help
-install -m 0644 Help/* %{buildroot}%{_datadir}/%{name}/%{version}/help/
+install -m 0644 Doc/help/* %{buildroot}%{_datadir}/%{name}/%{version}/help/
 
 # link zsh binary
 ln -sf %{_bindir}/zsh %{buildroot}/bin/zsh
