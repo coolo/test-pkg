@@ -1,7 +1,7 @@
 #
 # spec file for package zsh
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,7 +17,7 @@
 
 
 Name:           zsh
-Version:        5.0.4
+Version:        5.0.5
 Release:        0
 Summary:        Shell with comprehensive completion
 License:        MIT
@@ -37,7 +37,6 @@ Source16:       dotzshrc.rh
 Source17:       zshprompt.pl
 %endif
 Patch1:         trim-unneeded-completions.patch
-Patch2:         zsh-pipefix.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %if 0%{?suse_version}
 Requires(pre):  %{install_info_prereq}
@@ -96,7 +95,6 @@ This package contains the Zsh manual in html format.
 %if 0%{?suse_version}
 %patch1 -p1
 %endif
-%patch2 -p1
 
 # Remove executable bit
 chmod 0644 Etc/changelog2html.pl
