@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Jan  7 08:40:21 UTC 2014 - idonmez@suse.com
+
+- Update to version 5.0.5
+  * Fixes a couple of regression in 5.0.4
+- Remove zsh-pipefix.patch, merged upstream
+
+-------------------------------------------------------------------
 Wed Dec 25 12:25:03 UTC 2013 - idonmez@suse.com
 
 - Update to version 5.0.4
