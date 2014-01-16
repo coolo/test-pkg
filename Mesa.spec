@@ -55,6 +55,9 @@ BuildRequires:  pkgconfig(libdrm) >= 2.4.24
 %ifnarch ppc64le
 BuildRequires:  pkgconfig(xshmfence)
 %endif
+%ifarch %arm
+BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.43
+%endif
 %ifarch x86_64 %ix86
 BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.38
 %endif
@@ -524,7 +527,11 @@ autoreconf -fi
            --enable-xa \
            --enable-gallium-llvm \
            --with-dri-drivers=nouveau \
+%ifarch %arm
+           --with-gallium-drivers=r300,r600,nouveau,swrast,svga,freedreno \
+%else
            --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
+%endif
            --enable-vdpau \
            --enable-xvmc \
 %endif
