@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Jan 16 09:44:48 UTC 2014 - idonmez@suse.com
+
+- Add zsh-update-zypper-completion.patch to update zypper
+  completions, patch by Holger Macht and Thomas Mitterfellner.
+
+-------------------------------------------------------------------
 Tue Jan  7 08:40:21 UTC 2014 - idonmez@suse.com
 
 - Update to version 5.0.5
