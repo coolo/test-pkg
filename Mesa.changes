@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Wed Jan 15 04:49:48 UTC 2014 - afaerber@suse.de
+
+- Enable freedreno gallium driver (Qualcomm Adreno)
+
+-------------------------------------------------------------------
+Mon Jan 13 11:35:46 UTC 2014 - sndirsch@suse.com
+
+- Update to version 10.0.2
+ * Mesa 10.0.2 is a bug fix release which fixes bugs fixed since
+   the 10.0.1 release. 
+
+-------------------------------------------------------------------
 Tue Dec 17 11:38:52 UTC 2013 - schwab@suse.de
 
 - Make proper use of %build and %install
