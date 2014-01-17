@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Jan 17 09:42:03 UTC 2014 - idonmez@suse.com
+
+- Update zsh-update-zypper-completion.patch to v0.3
+
+-------------------------------------------------------------------
 Thu Jan 16 09:44:48 UTC 2014 - idonmez@suse.com
 
 - Add zsh-update-zypper-completion.patch to update zypper
