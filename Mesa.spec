@@ -1,7 +1,7 @@
 #
 # spec file for package Mesa
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -29,11 +29,11 @@
 %define llvm_r600 0
 %endif
 
-%define _version 10.0.1
+%define _version 10.0.2
 %define _name_archive MesaLib
 
 Name:           Mesa
-Version:        10.0.1
+Version:        10.0.2
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -54,6 +54,9 @@ BuildRequires:  xorg-x11-util-devel
 BuildRequires:  pkgconfig(libdrm) >= 2.4.24
 %ifnarch ppc64le
 BuildRequires:  pkgconfig(xshmfence)
+%endif
+%ifarch %arm
+BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.43
 %endif
 %ifarch x86_64 %ix86
 BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.38
@@ -524,7 +527,11 @@ autoreconf -fi
            --enable-xa \
            --enable-gallium-llvm \
            --with-dri-drivers=nouveau \
+%ifarch %arm
+           --with-gallium-drivers=r300,r600,nouveau,swrast,svga,freedreno \
+%else
            --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
+%endif
            --enable-vdpau \
            --enable-xvmc \
 %endif
