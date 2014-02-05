@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Feb  4 16:26:20 UTC 2014 - sndirsch@suse.com
+
+- Update to version 10.0.3
+  * Mesa 10.0.3 is a bug fix release which fixes bugs fixed since
+    the 10.0.2 release 
+
+-------------------------------------------------------------------
 Wed Jan 15 04:49:48 UTC 2014 - afaerber@suse.de
 
 - Enable freedreno gallium driver (Qualcomm Adreno)
