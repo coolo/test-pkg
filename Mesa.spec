@@ -29,7 +29,7 @@
 %define llvm_r600 0
 %endif
 
-%define _version 10.0.2
+%define _version 10.0.3
 %define _name_archive MesaLib
 
 Name:           Mesa
