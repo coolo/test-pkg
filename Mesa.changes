@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Feb 25 19:32:04 CST 2014 - federico@suse.com
+
+- Added Mesa-9.2.3-drisw-copy-buffers-to-front-left.patch for
+  bnc#864943.  This fixes software-only rendering for Clutter clients.
+
+-------------------------------------------------------------------
 Mon Feb 24 12:52:15 UTC 2014 - sndirsch@suse.com
 
 - disable wayland support for sle12, i.e. suse < 1320
