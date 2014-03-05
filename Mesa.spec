@@ -476,6 +476,9 @@ This package contains the VDPAU state tracker for radeonsi.
 %setup -n %{name}-%{_version} -b4 -q
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
+### disabled, but not dropped yet; these still need investigation in
+### order to figure out whether the issue is still reproducable and
+### hence a fix is required
 #%patch11 -p1
 #%patch15 -p1
 #%patch13 -p1
