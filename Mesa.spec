@@ -29,11 +29,11 @@
 %define llvm_r600 0
 %endif
 
-%define _version 10.0.3
+%define _version 10.1.0
 %define _name_archive MesaLib
 
 Name:           Mesa
-Version:        10.0.2
+Version:        10.1.0
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -553,7 +553,7 @@ autoreconf -fi
         --with-gallium-drivers=swrast,svga \
 %endif
            CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
-make %{?_smp_mflags} V=1
+make %{?_smp_mflags}
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT

@@ -1,4 +1,21 @@
 -------------------------------------------------------------------
+Wed Mar  5 16:17:42 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
+
+- Update to version 10.1:
+- New features:
+  + GL_ARB_draw_indirect on i965.
+  + GL_ARB_clear_buffer_object
+  + GL_ARB_viewport_array on i965.
+  + GL_ARB_map_buffer_alignment on all drivers that did not previously
+    support it.
+  + GL_AMD_shader_trinary_minmax.
+  + GL_EXT_framebuffer_blit on r200 and radeon.
+  + Reduced memory usage for display lists.
+  + OpenGL 3.3 support on nv50, nvc0, r600 and radeonsi
+- Changes:
+  + Removed support for the GL_MESA_texture_array extension. 
+
+-------------------------------------------------------------------
 Tue Feb  4 16:26:20 UTC 2014 - sndirsch@suse.com
 
 - Update to version 10.0.3
