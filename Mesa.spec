@@ -118,8 +118,8 @@ Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
-# PATCH-FIX-UPSTREAM Mesa-9.2.3-drisw-copy-buffers-to-front-left.patch bnc#864943 federico@suse.com - Fix software rendering for Clutter/Cogl
-Patch16:        Mesa-9.2.3-drisw-copy-buffers-to-front-left.patch
+# PATCH-FIX-UPSTREAM Mesa-bnc864943-9.2.0-swrast-copy-sub-buffer.patch bnc#864943 federico@suse.com - Fix software rendering for Clutter/Cogl
+Patch16:        Mesa-bnc864943-10.0.3-swrast-copy-sub-buffer.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 

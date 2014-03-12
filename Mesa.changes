@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Tue Mar 11 11:02:54 CST 2014 - federico@suse.com
+
+- Removed Mesa-9.2.3-drisw-copy-buffers-to-front-left.patch, as it is
+  superseded by the following patch from upstream.
+
+- Added Mesa-bnc864943-9.2.0-swrast-copy-sub-buffer.patch, which adds
+  the CopySubBuffer extension to the software renderer.  This lets
+  clients update only a small portion of the front buffer, for
+  example, when updating a small part of the screen, instead of doing
+  a full buffer swap.  bnc#864943.
+
+-------------------------------------------------------------------
 Tue Feb 25 19:32:04 CST 2014 - federico@suse.com
 
 - Added Mesa-9.2.3-drisw-copy-buffers-to-front-left.patch for
