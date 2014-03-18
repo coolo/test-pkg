@@ -1,7 +1,7 @@
 #
 # spec file for package bash
 #
-# Copyright (c) 2013 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -91,6 +91,7 @@ Patch25:        readline-6.2-endpw.dif
 Patch26:        readline-6.2-msgdynamic.patch
 Patch27:        readline-6.2-xmalloc.dif
 Patch30:        readline-6.2-destdir.patch
+Patch31:        readline-6.2-rltrace.patch
 Patch40:        bash-4.1-bash.bashrc.dif
 Patch42:        audit-patch
 Patch43:        audit-rl-patch
@@ -309,6 +310,7 @@ done
 %patch24 -p0 -b .metamode
 #%patch25 -p0 -b .endpw
 %patch26 -p0 -b .msgdy
+%patch31 -p0 -b .tmp
 %patch40 -p0 -b .bashrc
 %if 0%suse_version >= 1100
 %patch42 -p1 -b .audit
@@ -334,6 +336,7 @@ done
 %patch24 -p2 -b .metamode
 #%patch25 -p2 -b .endpw
 %patch26 -p2 -b .msgdy
+%patch31 -p2 -b .tmp
 %patch27 -p0 -b .xm
 %patch30 -p0 -b .destdir
 %if 0%suse_version >= 1100
