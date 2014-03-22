@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Thu Mar 13 15:20:17 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
+
+- Add U_gallium_util_add_missing_u_math_include.patch (patch27)
+- Add U_nouveau_create_only_one_shared_screen.patch (patch28)
+- Add U_nouveau_add_valid_range_tracking.patch (patch29)
+- Add U_nouveau_fix_fence_waiting_logic.patch (patch30)
+  + https://bugzilla.novell.com/show_bug.cgi?id=866445
+  + https://bugs.freedesktop.org/show_bug.cgi?id=75279
+  
+-------------------------------------------------------------------
 Wed Mar  5 16:17:42 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
 
 - Update to version 10.1:

@@ -118,6 +118,11 @@ Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
+# BNC#866445
+Patch27:        U_gallium_util_add_missing_u_math_include.patch
+Patch28:        U_nouveau_create_only_one_shared_screen.patch
+Patch29:        U_nouveau_add_valid_range_tracking.patch
+Patch30:        U_nouveau_fix_fence_waiting_logic.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -482,6 +487,11 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
 #%patch15 -p1
 #%patch13 -p1
+###
+%patch27 -p1
+%patch28 -p1
+%patch29 -p1
+%patch30 -p1
 
 %build
 rm -f src/mesa/depend
