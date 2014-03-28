@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Mar 25 09:37:30 UTC 2014 - sndirsch@suse.com
+
+- U_0001-glx-Fix-the-default-values-for-GLXFBConfig-attribute.patch/
+  U_0002-glx-Fix-the-GLXFBConfig-attrib-sort-priorities.patch
+  * glx: Fix the default values for GLXFBConfig attributes, fix the
+    GLXFBConfig attrib sort priorities (bnc#865586, fdo#70706)
+
+-------------------------------------------------------------------
 Tue Mar 11 11:02:54 CST 2014 - federico@suse.com
 
 - Removed Mesa-9.2.3-drisw-copy-buffers-to-front-left.patch, as it is

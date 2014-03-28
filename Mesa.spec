@@ -120,6 +120,8 @@ Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
 # PATCH-FIX-UPSTREAM Mesa-bnc864943-9.2.0-swrast-copy-sub-buffer.patch bnc#864943 federico@suse.com - Fix software rendering for Clutter/Cogl
 Patch16:        Mesa-bnc864943-10.0.3-swrast-copy-sub-buffer.patch
+Patch17:        U_0001-glx-Fix-the-default-values-for-GLXFBConfig-attribute.patch
+Patch18:        U_0002-glx-Fix-the-GLXFBConfig-attrib-sort-priorities.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -482,6 +484,8 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch15 -p1
 #%patch13 -p1
 %patch16 -p1
+%patch17 -p1
+%patch18 -p1
 
 %build
 rm -f src/mesa/depend
