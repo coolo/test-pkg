@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Mon Mar 31 09:57:12 UTC 2014 - schwab@suse.de
+
+- Clean up specfile
+- Turn negative arch checks into positive ones for non-default configure
+  settings
+- libxsmfence is also available on ppc64le
+- Don't enable gallium-egl on ppc64 for now to work around llvm bug
+
+-------------------------------------------------------------------
 Thu Mar 13 15:20:17 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
 
 - Add U_gallium_util_add_missing_u_math_include.patch (patch27)
