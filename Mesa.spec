@@ -17,16 +17,36 @@
 
 
 %define glamor 1
+# --enable-gallium-egl requires non-empty --with-gallium-drivers (default
+# is r300,r600,svga,swrast, which also enables VDPAU support for r600)
 %ifnarch s390 s390x aarch64 m68k
-# Requires non-empty --with-gallium-drivers
 %define egl_gallium 1
+%define vdpau_r600 1
 %else
 %define egl_gallium 0
+%define vdpau_r600 0
 %endif
 %ifarch %ix86 x86_64
 %define llvm_r600 1
 %else
 %define llvm_r600 0
+%endif
+%ifarch %ix86 x86_64 %arm ppc64
+%define xvmc_support 1
+%else
+%define xvmc_support 0
+%endif
+%ifarch %ix86 x86_64 %arm ppc64 ia64 ppc %sparc hppa
+%define vdpau_nouveau 1
+%else
+%define vdpau_nouveau 0
+%endif
+
+# llvm-config on ppc64 is currently broken (bnc#871128)
+# /usr/lib64/libLLVMSupport.a(Process.cpp.o): In function `llvm::sys::Process::FileDescriptorHasColors(int)':
+# /home/abuild/rpmbuild/BUILD/llvm/lib/Support/Process.cpp:(.text+0xcd4): undefined reference to `setupterm'
+%ifarch ppc64
+%define egl_gallium 0
 %endif
 
 %define _version 10.1.0
@@ -52,9 +72,7 @@ BuildRequires:  pkgconfig
 BuildRequires:  python-base
 BuildRequires:  xorg-x11-util-devel
 BuildRequires:  pkgconfig(libdrm) >= 2.4.24
-%ifnarch ppc64le
 BuildRequires:  pkgconfig(xshmfence)
-%endif
 %ifarch %arm
 BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.43
 %endif
@@ -592,65 +610,54 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 #sed -i -e '/^Libs.private/d' -e '/^Requires.private/d' %{buildroot}%{_libdir}/pkgconfig/*.pc
 
 %post   -p /sbin/ldconfig
-
 %postun -p /sbin/ldconfig
 
 %post   -n Mesa-libEGL1 -p /sbin/ldconfig
-
 %postun -n Mesa-libEGL1 -p /sbin/ldconfig
 
 %post   -n Mesa-libGL1 -p /sbin/ldconfig
-
 %postun -n Mesa-libGL1 -p /sbin/ldconfig
 
 %post   -n Mesa-libGLESv1_CM1 -p /sbin/ldconfig
-
 %postun -n Mesa-libGLESv1_CM1 -p /sbin/ldconfig
 
 %post   -n Mesa-libGLESv2-2 -p /sbin/ldconfig
-
 %postun -n Mesa-libGLESv2-2 -p /sbin/ldconfig
 
 %post   -n libOSMesa9 -p /sbin/ldconfig
-
 %postun -n libOSMesa9 -p /sbin/ldconfig
 
 %post   -n libgbm1 -p /sbin/ldconfig
-
 %postun -n libgbm1 -p /sbin/ldconfig
 
-%ifnarch s390 aarch64 m68k ppc64le
-
+%ifarch %ix86 x86_64 %arm ppc64
 %post   -n libxatracker2 -p /sbin/ldconfig
-
 %postun -n libxatracker2 -p /sbin/ldconfig
+%endif
 
+%if %xvmc_support
 %post   -n libXvMC_nouveau
 %postun -n libXvMC_nouveau
 
-%endif
-%ifnarch s390 s390x aarch64 m68k
-
 %post   -n libXvMC_r600
-
 %postun -n libXvMC_r600
+%endif
 
+%if %vdpau_r600
 %post   -n libvdpau_r600
 %postun -n libvdpau_r600
+%endif
 
 %if %llvm_r600
 %post   -n libvdpau_radeonsi
 %postun -n libvdpau_radeonsi
 %endif
-%endif
 
 %post   -n Mesa-libglapi0 -p /sbin/ldconfig
-
 %postun -n Mesa-libglapi0 -p /sbin/ldconfig
 
 %if 0%{?suse_version} >= 1310
 %post   -n libwayland-egl1 -p /sbin/ldconfig
-
 %postun -n libwayland-egl1 -p /sbin/ldconfig
 %endif
 
@@ -736,7 +743,6 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %defattr(-,root,root)
 %_libdir/libwayland-egl.so
 %_libdir/pkgconfig/wayland-egl.pc
-
 %endif
 
 %files -n libgbm1
@@ -753,8 +759,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %_libdir/libgbm.so
 %_libdir/pkgconfig/gbm.pc
 
-%ifnarch s390 ppc aarch64 m68k ppc64le
-
+%ifarch %ix86 x86_64 %arm ppc64
 %files -n libxatracker2
 %defattr(-,root,root)
 %_libdir/libxatracker.so.2*
@@ -764,38 +769,36 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %_includedir/xa_*.h
 %_libdir/libxatracker.so
 %_libdir/pkgconfig/xatracker.pc
-
 %endif
 
-%ifnarch s390 s390x aarch64 m68k ppc64le
-
+%if %xvmc_support
 %files -n libXvMC_nouveau
 %defattr(-,root,root)
 %_libdir/libXvMCnouveau.so
 %_libdir/libXvMCnouveau.so.1
 %_libdir/libXvMCnouveau.so.1.0.0
 
-%files -n libvdpau_nouveau
-%defattr(-,root,root)
-%_libdir/vdpau/libvdpau_nouveau.so
-%_libdir/vdpau/libvdpau_nouveau.so.1
-%_libdir/vdpau/libvdpau_nouveau.so.1.0.0
-
-%endif
-%ifnarch s390 s390x aarch64 m68k
-
 %files -n libXvMC_r600
 %defattr(-,root,root)
 %_libdir/libXvMCr600.so
 %_libdir/libXvMCr600.so.1
 %_libdir/libXvMCr600.so.1.0.0
+%endif
 
+%if %vdpau_nouveau
+%files -n libvdpau_nouveau
+%defattr(-,root,root)
+%_libdir/vdpau/libvdpau_nouveau.so
+%_libdir/vdpau/libvdpau_nouveau.so.1
+%_libdir/vdpau/libvdpau_nouveau.so.1.0.0
+%endif
+
+%if %vdpau_r600
 %files -n libvdpau_r600
 %defattr(-,root,root)
 %_libdir/vdpau/libvdpau_r600.so
 %_libdir/vdpau/libvdpau_r600.so.1
 %_libdir/vdpau/libvdpau_r600.so.1.0.0
-
 %endif
 
 %if %llvm_r600
