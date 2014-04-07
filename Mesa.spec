@@ -630,7 +630,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %post   -n libgbm1 -p /sbin/ldconfig
 %postun -n libgbm1 -p /sbin/ldconfig
 
-%ifarch %ix86 x86_64 %arm ppc64
+%ifarch %ix86 x86_64 %arm ppc64 s390x
 %post   -n libxatracker2 -p /sbin/ldconfig
 %postun -n libxatracker2 -p /sbin/ldconfig
 %endif
@@ -759,7 +759,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %_libdir/libgbm.so
 %_libdir/pkgconfig/gbm.pc
 
-%ifarch %ix86 x86_64 %arm ppc64
+%ifarch %ix86 x86_64 %arm ppc64 s390x
 %files -n libxatracker2
 %defattr(-,root,root)
 %_libdir/libxatracker.so.2*
