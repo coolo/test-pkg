@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Apr  7 14:15:39 UTC 2014 - schwab@suse.de
+
+- Include XA tracker sub packages on s390x
+
+-------------------------------------------------------------------
 Mon Mar 31 09:57:12 UTC 2014 - schwab@suse.de
 
 - Clean up specfile
