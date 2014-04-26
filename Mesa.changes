@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Apr 25 00:19:50 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
+
+- Add missing BuildRequires, remove old xorg-x11-*-devel packages
+
+-------------------------------------------------------------------
 Mon Apr  7 14:15:39 UTC 2014 - schwab@suse.de
 
 - Include XA tracker sub packages on s390x

@@ -64,14 +64,18 @@ BuildRequires:  gcc-c++
 %if %llvm_r600
 BuildRequires:  libelf-devel
 %endif
+BuildRequires:  imake
 BuildRequires:  libexpat-devel
 BuildRequires:  libtalloc-devel
 BuildRequires:  libtool
 BuildRequires:  libxml2-python
 BuildRequires:  pkgconfig
 BuildRequires:  python-base
-BuildRequires:  xorg-x11-util-devel
+BuildRequires:  pkgconfig(dri2proto)
+BuildRequires:  pkgconfig(dri3proto)
+BuildRequires:  pkgconfig(glproto)
 BuildRequires:  pkgconfig(libdrm) >= 2.4.24
+BuildRequires:  pkgconfig(presentproto)
 BuildRequires:  pkgconfig(xshmfence)
 %ifarch %arm
 BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.43
