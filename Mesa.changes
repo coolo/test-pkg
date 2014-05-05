@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Sat May  3 22:15:22 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
+
+- Update to 10.2-rc1:
+- Remove U_gallium_util_add_missing_u_math_include.patch (patch27)
+- Remove U_nouveau_create_only_one_shared_screen.patch (patch28)
+- Remove U_nouveau_add_valid_range_tracking.patch (patch29)
+- Remove U_nouveau_fix_fence_waiting_logic.patch (patch30)
+
+-------------------------------------------------------------------
 Fri Apr 25 00:19:50 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
 
 - Add missing BuildRequires, remove old xorg-x11-*-devel packages
