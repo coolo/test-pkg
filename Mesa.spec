@@ -49,11 +49,11 @@
 %define egl_gallium 0
 %endif
 
-%define _version 10.1.0
 %define _name_archive MesaLib
+%define _version 10.2.0-rc1
 
 Name:           Mesa
-Version:        10.1.0
+Version:        10.2.0~rc1
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -68,9 +68,9 @@ BuildRequires:  imake
 BuildRequires:  libexpat-devel
 BuildRequires:  libtalloc-devel
 BuildRequires:  libtool
-BuildRequires:  libxml2-python
 BuildRequires:  pkgconfig
 BuildRequires:  python-base
+BuildRequires:  python-xml
 BuildRequires:  pkgconfig(dri2proto)
 BuildRequires:  pkgconfig(dri3proto)
 BuildRequires:  pkgconfig(glproto)
@@ -134,17 +134,13 @@ Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source6:        %name-rpmlintrc
+
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 # Patch from Fedora, fix 16bpp in llvmpipe
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
-# BNC#866445
-Patch27:        U_gallium_util_add_missing_u_math_include.patch
-Patch28:        U_nouveau_create_only_one_shared_screen.patch
-Patch29:        U_nouveau_add_valid_range_tracking.patch
-Patch30:        U_nouveau_fix_fence_waiting_logic.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -510,10 +506,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch15 -p1
 #%patch13 -p1
 ###
-%patch27 -p1
-%patch28 -p1
-%patch29 -p1
-%patch30 -p1
 
 %build
 rm -f src/mesa/depend
@@ -549,7 +541,7 @@ autoreconf -fi
            --with-dri-drivers=i915,i965,nouveau,r200,radeon \
            --enable-opencl-icd \
 %if %llvm_r600
-           --with-llvm-shared-libs \
+           --enable-llvm-shared-libs \
            --enable-r600-llvm-compiler \
            --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga \
 %else
