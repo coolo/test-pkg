@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon May 12 09:32:19 UTC 2014 - schwab@suse.de
+
+- no shared llvm libs on ppc64
+- vdpau no longer enabled by default
+- xa or gallium-gbm implies gallium-loader
+
+-------------------------------------------------------------------
 Sat May 10 14:00:50 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
 
 - Update to 10.2-rc2:

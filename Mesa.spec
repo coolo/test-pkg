@@ -18,12 +18,20 @@
 
 %define glamor 1
 # --enable-gallium-egl requires non-empty --with-gallium-drivers (default
-# is r300,r600,svga,swrast, which also enables VDPAU support for r600)
+# is r300,r600,svga,swrast)
 %ifnarch s390 s390x aarch64 m68k
 %define egl_gallium 1
-%define vdpau_r600 1
 %else
 %define egl_gallium 0
+%endif
+%ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
+%define gallium_loader 1
+%else
+%define gallium_loader 0
+%endif
+%ifarch %ix86 x86_64 %arm ppc64
+%define vdpau_r600 1
+%else
 %define vdpau_r600 0
 %endif
 %ifarch %ix86 x86_64
@@ -36,7 +44,7 @@
 %else
 %define xvmc_support 0
 %endif
-%ifarch %ix86 x86_64 %arm ppc64 ia64 ppc %sparc hppa
+%ifarch %ix86 x86_64 %arm ppc64
 %define vdpau_nouveau 1
 %else
 %define vdpau_nouveau 0
@@ -553,6 +561,9 @@ autoreconf -fi
 %ifarch %arm ppc64
            --enable-xa \
            --enable-gallium-llvm \
+%ifarch ppc64
+           --disable-llvm-shared-libs \
+%endif
            --with-dri-drivers=nouveau \
 %ifarch %arm
            --with-gallium-drivers=r300,r600,nouveau,swrast,svga,freedreno \
@@ -665,6 +676,8 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %if %egl_gallium
 %dir %_libdir/egl/
 %_libdir/egl/egl_gallium.so
+%endif
+%if %gallium_loader
 %dir %_libdir/gallium-pipe/
 %_libdir/gallium-pipe/pipe_*.so
 %endif
