@@ -52,9 +52,7 @@ BuildRequires:  pkgconfig
 BuildRequires:  python-base
 BuildRequires:  xorg-x11-util-devel
 BuildRequires:  pkgconfig(libdrm) >= 2.4.24
-%ifnarch ppc64le
 BuildRequires:  pkgconfig(xshmfence)
-%endif
 %ifarch %arm
 BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.43
 %endif
@@ -80,7 +78,7 @@ BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xfixes)
 BuildRequires:  pkgconfig(xxf86vm)
 BuildRequires:  pkgconfig(zlib)
-%ifarch %arm ppc64 s390x %ix86 x86_64
+%ifarch %arm ppc64 ppc64le s390x %ix86 x86_64
 BuildRequires:  llvm-devel
 %endif
 BuildRequires:  libXvMC-devel
@@ -122,6 +120,8 @@ Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
 Patch16:        Mesa-bnc864943-10.0.3-swrast-copy-sub-buffer.patch
 Patch17:        U_0001-glx-Fix-the-default-values-for-GLXFBConfig-attribute.patch
 Patch18:        U_0002-glx-Fix-the-GLXFBConfig-attrib-sort-priorities.patch
+Patch19:        mesa-ppc64le-novector.patch
+Patch20:        mesa-overflow-fix.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -486,6 +486,8 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch16 -p1
 %patch17 -p1
 %patch18 -p1
+%patch19 -p1
+%patch20 -p1
 
 %build
 rm -f src/mesa/depend
@@ -530,7 +532,7 @@ autoreconf -fi
            --enable-vdpau \
            --enable-xvmc \
 %endif
-%ifarch %arm ppc64
+%ifarch %arm ppc64 ppc64le
            --enable-xa \
            --enable-gallium-llvm \
            --with-dri-drivers=nouveau \
@@ -613,7 +615,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 
 %postun -n libgbm1 -p /sbin/ldconfig
 
-%ifnarch s390 aarch64 m68k ppc64le
+%ifnarch s390 aarch64 m68k
 
 %post   -n libxatracker2 -p /sbin/ldconfig
 
@@ -747,7 +749,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %_libdir/libgbm.so
 %_libdir/pkgconfig/gbm.pc
 
-%ifnarch s390 ppc aarch64 m68k ppc64le
+%ifnarch s390 ppc aarch64 m68k
 
 %files -n libxatracker2
 %defattr(-,root,root)
@@ -761,7 +763,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 
 %endif
 
-%ifnarch s390 s390x aarch64 m68k ppc64le
+%ifnarch s390 s390x aarch64 m68k
 
 %files -n libXvMC_nouveau
 %defattr(-,root,root)

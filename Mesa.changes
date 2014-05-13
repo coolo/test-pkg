@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue May 13 07:33:24 UTC 2014 - idonmez@suse.com
+
+- PPC64LE fixes from IBM (bnc#865586)
+
+-------------------------------------------------------------------
 Tue Mar 25 09:37:30 UTC 2014 - sndirsch@suse.com
 
 - U_0001-glx-Fix-the-default-values-for-GLXFBConfig-attribute.patch/
