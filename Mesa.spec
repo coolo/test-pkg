@@ -122,6 +122,7 @@ Patch17:        U_0001-glx-Fix-the-default-values-for-GLXFBConfig-attribute.patc
 Patch18:        U_0002-glx-Fix-the-GLXFBConfig-attrib-sort-priorities.patch
 Patch19:        mesa-ppc64le-novector.patch
 Patch20:        mesa-overflow-fix.patch
+Patch21:        Mesa-fix-llvm-link.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -488,6 +489,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch18 -p1
 %patch19 -p1
 %patch20 -p1
+%patch21 -p1
 
 %build
 rm -f src/mesa/depend

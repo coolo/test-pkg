@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Fri May 16 20:50:46 UTC 2014 - idonmez@suse.com
+
+- Workaround for Mesa-fix-llvm-link.patch, --system-libs does not
+  exist on llvm 3.4
+
+-------------------------------------------------------------------
+Fri May 16 07:10:05 UTC 2014 - idonmez@suse.com
+
+- Add Mesa-fix-llvm-link.patch to fix LLVM linkage (bnc#865586)
+
+-------------------------------------------------------------------
 Tue May 13 07:33:24 UTC 2014 - idonmez@suse.com
 
 - PPC64LE fixes from IBM (bnc#865586)
