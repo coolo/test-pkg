@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon May 26 18:35:11 CEST 2014 - tiwai@suse.de
+
+- Fix zero-division with empty height (bnc#879462)
+  u_mesa-gallium-llvmpipe-fix-SIGFPE.patch
+
+-------------------------------------------------------------------
 Fri May 16 20:50:46 UTC 2014 - idonmez@suse.com
 
 - Workaround for Mesa-fix-llvm-link.patch, --system-libs does not
