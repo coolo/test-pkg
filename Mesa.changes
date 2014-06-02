@@ -1,4 +1,22 @@
 -------------------------------------------------------------------
+Tue May 27 13:39:00 CEST 2014 - tiwai@suse.de
+
+- Fix zero-division with empty height (bnc#879462)
+  u_mesa-gallium-llvmpipe-fix-SIGFPE.patch
+
+-------------------------------------------------------------------
+Mon May 26 23:36:44 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
+
+- Update to version 10.2-rc4:
+  Another round of bugfixes towards the final 10.2
+
+-------------------------------------------------------------------
+Mon May 19 16:10:36 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
+
+- Update to 10.2-rc3
+  Even more bugfixes
+
+-------------------------------------------------------------------
 Mon May 12 09:32:19 UTC 2014 - schwab@suse.de
 
 - no shared llvm libs on ppc64
