@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jun  4 10:12:49 UTC 2014 - sndirsch@suse.com
+
+- Update to version 10.2-rc5
+  Another round of bugfixes towards the final 10.2
+
+-------------------------------------------------------------------
 Tue May 27 13:39:00 CEST 2014 - tiwai@suse.de
 
 - Fix zero-division with empty height (bnc#879462)
