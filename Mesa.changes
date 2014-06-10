@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Sun Jun  8 01:22:36 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
+
+- Update to version 10.2.1
+- Mesa 10.2.1 is an emergency release to fix a build failure added
+  to 10.2 between 10.2-rc5 and the final release.
+
+- Mesa 10.2 is a feature release that includes many updates and
+  enhancements. The full list is available in the release notes
+  file in docs/relnotes/10.2.html.
+
+-------------------------------------------------------------------
 Wed Jun  4 10:12:49 UTC 2014 - sndirsch@suse.com
 
 - Update to version 10.2-rc5
