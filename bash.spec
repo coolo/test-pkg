@@ -414,7 +414,6 @@ pushd ../readline-%{rl_vers}%{extend}
 	EOF
   CFLAGS="$RPM_OPT_FLAGS $LARGEFILE -D_GNU_SOURCE -DRECYCLES_PIDS -Wall -g"
   LDFLAGS=""
-  cflags -std=gnu89              CFLAGS
   cflags -Wuninitialized         CFLAGS
   cflags -Wextra                 CFLAGS
   cflags -Wno-unprototyped-calls CFLAGS
