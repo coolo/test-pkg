@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Jul 21 14:10:26 UTC 2014 - sndirsch@suse.com
+
+- Update to version 10.2.4
+  * Mesa 10.2.4 is a bug fix release which fixes bugs fixed since
+    the 10.2.3 release
+
+-------------------------------------------------------------------
 Wed Jul  9 09:04:35 UTC 2014 - sndirsch@suse.com
 
 - Update to version 10.2.3
