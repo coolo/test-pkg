@@ -149,6 +149,7 @@ Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
+Patch16:        U_mesa-glx-Reduce-error-log-level.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -514,6 +515,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch15 -p1
 #%patch13 -p1
 ###
+%patch16 -p1
 
 %build
 rm -f src/mesa/depend
