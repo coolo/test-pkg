@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jul 29 17:21:45 CEST 2014 - tiwai@suse.de
+
+- Reduce error log level for annoying dlopen messages (bnc#889391)
+  U_mesa-glx-Reduce-error-log-level.patch
+
+-------------------------------------------------------------------
 Mon May 26 18:35:11 CEST 2014 - tiwai@suse.de
 
 - Fix zero-division with empty height (bnc#879462)

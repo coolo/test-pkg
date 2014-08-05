@@ -124,6 +124,7 @@ Patch19:        mesa-ppc64le-novector.patch
 Patch20:        mesa-overflow-fix.patch
 Patch21:        Mesa-fix-llvm-link.patch
 Patch22:        u_mesa-gallium-llvmpipe-fix-SIGFPE.patch
+Patch23:        U_mesa-glx-Reduce-error-log-level.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -492,6 +493,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch20 -p1
 %patch21 -p1
 %patch22 -p1
+%patch23 -p1
 
 %build
 rm -f src/mesa/depend
