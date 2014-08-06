@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Aug  6 12:45:57 UTC 2014 - idonmez@suse.com
+
+- Rename Completion/openSUSE/Command/_SuSEconfig to _SUSEconfig
+  (bnc#888989 fate#316521)
+
+-------------------------------------------------------------------
 Fri Jan 17 09:42:03 UTC 2014 - idonmez@suse.com
 
 - Update zsh-update-zypper-completion.patch to v0.3
