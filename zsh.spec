@@ -137,6 +137,10 @@ mv Doc/*.html Doc/htmldoc
 # remove some unwanted files in Etc/
 rm -f Etc/Makefile* Etc/*.yo
 
+# FATE#316521
+mv Completion/openSUSE/Command/_SuSEconfig Completion/openSUSE/Command/_SUSEconfig
+sed -i s,_SuSEconfig,_SUSEconfig, Completion/openSUSE/Command/.distfiles
+
 %install
 %if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
     rm -rf %{buildroot}
