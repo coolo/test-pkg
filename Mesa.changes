@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Aug  7 18:52:02 UTC 2014 - idonmez@suse.com
+
+- Add PowerLE support (Mesa-PowerLE.patch bnc#887778)
+
+-------------------------------------------------------------------
 Tue Jul 29 17:21:45 CEST 2014 - tiwai@suse.de
 
 - Reduce error log level for annoying dlopen messages (bnc#889391)
