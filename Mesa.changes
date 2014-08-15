@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Aug 15 12:44:36 UTC 2014 - sndirsch@suse.com
+
+- no longer add /usr/%{_lib}/dri/updates to DRI driver search path
+  (FATE#317822)
+
+-------------------------------------------------------------------
 Thu Aug  7 18:52:02 UTC 2014 - idonmez@suse.com
 
 - Add PowerLE support (Mesa-PowerLE.patch bnc#887778)
