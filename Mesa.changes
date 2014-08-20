@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Aug 15 12:31:54 UTC 2014 - sndirsch@suse.com
+
+- no longer add /usr/%{_lib}/dri/updates to DRI driver search path
+  (FATE#317822)
+
+-------------------------------------------------------------------
 Thu Aug  7 12:29:38 UTC 2014 - sndirsch@suse.com
 
 - Update to version 10.2.5

@@ -544,7 +544,11 @@ autoreconf -fi
 %if %egl_gallium
            --enable-gallium-egl \
 %endif
+%if 0%{?suse_version} < 1315
            --with-dri-searchpath=/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri \
+%else
+           --with-dri-searchpath=/usr/%{_lib}/dri \
+%endif
 %ifarch %ix86 x86_64
            --enable-xa \
            --enable-gallium-llvm \
@@ -607,10 +611,12 @@ for dir in ../xc/doc/man/{GL/gl,GL/glx}; do
    make install.man DESTDIR=$RPM_BUILD_ROOT MANPATH=%{_mandir} LIBMANSUFFIX=3gl
  popd
 done
+%if 0%{?suse_version} < 1315
 #DRI driver update mechanism
 mkdir -p $RPM_BUILD_ROOT/usr/%{_lib}/dri/updates
 install -m 644 $RPM_SOURCE_DIR/README.updates \
   $RPM_BUILD_ROOT/usr/%{_lib}/dri/updates
+%endif
 
 %fdupes -s $RPM_BUILD_ROOT/%_mandir
 ### disabled for now on request of Coolo
