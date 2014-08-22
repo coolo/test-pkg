@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Aug 22 12:37:07 UTC 2014 - sndirsch@suse.com
+
+- u_Suppress-any-libGL-.-warnings-when-LIBGL_DEBUG-is-se.patch
+  Suppress any "libGL:..." warnings when LIBGL_DEBUG == "quiet"
+  (bnc#892896)
+
+-------------------------------------------------------------------
 Fri Aug 15 12:44:36 UTC 2014 - sndirsch@suse.com
 
 - no longer add /usr/%{_lib}/dri/updates to DRI driver search path
