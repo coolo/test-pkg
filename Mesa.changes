@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Aug 24 12:59:50 UTC 2014 - dvlaeev@suse.com
+
+- Package vdpau_r600 for ppc64le as well (bnc#893275) 
+
+-------------------------------------------------------------------
 Fri Aug 22 13:46:54 UTC 2014 - sndirsch@suse.com
 
 - u_Suppress-any-libGL-.-warnings-when-LIBGL_DEBUG-is-se.patch

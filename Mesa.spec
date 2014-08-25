@@ -29,7 +29,7 @@
 %else
 %define gallium_loader 0
 %endif
-%ifarch %ix86 x86_64 %arm ppc64
+%ifarch %ix86 x86_64 %arm ppc64 ppc64le
 %define vdpau_r600 1
 %else
 %define vdpau_r600 0
