@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Mon Aug 25 10:34:26 UTC 2014 - sndirsch@suse.com
+
+- Update to version 10.3.0-RC1
+  * Mesa 10.3 brings many performance improvements, more 
+    OpenGL 4.x functionality, the VC4 Gallium3D driver, 
+    and much more.
+  * supersedes U_mesa-glx-Reduce-error-log-level.patch
+
+-------------------------------------------------------------------
 Sun Aug 24 12:59:50 UTC 2014 - dvlaeev@suse.com
 
 - Package vdpau_r600 for ppc64le as well (bnc#893275) 
