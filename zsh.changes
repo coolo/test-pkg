@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Aug 28 19:14:23 UTC 2014 - idonmez@suse.com
+
+- Update to version 5.0.6
+  * See included ChangeLog
+- Remove zsh-update-zypper-completion.patch, fixed upstream
+
+-------------------------------------------------------------------
 Wed Aug  6 12:45:57 UTC 2014 - idonmez@suse.com
 
 - Rename Completion/openSUSE/Command/_SuSEconfig to _SUSEconfig

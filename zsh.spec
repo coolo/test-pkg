@@ -17,7 +17,7 @@
 
 
 Name:           zsh
-Version:        5.0.5
+Version:        5.0.6
 Release:        0
 Summary:        Shell with comprehensive completion
 License:        MIT
@@ -37,7 +37,6 @@ Source16:       dotzshrc.rh
 Source17:       zshprompt.pl
 %endif
 Patch1:         trim-unneeded-completions.patch
-Patch2:         zsh-update-zypper-completion.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %if 0%{?suse_version}
 Requires(pre):  %{install_info_prereq}
@@ -95,7 +94,6 @@ This package contains the Zsh manual in html format.
 %setup -q -n %{name}-%{version}
 %if 0%{?suse_version}
 %patch1 -p1
-%patch2 -p1
 %endif
 
 # Remove executable bit
@@ -136,10 +134,6 @@ mv Doc/*.html Doc/htmldoc
 
 # remove some unwanted files in Etc/
 rm -f Etc/Makefile* Etc/*.yo
-
-# FATE#316521
-mv Completion/openSUSE/Command/_SuSEconfig Completion/openSUSE/Command/_SUSEconfig
-sed -i s,_SuSEconfig,_SUSEconfig, Completion/openSUSE/Command/.distfiles
 
 %install
 %if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
