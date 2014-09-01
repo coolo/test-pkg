@@ -29,7 +29,7 @@
 %else
 %define gallium_loader 0
 %endif
-%ifarch %ix86 x86_64 %arm ppc64
+%ifarch %ix86 x86_64 %arm ppc64 ppc64le
 %define vdpau_r600 1
 %else
 %define vdpau_r600 0
@@ -58,10 +58,10 @@
 %endif
 
 %define _name_archive MesaLib
-%define _version 10.2.5
+%define _version 10.3.0-rc1
 
 Name:           Mesa
-Version:        10.2.5
+Version:        10.3.0
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -149,7 +149,7 @@ Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
-Patch16:        U_mesa-glx-Reduce-error-log-level.patch
+Patch17:        u_Suppress-any-libGL-.-warnings-when-LIBGL_DEBUG-is-se.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -515,7 +515,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch15 -p1
 #%patch13 -p1
 ###
-%patch16 -p1
+%patch17 -p1
 
 %build
 rm -f src/mesa/depend
@@ -793,12 +793,14 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %defattr(-,root,root)
 %_libdir/libXvMCnouveau.so
 %_libdir/libXvMCnouveau.so.1
+%_libdir/libXvMCnouveau.so.1.0
 %_libdir/libXvMCnouveau.so.1.0.0
 
 %files -n libXvMC_r600
 %defattr(-,root,root)
 %_libdir/libXvMCr600.so
 %_libdir/libXvMCr600.so.1
+%_libdir/libXvMCr600.so.1.0
 %_libdir/libXvMCr600.so.1.0.0
 %endif
 
@@ -807,6 +809,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %defattr(-,root,root)
 %_libdir/vdpau/libvdpau_nouveau.so
 %_libdir/vdpau/libvdpau_nouveau.so.1
+%_libdir/vdpau/libvdpau_nouveau.so.1.0
 %_libdir/vdpau/libvdpau_nouveau.so.1.0.0
 %endif
 
@@ -815,6 +818,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %defattr(-,root,root)
 %_libdir/vdpau/libvdpau_r600.so
 %_libdir/vdpau/libvdpau_r600.so.1
+%_libdir/vdpau/libvdpau_r600.so.1.0
 %_libdir/vdpau/libvdpau_r600.so.1.0.0
 %endif
 
@@ -823,6 +827,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %defattr(-,root,root)
 %_libdir/vdpau/libvdpau_radeonsi.so
 %_libdir/vdpau/libvdpau_radeonsi.so.1
+%_libdir/vdpau/libvdpau_radeonsi.so.1.0
 %_libdir/vdpau/libvdpau_radeonsi.so.1.0.0
 %endif
 
