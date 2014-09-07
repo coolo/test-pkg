@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Sep  7 20:05:41 UTC 2014 - idonmez@suse.com
+
+- Add zsh-fix-pcre-n.patch to fix pcre_match() -n option 
+
+-------------------------------------------------------------------
 Thu Aug 28 19:14:23 UTC 2014 - idonmez@suse.com
 
 - Update to version 5.0.6
