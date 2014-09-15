@@ -93,6 +93,8 @@ Patch27:        readline-6.2-xmalloc.dif
 Patch30:        readline-6.2-destdir.patch
 Patch31:        readline-6.2-rltrace.patch
 Patch40:        bash-4.1-bash.bashrc.dif
+# PATCH-FIX-UPSTREAM bnc#895475 -- locale de_DE.utf8 has wrong translations
+Patch41:        bash-4.2-error-getpwd.patch
 Patch42:        audit-patch
 Patch43:        audit-rl-patch
 Patch46:        man2html-no-timestamp.patch
@@ -312,6 +314,7 @@ done
 %patch26 -p0 -b .msgdy
 %patch31 -p0 -b .tmp
 %patch40 -p0 -b .bashrc
+%patch41 -p0 -b .errgetpwd
 %if 0%suse_version >= 1100
 %patch42 -p1 -b .audit
 %endif
