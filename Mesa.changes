@@ -1,4 +1,38 @@
 -------------------------------------------------------------------
+Sat Sep 20 23:31:03 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
+
+- Update to version 10.3.0 (10.3 Final):
+- New features:
+  + GL_ARB_ES3_compatibility on nv50, nvc0, r600, radeonsi, softpipe, llvmpipe
+  + GL_ARB_clear_texture on i965
+  + GL_ARB_compressed_texture_pixel_storage on all drivers
+  + GL_ARB_conditional_render_inverted on i965, nvc0, softpipe, llvmpipe
+  + GL_ARB_derivative_control on i965, nv50, nvc0, r600
+  + GL_ARB_draw_indirect on nvc0, radeonsi
+  + GL_ARB_explicit_uniform_location (all drivers that support GLSL)
+  + GL_ARB_fragment_layer_viewport on nv50, nvc0, llvmpipe, r600
+  + GL_ARB_gpu_shader5 on i965/gen7, nvc0
+  + GL_ARB_multi_draw_indirect on nvc0, radeonsi
+  + GL_ARB_sample_shading on radeonsi
+  + GL_ARB_seamless_cubemap_per_texture on i965, llvmpipe, nvc0, r600, radeonsi, softpipe
+  + GL_ARB_stencil_texturing on nv50, nvc0, r600, and radeonsi
+  + GL_ARB_texture_barrier on nv50, nvc0, r300, r600, radeonsi
+  + GL_ARB_texture_compression_bptc on i965/gen7+, nvc0, r600/evergreen+, radeonsi
+  + GL_ARB_texture_cube_map_array on radeonsi
+  + GL_ARB_texture_gather on r600, radeonsi
+  + GL_ARB_texture_query_levels on nv50, nvc0, llvmpipe, r600, radeonsi, softpipe
+  + GL_ARB_texture_query_lod on r600, radeonsi
+  + GL_ARB_viewport_array on nvc0
+  + GL_AMD_vertex_shader_viewport_index on i965/gen7+, r600
+  + GL_OES_compressed_ETC1_RGB8_texture on nv30, nv50, nvc0, r300, r600, radeonsi, softpipe, llvmpipe
+  + GLX_MESA_query_renderer on nv30, nv50, nvc0, r300, r600, radeonsi, softpipe, llvmpipe
+  + A new software rasterizer driver (kms_swrast_dri.so) that works with DRM drivers that don't have a full-fledged GEM (such as qxl or simpledrm)
+- Changes:
+  Building of gallium-pipe disabled for now by upstream, see:
+  http://cgit.freedesktop.org/mesa/mesa/commit/?h=10.3&id=07426ad1029c3505b809dc9eec104007fb623983
+  Nevertheless keep it around as it may get enabled again.
+
+-------------------------------------------------------------------
 Mon Aug 25 10:34:26 UTC 2014 - sndirsch@suse.com
 
 - Update to version 10.3.0-RC1
