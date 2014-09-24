@@ -99,6 +99,8 @@ Patch42:        audit-patch
 Patch43:        audit-rl-patch
 Patch46:        man2html-no-timestamp.patch
 Patch47:        config-guess-sub-update.patch
+# PATCH-FIX-UPSTREAM bnc#895475 -- bnc#896776, CVE-2014-6271: unexpected code execution with environment variables
+Patch48:        bash-4.2-CVE-2014-6271.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
@@ -320,6 +322,7 @@ done
 %endif
 %patch46 -p0 -b .notimestamp
 %patch47
+#%patch48 -p2
 %patch0  -p0 -b .0
 pushd ../readline-%{rl_vers}%{extend}
 for patch in ../readline-%{rl_vers}-patches/*; do
