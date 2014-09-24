@@ -322,7 +322,7 @@ done
 %endif
 %patch46 -p0 -b .notimestamp
 %patch47
-%patch48 -p0
+%patch48 -p2
 %patch0  -p0 -b .0
 pushd ../readline-%{rl_vers}%{extend}
 for patch in ../readline-%{rl_vers}-patches/*; do
