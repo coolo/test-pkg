@@ -58,7 +58,7 @@
 %endif
 
 %define _name_archive MesaLib
-%define _version 10.3.0-rc1
+%define _version 10.3.0
 
 Name:           Mesa
 Version:        10.3.0
@@ -537,6 +537,7 @@ autoreconf -fi
            --enable-shared-glapi \
            --enable-texture-float \
            --enable-osmesa \
+           --enable-dri3 \
 %if %glamor
            --enable-gbm \
            --enable-glx-tls \
@@ -685,10 +686,10 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %dir %_libdir/egl/
 %_libdir/egl/egl_gallium.so
 %endif
-%if %gallium_loader
-%dir %_libdir/gallium-pipe/
-%_libdir/gallium-pipe/pipe_*.so
-%endif
+#%if %gallium_loader
+#%dir %_libdir/gallium-pipe/
+#%_libdir/gallium-pipe/pipe_*.so
+#%endif
 
 %files -n Mesa-libEGL1
 %defattr(-,root,root)
