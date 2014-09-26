@@ -101,6 +101,9 @@ Patch46:        man2html-no-timestamp.patch
 Patch47:        config-guess-sub-update.patch
 # PATCH-FIX-UPSTREAM bnc#895475 -- bnc#896776, CVE-2014-6271: unexpected code execution with environment variables
 Patch48:        bash-4.2-CVE-2014-6271.patch
+Patch49:        bash-4.2-BSC898604.patch
+Patch50:        bash-4.2-CVE-2014-7169.patch
+Patch51:        bash-4.2-CVE-2014-7187.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
@@ -323,6 +326,9 @@ done
 %patch46 -p0 -b .notimestamp
 %patch47
 %patch48 -p2
+%patch49 -p0
+%patch50 -p0
+%patch51 -p0
 %patch0  -p0 -b .0
 pushd ../readline-%{rl_vers}%{extend}
 for patch in ../readline-%{rl_vers}-patches/*; do
