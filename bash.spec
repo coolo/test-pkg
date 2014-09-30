@@ -102,9 +102,7 @@ Patch43:        audit-rl-patch
 Patch46:        man2html-no-timestamp.patch
 Patch47:        config-guess-sub-update.patch
 # PATCH-FIX-SUSE CVE-2014-6271
-%if %{with import_function}
 Patch48:        bash-4.2-extra-import-func.patch
-%endif
 # PATCH-FIX-SUSE CVE-2014-7187
 Patch51:        bash-4.2-CVE-2014-7187.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -328,7 +326,9 @@ done
 %endif
 %patch46 -p0 -b .notimestamp
 %patch47 -p0
+%if %{with import_function}
 %patch48 -p0
+%endif
 %patch51 -p0
 %patch0  -p0 -b .0
 pushd ../readline-%{rl_vers}%{extend}
