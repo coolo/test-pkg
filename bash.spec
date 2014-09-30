@@ -99,8 +99,10 @@ Patch42:        audit-patch
 Patch43:        audit-rl-patch
 Patch46:        man2html-no-timestamp.patch
 Patch47:        config-guess-sub-update.patch
-# PATCH-FIX-UPSTREAM bnc#895475 -- bnc#896776, CVE-2014-6271: unexpected code execution with environment variables
-Patch48:        bash-4.2-CVE-2014-6271.patch
+# PATCH-FIX-SUSE CVE-2014-6271
+Patch48:        bash-4.2-extra-import-func.patch
+# PATCH-FIX-SUSE CVE-2014-7187
+Patch51:        bash-4.2-CVE-2014-7187.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
@@ -321,8 +323,9 @@ done
 %patch42 -p1 -b .audit
 %endif
 %patch46 -p0 -b .notimestamp
-%patch47
-%patch48 -p2
+%patch47 -p0
+%patch48 -p0
+%patch51 -p0
 %patch0  -p0 -b .0
 pushd ../readline-%{rl_vers}%{extend}
 for patch in ../readline-%{rl_vers}-patches/*; do
@@ -429,6 +432,7 @@ pushd ../readline-%{rl_vers}%{extend}
   cflags -ftree-loop-linear      CFLAGS
   cflags -pipe                   CFLAGS
   cflags -DBNC382214=0           CFLAGS
+  cflags -DIMPORT_FUNCTIONS_DEF=0 CFLAGS
   cflags -Wl,--as-needed         LDFLAGS
   cflags -Wl,-O2                 LDFLAGS
   cflags -Wl,--hash-size=8599    LDFLAGS
@@ -554,10 +558,10 @@ popd
 	all printenv recho zecho xcase
   TMPDIR=$(mktemp -d /tmp/bash.XXXXXXXXXX) || exit 1
   > $SCREENLOG
+  tail -q -s 0.5 -f $SCREENLOG & pid=$!
   env -i HOME=$PWD TERM=$TERM LD_LIBRARY_PATH=$LD_LIBRARY_PATH TMPDIR=$TMPDIR \
 	SCREENRC=$SCREENRC SCREENDIR=$SCREENDIR \
 	screen -L -D -m make TESTSCRIPT=%{SOURCE4} check
-  cat $SCREENLOG
   make %{?do_profiling:CFLAGS="$CFLAGS %cflags_profile_feedback" clean} all
   make -C examples/loadables/
   make documentation
