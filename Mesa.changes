@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Thu Sep 25 13:00:23 UTC 2014 - dvaleev@suse.com
+
+- Fix ppc64 build (bnc#893275 bnc#871128)
+  u_be_assert_include.patch
+  Add ncurses-devel as build dependency to build with -ltinfo
+- Enable llvm on ppc64le (llvm3.5 got ppc64le support)
+- Enable shared on ppc64 and ppc64le
+
+-------------------------------------------------------------------
 Sat Sep 20 23:31:03 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
 
 - Update to version 10.3.0 (10.3 Final):

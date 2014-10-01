@@ -29,7 +29,7 @@
 %else
 %define gallium_loader 0
 %endif
-%ifarch %ix86 x86_64 %arm ppc64 ppc64le
+%ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le
 %define vdpau_r600 1
 %else
 %define vdpau_r600 0
@@ -39,22 +39,15 @@
 %else
 %define llvm_r600 0
 %endif
-%ifarch %ix86 x86_64 %arm ppc64
+%ifarch %ix86 x86_64 %arm ppc64 ppc64le
 %define xvmc_support 1
 %else
 %define xvmc_support 0
 %endif
-%ifarch %ix86 x86_64 %arm ppc64
+%ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le
 %define vdpau_nouveau 1
 %else
 %define vdpau_nouveau 0
-%endif
-
-# llvm-config on ppc64 is currently broken (bnc#871128)
-# /usr/lib64/libLLVMSupport.a(Process.cpp.o): In function `llvm::sys::Process::FileDescriptorHasColors(int)':
-# /home/abuild/rpmbuild/BUILD/llvm/lib/Support/Process.cpp:(.text+0xcd4): undefined reference to `setupterm'
-%ifarch ppc64
-%define egl_gallium 0
 %endif
 
 %define _name_archive MesaLib
@@ -110,8 +103,9 @@ BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xfixes)
 BuildRequires:  pkgconfig(xxf86vm)
 BuildRequires:  pkgconfig(zlib)
-%ifarch %arm ppc64 s390x %ix86 x86_64
+%ifarch %arm ppc64 ppc64le s390x %ix86 x86_64
 BuildRequires:  llvm-devel
+BuildRequires:  ncurses-devel
 %endif
 BuildRequires:  libXvMC-devel
 BuildRequires:  libvdpau-devel
@@ -150,6 +144,7 @@ Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
 Patch17:        u_Suppress-any-libGL-.-warnings-when-LIBGL_DEBUG-is-se.patch
+Patch18:        u_be_assert_include.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -516,6 +511,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch13 -p1
 ###
 %patch17 -p1
+%patch18 -p1
 
 %build
 rm -f src/mesa/depend
@@ -565,12 +561,9 @@ autoreconf -fi
            --enable-vdpau \
            --enable-xvmc \
 %endif
-%ifarch %arm ppc64
+%ifarch %arm ppc64 ppc64le
            --enable-xa \
            --enable-gallium-llvm \
-%ifarch ppc64
-           --disable-llvm-shared-libs \
-%endif
            --with-dri-drivers=nouveau \
 %ifarch %arm
            --with-gallium-drivers=r300,r600,nouveau,swrast,svga,freedreno \
@@ -646,7 +639,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %post   -n libgbm1 -p /sbin/ldconfig
 %postun -n libgbm1 -p /sbin/ldconfig
 
-%ifarch %ix86 x86_64 %arm ppc64 s390x
+%ifarch %ix86 x86_64 %arm ppc64 ppc64le s390x
 %post   -n libxatracker2 -p /sbin/ldconfig
 %postun -n libxatracker2 -p /sbin/ldconfig
 %endif
@@ -777,7 +770,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %_libdir/libgbm.so
 %_libdir/pkgconfig/gbm.pc
 
-%ifarch %ix86 x86_64 %arm ppc64 s390x
+%ifarch %ix86 x86_64 %arm ppc64 ppc64le s390x
 %files -n libxatracker2
 %defattr(-,root,root)
 %_libdir/libxatracker.so.2*
