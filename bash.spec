@@ -103,8 +103,6 @@ Patch46:        man2html-no-timestamp.patch
 Patch47:        config-guess-sub-update.patch
 # PATCH-FIX-SUSE CVE-2014-6271
 Patch48:        bash-4.2-extra-import-func.patch
-# PATCH-FIX-SUSE CVE-2014-7187
-Patch51:        bash-4.2-CVE-2014-7187.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
@@ -329,7 +327,6 @@ done
 %if %{with import_function}
 %patch48 -p0
 %endif
-%patch51 -p0
 %patch0  -p0 -b .0
 pushd ../readline-%{rl_vers}%{extend}
 for patch in ../readline-%{rl_vers}-patches/*; do
