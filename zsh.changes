@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Thu Oct  9 08:24:20 UTC 2014 - idonmez@suse.com
+
+- Update to version 5.0.7
+  * Small bugfixes
+  * Includes a security fix to disallow evaluation of the
+    initial values of integer variables imported from the environment
+- Remove zsh-fix-pcre-n.patch, fixed upstream
+
+-------------------------------------------------------------------
 Sun Sep  7 20:05:41 UTC 2014 - idonmez@suse.com
 
 - Add zsh-fix-pcre-n.patch to fix pcre_match() -n option 
