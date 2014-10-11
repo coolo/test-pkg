@@ -17,7 +17,7 @@
 
 
 Name:           zsh
-Version:        5.0.6
+Version:        5.0.7
 Release:        0
 Summary:        Shell with comprehensive completion
 License:        MIT
@@ -37,8 +37,6 @@ Source16:       dotzshrc.rh
 Source17:       zshprompt.pl
 %endif
 Patch1:         trim-unneeded-completions.patch
-# PATCH-FIX-UPSTREAM Fix pcre_match() -n options
-Patch2:         zsh-fix-pcre-n.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %if 0%{?suse_version}
 Requires(pre):  %{install_info_prereq}
@@ -97,7 +95,6 @@ This package contains the Zsh manual in html format.
 %if 0%{?suse_version}
 %patch1 -p1
 %endif
-%patch2 -p1
 
 # Remove executable bit
 chmod 0644 Etc/changelog2html.pl
