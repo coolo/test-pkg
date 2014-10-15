@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Mon Oct 13 19:48:42 UTC 2014 - seanpwatson@live.com
+
+- Update to 10.3.1
+  + [NVC0/Codegen] Shader compilation falis in spill logic
+  + [SNB+ Bisected]Ogles3conform ES3-CTS.shaders.
+    indexing.vector_subscript.vec3_static_loop_subscript_write_
+    direct_read_vertex fails
+  + [UBO] row_major layout ignored inside structures
+  + [UBO] nested structures don't get appropriate padding
+  + Glyphy demo throws unhandled Integer division by zero exception
+  + [UBO] row_major layout partially ignored for arrays of structures
+  + Big glamor regression in Xorg server 1.6.99.1 GIT: x11perf 1.5 
+    Test: PutImage XY 500x500 Square
+
+-------------------------------------------------------------------
 Thu Sep 25 13:00:23 UTC 2014 - dvaleev@suse.com
 
 - Fix ppc64 build (bnc#893275 bnc#871128)

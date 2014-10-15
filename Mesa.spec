@@ -51,10 +51,10 @@
 %endif
 
 %define _name_archive MesaLib
-%define _version 10.3.0
+%define _version 10.3.1
 
 Name:           Mesa
-Version:        10.3.0
+Version:        10.3.1
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
