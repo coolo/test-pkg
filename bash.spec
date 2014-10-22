@@ -22,7 +22,7 @@ Name:           bash
 BuildRequires:  audit-devel
 BuildRequires:  autoconf
 BuildRequires:  bison
-%if %suse_version > 1020
+%if %suse_version >= 1100
 BuildRequires:  fdupes
 %endif
 %if %suse_version > 1220
