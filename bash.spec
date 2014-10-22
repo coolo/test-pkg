@@ -22,7 +22,7 @@ Name:           bash
 BuildRequires:  audit-devel
 BuildRequires:  autoconf
 BuildRequires:  bison
-%if %suse_version >= 1100
+%if %suse_version > 1020
 BuildRequires:  fdupes
 %endif
 %if %suse_version > 1220
@@ -638,7 +638,7 @@ EOF
   touch -t 199605181720.50 %{buildroot}%{_sysconfdir}/skel/.bash_history
   chmod 600                %{buildroot}%{_sysconfdir}/skel/.bash_history
   %find_lang bash
-%if %suse_version >= 1100
+%if %suse_version > 1020
   %fdupes -s %{buildroot}%{_datadir}/bash/helpfiles
 %endif
 
