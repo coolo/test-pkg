@@ -146,7 +146,7 @@ Requires:       bash = %{version}
 Provides translations to the package bash
 %endif
 
-%if 0%suse_version >= 1100
+%if 0%suse_version >= 1020
 %package -n bash-devel
 Summary:        Include Files mandatory for Development of bash loadable builtins
 Group:          Development/Languages/C and C++
@@ -380,7 +380,7 @@ done
   MACHTYPE=${CPU}-suse-linux
   export LANG LC_ALL HOSTTYPE MACHTYPE
 pushd ../readline-%{rl_vers}%{extend}
-%if 0%suse_version >= 1100
+%if 0%suse_version >= 1020
   autoconf
 %endif
   cflags ()
@@ -482,7 +482,7 @@ popd
   CC_FOR_BUILD="$CC"
   CFLAGS_FOR_BUILD="$CFLAGS"
   export CC_FOR_BUILD CFLAGS_FOR_BUILD CFLAGS LDFLAGS CC
-%if 0%suse_version >= 1100
+%if 0%suse_version >= 1020
   autoconf
 %endif
   #
@@ -689,7 +689,7 @@ ldd -u -r %{buildroot}/%{_lib}/libreadline.so.* || true
 %doc %{_mandir}/man1/rbash.1.gz
 %doc %{_defaultdocdir}/bash/
 
-%if 0%suse_version >= 1100
+%if 0%suse_version >= 1020
 %files -n bash-devel
 %defattr(-,root,root)
 %dir /%{_includedir}/bash/
