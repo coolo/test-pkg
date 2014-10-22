@@ -31,8 +31,9 @@ BuildRequires:  makeinfo
 BuildRequires:  ncurses-devel
 BuildRequires:  patchutils
 BuildRequires:  screen
-%define         bash_vers 4.2
-%define         rl_vers   6.2
+BuildRequires:  sed
+%define         bash_vers 4.3
+%define         rl_vers   6.3
 %define         extend    ""
 %if %suse_version > 1020
 Recommends:     bash-lang = %bash_vers
@@ -42,7 +43,7 @@ Recommends:     bash-lang = %bash_vers
 Suggests:       command-not-found
 Recommends:     bash-doc = %bash_vers
 %endif
-Version:        4.2
+Version:        %{bash_vers}
 Release:        0
 Summary:        The GNU Bourne-Again Shell
 License:        GPL-3.0+
@@ -66,43 +67,36 @@ Source9:        bash-4.2-history-myown.dif.bz2
 Patch0:         bash-%{bash_vers}.dif
 Patch1:         bash-2.03-manual.patch
 Patch2:         bash-4.0-security.patch
-Patch3:         bash-4.2-2.4.4.patch
+Patch3:         bash-4.3-2.4.4.patch
 Patch4:         bash-3.0-evalexp.patch
 Patch5:         bash-3.0-warn-locale.patch
 Patch6:         bash-4.2-endpw.dif
-Patch7:         bash-3.0-decl.patch
+Patch7:         bash-4.3-decl.patch
 Patch8:         bash-4.0-async-bnc523667.dif
 Patch10:        bash-3.2-printf.patch
-Patch11:        bash-4.0-loadables.dif
+Patch11:        bash-4.3-loadables.dif
 Patch12:        bash-4.1-completion.dif
 Patch13:        bash-4.2-nscdunmap.dif
-Patch14:        bash-4.2-sigrestart.patch
+Patch14:        bash-4.3-sigrestart.patch
 # PATCH-FIX-UPSTREAM bnc#382214 -- disabled due bnc#806628 by -DBNC382214=0
 Patch15:        bash-3.2-longjmp.dif
 Patch16:        bash-4.0-setlocale.dif
-Patch17:        bash-4.0-headers.dif
-Patch18:        bash-4.2-nsec.dif
+Patch17:        bash-4.3-headers.dif
 # PATCH-EXTEND-SUSE bnc#828877 -- xterm resizing does not pass to all sub clients
-Patch19:        bash-4.2-winch.dif
+Patch18:        bash-4.3-winch.dif
 Patch20:        readline-%{rl_vers}.dif
-Patch21:        readline-4.3-input.dif
+Patch21:        readline-6.3-input.dif
 Patch22:        readline-6.1-wrap.patch
 Patch23:        readline-5.2-conf.patch
 Patch24:        readline-6.2-metamode.patch
 Patch25:        readline-6.2-endpw.dif
-Patch26:        readline-6.2-msgdynamic.patch
 Patch27:        readline-6.2-xmalloc.dif
-Patch30:        readline-6.2-destdir.patch
-Patch31:        readline-6.2-rltrace.patch
+Patch30:        readline-6.3-destdir.patch
+Patch31:        readline-6.3-rltrace.patch
 Patch40:        bash-4.1-bash.bashrc.dif
-# PATCH-FIX-UPSTREAM bnc#895475 -- locale de_DE.utf8 has wrong translations
-Patch41:        bash-4.2-error-getpwd.patch
-Patch42:        audit-patch
-Patch43:        audit-rl-patch
 Patch46:        man2html-no-timestamp.patch
-Patch47:        config-guess-sub-update.patch
-# PATCH-FIX-SUSE CVE-2014-6271
-Patch48:        bash-4.2-extra-import-func.patch
+# PATCH-FIX-SUSE
+Patch48:        bash-4.3-extra-import-func.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
@@ -122,7 +116,7 @@ Summary:        Documentation how to Use the GNU Bourne-Again Shell
 Group:          Documentation/Man
 Provides:       bash:%{_infodir}/bash.info.gz
 PreReq:         %install_info_prereq
-Version:        4.2
+Version:        %{bash_vers}
 Release:        0
 %if %suse_version > 1120
 BuildArch:      noarch
@@ -139,8 +133,8 @@ interpreter Bash.
 %package -n bash-lang
 Summary:        Languages for package bash
 Group:          System/Localization
-Provides:       bash-lang = %{version}
-Requires:       bash = %{version}
+Provides:       bash-lang = %{bash_vers}
+Requires:       bash = %{bash_vers}
 
 %description -n bash-lang
 Provides translations to the package bash
@@ -150,7 +144,7 @@ Provides translations to the package bash
 %package -n bash-devel
 Summary:        Include Files mandatory for Development of bash loadable builtins
 Group:          Development/Languages/C and C++
-Version:        4.2
+Version:        %{bash_vers}
 Release:        0
 
 %description -n bash-devel
@@ -162,7 +156,7 @@ on the compilers command line.
 %package -n bash-loadables
 Summary:        Loadable bash builtins
 Group:          System/Shells
-Version:        4.2
+Version:        %{bash_vers}
 Release:        0
 
 %description -n bash-loadables
@@ -223,7 +217,7 @@ whoami	      Print out username of current user.
 Summary:        The Readline Library
 Group:          System/Libraries
 Provides:       bash:/%{_lib}/libreadline.so.%{rl_major}
-Version:        6.2
+Version:        %{rl_vers}
 Release:        0
 %if 0%suse_version > 1020
 Recommends:     readline-doc = %{version}
@@ -233,8 +227,8 @@ Recommends:     readline-doc = %{version}
 Obsoletes:      readline-64bit
 %endif
 #
-Provides:       readline =  6.2
-Obsoletes:      readline <= 6.1
+Provides:       readline =  %{rl_vers}
+Obsoletes:      readline <= 6.2
 
 %description -n libreadline6
 The readline library is used by the Bourne Again Shell (bash, the
@@ -245,12 +239,12 @@ includes history and search functionality.
 Summary:        Include Files and Libraries mandatory for Development
 Group:          Development/Libraries/C and C++
 Provides:       bash:%{_libdir}/libreadline.a
-Version:        6.2
+Version:        %{rl_vers}
 Release:        0
-Requires:       libreadline6 = %{version}
+Requires:       libreadline6 = %{rl_vers}
 Requires:       ncurses-devel
 %if 0%suse_version > 1020
-Recommends:     readline-doc = %{version}
+Recommends:     readline-doc = %{rl_vers}
 %endif
 # bug437293
 %ifarch ppc64
@@ -267,7 +261,7 @@ Summary:        Documentation how to Use and Program with the Readline Library
 Group:          System/Libraries
 Provides:       readline:%{_infodir}/readline.info.gz
 PreReq:         %install_info_prereq
-Version:        6.2
+Version:        %{rl_vers}
 Release:        0
 %if 0%suse_version > 1120
 BuildArch:      noarch
@@ -289,6 +283,7 @@ for patch in ../bash-%{bash_vers}-patches/*; do
 	let level++ || true
     fi
     test -e $file || exit 1
+    sed -ri '/^\*\*\* \.\./{ s@\.\./bash-%{bash_vers}[^/]*/@@p }' $patch
     echo Patch $patch
     patch -s -p$level < $patch
 done
@@ -308,24 +303,17 @@ done
 %patch15 -p0 -b .longjmp
 %patch16 -p0 -b .setlocale
 %patch17 -p0 -b .headers
-%patch18 -p0 -b .nsec
-%patch19 -p0 -b .winch
+%patch18 -p0 -b .winch
 %patch21 -p0 -b .zerotty
 %patch22 -p0 -b .wrap
 %patch23 -p0 -b .conf
 %patch24 -p0 -b .metamode
 #%patch25 -p0 -b .endpw
-%patch26 -p0 -b .msgdy
 %patch31 -p0 -b .tmp
 %patch40 -p0 -b .bashrc
-%patch41 -p0 -b .errgetpwd
-%if 0%suse_version >= 1100
-%patch42 -p1 -b .audit
-%endif
 %patch46 -p0 -b .notimestamp
-%patch47 -p0
 %if %{with import_function}
-%patch48 -p0
+%patch48
 %endif
 %patch0  -p0 -b .0
 pushd ../readline-%{rl_vers}%{extend}
@@ -337,6 +325,7 @@ for patch in ../readline-%{rl_vers}-patches/*; do
 	file=${file#*/}
 	let level++ || true
     fi
+    sed -ri '/^\*\*\* \.\./{ s@\.\./readline-%{rl_vers}[^/]*/@@p }' $patch
     echo Patch $patch
     patch -s -p$level < $patch
 done
@@ -345,15 +334,10 @@ done
 %patch23 -p2 -b .conf
 %patch24 -p2 -b .metamode
 #%patch25 -p2 -b .endpw
-%patch26 -p2 -b .msgdy
 %patch31 -p2 -b .tmp
 %patch27 -p0 -b .xm
 %patch30 -p0 -b .destdir
-%if 0%suse_version >= 1100
-%patch43 -p1 -b .audit
-%endif
 %patch20 -p0 -b .0
-%patch47
 
 %build
   LANG=POSIX
@@ -420,7 +404,21 @@ pushd ../readline-%{rl_vers}%{extend}
 	{
 	    *;
 	    !rl_*stream;
-	}
+	};
+	EOF
+  (cat > rl.map)<<-'EOF'
+	READLINE_6.3 {
+	    rl_change_environment;
+	    rl_clear_history;
+	    rl_executing_key;
+	    rl_executing_keyseq;
+	    rl_filename_stat_hook;
+	    rl_history_substr_search_backward;
+	    rl_history_substr_search_forward;
+	    rl_input_available_hook;
+	    rl_print_last_kbd_macro;
+	    rl_signal_event_hook;
+	};
 	EOF
   CFLAGS="$RPM_OPT_FLAGS $LARGEFILE -D_GNU_SOURCE -DRECYCLES_PIDS -Wall -g"
   LDFLAGS=""
@@ -430,14 +428,17 @@ pushd ../readline-%{rl_vers}%{extend}
   cflags -Wno-switch-enum        CFLAGS
   cflags -Wno-unused-variable    CFLAGS
   cflags -Wno-unused-parameter   CFLAGS
+  cflags -Wno-parentheses	 CFLAGS
   cflags -ftree-loop-linear      CFLAGS
   cflags -pipe                   CFLAGS
   cflags -DBNC382214=0           CFLAGS
+  cflags -DMUST_UNBLOCK_CHLD=1   CFLAGS
   cflags -DIMPORT_FUNCTIONS_DEF=0 CFLAGS
   cflags -Wl,--as-needed         LDFLAGS
   cflags -Wl,-O2                 LDFLAGS
   cflags -Wl,--hash-size=8599    LDFLAGS
   cflags -Wl,-rpath,%{_ldldir}/%{bash_vers}   LDFLAGS
+  cflags -Wl,--version-script=${PWD}/rl.map   LDFLAGS
   cflags -Wl,--dynamic-list=${PWD}/dyn.map    LDFLAGS
   CC=gcc
   CC_FOR_BUILD="$CC"
@@ -450,6 +451,7 @@ pushd ../readline-%{rl_vers}%{extend}
 	--with-curses			\
 	--mandir=%{_mandir}		\
 	--infodir=%{_infodir}		\
+	--docdir=%{_defaultdocdir}/readline	\
 	--libdir=%{_libdir}
   make
   make documentation
@@ -535,6 +537,7 @@ popd
 	--mandir=%{_mandir}		\
 	--infodir=%{_infodir}		\
 	--libdir=%{_libdir}		\
+	--docdir=%{_defaultdocdir}/bash	\
 	--with-curses			\
 	--with-afs			\
 	$SYSMALLOC			\
@@ -559,10 +562,10 @@ popd
 	all printenv recho zecho xcase
   TMPDIR=$(mktemp -d /tmp/bash.XXXXXXXXXX) || exit 1
   > $SCREENLOG
-  tail -q -s 0.5 -f $SCREENLOG & pid=$!
   env -i HOME=$PWD TERM=$TERM LD_LIBRARY_PATH=$LD_LIBRARY_PATH TMPDIR=$TMPDIR \
 	SCREENRC=$SCREENRC SCREENDIR=$SCREENDIR \
 	screen -L -D -m make TESTSCRIPT=%{SOURCE4} check
+  cat $SCREENLOG
   make %{?do_profiling:CFLAGS="$CFLAGS %cflags_profile_feedback" clean} all
   make -C examples/loadables/
   make documentation
@@ -628,6 +631,7 @@ EOF
   rm -fv %{buildroot}%{_libdir}/libreadline.so.*
   rm -fv %{buildroot}%{_infodir}/rluserman.info.gz
   rm -fv %{buildroot}%{_mandir}/man3/history.3*
+  rm -fv %{buildroot}%{_defaultdocdir}/readline/INSTALL
   mkdir -p %{buildroot}%{_sysconfdir}/skel
   install -m 644 %{S:5}    %{buildroot}%{_sysconfdir}/skel/.bashrc
   install -m 644 %{S:6}    %{buildroot}%{_sysconfdir}/skel/.profile
