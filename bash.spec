@@ -20,9 +20,9 @@
 
 Name:           bash
 BuildRequires:  audit-devel
-BuildRequires:  autoconf
 BuildRequires:  bison
 %if %suse_version > 1020
+BuildRequires:  autoconf
 BuildRequires:  fdupes
 %endif
 %if %suse_version > 1220
@@ -364,7 +364,7 @@ done
   MACHTYPE=${CPU}-suse-linux
   export LANG LC_ALL HOSTTYPE MACHTYPE
 pushd ../readline-%{rl_vers}%{extend}
-%if 0%suse_version >= 1020
+%if 0%suse_version > 1020
   autoconf
 %endif
   cflags ()
@@ -484,7 +484,7 @@ popd
   CC_FOR_BUILD="$CC"
   CFLAGS_FOR_BUILD="$CFLAGS"
   export CC_FOR_BUILD CFLAGS_FOR_BUILD CFLAGS LDFLAGS CC
-%if 0%suse_version >= 1020
+%if 0%suse_version > 1020
   autoconf
 %endif
   #
