@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sat Oct 25 10:24:33 UTC 2014 - josua.mayer97@gmail.com
+
+- add Mesa-devel-dri package:
+  This way dri.pc will no longer pull in all of Mesa, just as
+  packages requiring dri do not have to require Mesa-devel anymore
+
+-------------------------------------------------------------------
 Mon Oct 13 19:48:42 UTC 2014 - seanpwatson@live.com
 
 - Update to 10.3.1

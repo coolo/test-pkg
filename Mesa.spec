@@ -167,6 +167,7 @@ just Mesa or The Mesa 3-D graphics library.
 Summary:        Libraries, includes and more to develop Mesa applications
 Group:          Development/Libraries/X11
 Requires:       Mesa = %version
+Requires:       Mesa-dri-devel = %version
 Requires:       Mesa-libEGL-devel = %version
 Requires:       Mesa-libGL-devel = %version
 Requires:       Mesa-libGLESv1_CM-devel = %version
@@ -379,6 +380,15 @@ Requires:       Mesa-libglapi0 = %version
 Development files for the Mesa GL API module which is responsible for
 dispatching all the gl* functions. It is intended to be mainly used by
 the Mesa-libGLES* packages.
+
+%package -n Mesa-dri-devel
+Summary:        Development files for the DRI API
+Group:          Development/Libraries/C and C++
+Requires:       Mesa = %version
+
+%description -n Mesa-dri-devel
+This package contains the development environment required for
+compiling programs and libraries using the DRI API.
 
 %package -n libgbm1
 Summary:        Generic buffer management API
@@ -833,10 +843,13 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %defattr(-,root,root)
 %_libdir/libglapi.so
 
+%files -n Mesa-dri-devel
+%defattr(-,root,root)
+%_includedir/GL/internal
+%_libdir/pkgconfig/dri.pc
+
 %files devel
 %defattr(-,root,root)
 %doc docs/*.html
-%_includedir/GL/internal
-%_libdir/pkgconfig/dri.pc
 
 %changelog
