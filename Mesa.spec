@@ -310,6 +310,9 @@ extensions for the special needs of embedded systems.
 OpenGL|ES 2.x provides an API for programmable hardware including
 vertex and fragment shaders.
 
+The libGLESv2.so.2 library provides symbols for all OpenGL ES 2 and
+ES 3 entry points.
+
 %package -n Mesa-libGLESv2-devel
 Summary:        Development files for the OpenGL ES 2.x API
 Group:          Development/Libraries/C and C++
@@ -331,7 +334,7 @@ applications using the OpenGL|ES 2.x APIs.
 %package -n Mesa-libGLESv3-devel
 Summary:        Development files for the OpenGL ES 3.x API
 Group:          Development/Libraries/C and C++
-#Requires:       Mesa-libGLESv3-3 = %version
+Requires:       Mesa-libGLESv2-2 = %version
 Requires:       pkgconfig(egl)
 
 %description -n Mesa-libGLESv3-devel

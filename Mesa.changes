@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Oct 30 09:37:08 UTC 2014 - jengelh@inai.de
+
+- Update descriptions and Requires for GLES3
+
+-------------------------------------------------------------------
 Sat Oct 25 10:24:33 UTC 2014 - josua.mayer97@gmail.com
 
 - add Mesa-devel-dri package:
