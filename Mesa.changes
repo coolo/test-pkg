@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Tue Nov  4 10:08:35 UTC 2014 - seanpwatson@live.com
+
+- Update to 10.3.2
+	+ (fdo#54372) GLX_INTEL_swap_event crashes driver when swapping 
+  	window buffers
+  + (fdo#81680) [r600g] Firefox crashes with hardware acceleration 
+  	turned on
+  + (fdo#84140) mplayer crashes playing some files using vdpau 
+  	output
+  + (fdo#84662) Long pauses with Unreal demo Elemental on R9270X 
+  	since : Always flush the HDP cache before submitting a
+    CS to the GPU
+  + (fdo#85267) vlc crashes with vdpau (Radeon 3850HD) [r600]
+	
+-------------------------------------------------------------------
 Thu Oct 30 09:37:08 UTC 2014 - jengelh@inai.de
 
 - Update descriptions and Requires for GLES3
@@ -2577,4 +2592,3 @@ Wed Oct 19 12:53:49 CEST 2005 - sndirsch@suse.de
 Sun Oct  2 22:15:48 CEST 2005 - sndirsch@suse.de
 
 - created package
-
