@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Fri Nov 14 13:15:52 UTC 2014 - seanpwatson@live.com
+
+- Update to 10.3.3
+	+ fdo#82921 layout(location=0) emits error 
+  	>= MAX_UNIFORM_LOCATIONS due to integer underflow
+  + fdo#83574 [llvmpipe] [softpipe] piglit 
+  	arb_explicit_uniform_location-use-of-unused-loc regression
+  + fdo#85454 Unigine Sanctuary with Wine crashes on Mesa Git
+  + fdo#70410 egl-static/Makefile: linking fails with llvm >= 3.4
+
+-------------------------------------------------------------------
 Tue Nov  4 10:08:35 UTC 2014 - seanpwatson@live.com
 
 - Update to 10.3.2
