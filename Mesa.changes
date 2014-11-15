@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Nov 14 18:26:31 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
+
+- Cleanup Spec:
+  + smaller cleanups
+  + Remove all traces of talloc, Mesa uses ralloc
+
+-------------------------------------------------------------------
 Fri Nov 14 13:15:52 UTC 2014 - seanpwatson@live.com
 
 - Update to 10.3.3

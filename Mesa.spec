@@ -67,7 +67,6 @@ BuildRequires:  libelf-devel
 %endif
 BuildRequires:  imake
 BuildRequires:  libexpat-devel
-BuildRequires:  libtalloc-devel
 BuildRequires:  libtool
 BuildRequires:  pkgconfig
 BuildRequires:  python-base
@@ -527,9 +526,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch18 -p1
 
 %build
-rm -f src/mesa/depend
-export TALLOC_LIBS=-ltalloc
-export TALLOC_CFLAGS="-I/usr/include"
 %if 0%{?suse_version} >= 1310
 egl_platforms=x11,drm,wayland
 %else
