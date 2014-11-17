@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Nov 16 11:24:04 UTC 2014 - afaerber@suse.de
+
+- Enable VideoCore IV (vc4) support for ARM
+
+-------------------------------------------------------------------
 Fri Nov 14 18:26:31 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
 
 - Cleanup Spec:

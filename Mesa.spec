@@ -575,7 +575,7 @@ autoreconf -fi
            --enable-gallium-llvm \
            --with-dri-drivers=nouveau \
 %ifarch %arm
-           --with-gallium-drivers=r300,r600,nouveau,swrast,svga,freedreno \
+           --with-gallium-drivers=r300,r600,nouveau,swrast,svga,freedreno,vc4 \
 %else
            --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
 %endif
