@@ -51,10 +51,10 @@
 %endif
 
 %define _name_archive MesaLib
-%define _version 10.3.2
+%define _version 10.3.3
 
 Name:           Mesa
-Version:        10.3.2
+Version:        10.3.3
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -67,7 +67,6 @@ BuildRequires:  libelf-devel
 %endif
 BuildRequires:  imake
 BuildRequires:  libexpat-devel
-BuildRequires:  libtalloc-devel
 BuildRequires:  libtool
 BuildRequires:  pkgconfig
 BuildRequires:  python-base
@@ -527,9 +526,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch18 -p1
 
 %build
-rm -f src/mesa/depend
-export TALLOC_LIBS=-ltalloc
-export TALLOC_CFLAGS="-I/usr/include"
 %if 0%{?suse_version} >= 1310
 egl_platforms=x11,drm,wayland
 %else
@@ -579,7 +575,7 @@ autoreconf -fi
            --enable-gallium-llvm \
            --with-dri-drivers=nouveau \
 %ifarch %arm
-           --with-gallium-drivers=r300,r600,nouveau,swrast,svga,freedreno \
+           --with-gallium-drivers=r300,r600,nouveau,swrast,svga,freedreno,vc4 \
 %else
            --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
 %endif
