@@ -1,4 +1,21 @@
 -------------------------------------------------------------------
+Sun Dec 14 15:41:33 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
+
+- Update to version 10.4.0 (10.4 Final):
+- New features:
+  + GL_ARB_conditional_render_inverted on nv50
+  + GL_ARB_sample_shading on r600
+  + GL_ARB_texture_view on nv50, nvc0
+  + GL_ARB_clip_control on nv50, nvc0, r300, r600, radeonsi, llvmpipe, softpipe
+  + GL_KHR_context_flush_control on all drivers
+- Changes:
+  + Removed patch17: u_Suppress-any-libGL-.-warnings-when-LIBGL_DEBUG-is-se.patch
+    This patch was upstreamed
+  + Build without "--enable-gallium-egl"
+    This buildoption was removed upstream
+  + Add subpackage libvdpau_r300
+
+-------------------------------------------------------------------
 Sun Nov 16 11:24:04 UTC 2014 - afaerber@suse.de
 
 - Enable VideoCore IV (vc4) support for ARM

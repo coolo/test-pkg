@@ -17,22 +17,15 @@
 
 
 %define glamor 1
-# --enable-gallium-egl requires non-empty --with-gallium-drivers (default
-# is r300,r600,svga,swrast)
-%ifnarch s390 s390x aarch64 m68k
-%define egl_gallium 1
-%else
-%define egl_gallium 0
-%endif
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
 %define gallium_loader 1
 %else
 %define gallium_loader 0
 %endif
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le
-%define vdpau_r600 1
+%define vdpau_radeon 1
 %else
-%define vdpau_r600 0
+%define vdpau_radeon 0
 %endif
 %ifarch %ix86 x86_64
 %define llvm_r600 1
@@ -51,10 +44,10 @@
 %endif
 
 %define _name_archive MesaLib
-%define _version 10.3.3
+%define _version 10.4.0
 
 Name:           Mesa
-Version:        10.3.3
+Version:        10.4.0
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -142,7 +135,6 @@ Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
-Patch17:        u_Suppress-any-libGL-.-warnings-when-LIBGL_DEBUG-is-se.patch
 Patch18:        u_be_assert_include.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -495,6 +487,14 @@ Supplements:    xf86-video-nouveau
 %description -n libvdpau_nouveau
 This package contains the VDPAU state tracker for Nouveau. 
 
+%package -n libvdpau_r300
+Summary:        XVMC state tracker for R300
+Group:          System/Libraries
+Supplements:    xf86-video-ati
+
+%description -n libvdpau_r300
+This package contains the VDPAU state tracker for R300. 
+
 %package -n libvdpau_r600
 Summary:        XVMC state tracker for R600
 Group:          System/Libraries
@@ -522,7 +522,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch15 -p1
 #%patch13 -p1
 ###
-%patch17 -p1
 %patch18 -p1
 
 %build
@@ -546,9 +545,6 @@ autoreconf -fi
 %if %glamor
            --enable-gbm \
            --enable-glx-tls \
-%endif
-%if %egl_gallium
-           --enable-gallium-egl \
 %endif
 %if 0%{?suse_version} < 1315
            --with-dri-searchpath=/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri \
@@ -661,7 +657,10 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %postun -n libXvMC_r600
 %endif
 
-%if %vdpau_r600
+%if %vdpau_radeon
+%post   -n libvdpau_r300
+%postun -n libvdpau_r300
+
 %post   -n libvdpau_r600
 %postun -n libvdpau_r600
 %endif
@@ -684,10 +683,6 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %doc docs/README* docs/COPYING
 %config /etc/drirc
 %{_libdir}/dri/
-%if %egl_gallium
-%dir %_libdir/egl/
-%_libdir/egl/egl_gallium.so
-%endif
 #%if %gallium_loader
 #%dir %_libdir/gallium-pipe/
 #%_libdir/gallium-pipe/pipe_*.so
@@ -768,10 +763,6 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %files -n libgbm1
 %defattr(-,root,root)
 %_libdir/libgbm.so.1*
-%if %egl_gallium
-%dir %_libdir/gbm/
-%_libdir/gbm/gbm_gallium_drm.so
-%endif
 
 %files -n libgbm-devel
 %defattr(-,root,root)
@@ -816,7 +807,14 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %_libdir/vdpau/libvdpau_nouveau.so.1.0.0
 %endif
 
-%if %vdpau_r600
+%if %vdpau_radeon
+%files -n libvdpau_r300
+%defattr(-,root,root)
+%_libdir/vdpau/libvdpau_r300.so
+%_libdir/vdpau/libvdpau_r300.so.1
+%_libdir/vdpau/libvdpau_r300.so.1.0
+%_libdir/vdpau/libvdpau_r300.so.1.0.0
+
 %files -n libvdpau_r600
 %defattr(-,root,root)
 %_libdir/vdpau/libvdpau_r600.so
