@@ -283,7 +283,7 @@ for patch in ../bash-%{bash_vers}-patches/*; do
 	let level++ || true
     fi
     test -e $file || exit 1
-    sed -ri '/^\*\*\* \.\./{ s@\.\./bash-%{bash_vers}[^/]*/@@p }' $patch
+    sed -ri '/^\*\*\* \.\./{ s@\.\./bash-%{bash_vers}[^/]*/@@ }' $patch
     echo Patch $patch
     patch -s -p$level < $patch
 done
@@ -325,7 +325,7 @@ for patch in ../readline-%{rl_vers}-patches/*; do
 	file=${file#*/}
 	let level++ || true
     fi
-    sed -ri '/^\*\*\* \.\./{ s@\.\./readline-%{rl_vers}[^/]*/@@p }' $patch
+    sed -ri '/^\*\*\* \.\./{ s@\.\./readline-%{rl_vers}[^/]*/@@ }' $patch
     echo Patch $patch
     patch -s -p$level < $patch
 done
