@@ -1,7 +1,7 @@
 #
 # spec file for package bash
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -364,7 +364,7 @@ done
   MACHTYPE=${CPU}-suse-linux
   export LANG LC_ALL HOSTTYPE MACHTYPE
 pushd ../readline-%{rl_vers}%{extend}
-%if 0%suse_version > 1020
+%if 0%suse_version >= 1020
   autoconf
 %endif
   cflags ()
@@ -562,10 +562,11 @@ popd
 	all printenv recho zecho xcase
   TMPDIR=$(mktemp -d /tmp/bash.XXXXXXXXXX) || exit 1
   > $SCREENLOG
+  tail -q -s 0.5 -f $SCREENLOG & pid=$!
   env -i HOME=$PWD TERM=$TERM LD_LIBRARY_PATH=$LD_LIBRARY_PATH TMPDIR=$TMPDIR \
 	SCREENRC=$SCREENRC SCREENDIR=$SCREENDIR \
 	screen -L -D -m make TESTSCRIPT=%{SOURCE4} check
-  cat $SCREENLOG
+  kill -TERM $pid
   make %{?do_profiling:CFLAGS="$CFLAGS %cflags_profile_feedback" clean} all
   make -C examples/loadables/
   make documentation
