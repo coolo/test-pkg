@@ -1,7 +1,7 @@
 #
 # spec file for package zsh
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -120,8 +120,8 @@ perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
     --enable-multibyte \
     --enable-pcre \
     --with-term-lib="ncursesw" \
-    --enable-cflags="%{optflags} %(ncursesw6-config --cflags)" \
-    --enable-ldflags="%(ncursesw6-config --libs)"
+    --enable-cflags="%{optflags} -fPIE -fstack-protector %(ncursesw6-config --cflags)" \
+    --enable-ldflags="%(ncursesw6-config --libs) -pie -Wl,-z,relro,-z,now"
 
 make all info html
 
