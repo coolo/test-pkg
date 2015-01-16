@@ -422,17 +422,19 @@ pushd ../readline-%{rl_vers}%{extend}
 	EOF
   CFLAGS="$RPM_OPT_FLAGS $LARGEFILE -D_GNU_SOURCE -DRECYCLES_PIDS -Wall -g"
   LDFLAGS=""
+  #
+  # Never ever put -DMUST_UNBLOCK_CHLD herein as this breaks bash
+  #
   cflags -Wuninitialized         CFLAGS
   cflags -Wextra                 CFLAGS
   cflags -Wno-unprototyped-calls CFLAGS
   cflags -Wno-switch-enum        CFLAGS
   cflags -Wno-unused-variable    CFLAGS
   cflags -Wno-unused-parameter   CFLAGS
-  cflags -Wno-parentheses	 CFLAGS
+  cflags -Wno-parentheses        CFLAGS
   cflags -ftree-loop-linear      CFLAGS
   cflags -pipe                   CFLAGS
   cflags -DBNC382214=0           CFLAGS
-  cflags -DMUST_UNBLOCK_CHLD=1   CFLAGS
   cflags -DIMPORT_FUNCTIONS_DEF=0 CFLAGS
   cflags -Wl,--as-needed         LDFLAGS
   cflags -Wl,-O2                 LDFLAGS
