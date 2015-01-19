@@ -1,4 +1,34 @@
 -------------------------------------------------------------------
+Fri Jan 16 11:54:23 UTC 2015 - tchvatal@suse.com
+
+- Version bump to 10.4.2 (bugfix release):
+  * Bug 85529 - Surfaces not drawn in Unvanquished
+  * Bug 87619 - Changes to state such as render targets change fragment shader without marking it dirty.
+  * Bug 87658 - [llvmpipe] SEGV in sse2_has_daz on ancient Pentium4-M
+  * Bug 87913 - CPU cacheline size of 0 can be returned by CPUID leaf 0x80000006 in some virtual machines
+  * i965: Use safer pointer arithmetic in intel_texsubimage_tiled_memcpy()
+  * i965: Use safer pointer arithmetic in gather_oa_results()
+  * Revert "r600g/sb: fix issues cause by GLSL switching to loops for switch"
+  * r600g: fix regression since UCMP change
+  * r600g/sb: implement r600 gpr index workaround. (v3.1)
+  * docs: Add sha256 sums for the 10.4.1 release
+  * Update version to 10.4.2
+  * nv50,nvc0: set vertex id base to index_bias
+  * nv50/ir: fix texture offsets in release builds
+  * i965: Add missing BRW_NEW_*_PROG_DATA to texture/renderbuffer atoms.
+  * i965: Fix start/base_vertex_location for >1 prims but !BRW_NEW_VERTICES.
+  * gallium/util: make sure cache line size is not zero
+  * glsl_to_tgsi: fix a bug in copy propagation
+  * vbo: ignore primitive restart if FixedIndex is enabled in DrawArrays
+  * st/mesa: fix GL_PRIMITIVE_RESTART_FIXED_INDEX
+  * radeonsi: fix VertexID for OpenGL
+  * radeonsi: Don't modify PA_SC_RASTER_CONFIG register value if rb_mask == 0
+  * gallium/util: fix crash with daz detection on x86
+  * nv50,nvc0: implement half_pixel_center
+  * r600g/sb: fix issues with loops created for switch
+- Use download url fully in Source line
+
+-------------------------------------------------------------------
 Sun Dec 14 15:41:33 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
 
 - Update to version 10.4.0 (10.4 Final):
