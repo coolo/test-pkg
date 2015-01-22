@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Fri Jan 16 12:08:42 UTC 2015 - tchvatal@suse.com
+
+- Clean up with the spec-cleaner
+- Drop obsolete obsoletes comming from fix for sle10
+- Reduce llvm_r600 conditional as it is equal to ifarch x86 x86_64
+- Put vdpau_radeon and vdpau_nouveau under same case as they have
+  same requisites
+- Fix empty post/postun warning
+- Various other rpmlint issues silenced.
+
+-------------------------------------------------------------------
 Fri Jan 16 11:54:23 UTC 2015 - tchvatal@suse.com
 
 - Version bump to 10.4.2 (bugfix release):
