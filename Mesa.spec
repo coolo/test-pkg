@@ -1,7 +1,7 @@
 #
 # spec file for package Mesa
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -44,10 +44,10 @@
 %endif
 
 %define _name_archive MesaLib
-%define _version 10.4.0
+%define _version 10.4.2
 
 Name:           Mesa
-Version:        10.4.0
+Version:        10.4.2
 Release:        0
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -123,7 +123,7 @@ Provides:       XFree86-Mesa-64bit = %{version}
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
 Group:          System/Libraries
-Source:         %{_name_archive}-%{_version}.tar.bz2
+Source:         ftp://ftp.freedesktop.org/pub/mesa/%{_version}/%{_name_archive}-%{_version}.tar.bz2
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
