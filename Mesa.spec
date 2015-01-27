@@ -33,6 +33,9 @@
 %define vdpau_nouveau 0
 %define vdpau_radeon 0
 %endif
+%ifarch %ix86 x86_64
+%define with_nine 1
+%endif
 Name:           Mesa
 Version:        10.4.3
 Release:        0
@@ -51,7 +54,6 @@ Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
-Patch18:        u_be_assert_include.patch
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
 BuildRequires:  bison
@@ -477,6 +479,23 @@ Supplements:    xf86-video-ati
 %description -n libvdpau_radeonsi
 This package contains the VDPAU state tracker for radeonsi.
 
+%if 0%{?with_nine}
+%package libd3d
+Summary:        Mesa Direct3D9 state tracker
+Group:          System/Libraries
+
+%description libd3d
+Mesa Direct3D9 state tracker
+
+%package libd3d-devel
+Summary:        Mesa Direct3D9 state tracker development package
+Group:          System/Libraries
+Requires:       mesa-d3d%{?_isa} = %{version}-%{release}
+
+%description libd3d-devel
+Mesa Direct3D9 state tracker development package
+%endif
+
 %prep
 %setup -q -n %{name}-%{_version} -b4
 # remove some docs
@@ -488,7 +507,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch15 -p1
 #%patch13 -p1
 ###
-%patch18 -p1
 
 %build
 %if 0%{?suse_version} >= 1310
@@ -508,6 +526,7 @@ autoreconf -fvi
            --enable-texture-float \
            --enable-osmesa \
            --enable-dri3 \
+           %{?with_nine:--enable-nine} \
 %if %{glamor}
            --enable-gbm \
            --enable-glx-tls \
@@ -649,6 +668,11 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %post   -n libwayland-egl1 -p /sbin/ldconfig
 
 %postun -n libwayland-egl1 -p /sbin/ldconfig
+%endif
+
+%if 0%{?with_nine}
+%post libd3d -p /sbin/ldconfig
+%postun libd3d -p /sbin/ldconfig
 %endif
 
 %files
@@ -821,5 +845,17 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %files devel
 %defattr(-,root,root)
 %doc docs/*.html
+
+%if 0%{?with_nine}
+%files libd3d
+%dir %{_libdir}/d3d/
+%{_libdir}/d3d/*.so.*
+#%{_sysconfdir}/OpenCL/vendors/mesa.icd
+
+%files libd3d-devel
+%{_libdir}/pkgconfig/d3d.pc
+%{_includedir}/d3dadapter/
+%{_libdir}/d3d/*.so
+%endif
 
 %changelog
