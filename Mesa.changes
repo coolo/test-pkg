@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jan 27 10:02:46 UTC 2015 - schwab@suse.de
+
+- Set xvmc_support also on ppc
+
+-------------------------------------------------------------------
 Sun Jan 25 12:13:06 UTC 2015 - mimi.vx@gmail.com
 
 - Version bump to 10.4.3 (bugfix release):

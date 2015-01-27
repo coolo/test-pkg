@@ -24,15 +24,12 @@
 %else
 %define gallium_loader 0
 %endif
-%ifarch %ix86 x86_64 %arm ppc64 ppc64le
-%define xvmc_support 1
-%else
-%define xvmc_support 0
-%endif
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le
+%define xvmc_support 1
 %define vdpau_nouveau 1
 %define vdpau_radeon 1
 %else
+%define xvmc_support 0
 %define vdpau_nouveau 0
 %define vdpau_radeon 0
 %endif
