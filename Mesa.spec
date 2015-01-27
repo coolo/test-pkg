@@ -1,7 +1,7 @@
 #
 # spec file for package Mesa
 #
-# Copyright (c) 2015 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,20 +17,12 @@
 
 
 %define glamor 1
+%define _name_archive MesaLib
+%define _version 10.4.3
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
 %define gallium_loader 1
 %else
 %define gallium_loader 0
-%endif
-%ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le
-%define vdpau_radeon 1
-%else
-%define vdpau_radeon 0
-%endif
-%ifarch %ix86 x86_64
-%define llvm_r600 1
-%else
-%define llvm_r600 0
 %endif
 %ifarch %ix86 x86_64 %arm ppc64 ppc64le
 %define xvmc_support 1
@@ -39,28 +31,41 @@
 %endif
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le
 %define vdpau_nouveau 1
+%define vdpau_radeon 1
 %else
 %define vdpau_nouveau 0
+%define vdpau_radeon 0
 %endif
-
-%define _name_archive MesaLib
-%define _version 10.4.2
-
 Name:           Mesa
-Version:        10.4.2
+Version:        10.4.3
 Release:        0
+Summary:        System for rendering interactive 3-D graphics
+License:        MIT
+Group:          System/Libraries
+Url:            http://www.mesa3d.org
+Source:         ftp://ftp.freedesktop.org/pub/mesa/%{_version}/%{_name_archive}-%{_version}.tar.bz2
+Source2:        baselibs.conf
+Source3:        README.updates
+Source4:        manual-pages.tar.bz2
+Source6:        %{name}-rpmlintrc
+# to be upstreamed
+Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
+# Patch from Fedora, fix 16bpp in llvmpipe
+Patch13:        u_mesa-8.0.1-fix-16bpp.patch
+# Patch from Fedora, use shmget when available, under llvmpipe
+Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
+Patch18:        u_be_assert_include.patch
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
 BuildRequires:  bison
 BuildRequires:  fdupes
 BuildRequires:  flex
 BuildRequires:  gcc-c++
-%if %llvm_r600
-BuildRequires:  libelf-devel
-%endif
 BuildRequires:  imake
+BuildRequires:  libXvMC-devel
 BuildRequires:  libexpat-devel
 BuildRequires:  libtool
+BuildRequires:  libvdpau-devel
 BuildRequires:  pkgconfig
 BuildRequires:  python-base
 BuildRequires:  python-xml
@@ -68,22 +73,11 @@ BuildRequires:  pkgconfig(dri2proto)
 BuildRequires:  pkgconfig(dri3proto)
 BuildRequires:  pkgconfig(glproto)
 BuildRequires:  pkgconfig(libdrm) >= 2.4.24
-BuildRequires:  pkgconfig(presentproto)
-BuildRequires:  pkgconfig(xshmfence)
-%ifarch %arm
-BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.43
-%endif
-%ifarch x86_64 %ix86
-BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.38
-%endif
 BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.41
 BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.45
 BuildRequires:  pkgconfig(libkms) >= 1.0.0
 BuildRequires:  pkgconfig(libudev) > 150
-%if 0%{?suse_version} >= 1310
-BuildRequires:  pkgconfig(wayland-client)
-BuildRequires:  pkgconfig(wayland-server)
-%endif
+BuildRequires:  pkgconfig(presentproto)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(x11-xcb)
 BuildRequires:  pkgconfig(xcb-dri2)
@@ -93,51 +87,35 @@ BuildRequires:  pkgconfig(xcb-present)
 BuildRequires:  pkgconfig(xdamage)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xfixes)
+BuildRequires:  pkgconfig(xshmfence)
 BuildRequires:  pkgconfig(xxf86vm)
 BuildRequires:  pkgconfig(zlib)
-%ifarch %arm ppc64 ppc64le s390x %ix86 x86_64
-BuildRequires:  llvm-devel
-BuildRequires:  ncurses-devel
-%endif
-BuildRequires:  libXvMC-devel
-BuildRequires:  libvdpau-devel
-
-Url:            http://www.mesa3d.org
 Provides:       Mesa7 = %{version}
 Obsoletes:      Mesa7 < %{version}
 Provides:       intel-i810-Mesa = %{version}
 Obsoletes:      intel-i810-Mesa < %{version}
 Provides:       Mesa-libIndirectGL1 = %{version}
 Obsoletes:      Mesa-libIndirectGL1 < %{version}
+Provides:       Mesa-nouveau3d = %{version}
 Provides:       xorg-x11-Mesa = %{version}
-Obsoletes:      Mesa-nouveau3d
+Obsoletes:      Mesa-nouveau3d < %{version}
 Obsoletes:      xorg-x11-Mesa < %{version}
-# bug437293
-%ifarch ppc64
-Obsoletes:      Mesa-64bit < %{version}
-Obsoletes:      XFree86-Mesa-64bit < %{version}
-Provides:       Mesa-64bit < %{version}
-Provides:       XFree86-Mesa-64bit = %{version}
-%endif
-#
-Summary:        System for rendering interactive 3-D graphics
-License:        MIT
-Group:          System/Libraries
-Source:         ftp://ftp.freedesktop.org/pub/mesa/%{_version}/%{_name_archive}-%{_version}.tar.bz2
-Source2:        baselibs.conf
-Source3:        README.updates
-Source4:        manual-pages.tar.bz2
-Source6:        %name-rpmlintrc
-
-# to be upstreamed
-Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
-# Patch from Fedora, fix 16bpp in llvmpipe
-Patch13:        u_mesa-8.0.1-fix-16bpp.patch
-# Patch from Fedora, use shmget when available, under llvmpipe
-Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
-Patch18:        u_be_assert_include.patch
-
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+%ifarch %arm
+BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.43
+%endif
+%ifarch x86_64 %ix86
+BuildRequires:  libelf-devel
+BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.38
+%endif
+%if 0%{?suse_version} >= 1310
+BuildRequires:  pkgconfig(wayland-client)
+BuildRequires:  pkgconfig(wayland-server)
+%endif
+%ifarch %arm ppc64 ppc64le s390x %ix86 x86_64
+BuildRequires:  llvm-devel
+BuildRequires:  ncurses-devel
+%endif
 
 %description
 Mesa is a 3-D graphics library with an API which is very similar to
@@ -157,32 +135,24 @@ just Mesa or The Mesa 3-D graphics library.
 %package devel
 Summary:        Libraries, includes and more to develop Mesa applications
 Group:          Development/Libraries/X11
-Requires:       Mesa = %version
-Requires:       Mesa-dri-devel = %version
-Requires:       Mesa-libEGL-devel = %version
-Requires:       Mesa-libGL-devel = %version
-Requires:       Mesa-libGLESv1_CM-devel = %version
-Requires:       Mesa-libGLESv2-devel = %version
-Requires:       Mesa-libglapi-devel = %version
-Requires:       libOSMesa-devel = %version
+Requires:       Mesa = %{version}
+Requires:       Mesa-dri-devel = %{version}
+Requires:       Mesa-libEGL-devel = %{version}
+Requires:       Mesa-libGL-devel = %{version}
+Requires:       Mesa-libGLESv1_CM-devel = %{version}
+Requires:       Mesa-libGLESv2-devel = %{version}
+Requires:       Mesa-libglapi-devel = %{version}
+Requires:       libOSMesa-devel = %{version}
 Requires:       libgbm-devel
-%if 0%{?suse_version} >= 1310
-Requires:       libwayland-egl-devel
-%endif
-# bug437293
-%ifarch ppc64
-Obsoletes:      Mesa-devel-64bit < %{version}
-Obsoletes:      XFree86-Mesa-devel-64bit < %{version}
-Provides:       Mesa-devel-64bit = %{version}
-Provides:       XFree86-Mesa-devel-64bit = %{version}
-%endif
-#
 Provides:       Mesa-devel-static = %{version}
 Provides:       xorg-x11-Mesa-devel = %{version}
 Obsoletes:      Mesa-devel-static < %{version}
 Obsoletes:      xorg-x11-Mesa-devel < %{version}
 Provides:       Mesa-libIndirectGL-devel = %{version}
 Obsoletes:      Mesa-libIndirectGL-devel < %{version}
+%if 0%{?suse_version} >= 1310
+Requires:       libwayland-egl-devel
+%endif
 
 %description devel
 Mesa is a 3-D graphics library with an API which is very similar to
@@ -218,7 +188,7 @@ support.
 %package -n Mesa-libEGL-devel
 Summary:        Development files for the EGL API
 Group:          Development/Libraries/C and C++
-Requires:       Mesa-libEGL1 = %version
+Requires:       Mesa-libEGL1 = %{version}
 # Other requires taken care of by pkgconfig already
 
 %description -n Mesa-libEGL-devel
@@ -234,7 +204,7 @@ programs against the EGL library.
 %package -n Mesa-libGL1
 Summary:        The GL/GLX runtime of the Mesa 3D graphics library
 Group:          System/Libraries
-Requires:       Mesa = %version
+Requires:       Mesa = %{version}
 
 %description -n Mesa-libGL1
 Mesa is a software library for 3D computer graphics that provides a
@@ -249,7 +219,7 @@ the X Window System.
 %package -n Mesa-libGL-devel
 Summary:        GL/GLX development files of the OpenGL API
 Group:          Development/Libraries/C and C++
-Requires:       Mesa-libGL1 = %version
+Requires:       Mesa-libGL1 = %{version}
 
 %description -n Mesa-libGL-devel
 Mesa is a software library for 3D computer graphics that provides a
@@ -274,7 +244,7 @@ OpenGL|ES 1.x provides an API for fixed-function hardware.
 %package -n Mesa-libGLESv1_CM-devel
 Summary:        Development files for the OpenGL ES 1.x API
 Group:          Development/Libraries/C and C++
-Requires:       Mesa-libGLESv1_CM1 = %version
+Requires:       Mesa-libGLESv1_CM1 = %{version}
 Requires:       pkgconfig(egl)
 
 %description -n Mesa-libGLESv1_CM-devel
@@ -301,13 +271,13 @@ extensions for the special needs of embedded systems.
 OpenGL|ES 2.x provides an API for programmable hardware including
 vertex and fragment shaders.
 
-The libGLESv2.so.2 library provides symbols for all OpenGL ES 2 and
-ES 3 entry points.
+The libGLESv2.so.2 library provides symbols for all OpenGL ES 2 and
+ES 3 entry points.
 
 %package -n Mesa-libGLESv2-devel
 Summary:        Development files for the OpenGL ES 2.x API
 Group:          Development/Libraries/C and C++
-Requires:       Mesa-libGLESv2-2 = %version
+Requires:       Mesa-libGLESv2-2 = %{version}
 Requires:       pkgconfig(egl)
 
 %description -n Mesa-libGLESv2-devel
@@ -325,7 +295,7 @@ applications using the OpenGL|ES 2.x APIs.
 %package -n Mesa-libGLESv3-devel
 Summary:        Development files for the OpenGL ES 3.x API
 Group:          Development/Libraries/C and C++
-Requires:       Mesa-libGLESv2-2 = %version
+Requires:       Mesa-libGLESv2-2 = %{version}
 Requires:       pkgconfig(egl)
 
 %description -n Mesa-libGLESv3-devel
@@ -349,7 +319,7 @@ rendering context on an X Server. It uses a pure software renderer.
 %package -n libOSMesa-devel
 Summary:        Development files for the Mesa Offscreen Rendering extension
 Group:          Development/Libraries/C and C++
-Requires:       libOSMesa9 = %version
+Requires:       libOSMesa9 = %{version}
 
 %description -n libOSMesa-devel
 Development files for the OSmesa Mesa extension that allows programs to render to an
@@ -368,7 +338,7 @@ packages.
 %package -n Mesa-libglapi-devel
 Summary:        Development files for the free implementation of the GL API
 Group:          Development/Libraries/C and C++
-Requires:       Mesa-libglapi0 = %version
+Requires:       Mesa-libglapi0 = %{version}
 
 %description -n Mesa-libglapi-devel
 Development files for the Mesa GL API module which is responsible for
@@ -378,7 +348,7 @@ the Mesa-libGLES* packages.
 %package -n Mesa-dri-devel
 Summary:        Development files for the DRI API
 Group:          Development/Libraries/C and C++
-Requires:       Mesa = %version
+Requires:       Mesa = %{version}
 
 %description -n Mesa-dri-devel
 This package contains the development environment required for
@@ -399,7 +369,7 @@ openwfd.
 %package -n libgbm-devel
 Summary:        Development files for the EGL API
 Group:          Development/Libraries/C and C++
-Requires:       libgbm1 = %version
+Requires:       libgbm1 = %{version}
 
 %description -n libgbm-devel
 This package contains the GBM buffer management library. It provides
@@ -413,7 +383,6 @@ This package provides the development environment for compiling
 programs against the GBM library.
 
 %if 0%{?suse_version} >= 1310
-
 %package -n libwayland-egl1
 Summary:        Additional egl functions for wayland
 Group:          System/Libraries
@@ -426,7 +395,7 @@ that need not run full-screen and cooperate with a compositor.
 %package -n libwayland-egl-devel
 Summary:        Development files for libwayland-egl1
 Group:          Development/Libraries/C and C++
-Requires:       libwayland-egl1 = %version
+Requires:       libwayland-egl1 = %{version}
 
 %description -n libwayland-egl-devel
 This package is required to link wayland client applications to the EGL
@@ -434,10 +403,10 @@ implementation of Mesa.
 %endif
 
 %package -n libxatracker2
-Summary:        XA state tracker
-Group:          System/Libraries
 Version:        1.0.0
 Release:        0
+Summary:        XA state tracker
+Group:          System/Libraries
 
 %description -n libxatracker2
 This package contains the XA state tracker for gallium3D driver.
@@ -446,11 +415,11 @@ to accelerate Xorg 2D operations. It is currently used by vmwgfx
 video driver.
 
 %package -n libxatracker-devel
-Summary:        Development files for the XA API
-Group:          Development/Libraries/C and C++
 Version:        1.0.0
 Release:        0
-Requires:       libxatracker2 = %version
+Summary:        Development files for the XA API
+Group:          Development/Libraries/C and C++
+Requires:       libxatracker2 = %{version}
 
 %description -n libxatracker-devel
 This package contains the XA state tracker for gallium3D driver.
@@ -485,7 +454,7 @@ Group:          System/Libraries
 Supplements:    xf86-video-nouveau
 
 %description -n libvdpau_nouveau
-This package contains the VDPAU state tracker for Nouveau. 
+This package contains the VDPAU state tracker for Nouveau.
 
 %package -n libvdpau_r300
 Summary:        XVMC state tracker for R300
@@ -493,7 +462,7 @@ Group:          System/Libraries
 Supplements:    xf86-video-ati
 
 %description -n libvdpau_r300
-This package contains the VDPAU state tracker for R300. 
+This package contains the VDPAU state tracker for R300.
 
 %package -n libvdpau_r600
 Summary:        XVMC state tracker for R600
@@ -501,7 +470,7 @@ Group:          System/Libraries
 Supplements:    xf86-video-ati
 
 %description -n libvdpau_r600
-This package contains the VDPAU state tracker for R600. 
+This package contains the VDPAU state tracker for R600.
 
 %package -n libvdpau_radeonsi
 Summary:        XVMC state tracker for radeonsi
@@ -509,10 +478,10 @@ Group:          System/Libraries
 Supplements:    xf86-video-ati
 
 %description -n libvdpau_radeonsi
-This package contains the VDPAU state tracker for radeonsi. 
+This package contains the VDPAU state tracker for radeonsi.
 
 %prep
-%setup -n %{name}-%{_version} -b4 -q
+%setup -q -n %{name}-%{_version} -b4
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
 ### disabled, but not dropped yet; these still need investigation in
@@ -530,7 +499,7 @@ egl_platforms=x11,drm,wayland
 %else
 egl_platforms=x11,drm
 %endif
-autoreconf -fi
+autoreconf -fvi
 ###           --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga \
 ###           --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
 ###           --with-gallium-drivers=r300,nouveau,swrast,svga \
@@ -542,27 +511,23 @@ autoreconf -fi
            --enable-texture-float \
            --enable-osmesa \
            --enable-dri3 \
-%if %glamor
+%if %{glamor}
            --enable-gbm \
            --enable-glx-tls \
 %endif
 %if 0%{?suse_version} < 1315
-           --with-dri-searchpath=/usr/%{_lib}/dri/updates:/usr/%{_lib}/dri \
+           --with-dri-searchpath=%{_libdir}/dri/updates:%{_libdir}/dri \
 %else
-           --with-dri-searchpath=/usr/%{_lib}/dri \
+           --with-dri-searchpath=%{_libdir}/dri \
 %endif
 %ifarch %ix86 x86_64
            --enable-xa \
            --enable-gallium-llvm \
            --with-dri-drivers=i915,i965,nouveau,r200,radeon \
            --enable-opencl-icd \
-%if %llvm_r600
            --enable-llvm-shared-libs \
            --enable-r600-llvm-compiler \
            --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga \
-%else
-           --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
-%endif
            --enable-vdpau \
            --enable-xvmc \
 %endif
@@ -578,11 +543,11 @@ autoreconf -fi
            --enable-vdpau \
            --enable-xvmc \
 %endif
-%ifarch ia64 ppc %sparc hppa
+%ifarch ia64 ppc hppa
            --with-dri-drivers=nouveau,r200,radeon \
            --with-gallium-drivers=r300,r600,nouveau,swrast \
 %endif
-%ifarch s390 aarch64 m68k
+%ifarch s390 aarch64
            --with-dri-drivers=swrast \
            --with-gallium-drivers="" \
 %endif
@@ -592,96 +557,107 @@ autoreconf -fi
         --with-dri-drivers=swrast \
         --with-gallium-drivers=swrast,svga \
 %endif
-           CFLAGS="$RPM_OPT_FLAGS -DNDEBUG"
+        CFLAGS="%{optflags} -DNDEBUG"
 make %{?_smp_mflags}
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -name "*.la" -exec rm {} \;
+make DESTDIR=%{buildroot} install %{?_smp_mflags}
+find %{buildroot} -type f -name "*.la" -delete -print
 
 # Make a symlink to libGL.so.1.2 for compatibility (bnc#809359, bnc#831306)
-test -f $RPM_BUILD_ROOT%{_libdir}/libGL.so.1.2 || \
-  ln -s `readlink $RPM_BUILD_ROOT%{_libdir}/libGL.so.1` $RPM_BUILD_ROOT%{_libdir}/libGL.so.1.2
+test -f %{buildroot}%{_libdir}/libGL.so.1.2 || \
+  ln -s `readlink %{buildroot}%{_libdir}/libGL.so.1` %{buildroot}%{_libdir}/libGL.so.1.2
 
 for dir in ../xc/doc/man/{GL/gl,GL/glx}; do
  pushd $dir
    xmkmf -a
    make %{?_smp_mflags}
-   make install.man DESTDIR=$RPM_BUILD_ROOT MANPATH=%{_mandir} LIBMANSUFFIX=3gl
+   make install.man DESTDIR=%{buildroot} MANPATH=%{_mandir} LIBMANSUFFIX=3gl
  popd
 done
 %if 0%{?suse_version} < 1315
 #DRI driver update mechanism
-mkdir -p $RPM_BUILD_ROOT/usr/%{_lib}/dri/updates
+mkdir -p %{buildroot}%{_libdir}/dri/updates
 install -m 644 $RPM_SOURCE_DIR/README.updates \
-  $RPM_BUILD_ROOT/usr/%{_lib}/dri/updates
+  %{buildroot}%{_libdir}/dri/updates
 %endif
 
-%fdupes -s $RPM_BUILD_ROOT/%_mandir
-### disabled for now on request of Coolo
-### "please take out this libs things from Cristian for 12.3 - I have no interest in debugging
-###  broken build dependencies at this point"
-#sed -i -e '/^Libs.private/d' -e '/^Requires.private/d' %{buildroot}%{_libdir}/pkgconfig/*.pc
+%fdupes -s %{buildroot}/%{_mandir}
 
 %post   -p /sbin/ldconfig
+
 %postun -p /sbin/ldconfig
 
 %post   -n Mesa-libEGL1 -p /sbin/ldconfig
+
 %postun -n Mesa-libEGL1 -p /sbin/ldconfig
 
 %post   -n Mesa-libGL1 -p /sbin/ldconfig
+
 %postun -n Mesa-libGL1 -p /sbin/ldconfig
 
 %post   -n Mesa-libGLESv1_CM1 -p /sbin/ldconfig
+
 %postun -n Mesa-libGLESv1_CM1 -p /sbin/ldconfig
 
 %post   -n Mesa-libGLESv2-2 -p /sbin/ldconfig
+
 %postun -n Mesa-libGLESv2-2 -p /sbin/ldconfig
 
 %post   -n libOSMesa9 -p /sbin/ldconfig
+
 %postun -n libOSMesa9 -p /sbin/ldconfig
 
 %post   -n libgbm1 -p /sbin/ldconfig
+
 %postun -n libgbm1 -p /sbin/ldconfig
 
 %ifarch %ix86 x86_64 %arm ppc64 ppc64le s390x
 %post   -n libxatracker2 -p /sbin/ldconfig
+
 %postun -n libxatracker2 -p /sbin/ldconfig
 %endif
 
-%if %xvmc_support
-%post   -n libXvMC_nouveau
-%postun -n libXvMC_nouveau
+%if %{xvmc_support}
+%post   -n libXvMC_nouveau -p /sbin/ldconfig
 
-%post   -n libXvMC_r600
-%postun -n libXvMC_r600
+%postun -n libXvMC_nouveau -p /sbin/ldconfig
+
+%post   -n libXvMC_r600 -p /sbin/ldconfig
+
+%postun -n libXvMC_r600 -p /sbin/ldconfig
 %endif
 
-%if %vdpau_radeon
-%post   -n libvdpau_r300
-%postun -n libvdpau_r300
+%if %{vdpau_radeon}
+%post   -n libvdpau_r300 -p /sbin/ldconfig
 
-%post   -n libvdpau_r600
-%postun -n libvdpau_r600
+%postun -n libvdpau_r300 -p /sbin/ldconfig
+
+%post   -n libvdpau_r600 -p /sbin/ldconfig
+
+%postun -n libvdpau_r600 -p /sbin/ldconfig
 %endif
 
-%if %llvm_r600
-%post   -n libvdpau_radeonsi
-%postun -n libvdpau_radeonsi
+%ifarch %ix86 x86_64
+%post   -n libvdpau_radeonsi -p /sbin/ldconfig
+
+%postun -n libvdpau_radeonsi -p /sbin/ldconfig
 %endif
 
 %post   -n Mesa-libglapi0 -p /sbin/ldconfig
+
 %postun -n Mesa-libglapi0 -p /sbin/ldconfig
 
 %if 0%{?suse_version} >= 1310
 %post   -n libwayland-egl1 -p /sbin/ldconfig
+
 %postun -n libwayland-egl1 -p /sbin/ldconfig
 %endif
 
 %files
 %defattr(-,root,root)
 %doc docs/README* docs/COPYING
-%config /etc/drirc
+%config %{_sysconfdir}/drirc
 %{_libdir}/dri/
 #%if %gallium_loader
 #%dir %_libdir/gallium-pipe/
@@ -690,160 +666,160 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 
 %files -n Mesa-libEGL1
 %defattr(-,root,root)
-%_libdir/libEGL.so.1*
+%{_libdir}/libEGL.so.1*
 
 %files -n Mesa-libEGL-devel
 %defattr(-,root,root)
-%_includedir/EGL
-%_includedir/KHR
-%_libdir/libEGL.so
-%_libdir/pkgconfig/egl.pc
+%{_includedir}/EGL
+%{_includedir}/KHR
+%{_libdir}/libEGL.so
+%{_libdir}/pkgconfig/egl.pc
 
 %files -n Mesa-libGL1
 %defattr(-,root,root)
-%_libdir/libGL.so.1*
+%{_libdir}/libGL.so.1*
 
 %files -n Mesa-libGL-devel
 %defattr(-,root,root)
-%dir %_includedir/GL
-%_includedir/GL/*.h
-%exclude %_includedir/GL/osmesa.h
-%_libdir/libGL.so
-%_libdir/pkgconfig/gl.pc
-%_mandir/man3/gl[A-Z]*
+%dir %{_includedir}/GL
+%{_includedir}/GL/*.h
+%exclude %{_includedir}/GL/osmesa.h
+%{_libdir}/libGL.so
+%{_libdir}/pkgconfig/gl.pc
+%{_mandir}/man3/gl[A-Z]*
 
 %files -n Mesa-libGLESv1_CM1
 %defattr(-,root,root)
-%_libdir/libGLESv1_CM.so.1*
+%{_libdir}/libGLESv1_CM.so.1*
 
 %files -n Mesa-libGLESv1_CM-devel
 %defattr(-,root,root)
-%_includedir/GLES
-%_libdir/libGLESv1_CM.so
-%_libdir/pkgconfig/glesv1_cm.pc
+%{_includedir}/GLES
+%{_libdir}/libGLESv1_CM.so
+%{_libdir}/pkgconfig/glesv1_cm.pc
 
 %files -n Mesa-libGLESv2-2
 %defattr(-,root,root)
-%_libdir/libGLESv2.so.2*
+%{_libdir}/libGLESv2.so.2*
 
 %files -n Mesa-libGLESv2-devel
 %defattr(-,root,root)
-%_includedir/GLES2
-%_libdir/libGLESv2.so
-%_libdir/pkgconfig/glesv2.pc
+%{_includedir}/GLES2
+%{_libdir}/libGLESv2.so
+%{_libdir}/pkgconfig/glesv2.pc
 
 %files -n Mesa-libGLESv3-devel
 %defattr(-,root,root)
-%_includedir/GLES3
+%{_includedir}/GLES3
 #%_libdir/libGLESv3.so
 #%_libdir/pkgconfig/glesv3.pc
 
 %files -n libOSMesa9
 %defattr(-,root,root)
-%_libdir/libOSMesa.so.8.0.0
-%_libdir/libOSMesa.so.8
+%{_libdir}/libOSMesa.so.8.0.0
+%{_libdir}/libOSMesa.so.8
 
 %files -n libOSMesa-devel
 %defattr(-,root,root)
-%_includedir/GL/osmesa.h
-%_libdir/libOSMesa.so
-%_libdir/pkgconfig/osmesa.pc
+%{_includedir}/GL/osmesa.h
+%{_libdir}/libOSMesa.so
+%{_libdir}/pkgconfig/osmesa.pc
 
 %if 0%{?suse_version} >= 1310
 %files -n libwayland-egl1
 %defattr(-,root,root)
-%_libdir/libwayland-egl.so.1*
+%{_libdir}/libwayland-egl.so.1*
 
 %files -n libwayland-egl-devel
 %defattr(-,root,root)
-%_libdir/libwayland-egl.so
-%_libdir/pkgconfig/wayland-egl.pc
+%{_libdir}/libwayland-egl.so
+%{_libdir}/pkgconfig/wayland-egl.pc
 %endif
 
 %files -n libgbm1
 %defattr(-,root,root)
-%_libdir/libgbm.so.1*
+%{_libdir}/libgbm.so.1*
 
 %files -n libgbm-devel
 %defattr(-,root,root)
-%_includedir/gbm.h
-%_libdir/libgbm.so
-%_libdir/pkgconfig/gbm.pc
+%{_includedir}/gbm.h
+%{_libdir}/libgbm.so
+%{_libdir}/pkgconfig/gbm.pc
 
 %ifarch %ix86 x86_64 %arm ppc64 ppc64le s390x
 %files -n libxatracker2
 %defattr(-,root,root)
-%_libdir/libxatracker.so.2*
+%{_libdir}/libxatracker.so.2*
 
 %files -n libxatracker-devel
 %defattr(-,root,root)
-%_includedir/xa_*.h
-%_libdir/libxatracker.so
-%_libdir/pkgconfig/xatracker.pc
+%{_includedir}/xa_*.h
+%{_libdir}/libxatracker.so
+%{_libdir}/pkgconfig/xatracker.pc
 %endif
 
-%if %xvmc_support
+%if %{xvmc_support}
 %files -n libXvMC_nouveau
 %defattr(-,root,root)
-%_libdir/libXvMCnouveau.so
-%_libdir/libXvMCnouveau.so.1
-%_libdir/libXvMCnouveau.so.1.0
-%_libdir/libXvMCnouveau.so.1.0.0
+%{_libdir}/libXvMCnouveau.so
+%{_libdir}/libXvMCnouveau.so.1
+%{_libdir}/libXvMCnouveau.so.1.0
+%{_libdir}/libXvMCnouveau.so.1.0.0
 
 %files -n libXvMC_r600
 %defattr(-,root,root)
-%_libdir/libXvMCr600.so
-%_libdir/libXvMCr600.so.1
-%_libdir/libXvMCr600.so.1.0
-%_libdir/libXvMCr600.so.1.0.0
+%{_libdir}/libXvMCr600.so
+%{_libdir}/libXvMCr600.so.1
+%{_libdir}/libXvMCr600.so.1.0
+%{_libdir}/libXvMCr600.so.1.0.0
 %endif
 
-%if %vdpau_nouveau
+%if %{vdpau_nouveau}
 %files -n libvdpau_nouveau
 %defattr(-,root,root)
-%_libdir/vdpau/libvdpau_nouveau.so
-%_libdir/vdpau/libvdpau_nouveau.so.1
-%_libdir/vdpau/libvdpau_nouveau.so.1.0
-%_libdir/vdpau/libvdpau_nouveau.so.1.0.0
+%{_libdir}/vdpau/libvdpau_nouveau.so
+%{_libdir}/vdpau/libvdpau_nouveau.so.1
+%{_libdir}/vdpau/libvdpau_nouveau.so.1.0
+%{_libdir}/vdpau/libvdpau_nouveau.so.1.0.0
 %endif
 
-%if %vdpau_radeon
+%if %{vdpau_radeon}
 %files -n libvdpau_r300
 %defattr(-,root,root)
-%_libdir/vdpau/libvdpau_r300.so
-%_libdir/vdpau/libvdpau_r300.so.1
-%_libdir/vdpau/libvdpau_r300.so.1.0
-%_libdir/vdpau/libvdpau_r300.so.1.0.0
+%{_libdir}/vdpau/libvdpau_r300.so
+%{_libdir}/vdpau/libvdpau_r300.so.1
+%{_libdir}/vdpau/libvdpau_r300.so.1.0
+%{_libdir}/vdpau/libvdpau_r300.so.1.0.0
 
 %files -n libvdpau_r600
 %defattr(-,root,root)
-%_libdir/vdpau/libvdpau_r600.so
-%_libdir/vdpau/libvdpau_r600.so.1
-%_libdir/vdpau/libvdpau_r600.so.1.0
-%_libdir/vdpau/libvdpau_r600.so.1.0.0
+%{_libdir}/vdpau/libvdpau_r600.so
+%{_libdir}/vdpau/libvdpau_r600.so.1
+%{_libdir}/vdpau/libvdpau_r600.so.1.0
+%{_libdir}/vdpau/libvdpau_r600.so.1.0.0
 %endif
 
-%if %llvm_r600
+%ifarch %ix86 x86_64
 %files -n libvdpau_radeonsi
 %defattr(-,root,root)
-%_libdir/vdpau/libvdpau_radeonsi.so
-%_libdir/vdpau/libvdpau_radeonsi.so.1
-%_libdir/vdpau/libvdpau_radeonsi.so.1.0
-%_libdir/vdpau/libvdpau_radeonsi.so.1.0.0
+%{_libdir}/vdpau/libvdpau_radeonsi.so
+%{_libdir}/vdpau/libvdpau_radeonsi.so.1
+%{_libdir}/vdpau/libvdpau_radeonsi.so.1.0
+%{_libdir}/vdpau/libvdpau_radeonsi.so.1.0.0
 %endif
 
 %files -n Mesa-libglapi0
 %defattr(-,root,root)
-%_libdir/libglapi.so.0*
+%{_libdir}/libglapi.so.0*
 
 %files -n Mesa-libglapi-devel
 %defattr(-,root,root)
-%_libdir/libglapi.so
+%{_libdir}/libglapi.so
 
 %files -n Mesa-dri-devel
 %defattr(-,root,root)
-%_includedir/GL/internal
-%_libdir/pkgconfig/dri.pc
+%{_includedir}/GL/internal
+%{_libdir}/pkgconfig/dri.pc
 
 %files devel
 %defattr(-,root,root)

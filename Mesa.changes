@@ -1,4 +1,28 @@
 -------------------------------------------------------------------
+Sun Jan 25 12:13:06 UTC 2015 - mimi.vx@gmail.com
+
+- Version bump to 10.4.3 (bugfix release):
+  * Bug 80568 - [gen4] GPU Crash During Google Chrome Operation
+  * Bug 85367 - [gen4] GPU hang in glmark-es2
+  * Bug 85696 - r600g+nine: Bioshock shader failure after 7b1c0cbc90d456384b0950ad21faa3c61a6b43ff
+  * Bug 88219 - include/c11/threads_posix.h:197: undefined reference to `pthread_mutex_lock'
+  * mesa: Fix clamping to -1.0 in snorm_to_float
+  * glsl: Link glsl_test with pthreads library.
+  * i965: Respect the no_8 flag on Gen6, not just Gen7+.
+  * i965: Work around mysterious Gen4 GPU hangs with minimal state changes. 
+
+-------------------------------------------------------------------
+Fri Jan 16 12:08:42 UTC 2015 - tchvatal@suse.com
+
+- Clean up with the spec-cleaner
+- Drop obsolete obsoletes comming from fix for sle10
+- Reduce llvm_r600 conditional as it is equal to ifarch x86 x86_64
+- Put vdpau_radeon and vdpau_nouveau under same case as they have
+  same requisites
+- Fix empty post/postun warning
+- Various other rpmlint issues silenced.
+
+-------------------------------------------------------------------
 Fri Jan 16 11:54:23 UTC 2015 - tchvatal@suse.com
 
 - Version bump to 10.4.2 (bugfix release):
