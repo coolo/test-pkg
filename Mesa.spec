@@ -490,7 +490,7 @@ Mesa Direct3D9 state tracker
 %package libd3d-devel
 Summary:        Mesa Direct3D9 state tracker development package
 Group:          System/Libraries
-Requires:       mesa-d3d%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libd3d = %{version}-%{release}
 
 %description libd3d-devel
 Mesa Direct3D9 state tracker development package

@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jan 28 16:30:06 UTC 2015 - sndirsch@suse.com
+
+- fixed Requires for libd3d-devel 
+
+-------------------------------------------------------------------
 Tue Jan 27 11:05:40 UTC 2015 - sndirsch@suse.com
 
 - enabled build of Direct3D 9 (Gallium3D Nine) state tracker (bnc#910109)
