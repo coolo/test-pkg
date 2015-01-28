@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jan 28 17:53:20 UTC 2015 - idonmez@suse.com
+
+- Add back rpm completion file (bnc#900424) 
+
+-------------------------------------------------------------------
 Wed Jan 14 09:57:47 UTC 2015 - idonmez@suse.com
 
 - Harden CFLAGS/LDFLAGS 
