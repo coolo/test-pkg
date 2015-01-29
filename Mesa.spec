@@ -401,6 +401,23 @@ This package is required to link wayland client applications to the EGL
 implementation of Mesa.
 %endif
 
+%if 0%{?with_nine}
+%package libd3d
+Summary:        Mesa Direct3D9 state tracker
+Group:          System/Libraries
+
+%description libd3d
+Mesa Direct3D9 state tracker
+
+%package libd3d-devel
+Summary:        Mesa Direct3D9 state tracker development package
+Group:          System/Libraries
+Requires:       %{name}-libd3d = %{version}
+
+%description libd3d-devel
+Mesa Direct3D9 state tracker development package
+%endif
+
 %package -n libxatracker2
 Version:        1.0.0
 Release:        0
@@ -479,22 +496,6 @@ Supplements:    xf86-video-ati
 %description -n libvdpau_radeonsi
 This package contains the VDPAU state tracker for radeonsi.
 
-%if 0%{?with_nine}
-%package libd3d
-Summary:        Mesa Direct3D9 state tracker
-Group:          System/Libraries
-
-%description libd3d
-Mesa Direct3D9 state tracker
-
-%package libd3d-devel
-Summary:        Mesa Direct3D9 state tracker development package
-Group:          System/Libraries
-Requires:       %{name}-libd3d = %{version}-%{release}
-
-%description libd3d-devel
-Mesa Direct3D9 state tracker development package
-%endif
 
 %prep
 %setup -q -n %{name}-%{_version} -b4

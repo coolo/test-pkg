@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Jan 29 09:39:48 UTC 2015 - sndirsch@suse.com
+
+- moved definition of Mesa-libd3d package above definition of
+  libxatracker packages in order to fix version requires
+
+-------------------------------------------------------------------
 Wed Jan 28 16:30:06 UTC 2015 - sndirsch@suse.com
 
 - fixed Requires for libd3d-devel 
