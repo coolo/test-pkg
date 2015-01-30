@@ -1,7 +1,7 @@
 #
 # spec file for package zsh
 #
-# Copyright (c) 2015 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -122,6 +122,9 @@ perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
     --with-term-lib="ncursesw" \
     --enable-cflags="%{optflags} -fPIE -fstack-protector %(ncursesw6-config --cflags)" \
     --enable-ldflags="%(ncursesw6-config --libs) -pie -Wl,-z,relro,-z,now"
+
+# Copy _rpm completion from Redhat (bnc#900424)
+cp Completion/Redhat/Command/_rpm Completion/openSUSE/Command/_rpm
 
 make all info html
 
