@@ -1,4 +1,28 @@
 -------------------------------------------------------------------
+Thu Jan 29 09:39:48 UTC 2015 - sndirsch@suse.com
+
+- moved definition of Mesa-libd3d package above definition of
+  libxatracker packages in order to fix version requires
+
+-------------------------------------------------------------------
+Wed Jan 28 16:30:06 UTC 2015 - sndirsch@suse.com
+
+- fixed Requires for libd3d-devel 
+
+-------------------------------------------------------------------
+Tue Jan 27 11:05:40 UTC 2015 - sndirsch@suse.com
+
+- enabled build of Direct3D 9 (Gallium3D Nine) state tracker (bnc#910109)
+- removed obsolete patch u_be_assert_include.patch, addressed by
+  upstream commit 2a13ff9 "gallium/util: add missing u_debug include"
+  (bnc#910109)
+
+-------------------------------------------------------------------
+Tue Jan 27 10:02:46 UTC 2015 - schwab@suse.de
+
+- Set xvmc_support also on ppc
+
+-------------------------------------------------------------------
 Sun Jan 25 12:13:06 UTC 2015 - mimi.vx@gmail.com
 
 - Version bump to 10.4.3 (bugfix release):
