@@ -37,6 +37,7 @@ Source16:       dotzshrc.rh
 Source17:       zshprompt.pl
 %endif
 Patch1:         trim-unneeded-completions.patch
+Patch2:         zsh-texi2html-randomness.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %if 0%{?suse_version}
 Requires(pre):  %{install_info_prereq}
@@ -94,6 +95,7 @@ This package contains the Zsh manual in html format.
 %setup -q -n %{name}-%{version}
 %if 0%{?suse_version}
 %patch1 -p1
+%patch2 -p1
 %endif
 
 # Remove executable bit

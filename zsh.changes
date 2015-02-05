@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Feb  5 10:48:40 UTC 2015 - idonmez@suse.com
+
+- Add zsh-texi2html-randomness.patch to prevent random changes
+  in texi2html output (bnc#916186)
+
+-------------------------------------------------------------------
 Wed Jan 28 17:53:20 UTC 2015 - idonmez@suse.com
 
 - Add back rpm completion file (bnc#900424) 
