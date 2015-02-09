@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Sun Feb  8 21:45:01 UTC 2015 - zaitor@opensuse.org
+
+- Update to version 10.4.4:
+  + mesa: fix display list 8-byte alignment issue.
+  + docs: Add sha256 sums for the 10.4.3 release.
+  + egl: Pass the correct X visual depth to xcb_put_image().
+  + glx/dri3: Request non-vsynced Present for swapinterval zero.
+  + gallium/util: Don't use __builtin_clrsb in util_last_bit().
+  + configure: Link against all LLVM targets when building clover.
+  + st/osmesa: Fix osbuffer->textures indexing.
+  + i965: Fix max_wm_threads for CHV.
+  + Bugs fixed: fdo#88662, fdo#88930.
+- Add pkgconfig(libva) BuildRequires: Build VA API support.
+
+-------------------------------------------------------------------
 Mon Feb  2 08:59:10 UTC 2015 - sndirsch@suse.com
 
 - baselibs.conf: enabled build of 32bit Mesa-libd3d package
