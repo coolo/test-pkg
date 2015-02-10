@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Feb 10 08:27:53 UTC 2015 - dimstar@opensuse.org
+
+- BuildRequire texi2html instead of texinfo: the packages have been
+  split completely now.
+
+-------------------------------------------------------------------
 Wed Jan 28 17:53:20 UTC 2015 - idonmez@suse.com
 
 - Add back rpm completion file (bnc#900424) 

@@ -47,7 +47,7 @@ BuildRequires:  yodl
 %if 0%{?suse_version} >= 1210
 BuildRequires:  groff
 BuildRequires:  makeinfo
-BuildRequires:  texinfo
+BuildRequires:  texi2html
 %endif
 %else
 Requires(pre):  /sbin/install-info
