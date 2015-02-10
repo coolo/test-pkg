@@ -76,7 +76,6 @@ BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.41
 BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.45
 BuildRequires:  pkgconfig(libkms) >= 1.0.0
 BuildRequires:  pkgconfig(libudev) > 150
-BuildRequires:  pkgconfig(libva) >= 0.35.0
 BuildRequires:  pkgconfig(presentproto)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(x11-xcb)

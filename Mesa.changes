@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Feb 10 12:30:49 UTC 2015 - zaitor@opensuse.org
+
+- Drop pkgconfig(libva) BuildRequires for now, as it introduces a
+  build-cycle.
+
+-------------------------------------------------------------------
 Sun Feb  8 21:45:01 UTC 2015 - zaitor@opensuse.org
 
 - Update to version 10.4.4:
