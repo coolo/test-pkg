@@ -855,11 +855,13 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 
 %if 0%{?with_nine}
 %files libd3d
+%defattr(-,root,root)
 %dir %{_libdir}/d3d/
 %{_libdir}/d3d/*.so.*
 #%{_sysconfdir}/OpenCL/vendors/mesa.icd
 
 %files libd3d-devel
+%defattr(-,root,root)
 %{_libdir}/pkgconfig/d3d.pc
 %{_includedir}/d3dadapter/
 %{_libdir}/d3d/*.so
