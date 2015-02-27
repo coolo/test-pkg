@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Tue Feb 24 16:08:49 UTC 2015 - tobias.johannes.klausmann@mni.thm.de
+
+- Fix file permissions for the Gallium Nine files
+
+-------------------------------------------------------------------
+Mon Feb 23 15:28:29 UTC 2015 - sndirsch@suse.com
+
+- specfile/baselibs.conf: Manually provide d3d library (bnc#918294) 
+
+-------------------------------------------------------------------
 Tue Feb 10 12:30:49 UTC 2015 - zaitor@opensuse.org
 
 - Drop pkgconfig(libva) BuildRequires for now, as it introduces a

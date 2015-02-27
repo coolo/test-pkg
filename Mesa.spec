@@ -405,6 +405,12 @@ implementation of Mesa.
 %package libd3d
 Summary:        Mesa Direct3D9 state tracker
 Group:          System/Libraries
+# Manually provide d3d library (bnc#918294)
+%ifarch x86_64 s390x ppc64le aarch64
+Provides:       d3dadapter9.so.1()(64bit)
+%else
+Provides:       d3dadapter9.so.1
+%endif
 
 %description libd3d
 Mesa Direct3D9 state tracker
@@ -849,11 +855,13 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 
 %if 0%{?with_nine}
 %files libd3d
+%defattr(-,root,root)
 %dir %{_libdir}/d3d/
 %{_libdir}/d3d/*.so.*
 #%{_sysconfdir}/OpenCL/vendors/mesa.icd
 
 %files libd3d-devel
+%defattr(-,root,root)
 %{_libdir}/pkgconfig/d3d.pc
 %{_includedir}/d3dadapter/
 %{_libdir}/d3d/*.so
