@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Mar  2 19:27:19 UTC 2015 - idonmez@suse.com
+
+- Add u_gallivm_Update_for_RTDyldMemoryManager_unique_ptr.patch to
+  fix build with llvm 3.6 (fdo#86958)
+
+-------------------------------------------------------------------
 Tue Feb 24 16:08:49 UTC 2015 - tobias.johannes.klausmann@mni.thm.de
 
 - Fix file permissions for the Gallium Nine files
