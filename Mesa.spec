@@ -54,6 +54,8 @@ Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
+# Fix build with llvm 3.6 fdo#86958
+Patch16:        u_gallivm_Update_for_RTDyldMemoryManager_unique_ptr.patch
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
 BuildRequires:  bison
@@ -514,6 +516,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch15 -p1
 #%patch13 -p1
 ###
+%patch16 -p1
 
 %build
 %if 0%{?suse_version} >= 1310
