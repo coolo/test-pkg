@@ -17,8 +17,8 @@
 
 
 %define glamor 1
-%define _name_archive MesaLib
-%define _version 10.4.4
+%define _name_archive mesa
+%define _version 10.5.0
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
 %define gallium_loader 1
 %else
@@ -37,13 +37,13 @@
 %define with_nine 1
 %endif
 Name:           Mesa
-Version:        10.4.4
+Version:        10.5.0
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
 Group:          System/Libraries
 Url:            http://www.mesa3d.org
-Source:         ftp://ftp.freedesktop.org/pub/mesa/%{_version}/%{_name_archive}-%{_version}.tar.bz2
+Source:         ftp://ftp.freedesktop.org/pub/mesa/%{_version}/%{_name_archive}-%{_version}.tar.xz
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
@@ -54,8 +54,11 @@ Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
-# Fix build with llvm 3.6 fdo#86958
-Patch16:        u_gallivm_Update_for_RTDyldMemoryManager_unique_ptr.patch
+
+Patch100:       U_0001_gallium_include_util_macros.patch
+Patch101:       U_0002_st_nine_mark_end_of_non_void_function_unreachable.patch
+Patch102:       U_0003_fix_build_after_macro_include.patch
+
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
 BuildRequires:  bison
@@ -69,6 +72,7 @@ BuildRequires:  libtool
 BuildRequires:  libvdpau-devel
 BuildRequires:  pkgconfig
 BuildRequires:  python-base
+BuildRequires:  python-mako
 BuildRequires:  python-xml
 BuildRequires:  pkgconfig(dri2proto)
 BuildRequires:  pkgconfig(dri3proto)
@@ -506,7 +510,7 @@ This package contains the VDPAU state tracker for radeonsi.
 
 
 %prep
-%setup -q -n %{name}-%{_version} -b4
+%setup -q -n %{_name_archive}-%{_version} -b4
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
 ### disabled, but not dropped yet; these still need investigation in
@@ -516,7 +520,9 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch15 -p1
 #%patch13 -p1
 ###
-%patch16 -p1
+%patch100 -p1
+%patch101 -p1
+%patch102 -p1
 
 %build
 %if 0%{?suse_version} >= 1310

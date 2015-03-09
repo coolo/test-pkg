@@ -1,4 +1,34 @@
 -------------------------------------------------------------------
+Sat Mar  7 02:13:12 UTC 2015 - tobias.johannes.klausmann@mni.thm.de
+
+- Update to version 10.5.0:
+  + Initial support for the new Intel Skylake GPUs and Adreno 4xx 
+    GPUs.
+  + Experimental EGL support for Haiku.
+  + The new IR - NIR. A flat, typeless IR, supporting SSA.
+  + GLX/DRI3 fixes and improvements.
+  + A lot of preparation work for GL_ARB_direct_state_access.
+  + The usual amount of piglit and drawElements Quality Program
+    (dEQP) fixes.
+  + Building mesa with GCC 4.1 or earlier is no longer supported.
+  + The distribution tarball has been renamed and now contains all
+    the generated sources.
+- New GL features:
+  + GL_ARB_framebuffer_sRGB on freedreno
+  + GL_ARB_texture_rg on freedreno
+  + GL_EXT_packed_float on freedreno
+  + GL_EXT_polygon_offset_clamp on i965, nv50, nvc0, r600, radeonsi,
+    llvmpipe
+  + GL_EXT_texture_shared_exponent on freedreno
+  + GL_EXT_texture_snorm on freedreno
+- Changes to Package:
+  + switch to xz compressed sources
+  + remove Patch16: u_gallivm_Update_for_RTDyldMemoryManager_unique_ptr.patch
+  + add Patch100: U_0001_gallium_include_util_macros.patch
+  + add Patch101: U_0002_st_nine_mark_end_of_non_void_function_unreachable.patch
+  + add Patch102: U_0003_fix_build_after_macro_include.patch
+
+-------------------------------------------------------------------
 Mon Mar  2 19:27:19 UTC 2015 - idonmez@suse.com
 
 - Add u_gallivm_Update_for_RTDyldMemoryManager_unique_ptr.patch to
