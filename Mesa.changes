@@ -1,4 +1,84 @@
 -------------------------------------------------------------------
+Sat Mar 14 18:31:08 UTC 2015 - mimi.vx@gmail.com
+
+- Update  to 10.5.1
+ + fdo#79202 - valgrind errors in glsl-fs-uniform-array-loop-unroll.shader_test; random code generation
+ + fdo#84613 - [G965, bisected] piglit regressions : glslparsertest.glsl2
+ + fdo#86747 - Noise in Football Manager 2014 textures
+ + fdo#86974 - INTEL_DEBUG=shader_time always asserts in fs_generator::generate_code() when Mesa is built with --enable-debug (= with asserts)
+ + fdo#88246 - Commit 2881b12 causes 43 DrawElements test regressions
+ + fdo#88793 - [BDW/BSW Bisected]Piglit/shaders_glsl-max-varyings fails
+ + fdo#88883 - ir-a2xx.c: variable changed in assert statement
+ + fdo#88885 - Transform feedback uses incorrect interleaving if a previous draw did not write gl_Position
+ + fdo#89095 - [SNB/IVB/BYT Bisected]Webglc conformance/glsl/functions/glsl-function-mix-float.html fails
+ + fdo#89156 - r300g: GL_COMPRESSED_RED_RGTC1 / ATI1N support broken
+ + fdo#89224 - Incorrect rendering of Unigine Valley running in VM on VMware Workstation
+ + fdo#89292 - [regression,bisected] incomplete screenshots in some cases
+ + fdo#89311 - [regression, bisected] dEQP: Added entry points for glCompressedTextureSubImage*D.
+ + fdo#89312 - [regression, bisected] main: Added entry points for CopyTextureSubImage*D. (d6b7c40cecfe01)
+ + fdo#89315 - [HSW, regression, bisected] i965/fs: Emit MAD instructions when possible.
+ + fdo#89317 - [HSW, regression, bisected] i965: Add LINTERP/CINTERP to can_do_cmod() (d91390634)
+ + fdo#89416 - UE4Editor crash after load project
+ + fdo#89430 - [g965][bisected] arb_copy_image-targets gl_texture* tests fail
+ + i965/vec4: Don't lose the saturate modifier in copy propagation.
+ + i965/gs: Check newly-generated GS-out VUE map against correct stage
+ + egl: Take alpha bits into account when selecting GBM formats
+ + docs: Add sha256 sums for the 10.5.0 release
+ + egl/main: no longer export internal function
+ + cherry-ignore: ignore a few more commits picked without -x
+ + mapi: fix commit 90411b56f6bc817e229d8801ac0adad6d4e3fb7a
+ + intel: fix EGLImage renderbuffer _BaseFormat
+ + i965: Fix out-of-bounds accesses into pull_constant_loc array
+ + i965/fs/nir: Use emit_math for nir_op_fpow
+ + freedreno: move fb state copy after checking for size change
+ + freedreno/ir3: fix array count returned by TXQ
+ + freedreno/ir3: get the # of miplevels from getinfo
+ + meta/TexSubImage: Stash everything other than PIXEL_TRANSFER/store in meta_begin
+ + main/base_tex_format: Properly handle STENCIL_INDEX1/4/16
+ + i965: Split Gen4-5 BlitFramebuffer code; prefer BLT over Meta.
+ + glsl: Mark array access when copying to a temporary for the ?: operator.
+ + i965/fs: Set force_writemask_all on shader_time instructions.
+ + i965/fs: Set smear on shader_time diff register.
+ + i965/fs: Make emit_shader_time_write return rather than emit.
+ + i965/fs: Make get_timestamp() pass back the MOV rather than emitting it.
+ + i965/fs: Make emit_shader_time_end() insert before EOT.
+ + i965/fs: Don't issue FB writes for bound but unwritten color targets.
+ + main: Fix target checking for CompressedTexSubImage*D.
+ + main: Fix target checking for CopyTexSubImage*D.
+ + gallium/auxiliary/indices: fix start param
+ + r300g: fix RGTC1 and LATC1 SNORM formats
+ + r300g: fix a crash when resolving into an sRGB texture
+ + r300g: fix sRGB->sRGB blits
+ + i965/vec4: Fix implementation of i2b.
+ + mesa: Indent break statements and add a missing one.
+ + mesa: Free memory allocated for luminance in readpixels.
+ + mesa: Correct backwards NULL check.
+ + i965: Consider scratch writes to have side effects.
+ + i965/fs: Don't use backend_visitor::instructions after creating the CFG.
+ + r300g: Use PATH_MAX instead of limiting ourselves to 100 chars.
+ + r300g: Check return value of snprintf().
+ + i965/fs: Don't propagate cmod to inst with different type.
+ + i965: Tell intel_get_memcpy() which direction the memcpy() is going.
+ + Revert SHA1 additions.
+ + i965: Avoid applying negate to wrong MAD source.
+ + meta: In pbo_{Get,}TexSubImage don't repeatedly rebind the source tex
+ + Revert "common: Fix PBOs for 1D_ARRAY."
+ + meta: Allow GL_UN/PACK_IMAGE_HEIGHT in _mesa_meta_pbo_Get/TexSubImage
+ + meta: Fix the y offset for 1D_ARRAY in _mesa_meta_pbo_TexSubImage
+ + freedreno/ir3: fix silly typo for binning pass shaders
+ + freedreno/a2xx: fix increment in assert
+ + freedreno/a4xx: bit of cleanup
+ + freedreno: update generated headers
+ + freedreno/a4xx: set PC_PRIM_VTX_CNTL.VAROUT properly
+ + freedreno: update generated headers
+ + freedreno/a4xx: aniso filtering
+ + freedreno/ir3: fix up cat6 instruction encodings
+ + freedreno/ir3: add support for memory (cat6) instructions
+ + freedreno/ir3: handle flat bypass for a4xx
+ + freedreno/ir3: fix failed assert in grouping
+ + r300g: Fix the ATI1N swizzle (RGTC1 and LATC1) 
+
+-------------------------------------------------------------------
 Sat Mar  7 02:13:12 UTC 2015 - tobias.johannes.klausmann@mni.thm.de
 
 - Update to version 10.5.0:
