@@ -18,7 +18,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 10.5.0
+%define _version 10.5.1
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
 %define gallium_loader 1
 %else
@@ -37,7 +37,7 @@
 %define with_nine 1
 %endif
 Name:           Mesa
-Version:        10.5.0
+Version:        10.5.1
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -77,11 +77,11 @@ BuildRequires:  python-xml
 BuildRequires:  pkgconfig(dri2proto)
 BuildRequires:  pkgconfig(dri3proto)
 BuildRequires:  pkgconfig(glproto)
-BuildRequires:  pkgconfig(libdrm) >= 2.4.24
+BuildRequires:  pkgconfig(libdrm) >= 2.4.30
 BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.41
-BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.45
+BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.56
 BuildRequires:  pkgconfig(libkms) >= 1.0.0
-BuildRequires:  pkgconfig(libudev) > 150
+BuildRequires:  pkgconfig(libudev) > 151
 BuildRequires:  pkgconfig(presentproto)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(x11-xcb)
@@ -107,11 +107,11 @@ Obsoletes:      Mesa-nouveau3d < %{version}
 Obsoletes:      xorg-x11-Mesa < %{version}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %ifarch %arm
-BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.43
+BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.57
 %endif
 %ifarch x86_64 %ix86
 BuildRequires:  libelf-devel
-BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.38
+BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.52
 %endif
 %if 0%{?suse_version} >= 1310
 BuildRequires:  pkgconfig(wayland-client)
