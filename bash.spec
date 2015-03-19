@@ -73,6 +73,7 @@ Patch5:         bash-3.0-warn-locale.patch
 Patch6:         bash-4.2-endpw.dif
 Patch7:         bash-4.3-decl.patch
 Patch8:         bash-4.0-async-bnc523667.dif
+Patch9:         bash-4.3-include-unistd.dif
 Patch10:        bash-3.2-printf.patch
 Patch11:        bash-4.3-loadables.dif
 Patch12:        bash-4.1-completion.dif
@@ -295,6 +296,7 @@ done
 #%patch6  -p0 -b .endpw
 %patch7  -p0 -b .decl
 %patch8  -p0 -b .async
+%patch9  -p0 -b .unistd
 %patch10 -p0 -b .printf
 %patch11 -p0 -b .plugins
 %patch12 -p0 -b .completion
