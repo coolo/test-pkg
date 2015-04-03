@@ -1,7 +1,7 @@
 #
 # spec file for package Mesa
 #
-# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -18,7 +18,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 10.5.1
+%define _version 10.5.2
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
 %define gallium_loader 1
 %else
@@ -37,7 +37,7 @@
 %define with_nine 1
 %endif
 Name:           Mesa
-Version:        10.5.1
+Version:        10.5.2
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT

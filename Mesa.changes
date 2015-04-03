@@ -1,4 +1,32 @@
 -------------------------------------------------------------------
+Sun Mar 29 13:55:46 UTC 2015 - mimi.vx@gmail.com
+
+- Update to  10.5.2
+ + fdo#88534 - include/c11/threads_posix.h PTHREAD_MUTEX_RECURSIVE_NP not defined
+ + fdo#89328 - python required to build Mesa release tarballs
+ + fdo#89530 - FTBFS in loader: missing fstat
+ + fdo#89590 - Crash in glLinkProgram with shaders with multiple constant arrays
+ + fdo#89680 - Hard link exist in Mesa 10.5.1 sources
+ + glsl: Generate link error for non-matching gl_FragCoord redeclarations
+ + docs: Add sha256 sums for the 10.5.1 release
+ + automake: add missing egl files to the tarball
+ + st/egl: don't ship the dri2.c link at the tarball
+ + loader: include <sys/stat.h> for non-sysfs builds
+ + auxiliary/os: fix the android build - s/drm_munmap/os_munmap/
+ + cherry-ignore: add commit non applicable for 10.5
+ + c11/threads: Use PTHREAD_MUTEX_RECURSIVE by default
+ + i965: Set nr_params to the number of uniform components in the VS/GS path.
+ + freedreno/a3xx: use the same layer size for all slices
+ + freedreno: fix slice pitch calculations
+ + radeonsi: increase coords array size for radeon_llvm_emit_prepare_cube_coords
+ + glx: Handle out-of-sequence swap completion events correctly. (v2)
+ + mapi: Make private copies of name strings provided by client.
+ + freedreno: update generated headers
+ + glsl: optimize (0 cmp x + y) into (-x cmp y).
+ + glsl: fix names in lower_constant_arrays_to_uniforms
+ + clover: Return 0 as storage size for local kernel args that are not set v2
+
+-------------------------------------------------------------------
 Sat Mar 14 18:31:08 UTC 2015 - mimi.vx@gmail.com
 
 - Update  to 10.5.1
