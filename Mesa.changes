@@ -1,4 +1,34 @@
 -------------------------------------------------------------------
+Thu Apr 16 19:50:30 UTC 2015 - mimi.vx@gmail.com
+
+- Update to 10.5.3
+ + fdo#83962 - [HSW/BYT]Piglit spec_ARB_gpu_shader5_arb_gpu_shader5-emitstreamvertex_nodraw fails
+ + fdo#89679 - [NV50] Portal/Half-Life 2 will not start (native Steam)
+ + fdo#89746 - Mesa and LLVM 3.6+ break opengl for genymotion
+ + fdo#89754 - vertexAttrib fails WebGL Conformance test with mesa drivers
+ + fdo#89758 - pow WebGL Conformance test with mesa drivers
+ + fdo#89759 - WebGL OGL ES GLSL conformance test with mesa drivers fails
+ + fdo#89905 - scons build broken on 10.5.2 due to activated vega st
+ + st_glsl_to_tgsi: only do mov copy propagation on temps (v2)
+ + xmlpool: don't forget to ship the MOS
+ + configure.ac: error out if python/mako is not found when required
+ + dist: add the VG depedencies into the tarball
+ + i965: Do not render primitives in non-zero streams then TF is disabled
+ + st/mesa: update arrays when the current attrib has been updated
+ + nv50/ir: take postFactor into account when doing peephole optimizations
+ + nv50/ir/gk110: fix offset flag position for TXD opcode
+ + freedreno/a3xx: fix 3d texture layout
+ + freedreno/a3xx: point size should not be divided by 2
+ + nv50: allocate more offset space for occlusion queries
+ + nv50,nvc0: limit the y-tiling of 3d textures to the first level's tiling
+ + i965: Fix instanced geometry shaders on Gen8+.
+ + i965: Add forgotten multi-stream code to Gen8 SOL state.
+ + nouveau: synchronize "scratch runout" destruction with the command stream
+ + radeonsi: Cache LLVMTargetMachineRef in context instead of in screen
+ + clover: Return CL_BUILD_ERROR for CL_PROGRAM_BUILD_STATUS when compilation fails v2
+ + i965: Fix URB size for CHV
+
+-------------------------------------------------------------------
 Sun Mar 29 13:55:46 UTC 2015 - mimi.vx@gmail.com
 
 - Update to  10.5.2
