@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Mon Apr 27 09:55:36 UTC 2015 - sndirsch@suse.com
+
+- Update to 10.5.4
+  * This release includes fixes for the mesa state-tracker used by
+    all the gallium drivers, a drirc workaround for Second Life, 
+    plus i965 fixes. For the Android users out there, this release
+    includes many compilation fixes with more to come shortly.
+
+-------------------------------------------------------------------
 Thu Apr 16 19:50:30 UTC 2015 - mimi.vx@gmail.com
 
 - Update to 10.5.3
