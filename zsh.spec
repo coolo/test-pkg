@@ -38,6 +38,8 @@ Source17:       zshprompt.pl
 %endif
 Patch1:         trim-unneeded-completions.patch
 Patch2:         gcc5-fix.patch
+# PATCH-FIX-OPENSUSE zsh-osc-completion.patch -- Fix openSUSE versions in osc completion
+Patch3:         zsh-osc-completion.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %if 0%{?suse_version}
 Requires(pre):  %{install_info_prereq}
@@ -97,6 +99,7 @@ This package contains the Zsh manual in html format.
 %patch1 -p1
 %endif
 %patch2 -p1
+%patch3 -p1
 
 # Remove executable bit
 chmod 0644 Etc/changelog2html.pl
