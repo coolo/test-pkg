@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Sun May  3 07:36:02 UTC 2015 - dmitry_r@opensuse.org
+
+- Fix openSUSE versions in osc completion
+  * zsh-osc-completion.patch
+
+-------------------------------------------------------------------
+Wed Apr 29 08:30:49 UTC 2015 - idonmez@suse.com
+
+- Add gcc5-fix.patch to fix signames.c generation with gcc5 
+
+-------------------------------------------------------------------
 Wed Apr 22 12:45:53 UTC 2015 - hvogel@opensuse.org
 
 - Nowadays more and more terminals set $TERM to xterm-256color
