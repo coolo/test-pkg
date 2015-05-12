@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon May 11 15:15:57 UTC 2015 - fstrba@suse.com
+
+- BuildIgnore python so that it is not sucked in by coincidence
+  * The python-base provides enough python functionalities
+    necessary for build.
+
+-------------------------------------------------------------------
 Mon Apr 27 09:55:36 UTC 2015 - sndirsch@suse.com
 
 - Update to 10.5.4
