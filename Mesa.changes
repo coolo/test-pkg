@@ -1,4 +1,22 @@
 -------------------------------------------------------------------
+Sat May 16 19:56:36 UTC 2015 - mimi.vx@gmail.com
+
+- Update to 10.5.5
+* fdo#88521 - GLBenchmark 2.7 TRex renders with artifacts on Gen8 with !UXA
+* fdo#89455 - [NVC0/Gallium] Unigine Heaven black and white boxes
+* fdo#89689 - [Regression] Weston on DRM backend won't start with new version of mesa
+* fdo#90130 - gl_PrimitiveId seems to reset at 340
+* i965: Add XRGB8888 format to intel_screen_make_configs
+* r300: do not link against libdrm_intel
+* nvc0/ir: flush denorms to zero in non-compute shaders
+* gk110/ir: fix set with a register dest to not auto-set the abs flag
+* nvc0/ir: fix predicated PFETCH emission
+* nv50/ir: fix asFlow() const helper for OP_JOIN
+* i965: Make intel_emit_linear_blit handle Gen8+ alignment restrictions.
+* i965: Disallow linear blits that are not cacheline aligned.
+* draw: fix prim ids when there's no gs
+
+-------------------------------------------------------------------
 Mon May 11 15:15:57 UTC 2015 - fstrba@suse.com
 
 - BuildIgnore python so that it is not sucked in by coincidence
