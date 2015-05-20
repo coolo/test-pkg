@@ -1,7 +1,7 @@
 #
 # spec file for package bash
 #
-# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -650,7 +650,7 @@ EOF
 %post -n bash-doc
 %install_info --info-dir=%{_infodir} %{_infodir}/bash.info.gz
 
-%preun -n bash-doc
+%postun -n bash-doc
 %install_info_delete --info-dir=%{_infodir} %{_infodir}/bash.info.gz
 
 %post -n libreadline6 -p /sbin/ldconfig
@@ -661,7 +661,7 @@ EOF
 %install_info --info-dir=%{_infodir} %{_infodir}/history.info.gz
 %install_info --info-dir=%{_infodir} %{_infodir}/readline.info.gz
 
-%preun -n readline-doc
+%postun -n readline-doc
 %install_info_delete --info-dir=%{_infodir} %{_infodir}/history.info.gz
 %install_info_delete --info-dir=%{_infodir} %{_infodir}/readline.info.gz
 
