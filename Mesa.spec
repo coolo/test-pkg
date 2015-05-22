@@ -18,7 +18,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 10.5.4
+%define _version 10.5.5
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
 %define gallium_loader 1
 %else
@@ -37,7 +37,7 @@
 %define with_nine 1
 %endif
 Name:           Mesa
-Version:        10.5.4
+Version:        10.5.5
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -54,11 +54,9 @@ Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
-
 Patch100:       U_0001_gallium_include_util_macros.patch
 Patch101:       U_0002_st_nine_mark_end_of_non_void_function_unreachable.patch
 Patch102:       U_0003_fix_build_after_macro_include.patch
-
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
 BuildRequires:  bison
@@ -121,6 +119,7 @@ BuildRequires:  pkgconfig(wayland-server)
 BuildRequires:  llvm-devel
 BuildRequires:  ncurses-devel
 %endif
+#!BuildIgnore:  python
 
 %description
 Mesa is a 3-D graphics library with an API which is very similar to
@@ -508,7 +507,6 @@ Supplements:    xf86-video-ati
 %description -n libvdpau_radeonsi
 This package contains the VDPAU state tracker for radeonsi.
 
-
 %prep
 %setup -q -n %{_name_archive}-%{_version} -b4
 # remove some docs
@@ -688,6 +686,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 
 %if 0%{?with_nine}
 %post libd3d -p /sbin/ldconfig
+
 %postun libd3d -p /sbin/ldconfig
 %endif
 
