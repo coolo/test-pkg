@@ -650,7 +650,7 @@ EOF
 %post -n bash-doc
 %install_info --info-dir=%{_infodir} %{_infodir}/bash.info.gz
 
-%postun -n bash-doc
+%preun -n bash-doc
 %install_info_delete --info-dir=%{_infodir} %{_infodir}/bash.info.gz
 
 %post -n libreadline6 -p /sbin/ldconfig
@@ -661,7 +661,7 @@ EOF
 %install_info --info-dir=%{_infodir} %{_infodir}/history.info.gz
 %install_info --info-dir=%{_infodir} %{_infodir}/readline.info.gz
 
-%postun -n readline-doc
+%preun -n readline-doc
 %install_info_delete --info-dir=%{_infodir} %{_infodir}/history.info.gz
 %install_info_delete --info-dir=%{_infodir} %{_infodir}/readline.info.gz
 
