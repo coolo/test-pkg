@@ -126,6 +126,7 @@ Patch22:        u_mesa-gallium-llvmpipe-fix-SIGFPE.patch
 Patch23:        U_mesa-glx-Reduce-error-log-level.patch
 Patch24:        Mesa-PowerLE.patch
 Patch25:        u_Suppress-any-libGL-.-warnings-when-LIBGL_DEBUG-is-se.patch
+Patch26:        U_swrast-allocate-swrast_texture_image-ImageSlices-array-if-needed.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -496,6 +497,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch23 -p1
 %patch24 -p1
 %patch25 -p1
+%patch26 -p1
 
 %build
 rm -f src/mesa/depend
