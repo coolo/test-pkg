@@ -17,13 +17,13 @@
 
 
 Name:           zsh
-Version:        5.0.7
+Version:        5.0.8
 Release:        0
 Summary:        Shell with comprehensive completion
 License:        MIT
 Group:          System/Shells
 Url:            http://www.zsh.org
-Source0:        http://sourceforge.net/projects/zsh/files/zsh/%{version}/zsh-%{version}.tar.bz2
+Source0:        http://www.zsh.org/pub/zsh-%{version}.tar.bz2
 Source1:        zshrc
 Source2:        zshenv
 Source3:        zprofile
@@ -37,9 +37,8 @@ Source16:       dotzshrc.rh
 Source17:       zshprompt.pl
 %endif
 Patch1:         trim-unneeded-completions.patch
-Patch2:         gcc5-fix.patch
 # PATCH-FIX-OPENSUSE zsh-osc-completion.patch -- Fix openSUSE versions in osc completion
-Patch3:         zsh-osc-completion.patch
+Patch2:         zsh-osc-completion.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %if 0%{?suse_version}
 Requires(pre):  %{install_info_prereq}
@@ -99,7 +98,6 @@ This package contains the Zsh manual in html format.
 %patch1 -p1
 %endif
 %patch2 -p1
-%patch3 -p1
 
 # Remove executable bit
 chmod 0644 Etc/changelog2html.pl

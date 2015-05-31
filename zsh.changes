@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun May 31 19:15:36 UTC 2015 - idonmez@suse.com
+
+- Update to version 5.0.8
+- Remove gcc5-fix.patch, fixed upstream.
+
+-------------------------------------------------------------------
 Sun May  3 07:36:02 UTC 2015 - dmitry_r@opensuse.org
 
 - Fix openSUSE versions in osc completion
