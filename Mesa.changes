@@ -1,4 +1,34 @@
 -------------------------------------------------------------------
+Mon Jun  8 23:10:43 UTC 2015 - zaitor@opensuse.org
+
+- Update to version 10.5.7:
+  + i965: Emit 3DSTATE_MULTISAMPLE before WM_HZ_OP (gen8+)
+  + docs: Add sha256sums for the 10.5.6 release
+  + get-pick-list.sh: Require explicit "10.5" for nominating stable patches
+  + cherry-ignore: add clover build fix not applicable for 10.5
+  + Add release notes for the 10.5.7 release
+  + nvc0/ir: set ftz when sources are floats, not just destinations
+  + nv50/ir: guess that the constant offset is the starting slot of array
+  + nvc0/ir: LOAD's can't be used for shader inputs
+  + nvc0: a geometry shader can have up to 1024 vertices output
+  + nv50/ir: avoid messing up arg1 of PFETCH
+  + nv30: don't leak fragprog consts
+  + nv30: avoid leaking render state and draw shaders
+  + nv30: fix clip plane uploads and enable changes
+  + nv30/draw: avoid leaving stale pointers in draw state
+  + nv30/draw: draw expects constbuf size in bytes, not vec4 units
+  + st/mesa: don't leak glsl_to_tgsi object on link failure
+  + glsl: avoid leaking linked gl_shader when there's a late linker error
+  + nv30/draw: fix indexed draws with swtnl path and a resource index buffer
+  + nv30/draw: only use the DMA1 object (GART) if the bo is not in VRAM
+  + nv30/draw: allocate vertex buffers in gart
+  + nv30/draw: switch varying hookup logic to know about texcoords
+  + nv30: falling back to draw path for edgeflag does no good
+  + nv30: avoid doing extra work on clear and hitting unexpected states
+  + i965/fs: Fix implied_mrf_writes for scratch writes
+  + st/dri: fix postprocessing crash when there's no depth buffer
+
+-------------------------------------------------------------------
 Mon May 25 06:29:26 UTC 2015 - mimi.vx@gmail.com
 
 - update to 10.5.6
