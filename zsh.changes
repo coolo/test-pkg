@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Jun 14 12:55:42 UTC 2015 - idonmez@suse.com
+
+- Add printf-regress.patch to fix a printf regression boo#934175 
+
+-------------------------------------------------------------------
 Sun May 31 19:15:36 UTC 2015 - idonmez@suse.com
 
 - Update to version 5.0.8
