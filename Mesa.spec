@@ -18,7 +18,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 10.5.7
+%define _version 10.6.0
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
 %define gallium_loader 1
 %else
@@ -37,7 +37,7 @@
 %define with_nine 1
 %endif
 Name:           Mesa
-Version:        10.5.7
+Version:        10.6.0
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -54,9 +54,6 @@ Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
-Patch100:       U_0001_gallium_include_util_macros.patch
-Patch101:       U_0002_st_nine_mark_end_of_non_void_function_unreachable.patch
-Patch102:       U_0003_fix_build_after_macro_include.patch
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
 BuildRequires:  bison
@@ -80,6 +77,7 @@ BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.41
 BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.56
 BuildRequires:  pkgconfig(libkms) >= 1.0.0
 BuildRequires:  pkgconfig(libudev) > 151
+BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(presentproto)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(x11-xcb)
@@ -517,10 +515,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
 #%patch15 -p1
 #%patch13 -p1
-###
-%patch100 -p1
-%patch101 -p1
-%patch102 -p1
 
 %build
 %if 0%{?suse_version} >= 1310
@@ -540,6 +534,7 @@ autoreconf -fvi
            --enable-texture-float \
            --enable-osmesa \
            --enable-dri3 \
+           --enable-shader-cache \
            %{?with_nine:--enable-nine} \
 %if %{glamor}
            --enable-gbm \
