@@ -511,8 +511,10 @@ This package contains the VDPAU state tracker for radeonsi.
 %setup -q -n %{_name_archive}-%{_version} -b4
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
+%if 0%{?suse_version} < 1320
 # required for building against wayland of openSUSE 13.1
 %patch0 -p1
+%endif
 ### disabled, but not dropped yet; these still need investigation in
 ### order to figure out whether the issue is still reproducable and
 ### hence a fix is required
