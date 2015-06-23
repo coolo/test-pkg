@@ -48,6 +48,8 @@ Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source6:        %{name}-rpmlintrc
+# required for building against wayland of openSUSE 13.1
+Patch0:         n_Fixed-build-against-wayland-1.2.1.patch
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 # Patch from Fedora, fix 16bpp in llvmpipe
@@ -509,6 +511,8 @@ This package contains the VDPAU state tracker for radeonsi.
 %setup -q -n %{_name_archive}-%{_version} -b4
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
+# required for building against wayland of openSUSE 13.1
+%patch0 -p1
 ### disabled, but not dropped yet; these still need investigation in
 ### order to figure out whether the issue is still reproducable and
 ### hence a fix is required

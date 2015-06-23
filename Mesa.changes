@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jun 23 14:26:17 UTC 2015 - sndirsch@suse.com
+
+- n_Fixed-build-against-wayland-1.2.1.patch
+  * required to fix build with wayland on openSUSE 13.1 
+
+-------------------------------------------------------------------
 Mon Jun 15 14:19:06 UTC 2015 - tobias.johannes.klausmann@mni.thm.de
 
 - Update to version 10.6.0:
