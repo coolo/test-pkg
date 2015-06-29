@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Mon Jun 29 10:09:24 UTC 2015 - sndirsch@suse.com
+
+- Update to version 10.6.1
+  * This release includes core mesa and glsl patches (amonst which
+    a Dota2 Reborn bugfix) affecting all dri drivers, nouveau specific
+    fixes and a selection of shared-glapi commits - from build fixes, to
+    ones ensuring that the dri modules can be loaded.
+
+-------------------------------------------------------------------
 Tue Jun 23 14:26:17 UTC 2015 - sndirsch@suse.com
 
 - n_Fixed-build-against-wayland-1.2.1.patch
