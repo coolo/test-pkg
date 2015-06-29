@@ -74,7 +74,7 @@ BuildRequires:  python-xml
 BuildRequires:  pkgconfig(dri2proto)
 BuildRequires:  pkgconfig(dri3proto)
 BuildRequires:  pkgconfig(glproto)
-BuildRequires:  pkgconfig(libdrm) >= 2.4.30
+BuildRequires:  pkgconfig(libdrm) >= 2.4.38
 BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.41
 BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.56
 BuildRequires:  pkgconfig(libkms) >= 1.0.0
@@ -109,7 +109,7 @@ BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.57
 %endif
 %ifarch x86_64 %ix86
 BuildRequires:  libelf-devel
-BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.52
+BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.60
 %endif
 %if 0%{?suse_version} >= 1310
 BuildRequires:  pkgconfig(wayland-client)
