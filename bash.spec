@@ -1,7 +1,7 @@
 #
 # spec file for package bash
 #
-# Copyright (c) 2015 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -96,6 +96,7 @@ Patch30:        readline-6.3-destdir.patch
 Patch31:        readline-6.3-rltrace.patch
 Patch40:        bash-4.1-bash.bashrc.dif
 Patch46:        man2html-no-timestamp.patch
+Patch47:        bash-4.3-perl522.patch
 # PATCH-FIX-SUSE
 Patch48:        bash-4.3-extra-import-func.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -314,6 +315,7 @@ done
 %patch31 -p0 -b .tmp
 %patch40 -p0 -b .bashrc
 %patch46 -p0 -b .notimestamp
+%patch47 -p0 -b .perl522
 %if %{with import_function}
 %patch48
 %endif
