@@ -18,7 +18,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 10.5.7
+%define _version 10.6.1
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
 %define gallium_loader 1
 %else
@@ -37,7 +37,7 @@
 %define with_nine 1
 %endif
 Name:           Mesa
-Version:        10.5.7
+Version:        10.6.1
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -48,15 +48,14 @@ Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source6:        %{name}-rpmlintrc
+# required for building against wayland of openSUSE 13.1
+Patch0:         n_Fixed-build-against-wayland-1.2.1.patch
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 # Patch from Fedora, fix 16bpp in llvmpipe
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
-Patch100:       U_0001_gallium_include_util_macros.patch
-Patch101:       U_0002_st_nine_mark_end_of_non_void_function_unreachable.patch
-Patch102:       U_0003_fix_build_after_macro_include.patch
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
 BuildRequires:  bison
@@ -75,11 +74,12 @@ BuildRequires:  python-xml
 BuildRequires:  pkgconfig(dri2proto)
 BuildRequires:  pkgconfig(dri3proto)
 BuildRequires:  pkgconfig(glproto)
-BuildRequires:  pkgconfig(libdrm) >= 2.4.30
+BuildRequires:  pkgconfig(libdrm) >= 2.4.38
 BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.41
 BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.56
 BuildRequires:  pkgconfig(libkms) >= 1.0.0
 BuildRequires:  pkgconfig(libudev) > 151
+BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(presentproto)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(x11-xcb)
@@ -109,7 +109,7 @@ BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.57
 %endif
 %ifarch x86_64 %ix86
 BuildRequires:  libelf-devel
-BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.52
+BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.60
 %endif
 %if 0%{?suse_version} >= 1310
 BuildRequires:  pkgconfig(wayland-client)
@@ -511,16 +511,16 @@ This package contains the VDPAU state tracker for radeonsi.
 %setup -q -n %{_name_archive}-%{_version} -b4
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
+%if 0%{?suse_version} < 1320
+# required for building against wayland of openSUSE 13.1
+%patch0 -p1
+%endif
 ### disabled, but not dropped yet; these still need investigation in
 ### order to figure out whether the issue is still reproducable and
 ### hence a fix is required
 #%patch11 -p1
 #%patch15 -p1
 #%patch13 -p1
-###
-%patch100 -p1
-%patch101 -p1
-%patch102 -p1
 
 %build
 %if 0%{?suse_version} >= 1310
@@ -540,6 +540,7 @@ autoreconf -fvi
            --enable-texture-float \
            --enable-osmesa \
            --enable-dri3 \
+           --enable-shader-cache \
            %{?with_nine:--enable-nine} \
 %if %{glamor}
            --enable-gbm \

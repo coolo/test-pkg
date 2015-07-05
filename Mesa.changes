@@ -1,4 +1,58 @@
 -------------------------------------------------------------------
+Mon Jun 29 14:13:43 UTC 2015 - mimi.vx@gmail.com
+
+- adjust libdrm dependencies
+
+-------------------------------------------------------------------
+Mon Jun 29 10:09:24 UTC 2015 - sndirsch@suse.com
+
+- Update to version 10.6.1
+  * This release includes core mesa and glsl patches (amonst which
+    a Dota2 Reborn bugfix) affecting all dri drivers, nouveau specific
+    fixes and a selection of shared-glapi commits - from build fixes, to
+    ones ensuring that the dri modules can be loaded.
+
+-------------------------------------------------------------------
+Tue Jun 23 14:26:17 UTC 2015 - sndirsch@suse.com
+
+- n_Fixed-build-against-wayland-1.2.1.patch
+  * required to fix build with wayland on openSUSE 13.1 
+
+-------------------------------------------------------------------
+Mon Jun 15 14:19:06 UTC 2015 - tobias.johannes.klausmann@mni.thm.de
+
+- Update to version 10.6.0:
+- New GL/EGL Features:
+  + GL_AMD_pinned_memory on r600, radeonsi
+  + GL_ARB_clip_control on i965
+  + GL_ARB_depth_buffer_float on freedreno
+  + GL_ARB_depth_clamp on freedreno
+  + GL_ARB_direct_state_access on all drivers for Core GL contexts.
+  + GL_ARB_draw_indirect, GL_ARB_multi_draw_indirect on r600
+  + GL_ARB_draw_instanced on freedreno
+  + GL_ARB_gpu_shader_fp64 on nvc0, softpipe
+  + GL_ARB_gpu_shader5 on i965/gen8+
+  + GL_ARB_instanced_arrays on freedreno
+  + GL_ARB_pipeline_statistics_query on i965, nv50, nvc0, r600, radeonsi, softpipe
+  + GL_ARB_program_interface_query (all drivers)
+  + GL_ARB_texture_stencil8 on nv50, nvc0, r600, radeonsi, softpipe
+  + GL_ARB_texture_view on llvmpipe, softpipe
+  + GL_ARB_uniform_buffer_object on freedreno
+  + GL_ARB_vertex_attrib_64bit on nvc0, softpipe
+  + GL_ARB_viewport_array, GL_AMD_vertex_shader_viewport_index on i965/gen6
+  + GL_EXT_draw_buffers2 on freedreno
+  + GL_OES_EGL_sync on all drivers
+  + EGL_KHR_fence_sync on i965, freedreno, nv50, nvc0, r600, radeonsi
+  + EGL_KHR_wait_sync on i965, freedreno, nv50, nvc0, r600, radeonsi
+  + EGL_KHR_cl_event2 on freedreno, nv50, nvc0, r600, radeonsi
+  + GL_AMD_performance_monitor on nvc0
+- Changes to package:
+  + add --enable-shader-cache to configure options
+  + remove Patch100: U_0001_gallium_include_util_macros.patch
+  + remove Patch101: U_0002_st_nine_mark_end_of_non_void_function_unreachable.patch
+  + remove Patch102: U_0003_fix_build_after_macro_include.patch
+
+-------------------------------------------------------------------
 Mon Jun  8 23:10:43 UTC 2015 - zaitor@opensuse.org
 
 - Update to version 10.5.7:
