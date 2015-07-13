@@ -1,4 +1,58 @@
 -------------------------------------------------------------------
+Sun Jul 12 08:32:38 UTC 2015 - mimi.vx@gmail.com
+
+- update to 10.6.2
+* fdo#73528 - Deferred lighting in Second Life causes system hiccups and screen flickering
+* fdo#80500 - Flickering shadows in unreleased title trace
+* fdo#82186 - [r600g] BARTS GPU lockup with minecraft shaders
+* fdo#84225 - Allow constant-index-expression sampler array indexing with GLSL-ES < 300
+* fdo#90537 - radeonsi bo/va conflict on RADEON_GEM_VA (rscreen->ws->buffer_from_handle returns NULL)
+* fdo#90873 - Kernel hang, TearFree On, Mate desktop environment
+* fdo#91022 - [g45 g965 bisected] assertions generated from textureGrad cube samplers fix
+* fdo#91047 - [SNB Bisected] Messed up Fog in Super Smash Bros. Melee in Dolphin
+* fdo#91056 - The Bard's Tale (2005, native) has rendering issues
+* fdo#91117 - Nimbus (running in wine) has rendering issues, objects are semi-transparent
+* fdo#91124 - Civilization V (in Wine) has rendering issues: text missing, menu bar corrupted
+* fdo#91173 - Oddworld: Stranger's Wrath HD: disfigured models in wrong colors
+* fdo#91226 - Crash in glLinkProgram (NEW)
+* fdo#91231 - [NV92] Psychonauts (native) segfaults on start when DRI3 enabled
+* loader: Look for any version of currently linked libudev.so
+* nv50/ir: propagate modifier to right arg when const-folding mad
+* nv50/ir: fix emission of address reg in 3rd source
+* nv50/ir: copy joinAt when splitting both before and after
+* mesa: reset the source packing when creating temp transfer image
+* nv50/ir: don't emit src2 in immediate form
+* mesa/prog: relative offsets into constbufs are not constant
+* nv50/ir: UCMP arguments are float, so make sure modifiers are applied
+* nvc0: turn sample counts off during blit
+* i965/fs: Fix ir_txs in emit_texture_gen4_simd16().
+* i965: Reserve more batch space to accomodate Gen6 perfmonitors.
+* i965/vs: Fix matNxM vertex attributes where M != 4.
+* Revert "glsl: clone inputs and outputs during linking"
+* Revert "i965: Delete linked GLSL IR when using NIR."
+* r600g: disable single-sample fast color clear due to hangs
+* radeonsi: fix a hang with DrawTransformFeedback on 4 SE chips
+* st/dri: don't set PIPE_BIND_SCANOUT for MSAA surfaces
+* nouveau: Use dup fd as key in drm-winsys hash table to fix ZaphodHeads.
+* winsys/radeon: Use dup fd as key in drm-winsys hash table to fix ZaphodHeads.
+* i965/fs: Don't mess up stride for uniform integer multiplication.
+* winsys/radeon: Unmap GPU VM address range when destroying BO
+* meta: Only change and restore viewport 0 in mesa meta mode
+* i965: allocate at least 1 BLEND_STATE element
+* i965/skl: Set the pulls bary bit in 3DSTATE_PS_EXTRA
+* glsl: Add missing check for whether an expression is an add operation
+* glsl: Make sure not to dereference NULL
+* i965: Don't try to print the GLSL IR if it has been freed
+* glsl: clone inputs and outputs during linking
+* i965: Delete linked GLSL IR when using NIR.
+* glsl: Allow dynamic sampler array indexing with GLSL ES < 3.00
+* mesa/glsl: new compiler option EmitNoIndirectSampler
+* i965: use EmitNoIndirectSampler for gen < 7
+* i915: use EmitNoIndirectSampler
+* mesa/st: use EmitNoIndirectSampler if !ARB_gpu_shader5
+* glsl: validate sampler array indexing for 'constant-index-expression'
+
+-------------------------------------------------------------------
 Mon Jun 29 14:13:43 UTC 2015 - mimi.vx@gmail.com
 
 - adjust libdrm dependencies
