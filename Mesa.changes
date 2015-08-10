@@ -1,4 +1,23 @@
 -------------------------------------------------------------------
+Wed Jul 29 19:55:48 UTC 2015 - mimi.vx@gmail.com
+
+- update to 10.6.3
+* fdo#90728 - dvd playback with vlc and vdpau causes segmentation fault
+* fdo#91337 - OSMesaGetProcAdress(&quot;OSMesaPixelStore&quot;) returns nil
+* osmesa: fix OSMesaPixelsStore typo
+* vl: cleanup video buffer private when the decoder is destroyed
+* st/vdpau: fix mixer size checks
+* auxiliary/vl: use the correct screen index
+*i965/gen9: Use custom MOCS entries set up by the kernel.
+*  nv50, nvc0: enable at least one color RT if alphatest is enabled
+*  nvc0/ir: fix txq on indirect samplers
+*  nvc0/ir: don't worry about sampler in txq handling
+*  gm107/ir: fix indirect txq emission
+*  nv50: fix max level clamping on G80
+*  program: Allow redundant OPTION ARB_fog_* directives.
+*  xa: don't leak fences
+
+-------------------------------------------------------------------
 Sun Jul 12 08:32:38 UTC 2015 - mimi.vx@gmail.com
 
 - update to 10.6.2
