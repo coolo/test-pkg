@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Aug 12 09:38:10 UTC 2015 - sndirsch@suse.com
+
+- update to 10.6.4
+  * In this release we have a few GL specific fixes (in both dri
+    drivers and the EGL loader), an updated mesa.icd file and a
+    crashfix for the standalone glcpp tool.
+
+-------------------------------------------------------------------
 Wed Jul 29 19:55:48 UTC 2015 - mimi.vx@gmail.com
 
 - update to 10.6.3
