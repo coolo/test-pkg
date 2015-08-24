@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Sat Aug 22 14:17:01 UTC 2015 - zaitor@opensuse.org
+
+- Update to version 10.6.5:
+  * Apart from the usual nouveau, i965 and radeon driver fixes,
+    this time around we have a nouveau_vieux fix for a regression
+    introduced with mesa 10.6.0 and a few even older big endian
+    related bug-fixes.
+- Replace libvdpau-devel for pkgconfig(vdpau) BuildRequires.
+
+-------------------------------------------------------------------
 Wed Aug 12 09:38:10 UTC 2015 - sndirsch@suse.com
 
 - update to 10.6.4
