@@ -1,4 +1,30 @@
 -------------------------------------------------------------------
+Tue Sep  1 06:36:57 UTC 2015 - idonmez@suse.com
+
+- Update to version 5.1
+  * The print builtin has new options -x and -X to expand tabs.
+  * Several new command completions and numerous updates to others.
+  * Options to "fc" to segregate internal and shared history.
+  * All emulations including "sh" use multibyte by default; several
+    repairs to multibyte handling.
+  * ZLE supports "bracketed paste" mode to avoid interpreting pasted
+    newlines as accept-line.  Pastes can be highlighted for visibility
+    and to make it more obvious whether accept-line has occurred.
+  * Improved (though still not perfect) POSIX compatibility for getopts
+    builtin when POSIX_BUILTINS is set.
+  * New setopt APPEND_CREATE for POSIX-compatible NO_CLOBBER behavior.
+  * Completion of date values now displays in a calendar format when
+    the complist module is available.  Controllable by zstyle.
+  * New parameter UNDO_LIMIT_NO for more control over ZLE undo repeat.
+  * Several repairs/improvements to the contributed narrow-to-region
+    ZLE function.
+  * Many changes to child-process and signal handling to eliminate race
+    conditions and avoid deadlocks on descriptor and memory management.
+  * New builtin sysopen in zsh/system module for detailed control of
+    file descriptor modes. 
+- Remove printf-regress.patch, upstream.
+
+-------------------------------------------------------------------
 Sun Jun 14 12:55:42 UTC 2015 - idonmez@suse.com
 
 - Add printf-regress.patch to fix a printf regression boo#934175 
