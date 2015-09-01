@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Sep  1 18:57:20 UTC 2015 - idonmez@suse.com
+
+- Add read1char_signals.patch to fix workers/36373 
+
+-------------------------------------------------------------------
 Tue Sep  1 06:36:57 UTC 2015 - idonmez@suse.com
 
 - Update to version 5.1
