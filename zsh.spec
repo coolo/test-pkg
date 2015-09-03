@@ -17,13 +17,13 @@
 
 
 Name:           zsh
-Version:        5.0.8
+Version:        5.1
 Release:        0
 Summary:        Shell with comprehensive completion
 License:        MIT
 Group:          System/Shells
 Url:            http://www.zsh.org
-Source0:        http://www.zsh.org/pub/zsh-%{version}.tar.bz2
+Source0:        http://www.zsh.org/pub/zsh-%{version}.tar.xz
 Source1:        zshrc
 Source2:        zshenv
 Source3:        zprofile
@@ -39,7 +39,7 @@ Source17:       zshprompt.pl
 Patch1:         trim-unneeded-completions.patch
 # PATCH-FIX-OPENSUSE zsh-osc-completion.patch -- Fix openSUSE versions in osc completion
 Patch2:         zsh-osc-completion.patch
-Patch3:         printf-regress.patch
+Patch3:         read1char_signals.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %if 0%{?suse_version}
 Requires(pre):  %{install_info_prereq}
