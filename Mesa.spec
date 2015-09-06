@@ -56,6 +56,8 @@ Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
+# Upstream commit to fix build with llvm 3.7
+Patch16:        U_mesa-llvm37.patch   
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
 BuildRequires:  bison
@@ -515,6 +517,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 # required for building against wayland of openSUSE 13.1
 %patch0 -p1
 %endif
+%patch16 -p1
 ### disabled, but not dropped yet; these still need investigation in
 ### order to figure out whether the issue is still reproducable and
 ### hence a fix is required

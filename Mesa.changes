@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sat Sep  5 11:45:32 UTC 2015 - idonmez@suse.com
+
+- Add U_mesa-llvm37.patch to fix build with llvm 3.7
+
+-------------------------------------------------------------------
 Sat Aug 22 14:17:01 UTC 2015 - zaitor@opensuse.org
 
 - Update to version 10.6.5:
