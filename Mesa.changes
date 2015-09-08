@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Mon Sep  7 08:33:46 UTC 2015 - zaitor@opensuse.org
+
+- Update to version 10.6.6:
+  * This release includes patches for mesa core, i965 (regression
+    fixes), r600 (assertions and crash fixes in the sb backend),
+    radeonsi (workaround for GPU hang in Unigine Heaven) and
+    nouveau (piglit tests).
+- Replace libXvMC-devel and libexpat-devel for pkgconfig(xvmc) and
+  pkgconfig(expat) BuildRequires.
+
+-------------------------------------------------------------------
 Mon Sep  7 03:45:34 UTC 2015 - alarrosa@suse.com
 
 - Add U_mesa-llvm37-rename-r600-to-amdgpu.patch to fix build with llvm 3.7

@@ -18,7 +18,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 10.6.5
+%define _version 10.6.6
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
 %define gallium_loader 1
 %else
@@ -37,7 +37,7 @@
 %define with_nine 1
 %endif
 Name:           Mesa
-Version:        10.6.5
+Version:        10.6.6
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -67,8 +67,6 @@ BuildRequires:  fdupes
 BuildRequires:  flex
 BuildRequires:  gcc-c++
 BuildRequires:  imake
-BuildRequires:  libXvMC-devel
-BuildRequires:  libexpat-devel
 BuildRequires:  libtool
 BuildRequires:  pkgconfig
 BuildRequires:  python-base
@@ -76,6 +74,7 @@ BuildRequires:  python-mako
 BuildRequires:  python-xml
 BuildRequires:  pkgconfig(dri2proto)
 BuildRequires:  pkgconfig(dri3proto)
+BuildRequires:  pkgconfig(expat)
 BuildRequires:  pkgconfig(glproto)
 BuildRequires:  pkgconfig(libdrm) >= 2.4.38
 BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.41
@@ -95,6 +94,7 @@ BuildRequires:  pkgconfig(xdamage)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xfixes)
 BuildRequires:  pkgconfig(xshmfence)
+BuildRequires:  pkgconfig(xvmc)
 BuildRequires:  pkgconfig(xxf86vm)
 BuildRequires:  pkgconfig(zlib)
 Provides:       Mesa7 = %{version}
