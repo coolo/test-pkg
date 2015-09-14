@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Sep 14 15:40:22 UTC 2015 - jslaby@suse.com
+
+- add n_i965-Remove-early-release-of-DRI2-miptree.patch (bnc#945444)
+
+-------------------------------------------------------------------
 Mon Sep 14 07:49:02 UTC 2015 - sndirsch@suse.com
 
 - marked Mesa.keyring and mesa-11.0.0.tar.xz.sig as source in 
