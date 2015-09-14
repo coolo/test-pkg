@@ -44,10 +44,12 @@ License:        MIT
 Group:          System/Libraries
 Url:            http://www.mesa3d.org
 Source:         ftp://ftp.freedesktop.org/pub/mesa/%{_version}/%{_name_archive}-%{_version}.tar.xz
+Source1:        ftp://ftp.freedesktop.org/pub/mesa/%{_version}/%{_name_archive}-%{_version}.tar.xz.sig
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source6:        %{name}-rpmlintrc
+Source7:        Mesa.keyring
 # required for building against wayland of openSUSE 13.1
 Patch0:         n_Fixed-build-against-wayland-1.2.1.patch
 # to be upstreamed
