@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sat Sep 12 07:47:27 UTC 2015 - idonmez@suse.com
+
+- Update to version 5.1.1
+  * Bug fixes for regressions in 5.1 release
+- Remove read1char_signals.patch, fixed upstream.
+
+-------------------------------------------------------------------
 Tue Sep  1 18:57:20 UTC 2015 - idonmez@suse.com
 
 - Add read1char_signals.patch to fix workers/36373 
