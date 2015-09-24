@@ -18,7 +18,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 10.6.6
+%define _version 11.0.0
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
 %define gallium_loader 1
 %else
@@ -37,29 +37,30 @@
 %define with_nine 1
 %endif
 Name:           Mesa
-Version:        10.6.6
+Version:        11.0.0
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
 Group:          System/Libraries
 Url:            http://www.mesa3d.org
 Source:         ftp://ftp.freedesktop.org/pub/mesa/%{_version}/%{_name_archive}-%{_version}.tar.xz
+Source1:        ftp://ftp.freedesktop.org/pub/mesa/%{_version}/%{_name_archive}-%{_version}.tar.xz.sig
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source6:        %{name}-rpmlintrc
+Source7:        Mesa.keyring
 # required for building against wayland of openSUSE 13.1
 Patch0:         n_Fixed-build-against-wayland-1.2.1.patch
+# should be replaced by real patch in X+Mesa+Intel ddx
+# this is only a workaround
+Patch1:         n_i965-Remove-early-release-of-DRI2-miptree.patch
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 # Patch from Fedora, fix 16bpp in llvmpipe
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
-# Upstream commit to fix build with llvm 3.7
-Patch16:        U_mesa-llvm37.patch   
-# Upstream commit to fix build with llvm 3.7
-Patch17:        U_mesa-llvm37-rename-r600-to-amdgpu.patch
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
 BuildRequires:  bison
@@ -76,8 +77,9 @@ BuildRequires:  pkgconfig(dri2proto)
 BuildRequires:  pkgconfig(dri3proto)
 BuildRequires:  pkgconfig(expat)
 BuildRequires:  pkgconfig(glproto)
-BuildRequires:  pkgconfig(libdrm) >= 2.4.38
-BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.41
+BuildRequires:  pkgconfig(libdrm) >= 2.4.60
+BuildRequires:  pkgconfig(libdrm_amdgpu) >= 2.4.63
+BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.62
 BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.56
 BuildRequires:  pkgconfig(libkms) >= 1.0.0
 BuildRequires:  pkgconfig(libudev) > 151
@@ -109,11 +111,11 @@ Obsoletes:      Mesa-nouveau3d < %{version}
 Obsoletes:      xorg-x11-Mesa < %{version}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %ifarch %arm
-BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.57
+BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.64
 %endif
 %ifarch x86_64 %ix86
 BuildRequires:  libelf-devel
-BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.60
+BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.61
 %endif
 %if 0%{?suse_version} >= 1310
 BuildRequires:  pkgconfig(wayland-client)
@@ -519,8 +521,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 # required for building against wayland of openSUSE 13.1
 %patch0 -p1
 %endif
-%patch16 -p1
-%patch17 -p1
+%patch1 -p1
 ### disabled, but not dropped yet; these still need investigation in
 ### order to figure out whether the issue is still reproducable and
 ### hence a fix is required
