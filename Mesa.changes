@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Sep 30 09:29:30 UTC 2015 - jslaby@suse.com
+
+- update upstream status:
+  * remove n_i965-Remove-early-release-of-DRI2-miptree.patch
+  * add U_i965-Remove-early-release-of-DRI2-miptree.patch
+
+-------------------------------------------------------------------
 Sat Sep 26 20:06:50 UTC 2015 - mpluskal@suse.com
 
 - Update to 11.0.1

@@ -52,9 +52,8 @@ Source6:        %{name}-rpmlintrc
 Source7:        Mesa.keyring
 # required for building against wayland of openSUSE 13.1
 Patch0:         n_Fixed-build-against-wayland-1.2.1.patch
-# should be replaced by real patch in X+Mesa+Intel ddx
-# this is only a workaround
-Patch1:         n_i965-Remove-early-release-of-DRI2-miptree.patch
+# merged, should be in the next release
+Patch10:        U_i965-Remove-early-release-of-DRI2-miptree.patch
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 # Patch from Fedora, fix 16bpp in llvmpipe
@@ -521,7 +520,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 # required for building against wayland of openSUSE 13.1
 %patch0 -p1
 %endif
-%patch1 -p1
+%patch10 -p1
 ### disabled, but not dropped yet; these still need investigation in
 ### order to figure out whether the issue is still reproducable and
 ### hence a fix is required
