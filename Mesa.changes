@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Oct  1 12:47:05 UTC 2015 - sndirsch@suse.com
+
+- Update to 11.0.2
+  * This is a emergency release which covers the final dEQP
+    regressions introduced in the 11.0 development cycle.
+
+-------------------------------------------------------------------
 Wed Sep 30 09:29:30 UTC 2015 - jslaby@suse.com
 
 - update upstream status:
