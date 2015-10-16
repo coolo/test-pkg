@@ -397,13 +397,7 @@ pushd ../readline-%{rl_vers}%{extend}
       esac
       set +o noclobber
   }
-  echo 'int main () { return !(sizeof(void*) >= 8); }' | gcc -x c -o test64 -
-  if ./test64 ; then
-      LARGEFILE=""
-  else
-      LARGEFILE="-D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
-  fi
-  rm -f ./test64
+  LARGEFILE="$(getconf LFS_CFLAGS)"
   (cat > dyn.map)<<-'EOF'
 	{
 	    *;
