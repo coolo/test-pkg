@@ -442,7 +442,6 @@ pushd ../readline-%{rl_vers}%{extend}
   cflags -DIMPORT_FUNCTIONS_DEF=0 CFLAGS
   cflags -Wl,--as-needed         LDFLAGS
   cflags -Wl,-O2                 LDFLAGS
-  cflags -Wl,--hash-size=8599    LDFLAGS
   cflags -Wl,-rpath,%{_ldldir}/%{bash_vers}   LDFLAGS
   cflags -Wl,--version-script=${PWD}/rl.map   LDFLAGS
   cflags -Wl,--dynamic-list=${PWD}/dyn.map    LDFLAGS
@@ -474,7 +473,6 @@ popd
   ln -sf ../readline-%{rl_vers} readline
   LD_LIBRARY_PATH=$PWD/../readline-%{rl_vers}
   export LD_LIBRARY_PATH
-  LDFLAGS="${LDFLAGS/hash-size=8599/hash-size=16699}"
   CC="gcc -I$PWD -L$PWD/../readline-%{rl_vers}"
 %if %_minsh
   cflags -Os CFLAGS
