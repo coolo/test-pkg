@@ -99,6 +99,8 @@ Patch46:        man2html-no-timestamp.patch
 Patch47:        bash-4.3-perl522.patch
 # PATCH-FIX-SUSE
 Patch48:        bash-4.3-extra-import-func.patch
+# PATCH-EXTEND-SUSE Allow root to clean file system if filled up
+Patch49:        bash-4.3-pathtemp.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
@@ -319,6 +321,7 @@ done
 %if %{with import_function}
 %patch48
 %endif
+%patch49
 %patch0  -p0 -b .0
 pushd ../readline-%{rl_vers}%{extend}
 for patch in ../readline-%{rl_vers}-patches/*; do
