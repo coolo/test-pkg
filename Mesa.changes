@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Oct 20 12:27:16 UTC 2015 - sndirsch@suse.com
+
+- Update to 11.0.3
+  * bug fix release which fixes bugs found since the 11.0.2 release
+
+-------------------------------------------------------------------
 Thu Oct  1 12:47:05 UTC 2015 - sndirsch@suse.com
 
 - Update to 11.0.2
