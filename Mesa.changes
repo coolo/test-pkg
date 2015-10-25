@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Thu Oct 22 13:08:47 UTC 2015 - sndirsch@suse.com
+
+- U_gallium-add-PIPE_SHADER_CAP_MAX_UNROLL_ITERATIONS_HI.patch
+  * This avoids a serious r600g bug leading to a GPU hang (bnc#951298)
+
+-------------------------------------------------------------------
+Tue Oct 20 12:27:16 UTC 2015 - sndirsch@suse.com
+
+- Update to 11.0.3
+  * bug fix release which fixes bugs found since the 11.0.2 release
+
+-------------------------------------------------------------------
 Thu Oct  1 12:47:05 UTC 2015 - sndirsch@suse.com
 
 - Update to 11.0.2
