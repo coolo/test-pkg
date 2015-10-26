@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Sun Oct 25 18:08:04 UTC 2015 - mimi.vx@gmail.com
+
+- update to 11.0.4
+  * bug fix release which fixes bugs found since the 11.0.3 release
+  * droped patches - merged by upstream:
+    U_gallium-add-PIPE_SHADER_CAP_MAX_UNROLL_ITERATIONS_HI.patch
+    U_i965-Remove-early-release-of-DRI2-miptree.patch
+
+-------------------------------------------------------------------
 Thu Oct 22 13:08:47 UTC 2015 - sndirsch@suse.com
 
 - U_gallium-add-PIPE_SHADER_CAP_MAX_UNROLL_ITERATIONS_HI.patch
