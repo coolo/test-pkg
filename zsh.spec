@@ -113,6 +113,7 @@ perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
     Util/reporter
 
 %build
+
 %configure \
     --enable-fndir=%{_datadir}/%{name}/${version}/functions \
     --enable-site-fndir=%{_datadir}/%{name}/site-functions \
@@ -124,7 +125,7 @@ perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
     --enable-pcre \
     --with-term-lib="ncursesw" \
     --enable-cflags="%{optflags} -fPIE -fstack-protector %(ncursesw6-config --cflags)" \
-    --enable-ldflags="%(ncursesw6-config --libs) -pie -Wl,-z,relro,-z,now"
+    --enable-ldflags="%(ncursesw6-config --libs) -pie -Wl,-z,relro"
 
 # Copy _rpm completion from Redhat (bnc#900424)
 cp Completion/Redhat/Command/_rpm Completion/openSUSE/Command/_rpm
