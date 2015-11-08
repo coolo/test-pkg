@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Nov  5 15:51:37 UTC 2015 - idonmez@suse.com
+
+- Remove -Wl,-z,now it breaks module loading rh#1277996 
+
+-------------------------------------------------------------------
 Sat Sep 12 07:47:27 UTC 2015 - idonmez@suse.com
 
 - Update to version 5.1.1
