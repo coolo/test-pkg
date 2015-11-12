@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Nov 11 18:08:32 UTC 2015 - mimi.vx@gmail.com
+
+- update to 11.0.5
+* With this release we have some driver patches for i965 and nouveau, a couple
+    of llvm 3.7 related fixes and a some bugfixes in the VA state-tracker.
+* Additionally we have a few new PCI ids for i965 and radeonsi.
+
+-------------------------------------------------------------------
 Sun Oct 25 18:08:04 UTC 2015 - mimi.vx@gmail.com
 
 - update to 11.0.4
