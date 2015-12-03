@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Sun Nov 22 11:05:34 UTC 2015 - zaitor@opensuse.org
+
+- Update to version 11.0.6:
+  + This release brings driver fixes for i965, r600, radeonsi,
+    nouveau, vc4, and llvmpipe including a serious regression for
+    r100/r200 era hardware.
+  + Additional patches cover glsl, nir, mesa/meta and VC-1
+    decoding.
+
+-------------------------------------------------------------------
 Wed Nov 11 18:08:32 UTC 2015 - mimi.vx@gmail.com
 
 - update to 11.0.5
