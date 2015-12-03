@@ -19,6 +19,7 @@
 %define glamor 1
 %define _name_archive mesa
 %define _version 11.0.6
+%define with_opencl 0
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
 %define gallium_loader 1
 %else
@@ -35,6 +36,10 @@
 %endif
 %ifarch %ix86 x86_64
 %define with_nine 1
+%if 0%{gallium_loader} && 0%{?suse_version} > 1310
+# llvm >= 3.7 not provided for <= 13.1
+%define with_opencl 1
+%endif
 %endif
 Name:           Mesa
 Version:        11.0.6
@@ -123,6 +128,11 @@ BuildRequires:  llvm-devel
 BuildRequires:  ncurses-devel
 %endif
 #!BuildIgnore:  python
+
+%if 0%{with_opencl}
+BuildRequires:  libclc
+BuildRequires:  llvm-clang-devel
+%endif
 
 %description
 Mesa is a 3-D graphics library with an API which is very similar to
@@ -510,6 +520,15 @@ Supplements:    xf86-video-ati
 %description -n libvdpau_radeonsi
 This package contains the VDPAU state tracker for radeonsi.
 
+%if 0%{with_opencl}
+%package libOpenCL
+Summary:        Mesa OpenCL implementation
+Group:          System/Libraries
+
+%description libOpenCL
+This package contains the Mesa OpenCL implementation or GalliumCompute.
+%endif
+
 %prep
 %setup -q -n %{_name_archive}-%{_version} -b4
 # remove some docs
@@ -558,7 +577,10 @@ autoreconf -fvi
            --enable-xa \
            --enable-gallium-llvm \
            --with-dri-drivers=i915,i965,nouveau,r200,radeon \
+%if 0%{with_opencl}
+           --enable-opencl \
            --enable-opencl-icd \
+%endif
            --enable-llvm-shared-libs \
            --enable-r600-llvm-compiler \
            --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga \
@@ -694,15 +716,22 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %postun libd3d -p /sbin/ldconfig
 %endif
 
+%if 0%{with_opencl}
+%post   libOpenCL -p /sbin/ldconfig
+
+%postun libOpenCL -p /sbin/ldconfig
+%endif
+
 %files
 %defattr(-,root,root)
 %doc docs/README* docs/COPYING
 %config %{_sysconfdir}/drirc
 %{_libdir}/dri/
-#%if %gallium_loader
-#%dir %_libdir/gallium-pipe/
-#%_libdir/gallium-pipe/pipe_*.so
-#%endif
+%if 0%{with_opencl}
+# only built with opencl
+%dir %{_libdir}/gallium-pipe/
+%{_libdir}/gallium-pipe/pipe_*.so
+%endif
 
 %files -n Mesa-libEGL1
 %defattr(-,root,root)
@@ -877,6 +906,15 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %{_libdir}/pkgconfig/d3d.pc
 %{_includedir}/d3dadapter/
 %{_libdir}/d3d/*.so
+%endif
+
+%if 0%{with_opencl}
+%files libOpenCL
+%defattr(-,root,root)
+%dir %{_sysconfdir}/OpenCL
+%dir %{_sysconfdir}/OpenCL/vendors
+%{_sysconfdir}/OpenCL/vendors/mesa.icd
+%{_libdir}/libMesaOpenCL.so*
 %endif
 
 %changelog
