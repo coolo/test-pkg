@@ -17,7 +17,7 @@
 
 
 Name:           zsh
-Version:        5.1.1
+Version:        5.2
 Release:        0
 Summary:        Shell with comprehensive completion
 License:        MIT

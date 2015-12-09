@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Thu Dec  3 07:36:33 UTC 2015 - idonmez@suse.com
+
+- Update to version 5.2
+  * The new module zsh/param/private can be loaded to allow the shell
+    to define parameters that are private to a function scope (i.e. are
+    not propagated to nested functions called within this function).
+  * The GLOB_STAR_SHORT option allows the pattern **/* to be shortened to
+    just ** if no / follows. so **.c searches recursively for a file whose
+    name has the suffix ".c".
+  * The effect of the WARN_CREATE_GLOBAL option has been significantly
+    extended, so expect it to cause additional warning messages about
+    parameters created globally within function scope.
+
+-------------------------------------------------------------------
 Thu Nov  5 15:51:37 UTC 2015 - idonmez@suse.com
 
 - Remove -Wl,-z,now it breaks module loading rh#1277996 
