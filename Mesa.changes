@@ -1,4 +1,23 @@
 -------------------------------------------------------------------
+Wed Dec  9 19:15:39 UTC 2015 - mimi.vx@gmail.com
+
+- Update to version 11.0.7
+    + bugfixes release for bugs found since 11.0.6
+      fdo#90348 - Spilling failure of b96 merged value
+      fdo#92363 - [BSW/BDW] ogles1conform Gets test fails
+      fdo#92438 - Segfault in pushbuf_kref when running the android 
+          emulator (qemu) on nv50
+      fdo#93110 - [NVE4] textureSize() and textureQueryLevels() uses a texture 
+          bound during the previous draw call
+      fdo#93126> - wrongly claim supporting GL_EXT_texture_rg
+    + plus fixes for r600g,llvmpipe,i955,egl,gles2
+
+-------------------------------------------------------------------
+Tue Dec  1 07:57:16 UTC 2015 - jimmy@boombatower.com
+
+- Add Mesa-libOpenCL.
+
+-------------------------------------------------------------------
 Sun Nov 22 11:05:34 UTC 2015 - zaitor@opensuse.org
 
 - Update to version 11.0.6:
