@@ -24,9 +24,11 @@ License:        MIT
 Group:          System/Shells
 Url:            http://www.zsh.org
 Source0:        http://www.zsh.org/pub/zsh-%{version}.tar.xz
-Source1:        zshrc
-Source2:        zshenv
-Source3:        zprofile
+Source1:        http://www.zsh.org/pub/zsh-%{version}.tar.xz.asc
+Source2:        %{name}.keyring
+Source3:        zshrc
+Source4:        zshenv
+Source5:        zprofile
 %if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
 Source11:       zlogin.rhs
 Source12:       zlogout.rhs
@@ -157,7 +159,7 @@ install -m 0755 -Dd  %{buildroot}/{etc,bin}
 
 %if 0%{?suse_version}
 # install SUSE configuration
-install -m 0644 %{SOURCE1} %{SOURCE2} %{SOURCE3} %{buildroot}%{_sysconfdir}
+install -m 0644 %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}
 
 # Create custom completion directory
 mkdir %{buildroot}%{_sysconfdir}/zsh_completion.d
