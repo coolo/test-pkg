@@ -85,6 +85,7 @@ BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.62
 BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.56
 BuildRequires:  pkgconfig(libkms) >= 1.0.0
 BuildRequires:  pkgconfig(libudev) > 151
+BuildRequires:  pkgconfig(libva)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(presentproto)
 BuildRequires:  pkgconfig(vdpau) >= 0.4.1
@@ -529,6 +530,14 @@ Group:          System/Libraries
 This package contains the Mesa OpenCL implementation or GalliumCompute.
 %endif
 
+%package libva
+Summary:        Mesa VA-API implementation
+Group:          System/Libraries
+Supplements:    Mesa
+
+%description libva
+This package contains the Mesa VA-API implementation provided through gallium.
+
 %prep
 %setup -q -n %{_name_archive}-%{_version} -b4
 # remove some docs
@@ -585,6 +594,7 @@ autoreconf -fvi
            --enable-r600-llvm-compiler \
            --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga \
            --enable-vdpau \
+           --enable-va \
            --enable-xvmc \
 %endif
 %ifarch %arm ppc64 ppc64le
@@ -722,11 +732,19 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %postun libOpenCL -p /sbin/ldconfig
 %endif
 
+%post libva -p /sbin/ldconfig
+
+%postun libva -p /sbin/ldconfig
+
 %files
 %defattr(-,root,root)
 %doc docs/README* docs/COPYING
 %config %{_sysconfdir}/drirc
-%{_libdir}/dri/
+%dir %{_libdir}/dri
+%if 0%{?suse_version} < 1315
+%{_libdir}/dri/updates
+%endif
+%{_libdir}/dri/*_dri.so
 %if 0%{with_opencl}
 # only built with opencl
 %dir %{_libdir}/gallium-pipe/
@@ -916,5 +934,10 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %{_sysconfdir}/OpenCL/vendors/mesa.icd
 %{_libdir}/libMesaOpenCL.so*
 %endif
+
+%files libva
+%defattr(-,root,root)
+%dir %{_libdir}/dri
+%{_libdir}/dri/gallium_drv_video.so
 
 %changelog
