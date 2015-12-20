@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun Dec 20 05:03:08 UTC 2015 - jimmy@boombatower.com
+
+- Apply patch: st/va: hardlink driver instances to
+  gallium_drv_video.so
+  + u_st-va-hardlink-driver-instances-to-gallium_drv_video.patch
+
+-------------------------------------------------------------------
 Thu Dec 17 07:06:21 UTC 2015 - jimmy@boombatower.com
 
 - Add Mesa-libva.

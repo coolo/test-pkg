@@ -63,6 +63,8 @@ Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
+# to be upstreamed
+Patch17:        u_st-va-hardlink-driver-instances-to-gallium_drv_video.patch
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
 BuildRequires:  bison
@@ -552,6 +554,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
 #%patch15 -p1
 #%patch13 -p1
+%patch17 -p1
 
 %build
 %if 0%{?suse_version} >= 1310
@@ -938,6 +941,6 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %files libva
 %defattr(-,root,root)
 %dir %{_libdir}/dri
-%{_libdir}/dri/gallium_drv_video.so
+%{_libdir}/dri/*_drv_video.so
 
 %changelog
