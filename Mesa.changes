@@ -1,4 +1,60 @@
 -------------------------------------------------------------------
+Sun Dec 20 05:03:08 UTC 2015 - jimmy@boombatower.com
+
+- Apply patch: st/va: hardlink driver instances to
+  gallium_drv_video.so
+  + u_st-va-hardlink-driver-instances-to-gallium_drv_video.patch
+
+-------------------------------------------------------------------
+Thu Dec 17 07:06:21 UTC 2015 - jimmy@boombatower.com
+
+- Add Mesa-libva.
+
+-------------------------------------------------------------------
+Tue Dec 15 16:17:22 UTC 2015 - mimi.vx@gmail.com
+
+- update to 11.1.0, new stable release
+* New features:
+	+ Note: some of the new features are only available with certain drivers.
+	+ OpenGL 3.1 support on freedreno (a3xx, a4xx)
+	+ OpenGL 3.3 support for VMware guest VM driver (supported by Workstation 12
+       and Fusion 8).
+	+ GL_AMD_performance_monitor on nv50
+	+ GL_ARB_arrays_of_arrays on i965
+	+ GL_ARB_blend_func_extended on freedreno (a3xx)
+	+ GL_ARB_clear_texture on nv50, nvc0
+	+ GL_ARB_clip_control on freedreno/a4xx
+	+ GL_ARB_copy_image on nv50, nvc0, radeonsi
+	+ GL_ARB_depth_clamp on freedreno/a4xx
+	+ GL_ARB_fragment_layer_viewport on i965 (gen6+)
+	+ GL_ARB_gpu_shader_fp64 on r600 for Cypress/Cayman/Aruba chips
+	+ GL_ARB_gpu_shader5 on r600 for Evergreen and later chips
+	+ GL_ARB_seamless_cubemap_per_texture on freedreno/a4xx
+	+ GL_ARB_shader_clock on i965 (gen7+)
+	+ GL_ARB_shader_stencil_export on i965 (gen9+)
+	+ GL_ARB_shader_storage_buffer_object on i965
+	+ GL_ARB_shader_texture_image_samples on i965, nv50, nvc0, r600, radeonsi
+	+ GL_ARB_texture_barrier / GL_NV_texture_barrier on i965
+	+ GL_ARB_texture_buffer_range on freedreno/a3xx
+	+ GL_ARB_texture_compression_bptc on freedreno/a4xx
+	+ GL_ARB_texture_query_lod on softpipe
+	+ GL_ARB_texture_view on radeonsi and r600 (for evergeen and newer)
+	+ GL_ARB_vertex_type_2_10_10_10_rev on freedreno (a3xx, a4xx)
+	+ GL_EXT_blend_func_extended on all drivers that support the ARB version
+	+ GL_EXT_buffer_storage implemented for when ES 3.1 support is gained
+	+ GL_EXT_draw_elements_base_vertex on all drivers
+	+ GL_EXT_texture_compression_rgtc / latc on freedreno (a3xx & a4xx)
+	+ GL_KHR_debug (GLES)
+	+ GL_NV_conditional_render on freedreno
+	+ GL_OES_draw_elements_base_vertex on all drivers
+	+ EGL_KHR_create_context on softpipe, llvmpipe
+	+ EGL_KHR_gl_colorspace on softpipe, llvmpipe
+	+ new virgl gallium driver for qemu virtio-gpu
+	+ 16x multisampling on i965 (gen9+)
+	+ GL_EXT_shader_samples_identical on i965.
+* +many bugfixes, please see relnotes
+
+-------------------------------------------------------------------
 Wed Dec  9 19:15:39 UTC 2015 - mimi.vx@gmail.com
 
 - Update to version 11.0.7

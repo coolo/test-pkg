@@ -18,7 +18,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 11.0.7
+%define _version 11.1.0
 %define with_opencl 0
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
 %define gallium_loader 1
@@ -42,7 +42,7 @@
 %endif
 %endif
 Name:           Mesa
-Version:        11.0.7
+Version:        11.1.0
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -63,6 +63,8 @@ Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
+# to be upstreamed
+Patch17:        u_st-va-hardlink-driver-instances-to-gallium_drv_video.patch
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
 BuildRequires:  bison
@@ -85,6 +87,7 @@ BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.62
 BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.56
 BuildRequires:  pkgconfig(libkms) >= 1.0.0
 BuildRequires:  pkgconfig(libudev) > 151
+BuildRequires:  pkgconfig(libva)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(presentproto)
 BuildRequires:  pkgconfig(vdpau) >= 0.4.1
@@ -113,7 +116,7 @@ Obsoletes:      Mesa-nouveau3d < %{version}
 Obsoletes:      xorg-x11-Mesa < %{version}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %ifarch %arm
-BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.64
+BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.65
 %endif
 %ifarch x86_64 %ix86
 BuildRequires:  libelf-devel
@@ -529,6 +532,14 @@ Group:          System/Libraries
 This package contains the Mesa OpenCL implementation or GalliumCompute.
 %endif
 
+%package libva
+Summary:        Mesa VA-API implementation
+Group:          System/Libraries
+Supplements:    Mesa
+
+%description libva
+This package contains the Mesa VA-API implementation provided through gallium.
+
 %prep
 %setup -q -n %{_name_archive}-%{_version} -b4
 # remove some docs
@@ -543,6 +554,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
 #%patch15 -p1
 #%patch13 -p1
+%patch17 -p1
 
 %build
 %if 0%{?suse_version} >= 1310
@@ -585,6 +597,7 @@ autoreconf -fvi
            --enable-r600-llvm-compiler \
            --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga \
            --enable-vdpau \
+           --enable-va \
            --enable-xvmc \
 %endif
 %ifarch %arm ppc64 ppc64le
@@ -722,11 +735,19 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %postun libOpenCL -p /sbin/ldconfig
 %endif
 
+%post libva -p /sbin/ldconfig
+
+%postun libva -p /sbin/ldconfig
+
 %files
 %defattr(-,root,root)
 %doc docs/README* docs/COPYING
 %config %{_sysconfdir}/drirc
-%{_libdir}/dri/
+%dir %{_libdir}/dri
+%if 0%{?suse_version} < 1315
+%{_libdir}/dri/updates
+%endif
+%{_libdir}/dri/*_dri.so
 %if 0%{with_opencl}
 # only built with opencl
 %dir %{_libdir}/gallium-pipe/
@@ -916,5 +937,10 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %{_sysconfdir}/OpenCL/vendors/mesa.icd
 %{_libdir}/libMesaOpenCL.so*
 %endif
+
+%files libva
+%defattr(-,root,root)
+%dir %{_libdir}/dri
+%{_libdir}/dri/*_drv_video.so
 
 %changelog
