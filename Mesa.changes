@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jan  6 14:00:51 UTC 2016 - schwab@suse.de
+
+- Enable swrast gallium driver on s390/aarch64
+- Exclude Mesa-libva on s390/s390x/aarch64
+
+-------------------------------------------------------------------
 Sun Dec 20 05:03:08 UTC 2015 - jimmy@boombatower.com
 
 - Apply patch: st/va: hardlink driver instances to
