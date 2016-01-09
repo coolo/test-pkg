@@ -1,7 +1,7 @@
 #
 # spec file for package Mesa
 #
-# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -618,7 +618,7 @@ autoreconf -fvi
 %endif
 %ifarch s390 aarch64
            --with-dri-drivers=swrast \
-           --with-gallium-drivers="" \
+           --with-gallium-drivers=swrast \
 %endif
 %ifarch s390x
         --enable-xa \
@@ -938,9 +938,11 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %{_libdir}/libMesaOpenCL.so*
 %endif
 
+%ifnarch s390 s390x aarch64
 %files libva
 %defattr(-,root,root)
 %dir %{_libdir}/dri
 %{_libdir}/dri/*_drv_video.so
+%endif
 
 %changelog
