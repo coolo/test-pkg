@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Wed Jan 13 23:14:33 UTC 2016 - mimi.vx@gmail.com
+
+- update to 11.1.1
+* Bugfix release and adding KB Lake PCI id's
++ fdo#91806 - configure does not test whether assembler supports sse4.1
++ fdo#92229 - [APITRACE] SOMA have serious graphical errors
++ fdo#92233 - Unigine Heaven 4.0 silhuette run
++ fdo#93004 - Guild Wars 2 crash on nouveau DX11 cards
++ fdo#93215 - [Regression bisected] Ogles1conform Automatic mipmap
+    generation test is fail
++ fdo#93257 - [SKL, bisected] ASTC dEQP tests segfault
++ fixes for r600,nv*,glx,glsl,radeonsi and i965
+
+-------------------------------------------------------------------
 Wed Jan  6 14:00:51 UTC 2016 - schwab@suse.de
 
 - Enable swrast gallium driver on s390/aarch64
