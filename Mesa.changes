@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Jan 20 15:16:11 UTC 2016 - sndirsch@suse.com
+
+- n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch 
+  * Since these are packaged separately in (open)SUSE anyway, one
+    can use copies as well. This makes debug packages possible
+    again. (bnc #962609)
+
+-------------------------------------------------------------------
 Wed Jan 13 23:14:33 UTC 2016 - mimi.vx@gmail.com
 
 - update to 11.1.1
