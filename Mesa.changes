@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jan 20 16:40:10 UTC 2016 - eich@suse.com
+
+- u_dri2-Check-for-dummyContext-to-see-if-the-glx_context-is-valid.patch
+  Check for dummyContext to see if the glx_context is valid (boo#962609).
+
+-------------------------------------------------------------------
 Wed Jan 20 15:16:11 UTC 2016 - sndirsch@suse.com
 
 - n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch 
