@@ -18,7 +18,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 11.1.0
+%define _version 11.1.1
 %define with_opencl 0
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
 %define gallium_loader 1
@@ -42,7 +42,7 @@
 %endif
 %endif
 Name:           Mesa
-Version:        11.1.0
+Version:        11.1.1
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -57,6 +57,7 @@ Source6:        %{name}-rpmlintrc
 Source7:        Mesa.keyring
 # required for building against wayland of openSUSE 13.1
 Patch0:         n_Fixed-build-against-wayland-1.2.1.patch
+Patch1:         u_dri2-Check-for-dummyContext-to-see-if-the-glx_context-is-valid.patch
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 # Patch from Fedora, fix 16bpp in llvmpipe
@@ -65,6 +66,8 @@ Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
 # to be upstreamed
 Patch17:        u_st-va-hardlink-driver-instances-to-gallium_drv_video.patch
+# never to be upstreamed
+Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
 BuildRequires:  bison
@@ -548,6 +551,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 # required for building against wayland of openSUSE 13.1
 %patch0 -p1
 %endif
+%patch1 -p1
 ### disabled, but not dropped yet; these still need investigation in
 ### order to figure out whether the issue is still reproducable and
 ### hence a fix is required
@@ -555,6 +559,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch15 -p1
 #%patch13 -p1
 %patch17 -p1
+%patch18 -p1
 
 %build
 %if 0%{?suse_version} >= 1310
