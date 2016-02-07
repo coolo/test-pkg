@@ -68,6 +68,8 @@ Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
 Patch17:        u_st-va-hardlink-driver-instances-to-gallium_drv_video.patch
 # never to be upstreamed
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
+# Already upstream
+Patch19:        U_clover-Fix-build-against-LLVM-3.8.patch
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
 BuildRequires:  bison
@@ -560,6 +562,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch13 -p1
 %patch17 -p1
 %patch18 -p1
+%patch19 -p1
 
 %build
 %if 0%{?suse_version} >= 1310
