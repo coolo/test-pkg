@@ -1,4 +1,20 @@
 -------------------------------------------------------------------
+Thu Feb 11 13:18:31 UTC 2016 - mimi.vx@gmail.com
+
+-  update to 11.1.2
+* Bugfix release:
++ fdo#93648 - Random lines being rendered when playing Dolphin (geometry shaders
+    elated, w/ apitrace)
++ fdo#93650 - GL_ARB_separate_shader_objects is buggy (PCSX2)
++ fdo#93717 - Meta mipmap generation can corrupt texture state
++ fdo#93722 - Segfault when compiling shader with a subroutine that takes a parameter
++ fdo#93731 - glUniformSubroutinesuiv segfaults when subroutine uniform is bound 
+    to a specific location
++ fdo#93761 - A conditional discard in a fragment shader causes no depth 
+    writing at all
++ Some bugfixes in i965,nv50,radeonsi,r600g,vc4 drivers
+
+-------------------------------------------------------------------
 Thu Jan 28 09:37:21 UTC 2016 - idonmez@suse.com
 
 - Add U_clover-Fix-build-against-LLVM-3.8.patch to fix build
