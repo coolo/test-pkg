@@ -1,4 +1,1079 @@
 -------------------------------------------------------------------
+Thu Feb 11 14:55:55 UTC 2016 - sndirsch@suse.com
+
+- latest Mesa version for sle12 (fate #315643-315645, 319159-319161, 319618)
+- disabled opencl (no longer libclc required)
+- obsolete patches:
+  * Mesa-PowerLE.patch
+  * Mesa-bnc864943-10.0.3-swrast-copy-sub-buffer.patch
+  * Mesa-fix-llvm-link.patch
+  * U_0001-glx-Fix-the-default-values-for-GLXFBConfig-attribute.patch
+  * U_0002-glx-Fix-the-GLXFBConfig-attrib-sort-priorities.patch
+  * U_swrast-allocate-swrast_texture_image-ImageSlices-array-if-needed.patch
+  * mesa-overflow-fix.patch
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+-  update to 11.1.2
+* Bugfix release:
++ fdo#93648 - Random lines being rendered when playing Dolphin (geometry shaders
+    elated, w/ apitrace)
++ fdo#93650 - GL_ARB_separate_shader_objects is buggy (PCSX2)
++ fdo#93717 - Meta mipmap generation can corrupt texture state
++ fdo#93722 - Segfault when compiling shader with a subroutine that takes a parameter
++ fdo#93731 - glUniformSubroutinesuiv segfaults when subroutine uniform is bound 
+    to a specific location
++ fdo#93761 - A conditional discard in a fragment shader causes no depth 
+    writing at all
++ Some bugfixes in i965,nv50,radeonsi,r600g,vc4 drivers
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Add U_clover-Fix-build-against-LLVM-3.8.patch to fix build
+  against llvm 3.8
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- u_dri2-Check-for-dummyContext-to-see-if-the-glx_context-is-valid.patch
+  Check for dummyContext to see if the glx_context is valid (boo#962609).
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch 
+  * Since these are packaged separately in (open)SUSE anyway, one
+    can use copies as well. This makes debug packages possible
+    again. (bnc #962609)
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- update to 11.1.1
+* Bugfix release and adding KB Lake PCI id's
++ fdo#91806 - configure does not test whether assembler supports sse4.1
++ fdo#92229 - [APITRACE] SOMA have serious graphical errors
++ fdo#92233 - Unigine Heaven 4.0 silhuette run
++ fdo#93004 - Guild Wars 2 crash on nouveau DX11 cards
++ fdo#93215 - [Regression bisected] Ogles1conform Automatic mipmap
+    generation test is fail
++ fdo#93257 - [SKL, bisected] ASTC dEQP tests segfault
++ fixes for r600,nv*,glx,glsl,radeonsi and i965
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Enable swrast gallium driver on s390/aarch64
+- Exclude Mesa-libva on s390/s390x/aarch64
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Apply patch: st/va: hardlink driver instances to
+  gallium_drv_video.so
+  + u_st-va-hardlink-driver-instances-to-gallium_drv_video.patch
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Add Mesa-libva.
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- update to 11.1.0, new stable release
+* New features:
+	+ Note: some of the new features are only available with certain drivers.
+	+ OpenGL 3.1 support on freedreno (a3xx, a4xx)
+	+ OpenGL 3.3 support for VMware guest VM driver (supported by Workstation 12
+       and Fusion 8).
+	+ GL_AMD_performance_monitor on nv50
+	+ GL_ARB_arrays_of_arrays on i965
+	+ GL_ARB_blend_func_extended on freedreno (a3xx)
+	+ GL_ARB_clear_texture on nv50, nvc0
+	+ GL_ARB_clip_control on freedreno/a4xx
+	+ GL_ARB_copy_image on nv50, nvc0, radeonsi
+	+ GL_ARB_depth_clamp on freedreno/a4xx
+	+ GL_ARB_fragment_layer_viewport on i965 (gen6+)
+	+ GL_ARB_gpu_shader_fp64 on r600 for Cypress/Cayman/Aruba chips
+	+ GL_ARB_gpu_shader5 on r600 for Evergreen and later chips
+	+ GL_ARB_seamless_cubemap_per_texture on freedreno/a4xx
+	+ GL_ARB_shader_clock on i965 (gen7+)
+	+ GL_ARB_shader_stencil_export on i965 (gen9+)
+	+ GL_ARB_shader_storage_buffer_object on i965
+	+ GL_ARB_shader_texture_image_samples on i965, nv50, nvc0, r600, radeonsi
+	+ GL_ARB_texture_barrier / GL_NV_texture_barrier on i965
+	+ GL_ARB_texture_buffer_range on freedreno/a3xx
+	+ GL_ARB_texture_compression_bptc on freedreno/a4xx
+	+ GL_ARB_texture_query_lod on softpipe
+	+ GL_ARB_texture_view on radeonsi and r600 (for evergeen and newer)
+	+ GL_ARB_vertex_type_2_10_10_10_rev on freedreno (a3xx, a4xx)
+	+ GL_EXT_blend_func_extended on all drivers that support the ARB version
+	+ GL_EXT_buffer_storage implemented for when ES 3.1 support is gained
+	+ GL_EXT_draw_elements_base_vertex on all drivers
+	+ GL_EXT_texture_compression_rgtc / latc on freedreno (a3xx & a4xx)
+	+ GL_KHR_debug (GLES)
+	+ GL_NV_conditional_render on freedreno
+	+ GL_OES_draw_elements_base_vertex on all drivers
+	+ EGL_KHR_create_context on softpipe, llvmpipe
+	+ EGL_KHR_gl_colorspace on softpipe, llvmpipe
+	+ new virgl gallium driver for qemu virtio-gpu
+	+ 16x multisampling on i965 (gen9+)
+	+ GL_EXT_shader_samples_identical on i965.
+* +many bugfixes, please see relnotes
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to version 11.0.7
+    + bugfixes release for bugs found since 11.0.6
+      fdo#90348 - Spilling failure of b96 merged value
+      fdo#92363 - [BSW/BDW] ogles1conform Gets test fails
+      fdo#92438 - Segfault in pushbuf_kref when running the android 
+          emulator (qemu) on nv50
+      fdo#93110 - [NVE4] textureSize() and textureQueryLevels() uses a texture 
+          bound during the previous draw call
+      fdo#93126> - wrongly claim supporting GL_EXT_texture_rg
+    + plus fixes for r600g,llvmpipe,i955,egl,gles2
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Add Mesa-libOpenCL.
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to version 11.0.6:
+  + This release brings driver fixes for i965, r600, radeonsi,
+    nouveau, vc4, and llvmpipe including a serious regression for
+    r100/r200 era hardware.
+  + Additional patches cover glsl, nir, mesa/meta and VC-1
+    decoding.
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- update to 11.0.5
+* With this release we have some driver patches for i965 and nouveau, a couple
+    of llvm 3.7 related fixes and a some bugfixes in the VA state-tracker.
+* Additionally we have a few new PCI ids for i965 and radeonsi.
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- update to 11.0.4
+  * bug fix release which fixes bugs found since the 11.0.3 release
+  * droped patches - merged by upstream:
+    U_gallium-add-PIPE_SHADER_CAP_MAX_UNROLL_ITERATIONS_HI.patch
+    U_i965-Remove-early-release-of-DRI2-miptree.patch
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- U_gallium-add-PIPE_SHADER_CAP_MAX_UNROLL_ITERATIONS_HI.patch
+  * This avoids a serious r600g bug leading to a GPU hang (bnc#951298)
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to 11.0.3
+  * bug fix release which fixes bugs found since the 11.0.2 release
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to 11.0.2
+  * This is a emergency release which covers the final dEQP
+    regressions introduced in the 11.0 development cycle.
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- update upstream status:
+  * remove n_i965-Remove-early-release-of-DRI2-miptree.patch
+  * add U_i965-Remove-early-release-of-DRI2-miptree.patch
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to 11.0.1
+  * i965/vec4: Fix saturation errors when coalescing registers
+  * i965/vec4_nir: Load constants as integers
+  * meta: Abort meta pbo path if TexSubImage need signed unsigned 
+    conversion
+  * docs: add sha256 checksums for 11.0.0
+  * Update version to 11.0.1
+  * docs: add release notes for 11.0.1
+  * mesa: Fix GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE for default 
+    framebuffer.
+  * t_dd_dmatmp: Make "count" actually be the count
+  * t_dd_dmatmp: Clean up improper code formatting from previous 
+    patch
+  * t_dd_dmatmp: Use '& 3' instead of '% 4' everywhere
+  * t_dd_dmatmp: Pull out common 'count -= count & 3' code
+  * t_dd_dmatmp: Use addition instead of subtraction in loop 
+    bounds
+  * st/mesa: avoid integer overflows with buffers >= 512MB
+  * nv50, nvc0: fix max texture buffer size to 128M elements
+  * freedreno/a3xx: fix blending of L8 format
+  * nv50,nvc0: detect underlying resource changes and update tic
+  * nv50,nvc0: flush texture cache in presence of coherent bufs
+  * radeonsi: load fmask ptr relative to the resources array
+  * nir: Fix a bunch of ralloc parenting errors
+  * i965/vec4: Don't reswizzle hardware registers
+  * configure.ac: Add support to enable read-only text segment on 
+    x86.
+  * gbm: convert gbm bo format to fourcc format on dma-buf import
+  * mesa: fix errors when reading depth with glReadPixels
+  * i965: fix textureGrad for cubemaps
+  * mesa: Fix texture compression on big-endian systems
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- add n_i965-Remove-early-release-of-DRI2-miptree.patch (bnc#945444)
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- marked Mesa.keyring and mesa-11.0.0.tar.xz.sig as source in 
+  specfile in order to make factory checkin policy happy
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to version 11.0.0
+*  Mesa 11.0 brings core Mesa support for OpenGL 4.2, RadeonSI and Nouveau NVC0 
+  OpenGL 4.1 support (the other hardware drivers remain at OpenGL 3.3), AMDGPU 
+  kernel driver support along with initial R9 Fury/Fiji support, EGL 1.5 support, 
+  ongoing OpenGL ES 3.1 work, OpenCL compute image support, HEVC video decode 
+  support for RadeonSI via VDPAU, OpenGL ES 3.0 for Freedreno, and many fixes. 
++ drop U_mesa-llvm37-rename-r600-to-amdgpu.patch and U_mesa-llvm37.patch 
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to version 10.6.7
++ add gpg verification of source package
+* fdo#90751 Revert "i965: Momentarily pretend to support 
+  ARB_texture_stencil8 for blits."
+* mesa/teximage: use correct extension for accept stencil texture.
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to version 10.6.6:
+  * This release includes patches for mesa core, i965 (regression
+    fixes), r600 (assertions and crash fixes in the sb backend),
+    radeonsi (workaround for GPU hang in Unigine Heaven) and
+    nouveau (piglit tests).
+- Replace libXvMC-devel and libexpat-devel for pkgconfig(xvmc) and
+  pkgconfig(expat) BuildRequires.
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Add U_mesa-llvm37-rename-r600-to-amdgpu.patch to fix build with llvm 3.7
+  due to rename of llvm target R600 to AMDGPU 
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Add U_mesa-llvm37.patch to fix build with llvm 3.7
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to version 10.6.5:
+  * Apart from the usual nouveau, i965 and radeon driver fixes,
+    this time around we have a nouveau_vieux fix for a regression
+    introduced with mesa 10.6.0 and a few even older big endian
+    related bug-fixes.
+- Replace libvdpau-devel for pkgconfig(vdpau) BuildRequires.
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- update to 10.6.4
+  * In this release we have a few GL specific fixes (in both dri
+    drivers and the EGL loader), an updated mesa.icd file and a
+    crashfix for the standalone glcpp tool.
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- update to 10.6.3
+* fdo#90728 - dvd playback with vlc and vdpau causes segmentation fault
+* fdo#91337 - OSMesaGetProcAdress(&quot;OSMesaPixelStore&quot;) returns nil
+* osmesa: fix OSMesaPixelsStore typo
+* vl: cleanup video buffer private when the decoder is destroyed
+* st/vdpau: fix mixer size checks
+* auxiliary/vl: use the correct screen index
+*i965/gen9: Use custom MOCS entries set up by the kernel.
+*  nv50, nvc0: enable at least one color RT if alphatest is enabled
+*  nvc0/ir: fix txq on indirect samplers
+*  nvc0/ir: don't worry about sampler in txq handling
+*  gm107/ir: fix indirect txq emission
+*  nv50: fix max level clamping on G80
+*  program: Allow redundant OPTION ARB_fog_* directives.
+*  xa: don't leak fences
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- update to 10.6.2
+* fdo#73528 - Deferred lighting in Second Life causes system hiccups and screen flickering
+* fdo#80500 - Flickering shadows in unreleased title trace
+* fdo#82186 - [r600g] BARTS GPU lockup with minecraft shaders
+* fdo#84225 - Allow constant-index-expression sampler array indexing with GLSL-ES < 300
+* fdo#90537 - radeonsi bo/va conflict on RADEON_GEM_VA (rscreen->ws->buffer_from_handle returns NULL)
+* fdo#90873 - Kernel hang, TearFree On, Mate desktop environment
+* fdo#91022 - [g45 g965 bisected] assertions generated from textureGrad cube samplers fix
+* fdo#91047 - [SNB Bisected] Messed up Fog in Super Smash Bros. Melee in Dolphin
+* fdo#91056 - The Bard's Tale (2005, native) has rendering issues
+* fdo#91117 - Nimbus (running in wine) has rendering issues, objects are semi-transparent
+* fdo#91124 - Civilization V (in Wine) has rendering issues: text missing, menu bar corrupted
+* fdo#91173 - Oddworld: Stranger's Wrath HD: disfigured models in wrong colors
+* fdo#91226 - Crash in glLinkProgram (NEW)
+* fdo#91231 - [NV92] Psychonauts (native) segfaults on start when DRI3 enabled
+* loader: Look for any version of currently linked libudev.so
+* nv50/ir: propagate modifier to right arg when const-folding mad
+* nv50/ir: fix emission of address reg in 3rd source
+* nv50/ir: copy joinAt when splitting both before and after
+* mesa: reset the source packing when creating temp transfer image
+* nv50/ir: don't emit src2 in immediate form
+* mesa/prog: relative offsets into constbufs are not constant
+* nv50/ir: UCMP arguments are float, so make sure modifiers are applied
+* nvc0: turn sample counts off during blit
+* i965/fs: Fix ir_txs in emit_texture_gen4_simd16().
+* i965: Reserve more batch space to accomodate Gen6 perfmonitors.
+* i965/vs: Fix matNxM vertex attributes where M != 4.
+* Revert "glsl: clone inputs and outputs during linking"
+* Revert "i965: Delete linked GLSL IR when using NIR."
+* r600g: disable single-sample fast color clear due to hangs
+* radeonsi: fix a hang with DrawTransformFeedback on 4 SE chips
+* st/dri: don't set PIPE_BIND_SCANOUT for MSAA surfaces
+* nouveau: Use dup fd as key in drm-winsys hash table to fix ZaphodHeads.
+* winsys/radeon: Use dup fd as key in drm-winsys hash table to fix ZaphodHeads.
+* i965/fs: Don't mess up stride for uniform integer multiplication.
+* winsys/radeon: Unmap GPU VM address range when destroying BO
+* meta: Only change and restore viewport 0 in mesa meta mode
+* i965: allocate at least 1 BLEND_STATE element
+* i965/skl: Set the pulls bary bit in 3DSTATE_PS_EXTRA
+* glsl: Add missing check for whether an expression is an add operation
+* glsl: Make sure not to dereference NULL
+* i965: Don't try to print the GLSL IR if it has been freed
+* glsl: clone inputs and outputs during linking
+* i965: Delete linked GLSL IR when using NIR.
+* glsl: Allow dynamic sampler array indexing with GLSL ES < 3.00
+* mesa/glsl: new compiler option EmitNoIndirectSampler
+* i965: use EmitNoIndirectSampler for gen < 7
+* i915: use EmitNoIndirectSampler
+* mesa/st: use EmitNoIndirectSampler if !ARB_gpu_shader5
+* glsl: validate sampler array indexing for 'constant-index-expression'
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- adjust libdrm dependencies
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to version 10.6.1
+  * This release includes core mesa and glsl patches (amonst which
+    a Dota2 Reborn bugfix) affecting all dri drivers, nouveau specific
+    fixes and a selection of shared-glapi commits - from build fixes, to
+    ones ensuring that the dri modules can be loaded.
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- n_Fixed-build-against-wayland-1.2.1.patch
+  * required to fix build with wayland on openSUSE 13.1 
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to version 10.6.0:
+- New GL/EGL Features:
+  + GL_AMD_pinned_memory on r600, radeonsi
+  + GL_ARB_clip_control on i965
+  + GL_ARB_depth_buffer_float on freedreno
+  + GL_ARB_depth_clamp on freedreno
+  + GL_ARB_direct_state_access on all drivers for Core GL contexts.
+  + GL_ARB_draw_indirect, GL_ARB_multi_draw_indirect on r600
+  + GL_ARB_draw_instanced on freedreno
+  + GL_ARB_gpu_shader_fp64 on nvc0, softpipe
+  + GL_ARB_gpu_shader5 on i965/gen8+
+  + GL_ARB_instanced_arrays on freedreno
+  + GL_ARB_pipeline_statistics_query on i965, nv50, nvc0, r600, radeonsi, softpipe
+  + GL_ARB_program_interface_query (all drivers)
+  + GL_ARB_texture_stencil8 on nv50, nvc0, r600, radeonsi, softpipe
+  + GL_ARB_texture_view on llvmpipe, softpipe
+  + GL_ARB_uniform_buffer_object on freedreno
+  + GL_ARB_vertex_attrib_64bit on nvc0, softpipe
+  + GL_ARB_viewport_array, GL_AMD_vertex_shader_viewport_index on i965/gen6
+  + GL_EXT_draw_buffers2 on freedreno
+  + GL_OES_EGL_sync on all drivers
+  + EGL_KHR_fence_sync on i965, freedreno, nv50, nvc0, r600, radeonsi
+  + EGL_KHR_wait_sync on i965, freedreno, nv50, nvc0, r600, radeonsi
+  + EGL_KHR_cl_event2 on freedreno, nv50, nvc0, r600, radeonsi
+  + GL_AMD_performance_monitor on nvc0
+- Changes to package:
+  + add --enable-shader-cache to configure options
+  + remove Patch100: U_0001_gallium_include_util_macros.patch
+  + remove Patch101: U_0002_st_nine_mark_end_of_non_void_function_unreachable.patch
+  + remove Patch102: U_0003_fix_build_after_macro_include.patch
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to version 10.5.7:
+  + i965: Emit 3DSTATE_MULTISAMPLE before WM_HZ_OP (gen8+)
+  + docs: Add sha256sums for the 10.5.6 release
+  + get-pick-list.sh: Require explicit "10.5" for nominating stable patches
+  + cherry-ignore: add clover build fix not applicable for 10.5
+  + Add release notes for the 10.5.7 release
+  + nvc0/ir: set ftz when sources are floats, not just destinations
+  + nv50/ir: guess that the constant offset is the starting slot of array
+  + nvc0/ir: LOAD's can't be used for shader inputs
+  + nvc0: a geometry shader can have up to 1024 vertices output
+  + nv50/ir: avoid messing up arg1 of PFETCH
+  + nv30: don't leak fragprog consts
+  + nv30: avoid leaking render state and draw shaders
+  + nv30: fix clip plane uploads and enable changes
+  + nv30/draw: avoid leaving stale pointers in draw state
+  + nv30/draw: draw expects constbuf size in bytes, not vec4 units
+  + st/mesa: don't leak glsl_to_tgsi object on link failure
+  + glsl: avoid leaking linked gl_shader when there's a late linker error
+  + nv30/draw: fix indexed draws with swtnl path and a resource index buffer
+  + nv30/draw: only use the DMA1 object (GART) if the bo is not in VRAM
+  + nv30/draw: allocate vertex buffers in gart
+  + nv30/draw: switch varying hookup logic to know about texcoords
+  + nv30: falling back to draw path for edgeflag does no good
+  + nv30: avoid doing extra work on clear and hitting unexpected states
+  + i965/fs: Fix implied_mrf_writes for scratch writes
+  + st/dri: fix postprocessing crash when there's no depth buffer
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- update to 10.5.6
+* fdo#86792 - [NVC0] Portal 2 Crashes in Wi* ne
+* fdo#90350 - [G96] Portal's portal are incorrectly rendered  
+* fdo#90363 - [nv50] HW state is not reset correctly when using a new GL context
+* radeonsi: add new bonaire pci id
+* egl/wayland: properly destroy wayland objects
+* glx/dri3: Add additional check for gpu offloading case
+* egl/main: fix EGL_KHR_get_all_proc_addresses
+* targets/osmesa: drop the -module tag from LDFLAGS
+* clover: Refactor event::trigger and ::abort to prevent deadlock and reentrancy issues.
+* clover: Wrap event::_status in a method to prevent unlocked access.<
+* clover: Implement locking of the wait_count, _chain and _status members of event.
+* i965: Fix PBO cache coherency issue after _mesa_meta_pbo_GetTexSubImage().
+* main: Require that the texture exists in framebuffer_texture
+* mesa: Generate GL_INVALID_VALUE in framebuffer_texture when layer <0
+* nv50/ir: only propagate saturate up if some actual folding took place
+* nv50: keep track of PGRAPH state in nv50_screen
+* nvc0: keep track of PGRAPH state in nvc0_screen
+* nvc0: reset the instanced elements state when doing blit using 3d engine
+* nv50/ir: only enable mul saturate on G200+
+* st/mesa: make sure to create a "clean" bool when doing i2b
+* nvc0: switch mechanism for shader eviction to be a while loop
+* swrast: Build fix for darwin
+* main: Fix an error generated by FramebufferTexture</li>
+* main: Complete error conditions for glInvalidate*Framebuffer.
+* main: glGetIntegeri_v fails for GL_VERTEX_BINDING_STRIDE
+* freedreno: enable a306
+* freedreno: fix bug in tile/slot calculation
+* draw: (trivial) fix out-of-bounds vector initialization
+* mesa: fix shininess check for ffvertex_prog v2
+* clover: Add a mutex to guard queue::queued_events
+* clover: Fix a bug with multi-threaded events v2
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to 10.5.5
+* fdo#88521 - GLBenchmark 2.7 TRex renders with artifacts on Gen8 with !UXA
+* fdo#89455 - [NVC0/Gallium] Unigine Heaven black and white boxes
+* fdo#89689 - [Regression] Weston on DRM backend won't start with new version of mesa
+* fdo#90130 - gl_PrimitiveId seems to reset at 340
+* i965: Add XRGB8888 format to intel_screen_make_configs
+* r300: do not link against libdrm_intel
+* nvc0/ir: flush denorms to zero in non-compute shaders
+* gk110/ir: fix set with a register dest to not auto-set the abs flag
+* nvc0/ir: fix predicated PFETCH emission
+* nv50/ir: fix asFlow() const helper for OP_JOIN
+* i965: Make intel_emit_linear_blit handle Gen8+ alignment restrictions.
+* i965: Disallow linear blits that are not cacheline aligned.
+* draw: fix prim ids when there's no gs
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- BuildIgnore python so that it is not sucked in by coincidence
+  * The python-base provides enough python functionalities
+    necessary for build.
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to 10.5.4
+  * This release includes fixes for the mesa state-tracker used by
+    all the gallium drivers, a drirc workaround for Second Life, 
+    plus i965 fixes. For the Android users out there, this release
+    includes many compilation fixes with more to come shortly.
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to 10.5.3
+ + fdo#83962 - [HSW/BYT]Piglit spec_ARB_gpu_shader5_arb_gpu_shader5-emitstreamvertex_nodraw fails
+ + fdo#89679 - [NV50] Portal/Half-Life 2 will not start (native Steam)
+ + fdo#89746 - Mesa and LLVM 3.6+ break opengl for genymotion
+ + fdo#89754 - vertexAttrib fails WebGL Conformance test with mesa drivers
+ + fdo#89758 - pow WebGL Conformance test with mesa drivers
+ + fdo#89759 - WebGL OGL ES GLSL conformance test with mesa drivers fails
+ + fdo#89905 - scons build broken on 10.5.2 due to activated vega st
+ + st_glsl_to_tgsi: only do mov copy propagation on temps (v2)
+ + xmlpool: don't forget to ship the MOS
+ + configure.ac: error out if python/mako is not found when required
+ + dist: add the VG depedencies into the tarball
+ + i965: Do not render primitives in non-zero streams then TF is disabled
+ + st/mesa: update arrays when the current attrib has been updated
+ + nv50/ir: take postFactor into account when doing peephole optimizations
+ + nv50/ir/gk110: fix offset flag position for TXD opcode
+ + freedreno/a3xx: fix 3d texture layout
+ + freedreno/a3xx: point size should not be divided by 2
+ + nv50: allocate more offset space for occlusion queries
+ + nv50,nvc0: limit the y-tiling of 3d textures to the first level's tiling
+ + i965: Fix instanced geometry shaders on Gen8+.
+ + i965: Add forgotten multi-stream code to Gen8 SOL state.
+ + nouveau: synchronize "scratch runout" destruction with the command stream
+ + radeonsi: Cache LLVMTargetMachineRef in context instead of in screen
+ + clover: Return CL_BUILD_ERROR for CL_PROGRAM_BUILD_STATUS when compilation fails v2
+ + i965: Fix URB size for CHV
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to  10.5.2
+ + fdo#88534 - include/c11/threads_posix.h PTHREAD_MUTEX_RECURSIVE_NP not defined
+ + fdo#89328 - python required to build Mesa release tarballs
+ + fdo#89530 - FTBFS in loader: missing fstat
+ + fdo#89590 - Crash in glLinkProgram with shaders with multiple constant arrays
+ + fdo#89680 - Hard link exist in Mesa 10.5.1 sources
+ + glsl: Generate link error for non-matching gl_FragCoord redeclarations
+ + docs: Add sha256 sums for the 10.5.1 release
+ + automake: add missing egl files to the tarball
+ + st/egl: don't ship the dri2.c link at the tarball
+ + loader: include <sys/stat.h> for non-sysfs builds
+ + auxiliary/os: fix the android build - s/drm_munmap/os_munmap/
+ + cherry-ignore: add commit non applicable for 10.5
+ + c11/threads: Use PTHREAD_MUTEX_RECURSIVE by default
+ + i965: Set nr_params to the number of uniform components in the VS/GS path.
+ + freedreno/a3xx: use the same layer size for all slices
+ + freedreno: fix slice pitch calculations
+ + radeonsi: increase coords array size for radeon_llvm_emit_prepare_cube_coords
+ + glx: Handle out-of-sequence swap completion events correctly. (v2)
+ + mapi: Make private copies of name strings provided by client.
+ + freedreno: update generated headers
+ + glsl: optimize (0 cmp x + y) into (-x cmp y).
+ + glsl: fix names in lower_constant_arrays_to_uniforms
+ + clover: Return 0 as storage size for local kernel args that are not set v2
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update  to 10.5.1
+ + fdo#79202 - valgrind errors in glsl-fs-uniform-array-loop-unroll.shader_test; random code generation
+ + fdo#84613 - [G965, bisected] piglit regressions : glslparsertest.glsl2
+ + fdo#86747 - Noise in Football Manager 2014 textures
+ + fdo#86974 - INTEL_DEBUG=shader_time always asserts in fs_generator::generate_code() when Mesa is built with --enable-debug (= with asserts)
+ + fdo#88246 - Commit 2881b12 causes 43 DrawElements test regressions
+ + fdo#88793 - [BDW/BSW Bisected]Piglit/shaders_glsl-max-varyings fails
+ + fdo#88883 - ir-a2xx.c: variable changed in assert statement
+ + fdo#88885 - Transform feedback uses incorrect interleaving if a previous draw did not write gl_Position
+ + fdo#89095 - [SNB/IVB/BYT Bisected]Webglc conformance/glsl/functions/glsl-function-mix-float.html fails
+ + fdo#89156 - r300g: GL_COMPRESSED_RED_RGTC1 / ATI1N support broken
+ + fdo#89224 - Incorrect rendering of Unigine Valley running in VM on VMware Workstation
+ + fdo#89292 - [regression,bisected] incomplete screenshots in some cases
+ + fdo#89311 - [regression, bisected] dEQP: Added entry points for glCompressedTextureSubImage*D.
+ + fdo#89312 - [regression, bisected] main: Added entry points for CopyTextureSubImage*D. (d6b7c40cecfe01)
+ + fdo#89315 - [HSW, regression, bisected] i965/fs: Emit MAD instructions when possible.
+ + fdo#89317 - [HSW, regression, bisected] i965: Add LINTERP/CINTERP to can_do_cmod() (d91390634)
+ + fdo#89416 - UE4Editor crash after load project
+ + fdo#89430 - [g965][bisected] arb_copy_image-targets gl_texture* tests fail
+ + i965/vec4: Don't lose the saturate modifier in copy propagation.
+ + i965/gs: Check newly-generated GS-out VUE map against correct stage
+ + egl: Take alpha bits into account when selecting GBM formats
+ + docs: Add sha256 sums for the 10.5.0 release
+ + egl/main: no longer export internal function
+ + cherry-ignore: ignore a few more commits picked without -x
+ + mapi: fix commit 90411b56f6bc817e229d8801ac0adad6d4e3fb7a
+ + intel: fix EGLImage renderbuffer _BaseFormat
+ + i965: Fix out-of-bounds accesses into pull_constant_loc array
+ + i965/fs/nir: Use emit_math for nir_op_fpow
+ + freedreno: move fb state copy after checking for size change
+ + freedreno/ir3: fix array count returned by TXQ
+ + freedreno/ir3: get the # of miplevels from getinfo
+ + meta/TexSubImage: Stash everything other than PIXEL_TRANSFER/store in meta_begin
+ + main/base_tex_format: Properly handle STENCIL_INDEX1/4/16
+ + i965: Split Gen4-5 BlitFramebuffer code; prefer BLT over Meta.
+ + glsl: Mark array access when copying to a temporary for the ?: operator.
+ + i965/fs: Set force_writemask_all on shader_time instructions.
+ + i965/fs: Set smear on shader_time diff register.
+ + i965/fs: Make emit_shader_time_write return rather than emit.
+ + i965/fs: Make get_timestamp() pass back the MOV rather than emitting it.
+ + i965/fs: Make emit_shader_time_end() insert before EOT.
+ + i965/fs: Don't issue FB writes for bound but unwritten color targets.
+ + main: Fix target checking for CompressedTexSubImage*D.
+ + main: Fix target checking for CopyTexSubImage*D.
+ + gallium/auxiliary/indices: fix start param
+ + r300g: fix RGTC1 and LATC1 SNORM formats
+ + r300g: fix a crash when resolving into an sRGB texture
+ + r300g: fix sRGB->sRGB blits
+ + i965/vec4: Fix implementation of i2b.
+ + mesa: Indent break statements and add a missing one.
+ + mesa: Free memory allocated for luminance in readpixels.
+ + mesa: Correct backwards NULL check.
+ + i965: Consider scratch writes to have side effects.
+ + i965/fs: Don't use backend_visitor::instructions after creating the CFG.
+ + r300g: Use PATH_MAX instead of limiting ourselves to 100 chars.
+ + r300g: Check return value of snprintf().
+ + i965/fs: Don't propagate cmod to inst with different type.
+ + i965: Tell intel_get_memcpy() which direction the memcpy() is going.
+ + Revert SHA1 additions.
+ + i965: Avoid applying negate to wrong MAD source.
+ + meta: In pbo_{Get,}TexSubImage don't repeatedly rebind the source tex
+ + Revert "common: Fix PBOs for 1D_ARRAY."
+ + meta: Allow GL_UN/PACK_IMAGE_HEIGHT in _mesa_meta_pbo_Get/TexSubImage
+ + meta: Fix the y offset for 1D_ARRAY in _mesa_meta_pbo_TexSubImage
+ + freedreno/ir3: fix silly typo for binning pass shaders
+ + freedreno/a2xx: fix increment in assert
+ + freedreno/a4xx: bit of cleanup
+ + freedreno: update generated headers
+ + freedreno/a4xx: set PC_PRIM_VTX_CNTL.VAROUT properly
+ + freedreno: update generated headers
+ + freedreno/a4xx: aniso filtering
+ + freedreno/ir3: fix up cat6 instruction encodings
+ + freedreno/ir3: add support for memory (cat6) instructions
+ + freedreno/ir3: handle flat bypass for a4xx
+ + freedreno/ir3: fix failed assert in grouping
+ + r300g: Fix the ATI1N swizzle (RGTC1 and LATC1) 
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to version 10.5.0:
+  + Initial support for the new Intel Skylake GPUs and Adreno 4xx 
+    GPUs.
+  + Experimental EGL support for Haiku.
+  + The new IR - NIR. A flat, typeless IR, supporting SSA.
+  + GLX/DRI3 fixes and improvements.
+  + A lot of preparation work for GL_ARB_direct_state_access.
+  + The usual amount of piglit and drawElements Quality Program
+    (dEQP) fixes.
+  + Building mesa with GCC 4.1 or earlier is no longer supported.
+  + The distribution tarball has been renamed and now contains all
+    the generated sources.
+- New GL features:
+  + GL_ARB_framebuffer_sRGB on freedreno
+  + GL_ARB_texture_rg on freedreno
+  + GL_EXT_packed_float on freedreno
+  + GL_EXT_polygon_offset_clamp on i965, nv50, nvc0, r600, radeonsi,
+    llvmpipe
+  + GL_EXT_texture_shared_exponent on freedreno
+  + GL_EXT_texture_snorm on freedreno
+- Changes to Package:
+  + switch to xz compressed sources
+  + remove Patch16: u_gallivm_Update_for_RTDyldMemoryManager_unique_ptr.patch
+  + add Patch100: U_0001_gallium_include_util_macros.patch
+  + add Patch101: U_0002_st_nine_mark_end_of_non_void_function_unreachable.patch
+  + add Patch102: U_0003_fix_build_after_macro_include.patch
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Add u_gallivm_Update_for_RTDyldMemoryManager_unique_ptr.patch to
+  fix build with llvm 3.6 (fdo#86958)
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Fix file permissions for the Gallium Nine files
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- specfile/baselibs.conf: Manually provide d3d library (bnc#918294) 
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Drop pkgconfig(libva) BuildRequires for now, as it introduces a
+  build-cycle.
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to version 10.4.4:
+  + mesa: fix display list 8-byte alignment issue.
+  + docs: Add sha256 sums for the 10.4.3 release.
+  + egl: Pass the correct X visual depth to xcb_put_image().
+  + glx/dri3: Request non-vsynced Present for swapinterval zero.
+  + gallium/util: Don't use __builtin_clrsb in util_last_bit().
+  + configure: Link against all LLVM targets when building clover.
+  + st/osmesa: Fix osbuffer->textures indexing.
+  + i965: Fix max_wm_threads for CHV.
+  + Bugs fixed: fdo#88662, fdo#88930.
+- Add pkgconfig(libva) BuildRequires: Build VA API support.
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- baselibs.conf: enabled build of 32bit Mesa-libd3d package
+  (bnc#910109)
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- moved definition of Mesa-libd3d package above definition of
+  libxatracker packages in order to fix version requires
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- fixed Requires for libd3d-devel 
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- enabled build of Direct3D 9 (Gallium3D Nine) state tracker (bnc#910109)
+- removed obsolete patch u_be_assert_include.patch, addressed by
+  upstream commit 2a13ff9 "gallium/util: add missing u_debug include"
+  (bnc#910109)
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Set xvmc_support also on ppc
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Version bump to 10.4.3 (bugfix release):
+  * Bug 80568 - [gen4] GPU Crash During Google Chrome Operation
+  * Bug 85367 - [gen4] GPU hang in glmark-es2
+  * Bug 85696 - r600g+nine: Bioshock shader failure after 7b1c0cbc90d456384b0950ad21faa3c61a6b43ff
+  * Bug 88219 - include/c11/threads_posix.h:197: undefined reference to `pthread_mutex_lock'
+  * mesa: Fix clamping to -1.0 in snorm_to_float
+  * glsl: Link glsl_test with pthreads library.
+  * i965: Respect the no_8 flag on Gen6, not just Gen7+.
+  * i965: Work around mysterious Gen4 GPU hangs with minimal state changes. 
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Clean up with the spec-cleaner
+- Drop obsolete obsoletes comming from fix for sle10
+- Reduce llvm_r600 conditional as it is equal to ifarch x86 x86_64
+- Put vdpau_radeon and vdpau_nouveau under same case as they have
+  same requisites
+- Fix empty post/postun warning
+- Various other rpmlint issues silenced.
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Version bump to 10.4.2 (bugfix release):
+  * Bug 85529 - Surfaces not drawn in Unvanquished
+  * Bug 87619 - Changes to state such as render targets change fragment shader without marking it dirty.
+  * Bug 87658 - [llvmpipe] SEGV in sse2_has_daz on ancient Pentium4-M
+  * Bug 87913 - CPU cacheline size of 0 can be returned by CPUID leaf 0x80000006 in some virtual machines
+  * i965: Use safer pointer arithmetic in intel_texsubimage_tiled_memcpy()
+  * i965: Use safer pointer arithmetic in gather_oa_results()
+  * Revert "r600g/sb: fix issues cause by GLSL switching to loops for switch"
+  * r600g: fix regression since UCMP change
+  * r600g/sb: implement r600 gpr index workaround. (v3.1)
+  * docs: Add sha256 sums for the 10.4.1 release
+  * Update version to 10.4.2
+  * nv50,nvc0: set vertex id base to index_bias
+  * nv50/ir: fix texture offsets in release builds
+  * i965: Add missing BRW_NEW_*_PROG_DATA to texture/renderbuffer atoms.
+  * i965: Fix start/base_vertex_location for >1 prims but !BRW_NEW_VERTICES.
+  * gallium/util: make sure cache line size is not zero
+  * glsl_to_tgsi: fix a bug in copy propagation
+  * vbo: ignore primitive restart if FixedIndex is enabled in DrawArrays
+  * st/mesa: fix GL_PRIMITIVE_RESTART_FIXED_INDEX
+  * radeonsi: fix VertexID for OpenGL
+  * radeonsi: Don't modify PA_SC_RASTER_CONFIG register value if rb_mask == 0
+  * gallium/util: fix crash with daz detection on x86
+  * nv50,nvc0: implement half_pixel_center
+  * r600g/sb: fix issues with loops created for switch
+- Use download url fully in Source line
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to version 10.4.0 (10.4 Final):
+- New features:
+  + GL_ARB_conditional_render_inverted on nv50
+  + GL_ARB_sample_shading on r600
+  + GL_ARB_texture_view on nv50, nvc0
+  + GL_ARB_clip_control on nv50, nvc0, r300, r600, radeonsi, llvmpipe, softpipe
+  + GL_KHR_context_flush_control on all drivers
+- Changes:
+  + Removed patch17: u_Suppress-any-libGL-.-warnings-when-LIBGL_DEBUG-is-se.patch
+    This patch was upstreamed
+  + Build without "--enable-gallium-egl"
+    This buildoption was removed upstream
+  + Add subpackage libvdpau_r300
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Enable VideoCore IV (vc4) support for ARM
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Cleanup Spec:
+  + smaller cleanups
+  + Remove all traces of talloc, Mesa uses ralloc
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to 10.3.3
+	+ fdo#82921 layout(location=0) emits error 
+  	>= MAX_UNIFORM_LOCATIONS due to integer underflow
+  + fdo#83574 [llvmpipe] [softpipe] piglit 
+  	arb_explicit_uniform_location-use-of-unused-loc regression
+  + fdo#85454 Unigine Sanctuary with Wine crashes on Mesa Git
+  + fdo#70410 egl-static/Makefile: linking fails with llvm >= 3.4
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to 10.3.2
+	+ (fdo#54372) GLX_INTEL_swap_event crashes driver when swapping 
+  	window buffers
+  + (fdo#81680) [r600g] Firefox crashes with hardware acceleration 
+  	turned on
+  + (fdo#84140) mplayer crashes playing some files using vdpau 
+  	output
+  + (fdo#84662) Long pauses with Unreal demo Elemental on R9270X 
+  	since : Always flush the HDP cache before submitting a
+    CS to the GPU
+  + (fdo#85267) vlc crashes with vdpau (Radeon 3850HD) [r600]
+	
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update descriptions and Requires for GLES3
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- add Mesa-devel-dri package:
+  This way dri.pc will no longer pull in all of Mesa, just as
+  packages requiring dri do not have to require Mesa-devel anymore
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to 10.3.1
+  + [NVC0/Codegen] Shader compilation falis in spill logic
+  + [SNB+ Bisected]Ogles3conform ES3-CTS.shaders.
+    indexing.vector_subscript.vec3_static_loop_subscript_write_
+    direct_read_vertex fails
+  + [UBO] row_major layout ignored inside structures
+  + [UBO] nested structures don't get appropriate padding
+  + Glyphy demo throws unhandled Integer division by zero exception
+  + [UBO] row_major layout partially ignored for arrays of structures
+  + Big glamor regression in Xorg server 1.6.99.1 GIT: x11perf 1.5 
+    Test: PutImage XY 500x500 Square
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Fix ppc64 build (bnc#893275 bnc#871128)
+  u_be_assert_include.patch
+  Add ncurses-devel as build dependency to build with -ltinfo
+- Enable llvm on ppc64le (llvm3.5 got ppc64le support)
+- Enable shared on ppc64 and ppc64le
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to version 10.3.0 (10.3 Final):
+- New features:
+  + GL_ARB_ES3_compatibility on nv50, nvc0, r600, radeonsi, softpipe, llvmpipe
+  + GL_ARB_clear_texture on i965
+  + GL_ARB_compressed_texture_pixel_storage on all drivers
+  + GL_ARB_conditional_render_inverted on i965, nvc0, softpipe, llvmpipe
+  + GL_ARB_derivative_control on i965, nv50, nvc0, r600
+  + GL_ARB_draw_indirect on nvc0, radeonsi
+  + GL_ARB_explicit_uniform_location (all drivers that support GLSL)
+  + GL_ARB_fragment_layer_viewport on nv50, nvc0, llvmpipe, r600
+  + GL_ARB_gpu_shader5 on i965/gen7, nvc0
+  + GL_ARB_multi_draw_indirect on nvc0, radeonsi
+  + GL_ARB_sample_shading on radeonsi
+  + GL_ARB_seamless_cubemap_per_texture on i965, llvmpipe, nvc0, r600, radeonsi, softpipe
+  + GL_ARB_stencil_texturing on nv50, nvc0, r600, and radeonsi
+  + GL_ARB_texture_barrier on nv50, nvc0, r300, r600, radeonsi
+  + GL_ARB_texture_compression_bptc on i965/gen7+, nvc0, r600/evergreen+, radeonsi
+  + GL_ARB_texture_cube_map_array on radeonsi
+  + GL_ARB_texture_gather on r600, radeonsi
+  + GL_ARB_texture_query_levels on nv50, nvc0, llvmpipe, r600, radeonsi, softpipe
+  + GL_ARB_texture_query_lod on r600, radeonsi
+  + GL_ARB_viewport_array on nvc0
+  + GL_AMD_vertex_shader_viewport_index on i965/gen7+, r600
+  + GL_OES_compressed_ETC1_RGB8_texture on nv30, nv50, nvc0, r300, r600, radeonsi, softpipe, llvmpipe
+  + GLX_MESA_query_renderer on nv30, nv50, nvc0, r300, r600, radeonsi, softpipe, llvmpipe
+  + A new software rasterizer driver (kms_swrast_dri.so) that works with DRM drivers that don't have a full-fledged GEM (such as qxl or simpledrm)
+- Changes:
+  Building of gallium-pipe disabled for now by upstream, see:
+  http://cgit.freedesktop.org/mesa/mesa/commit/?h=10.3&id=07426ad1029c3505b809dc9eec104007fb623983
+  Nevertheless keep it around as it may get enabled again.
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to version 10.3.0-RC1
+  * Mesa 10.3 brings many performance improvements, more 
+    OpenGL 4.x functionality, the VC4 Gallium3D driver, 
+    and much more.
+  * supersedes U_mesa-glx-Reduce-error-log-level.patch
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Package vdpau_r600 for ppc64le as well (bnc#893275) 
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to version 10.2.5
+  * Mesa 10.2.5 is a bug fix release which fixes bugs fixed since
+    the 10.2.4 release
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to version 10.2.4
+  * Mesa 10.2.4 is a bug fix release which fixes bugs fixed since
+    the 10.2.3 release
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to version 10.2.3
+  * Mesa 10.2.3 is a bug fix release which fixes bugs fixed since
+    the 10.2.2 release
+- obsoletes u_mesa-gallium-llvmpipe-fix-SIGFPE.patch
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to version 10.2.1
+- Mesa 10.2.1 is an emergency release to fix a build failure added
+  to 10.2 between 10.2-rc5 and the final release.
+- Mesa 10.2 is a feature release that includes many updates and
+  enhancements. The full list is available in the release notes
+  file in docs/relnotes/10.2.html.
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to version 10.2-rc5
+  Another round of bugfixes towards the final 10.2
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to version 10.2-rc4:
+  Another round of bugfixes towards the final 10.2
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to 10.2-rc3
+  Even more bugfixes
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- no shared llvm libs on ppc64
+- vdpau no longer enabled by default
+- xa or gallium-gbm implies gallium-loader
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+- Update to 10.2-rc2:
+  More bugfixes
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to 10.2-rc1:
+- Remove U_gallium_util_add_missing_u_math_include.patch (patch27)
+- Remove U_nouveau_create_only_one_shared_screen.patch (patch28)
+- Remove U_nouveau_add_valid_range_tracking.patch (patch29)
+- Remove U_nouveau_fix_fence_waiting_logic.patch (patch30)
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Add missing BuildRequires, remove old xorg-x11-*-devel packages
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Include XA tracker sub packages on s390x
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Clean up specfile
+- Turn negative arch checks into positive ones for non-default configure
+  settings
+- libxsmfence is also available on ppc64le
+- Don't enable gallium-egl on ppc64 for now to work around llvm bug
+
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Add U_gallium_util_add_missing_u_math_include.patch (patch27)
+- Add U_nouveau_create_only_one_shared_screen.patch (patch28)
+- Add U_nouveau_add_valid_range_tracking.patch (patch29)
+- Add U_nouveau_fix_fence_waiting_logic.patch (patch30)
+  + https://bugzilla.novell.com/show_bug.cgi?id=866445
+  + https://bugs.freedesktop.org/show_bug.cgi?id=75279
+  
+-------------------------------------------------------------------
+Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+
+- Update to version 10.1:
+- New features:
+  + GL_ARB_draw_indirect on i965.
+  + GL_ARB_clear_buffer_object
+  + GL_ARB_viewport_array on i965.
+  + GL_ARB_map_buffer_alignment on all drivers that did not previously
+    support it.
+  + GL_AMD_shader_trinary_minmax.
+  + GL_EXT_framebuffer_blit on r200 and radeon.
+  + Reduced memory usage for display lists.
+  + OpenGL 3.3 support on nv50, nvc0, r600 and radeonsi
+- Changes:
+  + Removed support for the GL_MESA_texture_array extension. 
+-------------------------------------------------------------------
 Tue Sep 30 08:38:17 UTC 2014 - eich@suse.com
 
 - U_swrast-allocate-swrast_texture_image-ImageSlices-array-if-needed.patch
