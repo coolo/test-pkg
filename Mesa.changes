@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Feb 23 15:37:22 UTC 2016 - sndirsch@suse.com
+
+- disable wayland support again for sle12 (has been an oversight
+  before!) [fate #315643-315645, 319159-319161, 319618]
+- commented in specfile, that libdrm_amdgpu is required for building
+  radeonsi DRI driver
+
+-------------------------------------------------------------------
 Thu Feb 11 14:55:55 UTC 2016 - sndirsch@suse.com
 
 - latest Mesa version for sle12 (fate #315643-315645, 319159-319161, 319618)

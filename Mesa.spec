@@ -87,6 +87,9 @@ BuildRequires:  pkgconfig(dri3proto)
 BuildRequires:  pkgconfig(expat)
 BuildRequires:  pkgconfig(glproto)
 BuildRequires:  pkgconfig(libdrm) >= 2.4.60
+# libdrm_amdgpu is needed for buidling radeonsi DRI driver, although
+# this driver is still also being used by GPUs not using amdgpu X driver,
+# i.e. radeon instead
 BuildRequires:  pkgconfig(libdrm_amdgpu) >= 2.4.63
 BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.62
 BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.56
@@ -127,7 +130,7 @@ BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.65
 BuildRequires:  libelf-devel
 BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.61
 %endif
-%if 0%{?suse_version} >= 1310
+%if 0%{?suse_version} >= 1320 
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-server)
 %endif
@@ -175,7 +178,7 @@ Obsoletes:      Mesa-devel-static < %{version}
 Obsoletes:      xorg-x11-Mesa-devel < %{version}
 Provides:       Mesa-libIndirectGL-devel = %{version}
 Obsoletes:      Mesa-libIndirectGL-devel < %{version}
-%if 0%{?suse_version} >= 1310
+%if 0%{?suse_version} >= 1320
 Requires:       libwayland-egl-devel
 %endif
 
@@ -407,7 +410,7 @@ openwfd.
 This package provides the development environment for compiling
 programs against the GBM library.
 
-%if 0%{?suse_version} >= 1310
+%if 0%{?suse_version} >= 1320
 %package -n libwayland-egl1
 Summary:        Additional egl functions for wayland
 Group:          System/Libraries
@@ -565,7 +568,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch19 -p1
 
 %build
-%if 0%{?suse_version} >= 1310
+%if 0%{?suse_version} >= 1320
 egl_platforms=x11,drm,wayland
 %else
 egl_platforms=x11,drm
@@ -725,7 +728,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 
 %postun -n Mesa-libglapi0 -p /sbin/ldconfig
 
-%if 0%{?suse_version} >= 1310
+%if 0%{?suse_version} >= 1320
 %post   -n libwayland-egl1 -p /sbin/ldconfig
 
 %postun -n libwayland-egl1 -p /sbin/ldconfig
@@ -823,7 +826,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %{_libdir}/libOSMesa.so
 %{_libdir}/pkgconfig/osmesa.pc
 
-%if 0%{?suse_version} >= 1310
+%if 0%{?suse_version} >= 1320
 %files -n libwayland-egl1
 %defattr(-,root,root)
 %{_libdir}/libwayland-egl.so.1*
