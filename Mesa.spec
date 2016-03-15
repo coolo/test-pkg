@@ -134,7 +134,7 @@ BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.61
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-server)
 %endif
-%ifarch %arm ppc64 ppc64le s390x %ix86 x86_64
+%ifarch aarch64 %arm ppc64 ppc64le s390x %ix86 x86_64
 BuildRequires:  llvm-devel
 BuildRequires:  ncurses-devel
 %endif
@@ -627,11 +627,11 @@ autoreconf -fvi
            --with-dri-drivers=nouveau,r200,radeon \
            --with-gallium-drivers=r300,r600,nouveau,swrast \
 %endif
-%ifarch s390 aarch64
+%ifarch s390
            --with-dri-drivers=swrast \
            --with-gallium-drivers=swrast \
 %endif
-%ifarch s390x
+%ifarch aarch64 s390x
         --enable-xa \
         --enable-gallium-llvm \
         --with-dri-drivers=swrast \
@@ -692,7 +692,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 
 %postun -n libgbm1 -p /sbin/ldconfig
 
-%ifarch %ix86 x86_64 %arm ppc64 ppc64le s390x
+%ifarch aarch64 %ix86 x86_64 %arm ppc64 ppc64le s390x
 %post   -n libxatracker2 -p /sbin/ldconfig
 
 %postun -n libxatracker2 -p /sbin/ldconfig
@@ -847,7 +847,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %{_libdir}/libgbm.so
 %{_libdir}/pkgconfig/gbm.pc
 
-%ifarch %ix86 x86_64 %arm ppc64 ppc64le s390x
+%ifarch aarch64 %ix86 x86_64 %arm ppc64 ppc64le s390x
 %files -n libxatracker2
 %defattr(-,root,root)
 %{_libdir}/libxatracker.so.2*
