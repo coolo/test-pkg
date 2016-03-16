@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Mar 16 18:12:00 UTC 2016 - eich@suse.com
+
+- n_Define-GLAPIVAR-separate-from-GLAPI.patch:
+  Add separate definition GLAPIVAR as GLAPI
+  doesn't have the an 'extern' for some compiler
+  versions. This is needed for GLw (bsc#970725).
+
+-------------------------------------------------------------------
 Wed Mar 16 11:31:20 UTC 2016 - sndirsch@suse.com
 
 - U_llvmpipe-Do-not-use-barriers-if-not-using-threads.patch

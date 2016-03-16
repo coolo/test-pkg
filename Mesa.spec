@@ -71,6 +71,8 @@ Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # Already upstream
 Patch19:        U_clover-Fix-build-against-LLVM-3.8.patch
 Patch20:        U_llvmpipe-Do-not-use-barriers-if-not-using-threads.patch
+Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
+
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
 BuildRequires:  bison
@@ -565,6 +567,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch18 -p1
 %patch19 -p1
 %patch20 -p1
+%patch21 -p1
 
 %build
 %if 0%{?suse_version} >= 1310
