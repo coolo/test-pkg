@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Mar 16 11:31:20 UTC 2016 - sndirsch@suse.com
+
+- U_llvmpipe-Do-not-use-barriers-if-not-using-threads.patch
+  * llvmpipe: Do not use barriers if not using threads; triggers
+    on single cpu machines (like KVM in openQA) with gcc6 and
+    latest glibc(bnc#971350)
+
+-------------------------------------------------------------------
 Mon Mar 14 12:02:29 UTC 2016 - dmueller@suse.com
 
 - enable llvmpipe for aarch64 (fate#320649)
