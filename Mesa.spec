@@ -70,6 +70,9 @@ Patch17:        u_st-va-hardlink-driver-instances-to-gallium_drv_video.patch
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # Already upstream
 Patch19:        U_clover-Fix-build-against-LLVM-3.8.patch
+Patch20:        U_llvmpipe-Do-not-use-barriers-if-not-using-threads.patch
+Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
+
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
 BuildRequires:  bison
@@ -131,7 +134,7 @@ BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.61
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-server)
 %endif
-%ifarch %arm ppc64 ppc64le s390x %ix86 x86_64
+%ifarch aarch64 %arm ppc64 ppc64le s390x %ix86 x86_64
 BuildRequires:  llvm-devel
 BuildRequires:  ncurses-devel
 %endif
@@ -563,6 +566,8 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch17 -p1
 %patch18 -p1
 %patch19 -p1
+%patch20 -p1
+%patch21 -p1
 
 %build
 %if 0%{?suse_version} >= 1310
@@ -624,11 +629,11 @@ autoreconf -fvi
            --with-dri-drivers=nouveau,r200,radeon \
            --with-gallium-drivers=r300,r600,nouveau,swrast \
 %endif
-%ifarch s390 aarch64
+%ifarch s390
            --with-dri-drivers=swrast \
            --with-gallium-drivers=swrast \
 %endif
-%ifarch s390x
+%ifarch aarch64 s390x
         --enable-xa \
         --enable-gallium-llvm \
         --with-dri-drivers=swrast \
@@ -689,7 +694,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 
 %postun -n libgbm1 -p /sbin/ldconfig
 
-%ifarch %ix86 x86_64 %arm ppc64 ppc64le s390x
+%ifarch aarch64 %ix86 x86_64 %arm ppc64 ppc64le s390x
 %post   -n libxatracker2 -p /sbin/ldconfig
 
 %postun -n libxatracker2 -p /sbin/ldconfig
@@ -844,7 +849,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %{_libdir}/libgbm.so
 %{_libdir}/pkgconfig/gbm.pc
 
-%ifarch %ix86 x86_64 %arm ppc64 ppc64le s390x
+%ifarch aarch64 %ix86 x86_64 %arm ppc64 ppc64le s390x
 %files -n libxatracker2
 %defattr(-,root,root)
 %{_libdir}/libxatracker.so.2*
