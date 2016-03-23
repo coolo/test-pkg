@@ -1,4 +1,20 @@
 -------------------------------------------------------------------
+Tue Mar 22 16:52:22 UTC 2016 - eich@suse.com
+
+- n_Replace-_LOADER_FATAL-by-_LOADER_WARNING-in-CriticalErrorMessageF.patch:
+  Allow to muffle:
+  	 libGL error: failed to load driver: XXX
+  warnings on ssh connections (bsc#971950).
+
+-------------------------------------------------------------------
+Wed Mar 16 18:06:58 UTC 2016 - eich@suse.com
+
+- n_Define-GLAPIVAR-separate-from-GLAPI.patch:
+  Add separate definition GLAPIVAR as GLAPI
+  doesn't have the an 'extern' for some compiler
+  versions. This is needed for GLw (bsc#970725).
+
+-------------------------------------------------------------------
 Mon Mar 14 12:02:29 UTC 2016 - dmueller@suse.com
 
 - enable llvmpipe for aarch64 (fate#320649)

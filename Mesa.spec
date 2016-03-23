@@ -70,6 +70,9 @@ Patch17:        u_st-va-hardlink-driver-instances-to-gallium_drv_video.patch
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # Already upstream
 Patch19:        U_clover-Fix-build-against-LLVM-3.8.patch
+Patch20:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
+Patch21:        n_Replace-_LOADER_FATAL-by-_LOADER_WARNING-in-CriticalErrorMessageF.patch
+
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
 BuildRequires:  bison
@@ -566,6 +569,8 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch17 -p1
 %patch18 -p1
 %patch19 -p1
+%patch20 -p1
+%patch21 -p1
 
 %build
 %if 0%{?suse_version} >= 1320
