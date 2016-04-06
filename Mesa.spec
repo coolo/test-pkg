@@ -18,7 +18,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 11.1.2
+%define _version 11.2.0
 %define with_opencl 0
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
 %define gallium_loader 1
@@ -42,14 +42,14 @@
 %endif
 %endif
 Name:           Mesa
-Version:        11.1.2
+Version:        11.2.0
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
 Group:          System/Libraries
 Url:            http://www.mesa3d.org
-Source:         ftp://ftp.freedesktop.org/pub/mesa/%{_version}/%{_name_archive}-%{_version}.tar.xz
-Source1:        ftp://ftp.freedesktop.org/pub/mesa/%{_version}/%{_name_archive}-%{_version}.tar.xz.sig
+Source:         ftp://ftp.freedesktop.org/pub/mesa/%{version}/%{_name_archive}-%{_version}.tar.xz
+Source1:        ftp://ftp.freedesktop.org/pub/mesa/%{version}/%{_name_archive}-%{_version}.tar.xz.sig
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
@@ -69,8 +69,6 @@ Patch17:        u_st-va-hardlink-driver-instances-to-gallium_drv_video.patch
 # never to be upstreamed
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # Already upstream
-Patch19:        U_clover-Fix-build-against-LLVM-3.8.patch
-Patch20:        U_llvmpipe-Do-not-use-barriers-if-not-using-threads.patch
 Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
 
 BuildRequires:  autoconf >= 2.60
@@ -91,7 +89,7 @@ BuildRequires:  pkgconfig(expat)
 BuildRequires:  pkgconfig(glproto)
 BuildRequires:  pkgconfig(libdrm) >= 2.4.60
 BuildRequires:  pkgconfig(libdrm_amdgpu) >= 2.4.63
-BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.62
+BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.66
 BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.56
 BuildRequires:  pkgconfig(libkms) >= 1.0.0
 BuildRequires:  pkgconfig(libudev) > 151
@@ -124,7 +122,7 @@ Obsoletes:      Mesa-nouveau3d < %{version}
 Obsoletes:      xorg-x11-Mesa < %{version}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %ifarch %arm
-BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.65
+BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.67
 %endif
 %ifarch x86_64 %ix86
 BuildRequires:  libelf-devel
@@ -565,8 +563,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch13 -p1
 %patch17 -p1
 %patch18 -p1
-%patch19 -p1
-%patch20 -p1
 %patch21 -p1
 
 %build
