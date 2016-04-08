@@ -1,4 +1,34 @@
 -------------------------------------------------------------------
+Mon Apr  4 19:57:06 UTC 2016 - mimi.vx@gmail.com
+
+- update to 11.2.0
+- dropped U_clover-Fix-build-against-LLVM-3.8.patch
+- dropped U_llvmpipe-Do-not-use-barriers-if-not-using-threads.patch 
+- New Features:
+	* GL_ARB_arrays_of_arrays on all gallium drivers that provide GLSL 1.30
+	* GL_ARB_base_instance on freedreno/a4xx
+	* GL_ARB_compute_shader on i965
+	* GL_ARB_copy_image on r600
+	* GL_ARB_indirect_parameters on nvc0
+	* GL_ARB_query_buffer_object on nvc0
+	* GL_ARB_shader_atomic_counters on nvc0
+	* GL_ARB_shader_draw_parameters on i965, nvc0
+	* GL_ARB_shader_storage_buffer_object on nvc0
+	* GL_ARB_tessellation_shader on i965 and r600 (evergreen/cayman only)
+	* GL_ARB_texture_buffer_object_rgb32 on freedreno/a4xx
+	* GL_ARB_texture_buffer_range on freedreno/a4xx
+	* GL_ARB_texture_query_lod on freedreno/a4xx
+	* GL_ARB_texture_rgb10_a2ui on freedreno/a4xx
+	* GL_ARB_texture_view on freedreno/a4xx
+	* GL_ARB_vertex_type_10f_11f_11f_rev on freedreno/a4xx
+	* GL_KHR_texture_compression_astc_ldr on freedreno/a4xx
+	* GL_AMD_performance_monitor on radeonsi (CIK+ only)
+	* GL_ATI_meminfo on r600, radeonsi
+	* GL_NVX_gpu_memory_info on r600, radeonsi
+	* New OSMesaCreateContextAttribs() function (for creating core profile contexts)
++ Many bugfixes, for more info see relnotes/11.2.0.html
+
+-------------------------------------------------------------------
 Wed Mar 16 18:12:00 UTC 2016 - eich@suse.com
 
 - n_Define-GLAPIVAR-separate-from-GLAPI.patch:
