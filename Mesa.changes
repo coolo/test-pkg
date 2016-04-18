@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Sun Apr 17 19:13:12 UTC 2016 - mimi.vx@gmail.com
+
+- update to 11.2.1
+* It fixes crashes in VAAPI, some build problems in Nine has been addressed,
+    adds a drirc workaround for Warsow and resolves issues in the nouveau,
+    radeonsi and i965 drivers.
+* fdo#93962 ES2-CTS.gtf.GL2FixedTests.scissor.scissor - segfault/asserts
+
+-------------------------------------------------------------------
 Mon Apr  4 19:57:06 UTC 2016 - mimi.vx@gmail.com
 
 - update to 11.2.0
