@@ -18,7 +18,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 11.2.0
+%define _version 11.2.1
 %define with_opencl 0
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
 %define gallium_loader 1
@@ -42,7 +42,7 @@
 %endif
 %endif
 Name:           Mesa
-Version:        11.2.0
+Version:        11.2.1
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
