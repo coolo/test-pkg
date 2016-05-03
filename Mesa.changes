@@ -1,4 +1,23 @@
 -------------------------------------------------------------------
+Thu Apr 21 09:36:08 UTC 2016 - sndirsch@suse.com
+
+- u_dri3-Check-for-dummyContext-to-see-if-the-glx_contex.patch 
+  * dri3: Check for dummyContext to see if the glx_context is valid
+    According to the comments in src/glx/glxcurrent.c 
+    __glXGetCurrentContext() always returns a valid pointer. If no
+    context is made current, it will contain dummyContext. Thus a
+    test for NULL will always fail.
+
+-------------------------------------------------------------------
+Sun Apr 17 19:13:12 UTC 2016 - mimi.vx@gmail.com
+
+- update to 11.2.1
+* It fixes crashes in VAAPI, some build problems in Nine has been addressed,
+    adds a drirc workaround for Warsow and resolves issues in the nouveau,
+    radeonsi and i965 drivers.
+* fdo#93962 ES2-CTS.gtf.GL2FixedTests.scissor.scissor - segfault/asserts
+
+-------------------------------------------------------------------
 Mon Apr  4 19:57:06 UTC 2016 - mimi.vx@gmail.com
 
 - update to 11.2.0
