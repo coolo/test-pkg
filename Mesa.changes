@@ -1,4 +1,26 @@
 -------------------------------------------------------------------
+Fri Mar 11 12:34:16 UTC 2016 - eich@suse.com
+
+- n_Define-GLAPIVAR-separate-from-GLAPI.patch:
+  Add separate definition GLAPIVAR as GLAPI
+  doesn't have the an 'extern' for some compiler
+  versions. This is needed for GLw (bsc#970725).
+
+-------------------------------------------------------------------
+Wed Jan 20 17:18:27 UTC 2016 - eich@suse.com
+
+- u_dri2-Check-for-dummyContext-to-see-if-the-glx_context-is-valid.patch
+  Check for dummyContext to see if the glx_context is valid (boo#962609).
+
+-------------------------------------------------------------------
+Wed Dec  2 07:47:55 UTC 2015 - eich@suse.com
+
+- U_i965-Remove-early-release-of-DRI2-miptree.patch
+  Backported fix: don't release until we cannot fail 
+  any more.
+  Fix crash due to early mibtree release. (boo#945444).
+
+-------------------------------------------------------------------
 Tue Sep 30 08:38:17 UTC 2014 - eich@suse.com
 
 - U_swrast-allocate-swrast_texture_image-ImageSlices-array-if-needed.patch

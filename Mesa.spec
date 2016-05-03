@@ -1,7 +1,7 @@
 #
 # spec file for package Mesa
 #
-# Copyright (c) 2014 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -127,6 +127,9 @@ Patch23:        U_mesa-glx-Reduce-error-log-level.patch
 Patch24:        Mesa-PowerLE.patch
 Patch25:        u_Suppress-any-libGL-.-warnings-when-LIBGL_DEBUG-is-se.patch
 Patch26:        U_swrast-allocate-swrast_texture_image-ImageSlices-array-if-needed.patch
+Patch27:        U_i965-Remove-early-release-of-DRI2-miptree.patch
+Patch28:        u_dri2-Check-for-dummyContext-to-see-if-the-glx_context-is-valid.patch
+Patch29:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -498,6 +501,9 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch24 -p1
 %patch25 -p1
 %patch26 -p1
+%patch27 -p1
+%patch28 -p1
+%patch29 -p1
 
 %build
 rm -f src/mesa/depend
