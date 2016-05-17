@@ -1,4 +1,69 @@
 -------------------------------------------------------------------
+Mon May  9 15:24:00 UTC 2016 - mimi.vx@gmail.com
+
+- update to 11.2.2
+- removed upstreamed patches:
+    + u_dri2-Check-for-dummyContext-to-see-if-the-glx_context-is-valid.patch
+    + u_dri3-Check-for-dummyContext-to-see-if-the-glx_contex.patch
+* fdo#92850 - Segfault loading War Thunder
+* fdo#93767 - Glitches with soft shadows and MSAA in Knights of the Old Republic 2
+* fdo#94955 - Uninitialized variables leads to random segfaults (valgrind log, 
+	apitrace attached)
+* fdo#94994 -  OSMesaGetProcAdress always fails on mangled OSMesa
+* fdo#95026 - Alien Isolation segfault after initial loading screen/video
+* fdo#95133 - X-COM Enemy Within crashes when entering tactical mission with Bonaire
+* fdo#95164 - GLSL compiler (linker I think) emits assertion upon call to
+	 glAttachShader
+* fdo#95251 - vdpau decoder capabilities: not supported
+* radeon/uvd: alignment fix for decode message buffer
+* st/mesa: fix sampler view leak in st_DrawAtlasBitmaps()
+* gallium/util: initialize pipe_framebuffer_state to zeros
+* dri: Fix robust context creation via EGL attribute
+* dri2: Check for dummyContext to see if the glx_context is valid
+* cherry-ignore: remove duplicate commit
+* cherry-ignore: ignore the GetSamplerParameterIuiv{EXT,OES} fixups
+* vc4: Fix subimage accesses to LT textures.
+* vc4: Add support for rendering to cube map surfaces.
+* vc4: Fix tests for format supported with nr_samples == 1.
+* vc4: Make sure we recompile when sample_mask changes.
+* glapi: fix _glapi_get_proc_address() for mangled function names
+* nvc0: fix retrieving query results into buffer for timestamps
+* nouveau/video: properly detect the decoder class for availability checks
+* i965/fs: Properly report regs_written from SAMPLEINFO
+* egl/x11: authenticate before doing chipset id ioctls
+* winsys/sw/xlib: use correct free function for xlib_dt-&gt;data
+* i965: Fix clear code for ignoring colormask for XRGB formats on Gen9+.
+* glsl: Convert lower_vec_index_to_swizzle to a rvalue visitor.
+* glsl: Lower vector_extracts to swizzles after lower_vector_derefs.
+* radeon/uvd: fix tonga feedback buffer size
+* st/mesa: fix blit-based GetTexImage for non-finalized textures
+* gallium/radeon: handle failure when mapping staging buffer
+* st/glsl_to_tgsi: reduce stack explosion in recursive expression visitor
+* gallium/radeon: fix crash in r600_set_streamout_targets
+* radeonsi: correct NULL-pointer check in si_upload_const_buffer
+* radeonsi: work around an MSAA fast stencil clear problem
+* r600g/radeonsi: send endian info to format translation functions
+* r600g: set endianess of 16/32-bit buffers according to do_endian_swap
+* r600g: use do_endian_swap in color swapping functions
+* r600g: use do_endian_swap in texture swapping function
+* r600g: fix and optimize tgsi_cmp when using ABS and NEG modifier
+* llvmpipe: (trivial) initialize src1_alpha var to NULL
+* gallivm: fix bogus argument order to lp_build_sample_mipmap function
+* gallivm: make sampling more robust against bogus coordinates
+* gk110/ir: do not overwrite def value with zero for EXCH ops
+* gk110/ir: make use of IMUL32I for all immediates
+* nvc0/ir: fix wrong emission of (a OP b) OP c
+* gk110/ir: add emission for (a OP b) OP c
+* nvc0: reduce GL_MAX_3D_TEXTURE_SIZE to 2048 on Kepler+
+* st/glsl_to_tgsi: fix potential crash when allocating temporaries
+* dri3: Check for dummyContext to see if the glx_context is valid
+* i965/blorp/gen7: Prepare re-using for gen8
+* i965/blorp: Use 8k chunk size for urb allocation
+* tgsi: initialize stack allocated struct
+* winsys/sw/dri: use correct free function for dri_sw_dt-&gt;data
+* android: enable dlopen() on all architectures
+
+-------------------------------------------------------------------
 Thu Apr 21 09:36:08 UTC 2016 - sndirsch@suse.com
 
 - u_dri3-Check-for-dummyContext-to-see-if-the-glx_contex.patch 
