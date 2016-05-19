@@ -71,6 +71,7 @@ Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # Already upstream
 Patch20:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
 Patch21:        n_Replace-_LOADER_FATAL-by-_LOADER_WARNING-in-CriticalErrorMessageF.patch
+Patch22:        u_glxcmds-glXGetFBConfigs-fix-screen-bounds.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -569,6 +570,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch18 -p1
 %patch20 -p1
 %patch21 -p1
+%patch22 -p1
 
 %build
 %if 0%{?suse_version} >= 1320
