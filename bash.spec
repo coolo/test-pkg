@@ -1,7 +1,7 @@
 #
 # spec file for package bash
 #
-# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -101,6 +101,8 @@ Patch47:        bash-4.3-perl522.patch
 Patch48:        bash-4.3-extra-import-func.patch
 # PATCH-EXTEND-SUSE Allow root to clean file system if filled up
 Patch49:        bash-4.3-pathtemp.patch
+# PATCH-FIX-UPSTREAM bnc#971410 --  bash script teminates unexpectedly throwing backtrace
+Patch50:        bash-4.3-async-bnc971410.dif
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
@@ -322,6 +324,7 @@ done
 %patch48
 %endif
 %patch49
+%patch50
 %patch0  -p0 -b .0
 pushd ../readline-%{rl_vers}%{extend}
 for patch in ../readline-%{rl_vers}-patches/*; do
@@ -600,6 +603,7 @@ popd
   ln -sf bash %{buildroot}/bin/sh
   ln -sf ../../bin/bash %{buildroot}%{_bindir}/sh
 %endif
+install -m 755 bash %{buildroot}/bin/bash
   ln -sf ../../bin/bash %{buildroot}%{_bindir}/rbash
   install -m 644 COMPAT NEWS    %{buildroot}%{_defaultdocdir}/bash/
   install -m 644 COPYING        %{buildroot}%{_defaultdocdir}/bash/
@@ -673,7 +677,7 @@ ldd -u -r %{buildroot}/%{_lib}/libreadline.so.* || true
 %config %attr(600,root,root) %{_sysconfdir}/skel/.bash_history
 %config %attr(644,root,root) %{_sysconfdir}/skel/.bashrc
 %config %attr(644,root,root) %{_sysconfdir}/skel/.profile
-/bin/bash
+%attr(755,root,root) /bin/bash
 /bin/sh
 %dir %{_sysconfdir}/bash_completion.d
 %{_bindir}/bashbug
