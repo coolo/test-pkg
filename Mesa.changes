@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed May 18 17:01:35 UTC 2016 - eich@suse.com
+
+- u_glxcmds-glXGetFBConfigs-fix-screen-bounds.patch:
+  Fix crash due to oud of founds screen (boo#980382). 
+
+-------------------------------------------------------------------
 Mon May  9 15:24:00 UTC 2016 - mimi.vx@gmail.com
 
 - update to 11.2.2

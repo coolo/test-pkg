@@ -69,6 +69,7 @@ Patch17:        u_st-va-hardlink-driver-instances-to-gallium_drv_video.patch
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # Already upstream
 Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
+Patch22:        u_glxcmds-glXGetFBConfigs-fix-screen-bounds.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -562,6 +563,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch17 -p1
 %patch18 -p1
 %patch21 -p1
+%patch22 -p1
 
 %build
 %if 0%{?suse_version} >= 1310
