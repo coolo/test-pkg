@@ -25,7 +25,7 @@
 %else
 %define gallium_loader 0
 %endif
-%ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le
+%ifarch %ix86 x86_64 aarch64 %arm ppc ppc64 ppc64le
 %define xvmc_support 1
 %define vdpau_nouveau 1
 %define vdpau_radeon 1
@@ -609,11 +609,11 @@ autoreconf -fvi
            --enable-va \
            --enable-xvmc \
 %endif
-%ifarch %arm ppc64 ppc64le
+%ifarch aarch64 %arm ppc64 ppc64le
            --enable-xa \
            --enable-gallium-llvm \
            --with-dri-drivers=nouveau \
-%ifarch %arm
+%ifarch %arm aarch64
            --with-gallium-drivers=r300,r600,nouveau,swrast,svga,freedreno,vc4 \
 %else
            --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
@@ -629,7 +629,7 @@ autoreconf -fvi
            --with-dri-drivers=swrast \
            --with-gallium-drivers=swrast \
 %endif
-%ifarch aarch64 s390x
+%ifarch s390x
         --enable-xa \
         --enable-gallium-llvm \
         --with-dri-drivers=swrast \
@@ -947,7 +947,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %{_libdir}/libMesaOpenCL.so*
 %endif
 
-%ifnarch s390 s390x aarch64
+%ifnarch s390 s390x
 %files libva
 %defattr(-,root,root)
 %dir %{_libdir}/dri
