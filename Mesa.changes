@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Wed Jun  1 14:48:38 UTC 2016 - eich@suse.com
+
+- U_gallivm-disable-avx512-features.patch:
+  Fix crashes on some Skykake CPUs by disabling avx512 features
+  (bsc#980557, bsc#981532).
+
+-------------------------------------------------------------------
+Wed May 25 11:39:12 UTC 2016 - dmueller@suse.com
+
+- enable vc4 and freedreno on aarch64 as well
+
+-------------------------------------------------------------------
 Wed May 18 17:01:35 UTC 2016 - eich@suse.com
 
 - u_glxcmds-glXGetFBConfigs-fix-screen-bounds.patch:

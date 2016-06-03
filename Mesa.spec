@@ -25,7 +25,7 @@
 %else
 %define gallium_loader 0
 %endif
-%ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le
+%ifarch %ix86 x86_64 aarch64 %arm ppc ppc64 ppc64le
 %define xvmc_support 1
 %define vdpau_nouveau 1
 %define vdpau_radeon 1
@@ -70,6 +70,7 @@ Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # Already upstream
 Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
 Patch22:        u_glxcmds-glXGetFBConfigs-fix-screen-bounds.patch
+Patch23:        U_gallivm-disable-avx512-features.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -564,6 +565,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch18 -p1
 %patch21 -p1
 %patch22 -p1
+%patch23 -p1
 
 %build
 %if 0%{?suse_version} >= 1310
@@ -609,11 +611,11 @@ autoreconf -fvi
            --enable-va \
            --enable-xvmc \
 %endif
-%ifarch %arm ppc64 ppc64le
+%ifarch aarch64 %arm ppc64 ppc64le
            --enable-xa \
            --enable-gallium-llvm \
            --with-dri-drivers=nouveau \
-%ifarch %arm
+%ifarch %arm aarch64
            --with-gallium-drivers=r300,r600,nouveau,swrast,svga,freedreno,vc4 \
 %else
            --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
@@ -629,7 +631,7 @@ autoreconf -fvi
            --with-dri-drivers=swrast \
            --with-gallium-drivers=swrast \
 %endif
-%ifarch aarch64 s390x
+%ifarch s390x
         --enable-xa \
         --enable-gallium-llvm \
         --with-dri-drivers=swrast \
@@ -947,7 +949,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %{_libdir}/libMesaOpenCL.so*
 %endif
 
-%ifnarch s390 s390x aarch64
+%ifnarch s390 s390x
 %files libva
 %defattr(-,root,root)
 %dir %{_libdir}/dri
