@@ -1,7 +1,7 @@
 #
 # spec file for package zsh
 #
-# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -18,7 +18,7 @@
 
 Name:           zsh
 Version:        5.2
-Release:        0
+Release:        0%{?dist}
 Summary:        Shell with comprehensive completion
 License:        MIT
 Group:          System/Shells
@@ -42,6 +42,7 @@ Patch1:         trim-unneeded-completions.patch
 # PATCH-FIX-OPENSUSE zsh-osc-completion.patch -- Fix openSUSE versions in osc completion
 Patch2:         zsh-osc-completion.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+BuildRequires:  groff
 %if 0%{?suse_version}
 Requires(pre):  %{install_info_prereq}
 %if 0%{?suse_version} >= 1110
@@ -49,7 +50,6 @@ BuildRequires:  fdupes
 BuildRequires:  yodl
 %endif
 %if 0%{?suse_version} >= 1210
-BuildRequires:  groff
 BuildRequires:  makeinfo
 BuildRequires:  texi2html
 %endif
@@ -63,8 +63,10 @@ BuildRequires:  libcap-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  pcre-devel
 %if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
+%if 0%{?rhel_version} >= 700 || 0%{?centos_version} >= 700
+%global __requires_exclude ^/bin/zsh$
+%endif
 BuildRequires:  libtermcap-devel
-BuildRequires:  tetex
 BuildRequires:  texi2html
 BuildRequires:  texinfo
 %endif
@@ -117,6 +119,11 @@ perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
 %build
 
 %configure \
+%if 0%{?suse_version}
+    --with-term-lib="ncursesw" \
+    --enable-cflags="%{optflags} -fPIE -fstack-protector %(ncursesw6-config --cflags)" \
+    --enable-ldflags="%(ncursesw6-config --libs) -pie -Wl,-z,relro" \
+%endif
     --enable-fndir=%{_datadir}/%{name}/${version}/functions \
     --enable-site-fndir=%{_datadir}/%{name}/site-functions \
     --enable-function-subdirs \
@@ -124,13 +131,12 @@ perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
     --with-tcsetpgrp \
     --enable-cap \
     --enable-multibyte \
-    --enable-pcre \
-    --with-term-lib="ncursesw" \
-    --enable-cflags="%{optflags} -fPIE -fstack-protector %(ncursesw6-config --cflags)" \
-    --enable-ldflags="%(ncursesw6-config --libs) -pie -Wl,-z,relro"
+    --enable-pcre
 
 # Copy _rpm completion from Redhat (bnc#900424)
+%if 0%{?suse_version}
 cp Completion/Redhat/Command/_rpm Completion/openSUSE/Command/_rpm
+%endif
 
 make all info html
 
@@ -178,10 +184,15 @@ install -m 0755 -Dd    %{buildroot}%{_datadir}/%{name}/%{version}/help
 install -m 0644 Doc/help/* %{buildroot}%{_datadir}/%{name}/%{version}/help/
 
 # link zsh binary
+%if 0%{?suse_version} || 0%{?rhel} <= 6
 ln -sf %{_bindir}/zsh %{buildroot}/bin/zsh
+%endif
 
 # Remove versioned zsh binary
 rm -f %{buildroot}%{_bindir}/zsh-*
+%if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
+rm -f %{buildroot}/%{_datadir}/info/dir
+%endif
 
 %if 0%{?suse_version} >= 1110
 %fdupes %{buildroot}
@@ -262,7 +273,9 @@ fi
 %endif
 
 %{_bindir}/zsh
+%if 0%{?suse_version} || 0%{?rhel} <= 6
 /bin/zsh
+%endif
 %{_libdir}/zsh/
 %{_datadir}/zsh/
 %{_infodir}/zsh.info*.gz
