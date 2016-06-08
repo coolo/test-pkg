@@ -624,7 +624,7 @@ autoreconf -fvi
            --enable-opencl-icd \
 %endif
            --enable-llvm-shared-libs \
-           --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga \
+           --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga,virgl \
            --enable-vdpau \
            --enable-va \
            --enable-xvmc \

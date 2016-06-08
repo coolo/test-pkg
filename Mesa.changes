@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Jun  8 07:33:35 UTC 2016 - jslaby@suse.com
+
+- x86: enable virgl gallium driver
+
+-------------------------------------------------------------------
 Tue Jun  7 23:25:31 UTC 2016 - tobias.johannes.klausmann@mni.thm.de
 
 - Update to version 12.0.0-rc2:
