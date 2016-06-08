@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed May 18 16:44:25 UTC 2016 - eich@suse.com
+
+- u_glxcmds-glXGetFBConfigs-fix-screen-bounds.patch:
+  Fix crash due to oud of founds screen (boo#980382). 
+
+-------------------------------------------------------------------
 Fri Mar 11 12:34:16 UTC 2016 - eich@suse.com
 
 - n_Define-GLAPIVAR-separate-from-GLAPI.patch:

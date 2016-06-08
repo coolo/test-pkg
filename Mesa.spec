@@ -116,7 +116,6 @@ Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
-# PATCH-FIX-UPSTREAM Mesa-bnc864943-9.2.0-swrast-copy-sub-buffer.patch bnc#864943 federico@suse.com - Fix software rendering for Clutter/Cogl
 Patch16:        Mesa-bnc864943-10.0.3-swrast-copy-sub-buffer.patch
 Patch17:        U_0001-glx-Fix-the-default-values-for-GLXFBConfig-attribute.patch
 Patch18:        U_0002-glx-Fix-the-GLXFBConfig-attrib-sort-priorities.patch
@@ -130,6 +129,7 @@ Patch26:        U_swrast-allocate-swrast_texture_image-ImageSlices-array-if-need
 Patch27:        U_i965-Remove-early-release-of-DRI2-miptree.patch
 Patch28:        u_dri2-Check-for-dummyContext-to-see-if-the-glx_context-is-valid.patch
 Patch29:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
+Patch30:        u_glxcmds-glXGetFBConfigs-fix-screen-bounds.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -504,6 +504,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch27 -p1
 %patch28 -p1
 %patch29 -p1
+%patch30 -p1
 
 %build
 rm -f src/mesa/depend
