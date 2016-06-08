@@ -465,7 +465,7 @@ This package contains the Vulkan parts for Mesa.
 %package  libVulkan-devel
 Summary:        Mesas Vulkan development files
 Group:          System/Libraries
-Requires:       %{name}-libvulkan = %{version}
+Requires:       %{name}-libVulkan = %{version}
 
 %description libVulkan-devel
 This package contains the development files for Mesas Vulkan implementation.

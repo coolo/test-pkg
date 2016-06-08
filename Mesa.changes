@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jun  8 20:10:11 UTC 2016 - tobias.johannes.klausmann@mni.thm.de
+
+- Fix Requirement for Mesa-libVulkan-devel, not Mesa-libvulkan, but
+  Mesa-libVulkan
+
+-------------------------------------------------------------------
 Wed Jun  8 07:33:35 UTC 2016 - jslaby@suse.com
 
 - x86: enable virgl gallium driver
