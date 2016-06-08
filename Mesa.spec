@@ -18,7 +18,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 11.2.2
+%define _version 12.0.0-rc2
 %define with_opencl 0
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
 %define gallium_loader 1
@@ -40,9 +40,11 @@
 # llvm >= 3.7 not provided for <= 13.1
 %define with_opencl 1
 %endif
+%define with_vulkan 1
 %endif
+
 Name:           Mesa
-Version:        11.2.2
+Version:        12.0.0~rc2
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -67,10 +69,10 @@ Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
 Patch17:        u_st-va-hardlink-driver-instances-to-gallium_drv_video.patch
 # never to be upstreamed
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
-# Already upstream
+# never to be upstreamed
 Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
-Patch22:        u_glxcmds-glXGetFBConfigs-fix-screen-bounds.patch
-Patch23:        U_gallivm-disable-avx512-features.patch
+# Build fix for intel vulkan (to be upstreamed)
+Patch30:        U_anv-add-the-X-related-and-Wayland-CFLAGS-to-VULKAN.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -452,6 +454,23 @@ Requires:       %{name}-libd3d = %{version}
 Mesa Direct3D9 state tracker development package
 %endif
 
+%if 0%{with_vulkan}
+%package libVulkan
+Summary:        Mesas Vulkan implementation
+Group:          System/Libraries
+
+%description libVulkan
+This package contains the Vulkan parts for Mesa. 
+
+%package  libVulkan-devel
+Summary:        Mesas Vulkan development files
+Group:          System/Libraries
+Requires:       %{name}-libvulkan = %{version}
+
+%description libVulkan-devel
+This package contains the development files for Mesas Vulkan implementation.
+%endif
+
 %package -n libxatracker2
 Version:        1.0.0
 Release:        0
@@ -564,8 +583,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch17 -p1
 %patch18 -p1
 %patch21 -p1
-%patch22 -p1
-%patch23 -p1
+%patch30 -p1
 
 %build
 %if 0%{?suse_version} >= 1310
@@ -574,9 +592,7 @@ egl_platforms=x11,drm,wayland
 egl_platforms=x11,drm
 %endif
 autoreconf -fvi
-###           --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga \
-###           --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
-###           --with-gallium-drivers=r300,nouveau,swrast,svga \
+
 %configure --enable-gles1 \
            --enable-gles2 \
            --enable-dri \
@@ -600,12 +616,14 @@ autoreconf -fvi
            --enable-xa \
            --enable-gallium-llvm \
            --with-dri-drivers=i915,i965,nouveau,r200,radeon \
+%if 0%{with_vulkan}
+           --with-vulkan-drivers=intel \
+%endif
 %if 0%{with_opencl}
            --enable-opencl \
            --enable-opencl-icd \
 %endif
            --enable-llvm-shared-libs \
-           --enable-r600-llvm-compiler \
            --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga \
            --enable-vdpau \
            --enable-va \
@@ -750,9 +768,15 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 
 %postun libva -p /sbin/ldconfig
 
+%if 0%{with_vulkan}
+%post libVulkan -p /sbin/ldconfig
+
+%postun libVulkan -p /sbin/ldconfig
+%endif
+
 %files
 %defattr(-,root,root)
-%doc docs/README* docs/COPYING
+%doc docs/README*
 %config %{_sysconfdir}/drirc
 %dir %{_libdir}/dri
 %if 0%{?suse_version} < 1315
@@ -954,6 +978,20 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %defattr(-,root,root)
 %dir %{_libdir}/dri
 %{_libdir}/dri/*_drv_video.so
+%endif
+
+%if 0%{with_vulkan}
+%files libVulkan
+%defattr(-,root,root)
+%dir %{_sysconfdir}/vulkan
+%dir %{_sysconfdir}/vulkan/icd.d
+%{_sysconfdir}/vulkan/icd.d/intel_icd.json
+%{_libdir}/libvulkan*.so
+
+%files libVulkan-devel
+%defattr(-,root,root)
+%dir %_includedir/vulkan
+%_includedir/vulkan
 %endif
 
 %changelog
