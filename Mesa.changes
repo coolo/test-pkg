@@ -53,6 +53,9 @@ Tue Jun  7 23:25:31 UTC 2016 - tobias.johannes.klausmann@mni.thm.de
 - Remove upstreamed patches:
   + u_glxcmds-glXGetFBConfigs-fix-screen-bounds.patch
   + U_gallivm-disable-avx512-features.patch
+- Upstream Patches:
+  + U_anv-add-the-X-related-and-Wayland-CFLAGS-to-VULKAN.patch
+    * Otherwise we might fail to find the headers in some scenarios.
 - drop docs/COPYING: No GPL licensed code in Mesa resident (upstream change)
 
 -------------------------------------------------------------------
