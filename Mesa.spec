@@ -20,6 +20,7 @@
 %define _name_archive mesa
 %define _version 12.0.0-rc2
 %define with_opencl 0
+%define with_vulkan 0
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
 %define gallium_loader 1
 %else
@@ -39,8 +40,8 @@
 %if 0%{gallium_loader} && 0%{?suse_version} > 1310
 # llvm >= 3.7 not provided for <= 13.1
 %define with_opencl 1
-%endif
 %define with_vulkan 1
+%endif
 %endif
 
 Name:           Mesa
@@ -90,7 +91,7 @@ BuildRequires:  pkgconfig(dri2proto)
 BuildRequires:  pkgconfig(dri3proto)
 BuildRequires:  pkgconfig(expat)
 BuildRequires:  pkgconfig(glproto)
-BuildRequires:  pkgconfig(libdrm) >= 2.4.60
+BuildRequires:  pkgconfig(libdrm) >= 2.4.66
 BuildRequires:  pkgconfig(libdrm_amdgpu) >= 2.4.63
 BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.66
 BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.56
@@ -99,7 +100,7 @@ BuildRequires:  pkgconfig(libudev) > 151
 BuildRequires:  pkgconfig(libva)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(presentproto)
-BuildRequires:  pkgconfig(vdpau) >= 0.4.1
+BuildRequires:  pkgconfig(vdpau) >= 1.1
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(x11-xcb)
 BuildRequires:  pkgconfig(xcb-dri2)
@@ -139,7 +140,6 @@ BuildRequires:  pkgconfig(wayland-server)
 BuildRequires:  llvm-devel
 BuildRequires:  ncurses-devel
 %endif
-#!BuildIgnore:  python
 
 %if 0%{with_opencl}
 BuildRequires:  libclc
@@ -447,28 +447,11 @@ Mesa Direct3D9 state tracker
 
 %package libd3d-devel
 Summary:        Mesa Direct3D9 state tracker development package
-Group:          System/Libraries
+Group:          Development/Libraries/C and C+
 Requires:       %{name}-libd3d = %{version}
 
 %description libd3d-devel
 Mesa Direct3D9 state tracker development package
-%endif
-
-%if 0%{with_vulkan}
-%package libVulkan
-Summary:        Mesas Vulkan implementation
-Group:          System/Libraries
-
-%description libVulkan
-This package contains the Vulkan parts for Mesa. 
-
-%package  libVulkan-devel
-Summary:        Mesas Vulkan development files
-Group:          System/Libraries
-Requires:       %{name}-libVulkan = %{version}
-
-%description libVulkan-devel
-This package contains the development files for Mesas Vulkan implementation.
 %endif
 
 %package -n libxatracker2
@@ -566,6 +549,25 @@ Supplements:    Mesa
 %description libva
 This package contains the Mesa VA-API implementation provided through gallium.
 
+
+%if 0%{with_vulkan}
+%package -n libvulkan_intel
+Summary:        Mesa vulkan driver for Intel GPU
+Group:          System/Libraries
+Supplements:    xf86-video-intel
+
+%description -n libvulkan_intel
+This package contains the Vulkan parts for Mesa.
+
+%package  libVulkan-devel
+Summary:        Mesas Vulkan development files
+Group:          System/Libraries
+Requires:       libvulkan_intel = %{version}
+
+%description libVulkan-devel
+This package contains the development files for Mesas Vulkan implementation.
+%endif
+
 %prep
 %setup -q -n %{_name_archive}-%{_version} -b4
 # remove some docs
@@ -656,7 +658,7 @@ autoreconf -fvi
         --with-gallium-drivers=swrast,svga \
 %endif
         CFLAGS="%{optflags} -DNDEBUG"
-make %{?_smp_mflags}
+make %{?_smp_mflags} V=1
 
 %install
 make DESTDIR=%{buildroot} install %{?_smp_mflags}
@@ -769,14 +771,14 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %postun libva -p /sbin/ldconfig
 
 %if 0%{with_vulkan}
-%post libVulkan -p /sbin/ldconfig
+%post -n libvulkan_intel -p /sbin/ldconfig
 
-%postun libVulkan -p /sbin/ldconfig
+%postun -n libvulkan_intel -p /sbin/ldconfig
 %endif
 
 %files
 %defattr(-,root,root)
-%doc docs/README*
+%doc docs/README* docs/license.html
 %config %{_sysconfdir}/drirc
 %dir %{_libdir}/dri
 %if 0%{?suse_version} < 1315
@@ -981,12 +983,12 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %endif
 
 %if 0%{with_vulkan}
-%files libVulkan
+%files -n libvulkan_intel
 %defattr(-,root,root)
 %dir %{_sysconfdir}/vulkan
 %dir %{_sysconfdir}/vulkan/icd.d
 %{_sysconfdir}/vulkan/icd.d/intel_icd.json
-%{_libdir}/libvulkan*.so
+%{_libdir}/libvulkan_intel.so
 
 %files libVulkan-devel
 %defattr(-,root,root)

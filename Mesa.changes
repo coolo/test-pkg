@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Jun  9 20:29:29 UTC 2016 - mimi.vx@gmail.com
+
+- fix vulkan naming scheme, add supplement for xf86-video-intel 
+
+-------------------------------------------------------------------
 Wed Jun  8 20:10:11 UTC 2016 - tobias.johannes.klausmann@mni.thm.de
 
 - Fix Requirement for Mesa-libVulkan-devel, not Mesa-libvulkan, but
