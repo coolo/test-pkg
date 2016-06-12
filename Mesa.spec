@@ -45,7 +45,7 @@
 %endif
 
 Name:           Mesa
-Version:        12.0.0~rc2
+Version:        12.0.0
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT

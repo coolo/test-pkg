@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Jun 12 09:22:10 UTC 2016 - sndirsch@suse.com
+
+- fixed 'osc service localrun download_files' run by removing
+  rc release from version define
+
+-------------------------------------------------------------------
 Thu Jun  9 20:29:29 UTC 2016 - mimi.vx@gmail.com
 
 - fix vulkan naming scheme, add supplement for xf86-video-intel 
