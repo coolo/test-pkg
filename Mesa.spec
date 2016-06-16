@@ -18,7 +18,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 12.0.0-rc2
+%define _version 12.0.0-rc3
 %define with_opencl 0
 %define with_vulkan 0
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
@@ -66,14 +66,10 @@ Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
-# to be upstreamed
-Patch17:        u_st-va-hardlink-driver-instances-to-gallium_drv_video.patch
 # never to be upstreamed
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # never to be upstreamed
 Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
-# Build fix for intel vulkan (to be upstreamed)
-Patch30:        U_anv-add-the-X-related-and-Wayland-CFLAGS-to-VULKAN.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -582,10 +578,8 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
 #%patch15 -p1
 #%patch13 -p1
-%patch17 -p1
 %patch18 -p1
 %patch21 -p1
-%patch30 -p1
 
 %build
 %if 0%{?suse_version} >= 1310
@@ -658,7 +652,7 @@ autoreconf -fvi
         --with-gallium-drivers=swrast,svga \
 %endif
         CFLAGS="%{optflags} -DNDEBUG"
-make %{?_smp_mflags} V=1
+make %{?_smp_mflags}
 
 %install
 make DESTDIR=%{buildroot} install %{?_smp_mflags}
