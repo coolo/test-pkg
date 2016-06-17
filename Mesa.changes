@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jun 17 14:12:52 UTC 2016 - sndirsch@suse.com
+
+- let Mesa-libVulkan-devel conflict with vulkan-devel due to file
+  conflics in both packages
+
+-------------------------------------------------------------------
 Wed Jun 15 14:39:32 UTC 2016 - sndirsch@suse.com
 
 - Update to version 12.0.0-rc2

@@ -559,6 +559,7 @@ This package contains the Vulkan parts for Mesa.
 Summary:        Mesas Vulkan development files
 Group:          Development/Libraries/C and C++
 Requires:       libvulkan_intel = %{version}
+Conflicts:      vulkan-devel
 
 %description libVulkan-devel
 This package contains the development files for Mesas Vulkan implementation.
