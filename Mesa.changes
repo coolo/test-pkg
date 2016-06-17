@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jun 17 14:57:47 UTC 2016 - sndirsch@suse.com
+
+- moved libxatracker package definition to the end to get rid of
+  issues related to the special version of this package
+
+-------------------------------------------------------------------
 Fri Jun 17 14:12:52 UTC 2016 - sndirsch@suse.com
 
 - let Mesa-libVulkan-devel conflict with vulkan-devel due to file

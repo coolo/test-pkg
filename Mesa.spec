@@ -450,34 +450,6 @@ Requires:       %{name}-libd3d = %{version}
 Mesa Direct3D9 state tracker development package
 %endif
 
-%package -n libxatracker2
-Version:        1.0.0
-Release:        0
-Summary:        XA state tracker
-Group:          System/Libraries
-
-%description -n libxatracker2
-This package contains the XA state tracker for gallium3D driver.
-It superseeds the Xorg state tracker and provides an infrastructure
-to accelerate Xorg 2D operations. It is currently used by vmwgfx
-video driver.
-
-%package -n libxatracker-devel
-Version:        1.0.0
-Release:        0
-Summary:        Development files for the XA API
-Group:          Development/Libraries/C and C++
-Requires:       libxatracker2 = %{version}
-
-%description -n libxatracker-devel
-This package contains the XA state tracker for gallium3D driver.
-It superseeds the Xorg state tracker and provides an infrastructure
-to accelerate Xorg 2D operations. It is currently used by vmwgfx
-video driver.
-
-This package provides the development environment for compiling
-programs against the XA state tracker.
-
 %package -n libXvMC_nouveau
 Summary:        XVMC state tracker for Nouveau
 Group:          System/Libraries
@@ -564,6 +536,34 @@ Conflicts:      vulkan-devel
 %description libVulkan-devel
 This package contains the development files for Mesas Vulkan implementation.
 %endif
+
+%package -n libxatracker2
+Version:        1.0.0
+Release:        0
+Summary:        XA state tracker
+Group:          System/Libraries
+
+%description -n libxatracker2
+This package contains the XA state tracker for gallium3D driver.
+It superseeds the Xorg state tracker and provides an infrastructure
+to accelerate Xorg 2D operations. It is currently used by vmwgfx
+video driver.
+
+%package -n libxatracker-devel
+Version:        1.0.0
+Release:        0
+Summary:        Development files for the XA API
+Group:          Development/Libraries/C and C++
+Requires:       libxatracker2 = %{version}
+
+%description -n libxatracker-devel
+This package contains the XA state tracker for gallium3D driver.
+It superseeds the Xorg state tracker and provides an infrastructure
+to accelerate Xorg 2D operations. It is currently used by vmwgfx
+video driver.
+
+This package provides the development environment for compiling
+programs against the XA state tracker.
 
 %prep
 %setup -q -n %{_name_archive}-%{_version} -b4
