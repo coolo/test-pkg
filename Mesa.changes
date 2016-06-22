@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jun 21 19:57:26 UTC 2016 - mimi.vx@gmail.com
+
+- update to 12.0.0-rc4 final RC
+
+-------------------------------------------------------------------
 Fri Jun 17 14:57:47 UTC 2016 - sndirsch@suse.com
 
 - moved libxatracker package definition to the end to get rid of
