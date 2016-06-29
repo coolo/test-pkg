@@ -1,4 +1,103 @@
 -------------------------------------------------------------------
+Tue Jun 21 19:57:26 UTC 2016 - mimi.vx@gmail.com
+
+- update to 12.0.0-rc4 final RC
+
+-------------------------------------------------------------------
+Fri Jun 17 14:57:47 UTC 2016 - sndirsch@suse.com
+
+- moved libxatracker package definition to the end to get rid of
+  issues related to the special version of this package
+
+-------------------------------------------------------------------
+Fri Jun 17 14:12:52 UTC 2016 - sndirsch@suse.com
+
+- let Mesa-libVulkan-devel conflict with vulkan-devel due to file
+  conflics in both packages
+
+-------------------------------------------------------------------
+Wed Jun 15 14:39:32 UTC 2016 - sndirsch@suse.com
+
+- Update to version 12.0.0-rc2
+  * Bug fixes and performance improvements
+- supersedes patches:
+  u_st-va-hardlink-driver-instances-to-gallium_drv_video.patch,
+  U_anv-add-the-X-related-and-Wayland-CFLAGS-to-VULKAN.patch
+- removed option for build in verbose log mode
+- improved Group tag for libVulkan-devel
+
+-------------------------------------------------------------------
+Sun Jun 12 09:22:10 UTC 2016 - sndirsch@suse.com
+
+- fixed 'osc service localrun download_files' run by removing
+  rc release from version define
+
+-------------------------------------------------------------------
+Thu Jun  9 20:29:29 UTC 2016 - mimi.vx@gmail.com
+
+- fix vulkan naming scheme, add supplement for xf86-video-intel 
+
+-------------------------------------------------------------------
+Wed Jun  8 20:10:11 UTC 2016 - tobias.johannes.klausmann@mni.thm.de
+
+- Fix Requirement for Mesa-libVulkan-devel, not Mesa-libvulkan, but
+  Mesa-libVulkan
+
+-------------------------------------------------------------------
+Wed Jun  8 07:33:35 UTC 2016 - jslaby@suse.com
+
+- x86: enable virgl gallium driver
+
+-------------------------------------------------------------------
+Tue Jun  7 23:25:31 UTC 2016 - tobias.johannes.klausmann@mni.thm.de
+
+- Update to version 12.0.0-rc2:
+- New features:
+  + OpenGL 4.3 on nvc0, radeonsi, i965 (Gen8+)
+  + OpenGL ES 3.1 on nvc0, radeonsi
+  + GL_ARB_ES3_1_compatibility on nvc0, radeonsi
+  + GL_ARB_compute_shader on nvc0, radeonsi, softpipe
+  + GL_ARB_cull_distance on i965/gen6+, nv50, nvc0, llvmpipe, softpipe
+  + GL_ARB_framebuffer_no_attachments on nvc0, r600, radeonsi, softpipe
+  + GL_ARB_internalformat_query2 on all drivers
+  + GL_ARB_query_buffer_object on i965/hsw+
+  + GL_ARB_robust_buffer_access_behavior on i965, nvc0, radeonsi
+  + GL_ARB_shader_atomic_counters on radeonsi, softpipe
+  + GL_ARB_shader_atomic_counter_ops on nvc0, radeonsi, softpipe
+  + GL_ARB_shader_image_load_store on nvc0, radeonsi, softpipe
+  + GL_ARB_shader_image_size on nvc0, radeonsi, softpipe
+  + GL_ARB_shader_storage_buffer_objects on radeonsi, softpipe
+  + GL_ATI_fragment_shader on all Gallium drivers
+  + GL_EXT_base_instance on all drivers that support GL_ARB_base_instance
+  + GL_EXT_clip_cull_distance on all drivers that support GL_ARB_cull_distance
+  + GL_KHR_robustness on i965
+  + GL_OES_copy_image on i965 (Baytrail and Gen8+)
+  + GL_OES_draw_buffers_indexed and GL_EXT_draw_buffers_indexed on all drivers
+    that support GL_ARB_draw_buffers_blend
+  +GL_OES_gpu_shader5 and GL_EXT_gpu_shader5 on all drivers that support
+   GL_ARB_gpu_shader5
+  +GL_OES_sample_shading on i965, nvc0, r600, radeonsi
+  +GL_OES_sample_variables on i965, nvc0, r600, radeonsi
+  +GL_OES_shader_image_atomic on all drivers that support
+   GL_ARB_shader_image_load_store
+  +GL_OES_shader_io_blocks on i965, nvc0, radeonsi
+  +GL_OES_shader_multisample_interpolation on i965, nvc0, r600, radeonsi
+  + GL_OES_texture_border_clamp and GL_EXT_texture_border_clamp on all drivers 
+    that support +GL_ARB_texture_border_clamp
+  + GL_OES_texture_buffer and GL_EXT_texture_buffer on i965, nvc0, radeonsi
+  + EGL_KHR_reusable_sync on all drivers
+  + GL_ARB_stencil_texture8 and GL_OES_stencil_texture8 on i965/gen8+
+- Enable build of the Intel Vulkan driver (anv):
+  + Introduce new packages: libVulkan and libVulkan-devel
+- Remove upstreamed patches:
+  + u_glxcmds-glXGetFBConfigs-fix-screen-bounds.patch
+  + U_gallivm-disable-avx512-features.patch
+- Upstream Patches:
+  + U_anv-add-the-X-related-and-Wayland-CFLAGS-to-VULKAN.patch
+    * Otherwise we might fail to find the headers in some scenarios.
+- drop docs/COPYING: No GPL licensed code in Mesa resident (upstream change)
+
+-------------------------------------------------------------------
 Wed Jun  1 14:48:38 UTC 2016 - eich@suse.com
 
 - U_gallivm-disable-avx512-features.patch:

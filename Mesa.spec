@@ -18,8 +18,9 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 11.2.2
+%define _version 12.0.0-rc4
 %define with_opencl 0
+%define with_vulkan 0
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
 %define gallium_loader 1
 %else
@@ -39,10 +40,12 @@
 %if 0%{gallium_loader} && 0%{?suse_version} > 1310
 # llvm >= 3.7 not provided for <= 13.1
 %define with_opencl 1
+%define with_vulkan 1
 %endif
 %endif
+
 Name:           Mesa
-Version:        11.2.2
+Version:        12.0.0
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -63,14 +66,10 @@ Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
-# to be upstreamed
-Patch17:        u_st-va-hardlink-driver-instances-to-gallium_drv_video.patch
 # never to be upstreamed
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
-# Already upstream
+# never to be upstreamed
 Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
-Patch22:        u_glxcmds-glXGetFBConfigs-fix-screen-bounds.patch
-Patch23:        U_gallivm-disable-avx512-features.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -88,7 +87,7 @@ BuildRequires:  pkgconfig(dri2proto)
 BuildRequires:  pkgconfig(dri3proto)
 BuildRequires:  pkgconfig(expat)
 BuildRequires:  pkgconfig(glproto)
-BuildRequires:  pkgconfig(libdrm) >= 2.4.60
+BuildRequires:  pkgconfig(libdrm) >= 2.4.66
 BuildRequires:  pkgconfig(libdrm_amdgpu) >= 2.4.63
 BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.66
 BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.56
@@ -97,7 +96,7 @@ BuildRequires:  pkgconfig(libudev) > 151
 BuildRequires:  pkgconfig(libva)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(presentproto)
-BuildRequires:  pkgconfig(vdpau) >= 0.4.1
+BuildRequires:  pkgconfig(vdpau) >= 1.1
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(x11-xcb)
 BuildRequires:  pkgconfig(xcb-dri2)
@@ -137,7 +136,6 @@ BuildRequires:  pkgconfig(wayland-server)
 BuildRequires:  llvm-devel
 BuildRequires:  ncurses-devel
 %endif
-#!BuildIgnore:  python
 
 %if 0%{with_opencl}
 BuildRequires:  libclc
@@ -445,40 +443,12 @@ Mesa Direct3D9 state tracker
 
 %package libd3d-devel
 Summary:        Mesa Direct3D9 state tracker development package
-Group:          System/Libraries
+Group:          Development/Libraries/C and C+
 Requires:       %{name}-libd3d = %{version}
 
 %description libd3d-devel
 Mesa Direct3D9 state tracker development package
 %endif
-
-%package -n libxatracker2
-Version:        1.0.0
-Release:        0
-Summary:        XA state tracker
-Group:          System/Libraries
-
-%description -n libxatracker2
-This package contains the XA state tracker for gallium3D driver.
-It superseeds the Xorg state tracker and provides an infrastructure
-to accelerate Xorg 2D operations. It is currently used by vmwgfx
-video driver.
-
-%package -n libxatracker-devel
-Version:        1.0.0
-Release:        0
-Summary:        Development files for the XA API
-Group:          Development/Libraries/C and C++
-Requires:       libxatracker2 = %{version}
-
-%description -n libxatracker-devel
-This package contains the XA state tracker for gallium3D driver.
-It superseeds the Xorg state tracker and provides an infrastructure
-to accelerate Xorg 2D operations. It is currently used by vmwgfx
-video driver.
-
-This package provides the development environment for compiling
-programs against the XA state tracker.
 
 %package -n libXvMC_nouveau
 Summary:        XVMC state tracker for Nouveau
@@ -547,6 +517,54 @@ Supplements:    Mesa
 %description libva
 This package contains the Mesa VA-API implementation provided through gallium.
 
+
+%if 0%{with_vulkan}
+%package -n libvulkan_intel
+Summary:        Mesa vulkan driver for Intel GPU
+Group:          System/Libraries
+Supplements:    xf86-video-intel
+
+%description -n libvulkan_intel
+This package contains the Vulkan parts for Mesa.
+
+%package  libVulkan-devel
+Summary:        Mesas Vulkan development files
+Group:          Development/Libraries/C and C++
+Requires:       libvulkan_intel = %{version}
+Conflicts:      vulkan-devel
+
+%description libVulkan-devel
+This package contains the development files for Mesas Vulkan implementation.
+%endif
+
+%package -n libxatracker2
+Version:        1.0.0
+Release:        0
+Summary:        XA state tracker
+Group:          System/Libraries
+
+%description -n libxatracker2
+This package contains the XA state tracker for gallium3D driver.
+It superseeds the Xorg state tracker and provides an infrastructure
+to accelerate Xorg 2D operations. It is currently used by vmwgfx
+video driver.
+
+%package -n libxatracker-devel
+Version:        1.0.0
+Release:        0
+Summary:        Development files for the XA API
+Group:          Development/Libraries/C and C++
+Requires:       libxatracker2 = %{version}
+
+%description -n libxatracker-devel
+This package contains the XA state tracker for gallium3D driver.
+It superseeds the Xorg state tracker and provides an infrastructure
+to accelerate Xorg 2D operations. It is currently used by vmwgfx
+video driver.
+
+This package provides the development environment for compiling
+programs against the XA state tracker.
+
 %prep
 %setup -q -n %{_name_archive}-%{_version} -b4
 # remove some docs
@@ -561,11 +579,8 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
 #%patch15 -p1
 #%patch13 -p1
-%patch17 -p1
 %patch18 -p1
 %patch21 -p1
-%patch22 -p1
-%patch23 -p1
 
 %build
 %if 0%{?suse_version} >= 1310
@@ -574,9 +589,7 @@ egl_platforms=x11,drm,wayland
 egl_platforms=x11,drm
 %endif
 autoreconf -fvi
-###           --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga \
-###           --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
-###           --with-gallium-drivers=r300,nouveau,swrast,svga \
+
 %configure --enable-gles1 \
            --enable-gles2 \
            --enable-dri \
@@ -600,13 +613,15 @@ autoreconf -fvi
            --enable-xa \
            --enable-gallium-llvm \
            --with-dri-drivers=i915,i965,nouveau,r200,radeon \
+%if 0%{with_vulkan}
+           --with-vulkan-drivers=intel \
+%endif
 %if 0%{with_opencl}
            --enable-opencl \
            --enable-opencl-icd \
 %endif
            --enable-llvm-shared-libs \
-           --enable-r600-llvm-compiler \
-           --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga \
+           --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga,virgl \
            --enable-vdpau \
            --enable-va \
            --enable-xvmc \
@@ -750,9 +765,15 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 
 %postun libva -p /sbin/ldconfig
 
+%if 0%{with_vulkan}
+%post -n libvulkan_intel -p /sbin/ldconfig
+
+%postun -n libvulkan_intel -p /sbin/ldconfig
+%endif
+
 %files
 %defattr(-,root,root)
-%doc docs/README* docs/COPYING
+%doc docs/README* docs/license.html
 %config %{_sysconfdir}/drirc
 %dir %{_libdir}/dri
 %if 0%{?suse_version} < 1315
@@ -954,6 +975,20 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %defattr(-,root,root)
 %dir %{_libdir}/dri
 %{_libdir}/dri/*_drv_video.so
+%endif
+
+%if 0%{with_vulkan}
+%files -n libvulkan_intel
+%defattr(-,root,root)
+%dir %{_sysconfdir}/vulkan
+%dir %{_sysconfdir}/vulkan/icd.d
+%{_sysconfdir}/vulkan/icd.d/intel_icd.json
+%{_libdir}/libvulkan_intel.so
+
+%files libVulkan-devel
+%defattr(-,root,root)
+%dir %_includedir/vulkan
+%_includedir/vulkan
 %endif
 
 %changelog
