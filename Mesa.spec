@@ -18,7 +18,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 12.0.0-rc4
+%define _version 12.0.1
 %define with_opencl 0
 %define with_vulkan 0
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
@@ -45,7 +45,7 @@
 %endif
 
 Name:           Mesa
-Version:        12.0.0
+Version:        12.0.1
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -443,7 +443,7 @@ Mesa Direct3D9 state tracker
 
 %package libd3d-devel
 Summary:        Mesa Direct3D9 state tracker development package
-Group:          Development/Libraries/C and C+
+Group:          Development/Libraries/C and C++
 Requires:       %{name}-libd3d = %{version}
 
 %description libd3d-devel
@@ -980,9 +980,9 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %if 0%{with_vulkan}
 %files -n libvulkan_intel
 %defattr(-,root,root)
-%dir %{_sysconfdir}/vulkan
-%dir %{_sysconfdir}/vulkan/icd.d
-%{_sysconfdir}/vulkan/icd.d/intel_icd.json
+%dir %{_datadir}/vulkan
+%dir %{_datadir}/vulkan/icd.d
+%{_datadir}/vulkan/icd.d/intel_icd.json
 %{_libdir}/libvulkan_intel.so
 
 %files libVulkan-devel
