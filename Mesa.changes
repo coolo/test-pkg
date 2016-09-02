@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Sep  1 08:43:15 UTC 2016 - idonmez@suse.com
+
+- Add u_add_llvm_codegen_dependencies.patch to link to
+  libLLVMCodegen to fix cyclic linking problems. bsc#981975
+
+-------------------------------------------------------------------
 Wed Jun  1 13:27:12 UTC 2016 - eich@suse.com
 
 - U_gallivm-disable-avx512-features.patch:
