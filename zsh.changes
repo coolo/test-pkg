@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Aug 30 14:13:40 UTC 2016 - mmanno@suse.com
+
+- Remove custom zshrc and zshenv as they might interfere with the users config
+- Remove unused zshprompt.pl
+- Move install outside loop in spec file, was executed too often
+
+-------------------------------------------------------------------
 Wed May 25 12:30:17 UTC 2016 - llua@gmx.com
 
 - Add CentOS [67] support
