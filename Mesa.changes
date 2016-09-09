@@ -1,4 +1,46 @@
 -------------------------------------------------------------------
+Mon Sep  5 17:05:57 UTC 2016 - mimi.vx@gmail.com
+
+- update to 12.0.2
+* fdo#69622 - eglTerminate then eglMakeCurrent crahes
+* fdo#89599 - symbol 'x86_64_entry_start' is already defined when building
+    with LLVM/clang
+* fdo#91342 - Very dark textures on some objects in indoors environments in
+    Postal 2
+* fdo#92306 - GL Excess demo renders incorrectly on nv43
+* fdo#94148 - Framebuffer considered invalid when a draw call is done
+    before glCheckFramebufferStatus
+* fdo#96274 - [NVC0] Failure when compiling compute shader: Assertion
+    `bb-<getFirst()-<serial >= bb-<getExit()-<serial' failed
+* fdo#96358 - SSO: wrong interface validation between GS and VS (regresion
+    due to latest gles 3.1)
+* fdo#96381 - Texture artifacts with immutable texture storage and mipmaps
+* fdo#96762 - [radeonsi,apitrace] Firewatch: nothing rendered
+    in scrollable (text) areas
+* fdo#96835 - "gallium: Force blend color to 16-byte alignment" crash with
+    "-march=native -O3" causes some 32bit games to crash
+* fdo#96850 - Crucible tests fail for 32bit mesa
+* fdo#96908 - [radeonsi] MSAA causes graphical artifacts
+* fdo#96911 - webgl2 conformance2/textures/misc/tex-mipmap-levels.html
+    crashes 12.1 Intel driver
+* fdo#96971 - invariant qualifier is not valid for shader inputs
+* fdo#97039 - The Talos Principle and Serious Sam 3 GPU faults
+* fdo#97207 - [IVY BRIDGE] Fragment shader discard writing to depth
+* fdo#97214 - X not running with error &quot;Failed to make EGL context current
+* fdo#97225 - [i965 on HD4600 Haswell] xcom switch to ingame cinematics cause
+    segmentation fault
+* fdo#97231 - GL_DEPTH_CLAMP doesn't clamp to the far plane
+* fdo#97307 - glsl/glcpp/tests/glcpp-test regression
+* fdo#97331 - glDrawElementsBaseVertex doesn't work in display list on i915
+* fdo#97351 - DrawElementsBaseVertex with VBO ignores base vertex on
+    Intel GMA 9xx in some cases
+* fdo#97426 - glScissor gives vertically inverted result
+* fdo#97476 - Shader binaries should not be stored in the PipelineCache
+* fdo#97567 - [SNB, ILK] ctl, piglit regressions in mesa 12.0.2rc1
++ many other fixes from 12.0.1
+
+
+-------------------------------------------------------------------
 Sat Jul  9 07:11:14 UTC 2016 - mimi.vx@gmail.com
 
 - update to 12.0.1
