@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Fri Sep  9 13:31:16 UTC 2016 - mstaudt@suse.com
+
+- U_r300g-Set-R300_VAP_CNTL-on-RSxxx-to-avoid-triangle-flickering.patch:
+  Initialize RSxxx chipsets correctly (bsc#985650)
+
+-------------------------------------------------------------------
+Fri Sep  9 13:27:39 UTC 2016 - mstaudt@suse.com
+
+- baselibs.conf:
+  Remove libwayland-egl1 and Mesa-libOpenCL as they are not being
+  built.
+
+-------------------------------------------------------------------
 Thu Sep  1 08:43:15 UTC 2016 - idonmez@suse.com
 
 - Add u_add_llvm_codegen_dependencies.patch to link to
