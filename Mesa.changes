@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Mon Sep 19 10:00:05 UTC 2016 - zaitor@opensuse.org
+
+- Add u_Mesa_i965-import-prime-buffers.patch: i965: import prime
+  buffers in the current context, not screen (fdo#71759,
+  boo#991638).
+
+-------------------------------------------------------------------
+Sat Sep 17 16:40:56 UTC 2016 - mimi.vx@gmail.com
+
+- update to 12.0.3
+* fdo#97781 - [HSW, BYT, IVB] es2-cts.gtf.gl2extensiontests.depth_texture_cube_map.depth_texture_cube_map
+* Revert "i965/miptree: Stop multiplying cube depth by 6 in HiZ calculations"
+
+-------------------------------------------------------------------
 Mon Sep  5 17:05:57 UTC 2016 - mimi.vx@gmail.com
 
 - update to 12.0.2

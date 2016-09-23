@@ -18,7 +18,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 12.0.2
+%define _version 12.0.3
 %define with_opencl 0
 %define with_vulkan 0
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
@@ -45,7 +45,7 @@
 %endif
 
 Name:           Mesa
-Version:        12.0.2
+Version:        12.0.3
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -62,6 +62,7 @@ Source7:        Mesa.keyring
 Patch0:         n_Fixed-build-against-wayland-1.2.1.patch
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
+Patch12:        u_Mesa_i965-import-prime-buffers.patch
 # Patch from Fedora, fix 16bpp in llvmpipe
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
@@ -579,6 +580,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
 #%patch15 -p1
 #%patch13 -p1
+%patch12 -p1
 %patch18 -p1
 %patch21 -p1
 
