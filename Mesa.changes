@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Oct 14 10:17:17 UTC 2016 - mstaudt@suse.com
+
+- U_r300g-Set-R300_VAP_CNTL-on-RSxxx-to-avoid-triangle-flickering.patch:
+  Initialize RSxxx chipsets correctly (bsc#985650)
+
+-------------------------------------------------------------------
 Fri Oct 14 09:10:46 UTC 2016 - mstaudt@suse.com
 
 - N_01-WIP-nouveau-add-locking.patch
