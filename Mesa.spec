@@ -71,6 +71,12 @@ Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # never to be upstreamed
 Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
+# Nouveau multithreading workarounds from https://github.com/imirkin/mesa/commits/locking
+Patch61:        N_01-WIP-nouveau-add-locking.patch
+Patch62:        N_02-nouveau-more-locking-make-sure-that-fence-work-is-always-done-with-the-push-mutex-acquired.patch
+Patch63:        N_03-nv30-locking-fixes.patch
+Patch64:        N_04-nv50-Fix-double-lock-in-nv50_hw_sm_get_query_result.patch
+Patch65:        N_05-Use-nv50_render_condition-in-nv50_blitctx_post_blit.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -583,6 +589,11 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch12 -p1
 %patch18 -p1
 %patch21 -p1
+%patch61 -p1
+%patch62 -p1
+%patch63 -p1
+%patch64 -p1
+%patch65 -p1
 
 %build
 %if 0%{?suse_version} >= 1310
