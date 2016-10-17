@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Oct 17 14:35:07 UTC 2016 - mstaudt@suse.com
+
+- Mesa.spec: %ifdef'd out patches by mistake
+
+-------------------------------------------------------------------
 Mon Oct 17 13:45:06 UTC 2016 - mstaudt@suse.com
 
 - Split off nouveau*_dri.so into Mesa-dri-nouveau.
