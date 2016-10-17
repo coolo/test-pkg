@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Oct 17 12:34:12 UTC 2016 - mstaudt@suse.com
+
+- Mesa.spec: Disable Nouveau locking patches by default
+
+-------------------------------------------------------------------
 Fri Oct 14 10:17:17 UTC 2016 - mstaudt@suse.com
 
 - U_r300g-Set-R300_VAP_CNTL-on-RSxxx-to-avoid-triangle-flickering.patch:
