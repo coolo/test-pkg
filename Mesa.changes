@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Oct 17 13:45:06 UTC 2016 - mstaudt@suse.com
+
+- Split off nouveau*_dri.so into Mesa-dri-nouveau.
+  Nouveau's 3D support is too unstable to enable by default.
+
+-------------------------------------------------------------------
 Mon Oct 17 12:34:12 UTC 2016 - mstaudt@suse.com
 
 - Mesa.spec: Disable Nouveau locking patches by default

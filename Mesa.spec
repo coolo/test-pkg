@@ -395,6 +395,16 @@ Requires:       Mesa = %{version}
 This package contains the development environment required for
 compiling programs and libraries using the DRI API.
 
+%package -n Mesa-dri-nouveau
+Summary:        Mesa DRI plug-in for 3D acceleration via Nouveau
+Group:          System/Libraries
+Requires:       Mesa = %{version}
+
+%description -n Mesa-dri-nouveau
+This package contains nouveau_dri.so, which is necessary for
+Nouveau's 3D acceleration to work. It is packaged separately
+since it is still experimental.
+
 %package -n libgbm1
 Summary:        Generic buffer management API
 Group:          System/Libraries
@@ -806,6 +816,8 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %{_libdir}/dri/updates
 %endif
 %{_libdir}/dri/*_dri.so
+%exclude %{_libdir}/dri/nouveau_dri.so
+%exclude %{_libdir}/dri/nouveau_vieux_dri.so
 %if 0%{with_opencl}
 # only built with opencl
 %dir %{_libdir}/gallium-pipe/
@@ -968,6 +980,10 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %defattr(-,root,root)
 %{_includedir}/GL/internal
 %{_libdir}/pkgconfig/dri.pc
+
+%files -n Mesa-dri-nouveau
+%{_libdir}/dri/nouveau_dri.so
+%{_libdir}/dri/nouveau_vieux_dri.so
 
 %files devel
 %defattr(-,root,root)
