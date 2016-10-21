@@ -449,8 +449,8 @@ popd
   # /proc is required for correct configuration
   test -d /dev/fd || { echo "/proc is not mounted!" >&2; exit 1; }
   ln -sf ../readline-%{rl_vers} readline
-  LD_LIBRARY_PATH=$PWD/../readline-%{rl_vers}
-  export LD_LIBRARY_PATH
+  LD_RUN_PATH=$PWD/../readline-%{rl_vers}
+  export LD_RUN_PATH
   CC="gcc -I$PWD -L$PWD/../readline-%{rl_vers}"
 %if %_minsh
   cflags -Os CFLAGS
@@ -543,7 +543,7 @@ popd
   TMPDIR=$(mktemp -d /tmp/bash.XXXXXXXXXX) || exit 1
   > $SCREENLOG
   tail -q -s 0.5 -f $SCREENLOG & pid=$!
-  env -i HOME=$PWD TERM=$TERM LD_LIBRARY_PATH=$LD_LIBRARY_PATH TMPDIR=$TMPDIR \
+  env -i HOME=$PWD TERM=$TERM LD_LIBRARY_PATH=$LD_RUN_PATH TMPDIR=$TMPDIR \
 	SCREENRC=$SCREENRC SCREENDIR=$SCREENDIR \
 	screen -L -D -m make TESTSCRIPT=%{SOURCE4} check
   kill -TERM $pid
