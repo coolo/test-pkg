@@ -98,6 +98,8 @@ Patch47:        bash-4.3-perl522.patch
 Patch48:        bash-4.3-extra-import-func.patch
 # PATCH-EXTEND-SUSE Allow root to clean file system if filled up
 Patch49:        bash-4.3-pathtemp.patch
+# PATCH-FIX-OPENSUSE Don't warn about null bytes in command substitution
+Patch50:        no-null-warning.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
@@ -306,6 +308,7 @@ done
 %patch48 -b .eif
 %endif
 %patch49 -p0 -b .pthtmp
+%patch50 -p1
 %patch0  -p0 -b .0
 pushd ../readline-%{rl_vers}%{rextend}
 for patch in ../readline-%{rl_vers}-patches/*; do
