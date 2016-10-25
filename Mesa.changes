@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Oct 25 10:05:26 UTC 2016 - sndirsch@suse.com
+
+- let Mesa-dri-nouveau supplement xf86-video-nouveau, so it  gets
+  preselected as well once hardware supplements for Mesa-dri-nouveau
+  match (bnc#1005323)
+
+-------------------------------------------------------------------
 Mon Oct 17 14:35:07 UTC 2016 - mstaudt@suse.com
 
 - Mesa.spec: %ifdef'd out patches by mistake

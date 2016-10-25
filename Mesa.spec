@@ -397,6 +397,7 @@ compiling programs and libraries using the DRI API.
 Summary:        Mesa DRI plug-in for 3D acceleration via Nouveau
 Group:          System/Libraries
 Requires:       Mesa = %{version}
+Supplements:    xf86-video-nouveau
 
 %description -n Mesa-dri-nouveau
 This package contains nouveau_dri.so, which is necessary for
