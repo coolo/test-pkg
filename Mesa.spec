@@ -16,6 +16,10 @@
 #
 
 
+# Only enable the Nouveau locking patches if you know what you're doing.
+# They may fix KDE on Nouveau. They may also deadlock your userland.
+%define use_broken_nouveau_locking_patches 0
+
 %define glamor 1
 %define _name_archive mesa
 %define _version 12.0.3
@@ -71,6 +75,15 @@ Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # never to be upstreamed
 Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
+# Already upstream
+Patch22:        U_r300g-Set-R300_VAP_CNTL-on-RSxxx-to-avoid-triangle-flickering.patch
+
+# Nouveau multithreading workarounds from https://github.com/imirkin/mesa/commits/locking
+Patch61:        N_01-WIP-nouveau-add-locking.patch
+Patch62:        N_02-nouveau-more-locking-make-sure-that-fence-work-is-always-done-with-the-push-mutex-acquired.patch
+Patch63:        N_03-nv30-locking-fixes.patch
+Patch64:        N_04-nv50-Fix-double-lock-in-nv50_hw_sm_get_query_result.patch
+Patch65:        N_05-Use-nv50_render_condition-in-nv50_blitctx_post_blit.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -380,6 +393,17 @@ Requires:       Mesa = %{version}
 This package contains the development environment required for
 compiling programs and libraries using the DRI API.
 
+%package -n Mesa-dri-nouveau
+Summary:        Mesa DRI plug-in for 3D acceleration via Nouveau
+Group:          System/Libraries
+Requires:       Mesa = %{version}
+Supplements:    xf86-video-nouveau
+
+%description -n Mesa-dri-nouveau
+This package contains nouveau_dri.so, which is necessary for
+Nouveau's 3D acceleration to work. It is packaged separately
+since it is still experimental.
+
 %package -n libgbm1
 Summary:        Generic buffer management API
 Group:          System/Libraries
@@ -583,6 +607,15 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch12 -p1
 %patch18 -p1
 %patch21 -p1
+%patch22 -p1
+
+%if %{use_broken_nouveau_locking_patches}
+%patch61 -p1
+%patch62 -p1
+%patch63 -p1
+%patch64 -p1
+%patch65 -p1
+%endif
 
 %build
 %if 0%{?suse_version} >= 1310
@@ -782,6 +815,8 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %{_libdir}/dri/updates
 %endif
 %{_libdir}/dri/*_dri.so
+%exclude %{_libdir}/dri/nouveau_dri.so
+%exclude %{_libdir}/dri/nouveau_vieux_dri.so
 %if 0%{with_opencl}
 # only built with opencl
 %dir %{_libdir}/gallium-pipe/
@@ -944,6 +979,10 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %defattr(-,root,root)
 %{_includedir}/GL/internal
 %{_libdir}/pkgconfig/dri.pc
+
+%files -n Mesa-dri-nouveau
+%{_libdir}/dri/nouveau_dri.so
+%{_libdir}/dri/nouveau_vieux_dri.so
 
 %files devel
 %defattr(-,root,root)

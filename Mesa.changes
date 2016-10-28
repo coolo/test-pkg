@@ -1,4 +1,54 @@
 -------------------------------------------------------------------
+Tue Oct 25 10:05:26 UTC 2016 - sndirsch@suse.com
+
+- let Mesa-dri-nouveau supplement xf86-video-nouveau, so it  gets
+  preselected as well once hardware supplements for Mesa-dri-nouveau
+  match (bnc#1005323)
+
+-------------------------------------------------------------------
+Mon Oct 17 14:35:07 UTC 2016 - mstaudt@suse.com
+
+- Mesa.spec: %ifdef'd out patches by mistake
+
+-------------------------------------------------------------------
+Mon Oct 17 13:45:06 UTC 2016 - mstaudt@suse.com
+
+- Split off nouveau*_dri.so into Mesa-dri-nouveau.
+  Nouveau's 3D support is too unstable to enable by default.
+
+-------------------------------------------------------------------
+Mon Oct 17 12:34:12 UTC 2016 - mstaudt@suse.com
+
+- Mesa.spec: Disable Nouveau locking patches by default
+
+-------------------------------------------------------------------
+Fri Oct 14 10:17:17 UTC 2016 - mstaudt@suse.com
+
+- U_r300g-Set-R300_VAP_CNTL-on-RSxxx-to-avoid-triangle-flickering.patch:
+  Initialize RSxxx chipsets correctly (bsc#985650)
+
+-------------------------------------------------------------------
+Fri Oct 14 09:10:46 UTC 2016 - mstaudt@suse.com
+
+- N_01-WIP-nouveau-add-locking.patch
+  N_02-nouveau-more-locking-make-sure-that-fence-work-is-always-done-with-the-push-mutex-acquired.patch
+  N_03-nv30-locking-fixes.patch
+  N_04-nv50-Fix-double-lock-in-nv50_hw_sm_get_query_result.patch
+  N_05-Use-nv50_render_condition-in-nv50_blitctx_post_blit.patch
+
+  Backport nouveau locking workaround to enable multithreading.
+
+  Source: https://github.com/imirkin/mesa/commits/locking
+
+  According to the author, crashes may still happen, but much more rarely.
+
+  Tested on GK107.
+
+  N_04-* and N_05-* include untested fixes for nv50.
+
+  Fixes (boo#997171) as suggested in (fdo#91632).
+
+-------------------------------------------------------------------
 Mon Sep 19 10:00:05 UTC 2016 - zaitor@opensuse.org
 
 - Add u_Mesa_i965-import-prime-buffers.patch: i965: import prime
