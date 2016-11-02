@@ -1,5 +1,12 @@
 -------------------------------------------------------------------
-Tue Nov 18:14:28 UTC 2016 - mimi.vx@gmail.com
+Wed Nov  2 11:44:47 UTC 2016 - zaitor@opensuse.org
+
+- Drop u_Mesa_i965-import-prime-buffers.patch: Upstream fixed the
+  bug in a different way, and we should not keep the now obsolete
+  patch (boo#991638, fdo#71759).
+
+-------------------------------------------------------------------
+Tue Nov  1 18:14:28 UTC 2016 - mimi.vx@gmail.com
 
 - update to 13.0.0
 - openGL 4.5 with i965 driver on intel bbroadwell and newer hw

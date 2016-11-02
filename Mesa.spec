@@ -66,7 +66,6 @@ Source7:        Mesa.keyring
 Patch0:         n_Fixed-build-against-wayland-1.2.1.patch
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
-Patch12:        u_Mesa_i965-import-prime-buffers.patch
 # Patch from Fedora, fix 16bpp in llvmpipe
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
@@ -602,7 +601,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
 #%patch15 -p1
 #%patch13 -p1
-%patch12 -p1
 %patch18 -p1
 %patch21 -p1
 
