@@ -22,7 +22,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 12.0.3
+%define _version 13.0.0
 %define with_opencl 0
 %define with_vulkan 0
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
@@ -49,7 +49,7 @@
 %endif
 
 Name:           Mesa
-Version:        12.0.3
+Version:        13.0.0
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -66,7 +66,6 @@ Source7:        Mesa.keyring
 Patch0:         n_Fixed-build-against-wayland-1.2.1.patch
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
-Patch12:        u_Mesa_i965-import-prime-buffers.patch
 # Patch from Fedora, fix 16bpp in llvmpipe
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
@@ -75,8 +74,6 @@ Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # never to be upstreamed
 Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
-# Already upstream
-Patch22:        U_r300g-Set-R300_VAP_CNTL-on-RSxxx-to-avoid-triangle-flickering.patch
 
 # Nouveau multithreading workarounds from https://github.com/imirkin/mesa/commits/locking
 Patch61:        N_01-WIP-nouveau-add-locking.patch
@@ -455,8 +452,8 @@ implementation of Mesa.
 %if 0%{?with_nine}
 %package libd3d
 Summary:        Mesa Direct3D9 state tracker
-Group:          System/Libraries
 # Manually provide d3d library (bnc#918294)
+Group:          System/Libraries
 %ifarch x86_64 s390x ppc64le aarch64
 Provides:       d3dadapter9.so.1()(64bit)
 %else
@@ -604,10 +601,8 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
 #%patch15 -p1
 #%patch13 -p1
-%patch12 -p1
 %patch18 -p1
 %patch21 -p1
-%patch22 -p1
 
 %if %{use_broken_nouveau_locking_patches}
 %patch61 -p1
@@ -1023,7 +1018,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %defattr(-,root,root)
 %dir %{_datadir}/vulkan
 %dir %{_datadir}/vulkan/icd.d
-%{_datadir}/vulkan/icd.d/intel_icd.json
+%{_datadir}/vulkan/icd.d/intel_icd.*.json
 %{_libdir}/libvulkan_intel.so
 
 %files libVulkan-devel
