@@ -975,9 +975,11 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %{_includedir}/GL/internal
 %{_libdir}/pkgconfig/dri.pc
 
+%ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le ia64 ppc hppa
 %files -n Mesa-dri-nouveau
 %{_libdir}/dri/nouveau_dri.so
 %{_libdir}/dri/nouveau_vieux_dri.so
+%endif
 
 %files devel
 %defattr(-,root,root)
