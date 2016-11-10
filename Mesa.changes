@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Nov  7 15:09:08 UTC 2016 - schwab@suse.de
+
+- Build Mesa-dri-nouveau only where available
+
+-------------------------------------------------------------------
 Wed Nov  2 11:44:47 UTC 2016 - zaitor@opensuse.org
 
 - Drop u_Mesa_i965-import-prime-buffers.patch: Upstream fixed the
