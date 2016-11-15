@@ -1,4 +1,57 @@
 -------------------------------------------------------------------
+Mon Nov 14 19:12:26 UTC 2016 - mimi.vx@gmail.com
+
+- update to 13.0.1
+* fdo#97715 [ILK,G45,G965] piglit.spec.arb_separate_shader_objects.misc
+    api error checks
+* fdo#98012 [IVB] Segfault when running Dolphin twice with Vulkan
+* fdo#98512 radeon r600 vdpau: Invalid command stream: texture bo too small
+* i965: Fix GPU hang related to multiple render targets and alpha testing
+* Revert "st/vdpau: use linear layout for output surfaces"
+* ac/nir: add support for discard_if intrinsic (v2)
+* nir: add conditional discard optimisation (v4)
+* amd/addrlib: limit fastcall/regparm to GCC i386
+* anv: use correct .specVersion for extensions
+* vc4: Use Newton-Raphson on the 1/W write to fix glmark2 terrain.
+* ir: Flip gl_SamplePosition in nir_lower_wpos_ytransform().
+* anv/device: Return DEVICE_LOST if execbuf2 fails
+* vulkan/wsi/x11: Better handle wsi_x11_connection_create failure
+* vulkan/wsi/x11: Clean up connections in finish_wsi
+* anv: Better handle return codes from anv_physical_device_init
+* intel/blorp: Use wm_prog_data instead of hand-rolling our own
+* intel/blorp: Pass a brw_stage_prog_data to upload_shader
+* anv/pipeline: Put actual pointers in anv_shader_bin
+* anv/pipeline: Properly cache prog_data::param
+* intel/blorp: Emit all the binding tables
+* anv/device: Add an execbuf wrapper
+* anv: Add a cmd_buffer_execbuf helper
+* anv: Don't presume to know what address is in a surface relocation
+* anv: Add a new bo_pool_init helper
+* anv/allocator: Simplify anv_scratch_pool
+* anv: Initialize anv_bo::offset to -1
+* anv/batch_chain: Improve write_reloc
+* anv: Add an anv_execbuf helper struct
+* anv/batch: Move last_ss_pool_bo_offset to the command buffer
+* anv: Move relocation handling from EndCommandBuffer to QueueSubmit
+* anv/cmd_buffer: Take a command buffer instead of a batch in two helpers
+* anv/cmd_buffer: Enable a CS stall workaround for Sky Lake gt4
+* glsl: Update deref types when resizing implicitly sized arrays.
+* mesa: Fix pixel shader scratch space allocation on Gen9+ platforms.
+* anv: Do relocations in userspace before execbuf ioctl
+* egl: use util/macros.h
+* egl: make interop ABI visible again
+* glx: make interop ABI visible again
+* radeonsi: fix an assertion failure in si_decompress_sampler_color_textures
+* radeonsi: fix BFE/BFI lowering for GLSL semantics
+* glsl: fix lowering of UBO references of named blocks
+* st/glsl_to_tgsi: fix dvec[34] loads from SSBO
+* st/mesa: fix the layer of VDPAU surface samplers
+* gallium/hud: fix a problem where objects are free'd while in use.
+* gallium/hud: close a previously opened handle
+* gallium/hud: protect against and initialization race
+* mesa/glsl: delete previously linked shaders earlier when linking
+
+-------------------------------------------------------------------
 Mon Nov  7 15:09:08 UTC 2016 - schwab@suse.de
 
 - Build Mesa-dri-nouveau only where available
