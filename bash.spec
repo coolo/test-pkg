@@ -20,38 +20,36 @@
 
 Name:           bash
 BuildRequires:  audit-devel
-BuildRequires:  bison
-%if %suse_version > 1020
 BuildRequires:  autoconf
+BuildRequires:  bison
 BuildRequires:  fdupes
-%endif
 %if %suse_version > 1220
 BuildRequires:  makeinfo
 %endif
 BuildRequires:  ncurses-devel
 BuildRequires:  patchutils
+BuildRequires:  pkg-config
 BuildRequires:  screen
 BuildRequires:  sed
-%define         bash_vers 4.3
-%define         rl_vers   6.3
-%define         extend    ""
-%if %suse_version > 1020
+%define         bash_vers 4.4
+%define         rl_vers   7.0
+%define         bextend	 %nil
+%define         rextend  %nil
 Recommends:     bash-lang = %bash_vers
 # The package bash-completion is a source of
 # bugs which will hit at most this package
 #Recommends:	bash-completion
 Suggests:       command-not-found
 Recommends:     bash-doc = %bash_vers
-%endif
-Version:        %{bash_vers}
+Version:        4.4
 Release:        0
 Summary:        The GNU Bourne-Again Shell
 License:        GPL-3.0+
 Group:          System/Shells
 Url:            http://www.gnu.org/software/bash/bash.html
 # Git:          http://git.savannah.gnu.org/cgit/bash.git
-Source0:        ftp://ftp.gnu.org/gnu/bash/bash-%{bash_vers}.tar.gz
-Source1:        ftp://ftp.gnu.org/gnu/readline/readline-%{rl_vers}.tar.gz
+Source0:        ftp://ftp.gnu.org/gnu/bash/bash-%{bash_vers}%{bextend}.tar.gz
+Source1:        ftp://ftp.gnu.org/gnu/readline/readline-%{rl_vers}%{rextend}.tar.gz
 Source2:        bash-%{bash_vers}-patches.tar.bz2
 Source3:        readline-%{rl_vers}-patches.tar.bz2
 Source4:        run-tests
@@ -70,8 +68,10 @@ Patch2:         bash-4.0-security.patch
 Patch3:         bash-4.3-2.4.4.patch
 Patch4:         bash-3.0-evalexp.patch
 Patch5:         bash-3.0-warn-locale.patch
+# Disabled
 Patch6:         bash-4.2-endpw.dif
 Patch7:         bash-4.3-decl.patch
+# Is this fixed meanwhile?
 Patch8:         bash-4.0-async-bnc523667.dif
 Patch9:         bash-4.3-include-unistd.dif
 Patch10:        bash-3.2-printf.patch
@@ -80,14 +80,11 @@ Patch12:        bash-4.1-completion.dif
 Patch13:        bash-4.2-nscdunmap.dif
 Patch14:        bash-4.3-sigrestart.patch
 # PATCH-FIX-UPSTREAM bnc#382214 -- disabled due bnc#806628 by -DBNC382214=0
-Patch15:        bash-3.2-longjmp.dif
 Patch16:        bash-4.0-setlocale.dif
-Patch17:        bash-4.3-headers.dif
 # PATCH-EXTEND-SUSE bnc#828877 -- xterm resizing does not pass to all sub clients
 Patch18:        bash-4.3-winch.dif
 Patch20:        readline-%{rl_vers}.dif
 Patch21:        readline-6.3-input.dif
-Patch22:        readline-6.1-wrap.patch
 Patch23:        readline-5.2-conf.patch
 Patch24:        readline-6.2-metamode.patch
 Patch25:        readline-6.2-endpw.dif
@@ -101,8 +98,6 @@ Patch47:        bash-4.3-perl522.patch
 Patch48:        bash-4.3-extra-import-func.patch
 # PATCH-EXTEND-SUSE Allow root to clean file system if filled up
 Patch49:        bash-4.3-pathtemp.patch
-# PATCH-FIX-UPSTREAM bnc#971410 --  bash script teminates unexpectedly throwing backtrace
-Patch50:        bash-4.3-async-bnc971410.dif
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
@@ -124,9 +119,7 @@ Provides:       bash:%{_infodir}/bash.info.gz
 PreReq:         %install_info_prereq
 Version:        %{bash_vers}
 Release:        0
-%if %suse_version > 1120
 BuildArch:      noarch
-%endif
 
 %description -n bash-doc
 This package contains the documentation for using the bourne shell
@@ -146,7 +139,6 @@ Requires:       bash = %{bash_vers}
 Provides translations to the package bash
 %endif
 
-%if 0%suse_version >= 1020
 %package -n bash-devel
 Summary:        Include Files mandatory for Development of bash loadable builtins
 Group:          Development/Languages/C and C++
@@ -157,7 +149,6 @@ Release:        0
 This package contains the C header files for writing loadable new
 builtins for the interpreter Bash. Use -I /usr/include/bash/<version>
 on the compilers command line.
-%endif
 
 %package -n bash-loadables
 Summary:        Loadable bash builtins
@@ -219,24 +210,22 @@ unlink	      Remove a directory entry.
 whoami	      Print out username of current user.
 
 
-%package -n libreadline6
+%package -n libreadline7
 Summary:        The Readline Library
 Group:          System/Libraries
 Provides:       bash:/%{_lib}/libreadline.so.%{rl_major}
 Version:        %{rl_vers}
 Release:        0
-%if 0%suse_version > 1020
 Recommends:     readline-doc = %{version}
-%endif
 # bug437293
 %ifarch ppc64
 Obsoletes:      readline-64bit
 %endif
 #
 Provides:       readline =  %{rl_vers}
-Obsoletes:      readline <= 6.2
+Obsoletes:      readline <= 6.3
 
-%description -n libreadline6
+%description -n libreadline7
 The readline library is used by the Bourne Again Shell (bash, the
 standard command interpreter) for easy editing of command lines.  This
 includes history and search functionality.
@@ -247,11 +236,9 @@ Group:          Development/Libraries/C and C++
 Provides:       bash:%{_libdir}/libreadline.a
 Version:        %{rl_vers}
 Release:        0
-Requires:       libreadline6 = %{rl_vers}
+Requires:       libreadline7 = %{rl_vers}
 Requires:       ncurses-devel
-%if 0%suse_version > 1020
 Recommends:     readline-doc = %{rl_vers}
-%endif
 # bug437293
 %ifarch ppc64
 Obsoletes:      readline-devel-64bit
@@ -269,16 +256,14 @@ Provides:       readline:%{_infodir}/readline.info.gz
 PreReq:         %install_info_prereq
 Version:        %{rl_vers}
 Release:        0
-%if 0%suse_version > 1120
 BuildArch:      noarch
-%endif
 
 %description -n readline-doc
 This package contains the documentation for using the readline library
 as well as programming with the interface of the readline library.
 
 %prep
-%setup -q -n bash-%{bash_vers}%{extend} -b1 -b2 -b3
+%setup -q -n bash-%{bash_vers}%{bextend} -b1 -b2 -b3
 typeset -i level
 for patch in ../bash-%{bash_vers}-patches/*; do
     test -e $patch || break
@@ -300,19 +285,16 @@ done
 %patch5  -p0 -b .warnlc
 #%patch6  -p0 -b .endpw
 %patch7  -p0 -b .decl
-%patch8  -p0 -b .async
+#%patch8  -p0 -b .async
 %patch9  -p0 -b .unistd
 %patch10 -p0 -b .printf
 %patch11 -p0 -b .plugins
 %patch12 -p0 -b .completion
 %patch13 -p0 -b .nscdunmap
 %patch14 -p0 -b .sigrestart
-%patch15 -p0 -b .longjmp
 %patch16 -p0 -b .setlocale
-%patch17 -p0 -b .headers
 %patch18 -p0 -b .winch
 %patch21 -p0 -b .zerotty
-%patch22 -p0 -b .wrap
 %patch23 -p0 -b .conf
 %patch24 -p0 -b .metamode
 #%patch25 -p0 -b .endpw
@@ -321,12 +303,11 @@ done
 %patch46 -p0 -b .notimestamp
 %patch47 -p0 -b .perl522
 %if %{with import_function}
-%patch48
+%patch48 -b .eif
 %endif
-%patch49
-%patch50
+%patch49 -p0 -b .pthtmp
 %patch0  -p0 -b .0
-pushd ../readline-%{rl_vers}%{extend}
+pushd ../readline-%{rl_vers}%{rextend}
 for patch in ../readline-%{rl_vers}-patches/*; do
     test -e $patch || break
     let level=0 || true
@@ -340,7 +321,6 @@ for patch in ../readline-%{rl_vers}-patches/*; do
     patch -s -p$level < $patch
 done
 %patch21 -p2 -b .zerotty
-%patch22 -p2 -b .wrap
 %patch23 -p2 -b .conf
 %patch24 -p2 -b .metamode
 #%patch25 -p2 -b .endpw
@@ -373,10 +353,8 @@ done
   HOSTTYPE=${CPU}
   MACHTYPE=${CPU}-suse-linux
   export LANG LC_ALL HOSTTYPE MACHTYPE
-pushd ../readline-%{rl_vers}%{extend}
-%if 0%suse_version >= 1020
+pushd ../readline-%{rl_vers}%{rextend}
   autoconf
-%endif
   cflags ()
   {
       local flag=$1; shift
@@ -442,7 +420,7 @@ pushd ../readline-%{rl_vers}%{extend}
   cflags -DIMPORT_FUNCTIONS_DEF=0 CFLAGS
   cflags -Wl,--as-needed         LDFLAGS
   cflags -Wl,-O2                 LDFLAGS
-  cflags -Wl,-rpath,%{_ldldir}/%{bash_vers}   LDFLAGS
+  cflags -Wl,-rpath,%{_ldldir}		      LDFLAGS
   cflags -Wl,--version-script=${PWD}/rl.map   LDFLAGS
   cflags -Wl,--dynamic-list=${PWD}/dyn.map    LDFLAGS
   CC=gcc
@@ -471,8 +449,8 @@ popd
   # /proc is required for correct configuration
   test -d /dev/fd || { echo "/proc is not mounted!" >&2; exit 1; }
   ln -sf ../readline-%{rl_vers} readline
-  LD_LIBRARY_PATH=$PWD/../readline-%{rl_vers}
-  export LD_LIBRARY_PATH
+  LD_RUN_PATH=$PWD/../readline-%{rl_vers}
+  export LD_RUN_PATH
   CC="gcc -I$PWD -L$PWD/../readline-%{rl_vers}"
 %if %_minsh
   cflags -Os CFLAGS
@@ -488,9 +466,7 @@ popd
   CC_FOR_BUILD="$CC"
   CFLAGS_FOR_BUILD="$CFLAGS"
   export CC_FOR_BUILD CFLAGS_FOR_BUILD CFLAGS LDFLAGS CC
-%if 0%suse_version > 1020
   autoconf
-%endif
   #
   # We have a malloc with our glibc
   #
@@ -567,7 +543,7 @@ popd
   TMPDIR=$(mktemp -d /tmp/bash.XXXXXXXXXX) || exit 1
   > $SCREENLOG
   tail -q -s 0.5 -f $SCREENLOG & pid=$!
-  env -i HOME=$PWD TERM=$TERM LD_LIBRARY_PATH=$LD_LIBRARY_PATH TMPDIR=$TMPDIR \
+  env -i HOME=$PWD TERM=$TERM LD_LIBRARY_PATH=$LD_RUN_PATH TMPDIR=$TMPDIR \
 	SCREENRC=$SCREENRC SCREENDIR=$SCREENDIR \
 	screen -L -D -m make TESTSCRIPT=%{SOURCE4} check
   kill -TERM $pid
@@ -576,7 +552,7 @@ popd
   make documentation
 
 %install
-pushd ../readline-%{rl_vers}%{extend}
+pushd ../readline-%{rl_vers}%{rextend}
   make install htmldir=%{_defaultdocdir}/readline \
 	       installdir=%{_defaultdocdir}/readline/examples DESTDIR=%{buildroot}
   make install-shared libdir=/%{_lib} linkagedir=%{_libdir} DESTDIR=%{buildroot}
@@ -592,8 +568,10 @@ pushd ../readline-%{rl_vers}%{extend}
   ln -sf /%{_lib}/libreadline.so.%{rl_vers} %{buildroot}/%{_libdir}/libreadline.so
 popd
   make install DESTDIR=%{buildroot}
-  make -C examples/loadables/ install-plugins DESTDIR=%{buildroot} libdir=/%{_lib}
-  make -C examples/loadables/ install-headers DESTDIR=%{buildroot}
+  make -C examples/loadables/ install-supported DESTDIR=%{buildroot} libdir=/%{_lib}
+  rm -rf %{buildroot}%{_libdir}/bash
+  rm -rf %{buildroot}/%{_lib}/pkgconfig
+  sed -ri '/CC = gcc/s@(CC = gcc).*@\1@' %{buildroot}%{_libdir}/pkgconfig/bash.pc
   mkdir -p %{buildroot}/bin
   mv %{buildroot}%{_bindir}/bash %{buildroot}/bin/
 %if %_minsh
@@ -603,7 +581,6 @@ popd
   ln -sf bash %{buildroot}/bin/sh
   ln -sf ../../bin/bash %{buildroot}%{_bindir}/sh
 %endif
-install -m 755 bash %{buildroot}/bin/bash
   ln -sf ../../bin/bash %{buildroot}%{_bindir}/rbash
   install -m 644 COMPAT NEWS    %{buildroot}%{_defaultdocdir}/bash/
   install -m 644 COPYING        %{buildroot}%{_defaultdocdir}/bash/
@@ -644,9 +621,7 @@ EOF
   touch -t 199605181720.50 %{buildroot}%{_sysconfdir}/skel/.bash_history
   chmod 600                %{buildroot}%{_sysconfdir}/skel/.bash_history
   %find_lang bash
-%if %suse_version > 1020
   %fdupes -s %{buildroot}%{_datadir}/bash/helpfiles
-%endif
 
 %post -n bash-doc
 %install_info --info-dir=%{_infodir} %{_infodir}/bash.info.gz
@@ -654,9 +629,9 @@ EOF
 %preun -n bash-doc
 %install_info_delete --info-dir=%{_infodir} %{_infodir}/bash.info.gz
 
-%post -n libreadline6 -p /sbin/ldconfig
+%post -n libreadline7 -p /sbin/ldconfig
 
-%postun -n libreadline6 -p /sbin/ldconfig
+%postun -n libreadline7 -p /sbin/ldconfig
 
 %post -n readline-doc
 %install_info --info-dir=%{_infodir} %{_infodir}/history.info.gz
@@ -677,7 +652,7 @@ ldd -u -r %{buildroot}/%{_lib}/libreadline.so.* || true
 %config %attr(600,root,root) %{_sysconfdir}/skel/.bash_history
 %config %attr(644,root,root) %{_sysconfdir}/skel/.bashrc
 %config %attr(644,root,root) %{_sysconfdir}/skel/.profile
-%attr(755,root,root) /bin/bash
+/bin/bash
 /bin/sh
 %dir %{_sysconfdir}/bash_completion.d
 %{_bindir}/bashbug
@@ -703,19 +678,22 @@ ldd -u -r %{buildroot}/%{_lib}/libreadline.so.* || true
 %files -n bash-devel
 %defattr(-,root,root)
 %dir /%{_includedir}/bash/
-%dir /%{_includedir}/bash/%{bash_vers}/
-%dir /%{_includedir}/bash/%{bash_vers}/builtins/
-/%{_incdir}/bash/%{bash_vers}/*.h
-/%{_incdir}/bash/%{bash_vers}/builtins/*.h
+%dir /%{_includedir}/bash/
+%dir /%{_includedir}/bash/builtins/
+%dir /%{_includedir}/bash/include/
+/%{_incdir}/bash/*.h
+/%{_incdir}/bash/builtins/*.h
+/%{_incdir}/bash/include/*.h
+%{_libdir}/pkgconfig/bash.pc
 %endif
 
 %files -n bash-loadables
 %defattr(-,root,root)
 %dir %{_ldldir}/
-%dir %{_ldldir}/%{bash_vers}/
-%{_ldldir}/%{bash_vers}/*
+%dir %{_ldldir}/
+%{_ldldir}/*
 
-%files -n libreadline6
+%files -n libreadline7
 %defattr(-,root,root)
 /%{_lib}/libhistory.so.%{rl_major}
 /%{_lib}/libhistory.so.%{rl_vers}
