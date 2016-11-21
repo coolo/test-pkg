@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Nov 21 11:53:40 UTC 2016 - sndirsch@suse.com
+
+- baselibs.conf: enabled build of 32bit Mesa-dri-nouveau package,
+  e.g. required for Steam (bnc#1011156)
+
+-------------------------------------------------------------------
 Mon Nov 14 19:12:26 UTC 2016 - mimi.vx@gmail.com
 
 - update to 13.0.1
