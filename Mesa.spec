@@ -22,7 +22,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 13.0.1
+%define _version 13.0.2
 %define with_opencl 0
 %define with_vulkan 0
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
@@ -49,7 +49,7 @@
 %endif
 
 Name:           Mesa
-Version:        13.0.1
+Version:        13.0.2
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -452,8 +452,8 @@ implementation of Mesa.
 %if 0%{?with_nine}
 %package libd3d
 Summary:        Mesa Direct3D9 state tracker
-Group:          System/Libraries
 # Manually provide d3d library (bnc#918294)
+Group:          System/Libraries
 %ifarch x86_64 s390x ppc64le aarch64
 Provides:       d3dadapter9.so.1()(64bit)
 %else
