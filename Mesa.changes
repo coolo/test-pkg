@@ -1,4 +1,65 @@
 -------------------------------------------------------------------
+Mon Nov 28 19:36:00 UTC 2016 - mimi.vx@gmail.com
+
+- update to 13.0.2
+* fdo#97321 Query INFO_LOG_LENGTH for empty info log should return 0
+* fdo#97420  &quot;#version 0&quot; crashes glsl_compiler
+* i965: Add some APL and KBL SKU strings
+* i965: Reorder PCI ID list to match release order
+* i965/glk: Add basic Geminilake support
+* wsi: fix VK_INCOMPLETE for vkGetSwapchainImagesKHR
+* ac/nir/llvm: fix channel in texture gather lowering code.
+* vulkan/wsi/x11: handle timeouts properly in next image acquire (v1.1)
+* vulkan/wsi: store present mode in swapchain base class
+* vulkan/wsi/x11: add support for IMMEDIATE present mode
+* vulkan/wsi/x11: Fix behavior of vkGetPhysicalDeviceSurfaceFormatsKHR
+* vulkan/wsi/x11: Fix behavior of vkGetPhysicalDeviceSurfacePresentModesKHR
+* cherry-ignore: add reverted LLVM_LIBDIR patch
+* anv: fix enumeration of properties
+* vc4: Don't abort when a shader compile fails.
+* vc4: Clamp the shadow comparison value.
+* vc4: Fix register class handling of DDX/DDY arguments.
+* util/disk_cache: close a previously opened handle in disk_cache_put (v2)
+* anv: Fix unintentional integer overflow in anv_CreateDmaBufImageINTEL
+* anv/format: handle unsupported formats properly
+* glcpp: Handle '#version 0' and other invalid values
+* glsl: Parse 0 as a preprocessor INTCONSTANT
+* anv/gen8: Stall when needed in Cmd(Set|Reset)Event
+* anv/wsi: Set the fence to signaled in AcquireNextImageKHR
+* anv: Rework fences
+* vulkan/wsi/wayland: Include pthread.h
+* vulkan/wsi/wayland: Clean up some error handling paths
+* vulkan/wsi: Report the correct min/maxImageCount
+* i965/gs: Allow primitive id to be a system value
+* anv: Handle null in all destructors
+* anv/fence: Handle ANV_FENCE_CREATE_SIGNALED_BIT
+* nir/spirv: Fix handling of gl_PrimitiveId
+* anv/blorp: Ignore clears for attachments first used as resolve destinations
+* anv: Implement a depth stall restriction on gen7
+* anv/cmd_buffer: Handle running out of binding tables in compute shaders
+* anv/cmd_buffer: Emit a CS stall before setting a CS pipeline
+* vulkan/wsi/x11: Implement FIFO mode.
+* isl: Fix height calculation in isl_msaa_interleaved_scale_px_to_sa
+* i965/hsw: Set integer mode in sampling state for stencil texturing
+* intel: Set min_ds_entries on Broxton.
+* i965: Fix compute shader crash.
+* mesa: Drop PATH_MAX usage.
+* i965: Fix GS push inputs with enhanced layouts.
+* vulkan/wsi: Add a thread-safe queue implementation
+* anv: fix multi level clears with VK_REMAINING_MIP_LEVELS
+* gbm: request correct version of the DRI2_FENCE extension
+* radeonsi: store group_size_variable in struct si_compute
+* glsl/lower_output_reads: fix geometry shader output handling with conditional emit
+* Fix races during _mesa_HashWalk().
+* mesa: fix empty program log length
+
+-------------------------------------------------------------------
+Mon Nov 21 11:53:40 UTC 2016 - sndirsch@suse.com
+
+- baselibs.conf: enabled build of 32bit Mesa-dri-nouveau package,
+  e.g. required for Steam (bnc#1011156)
+
+-------------------------------------------------------------------
 Mon Nov 14 19:12:26 UTC 2016 - mimi.vx@gmail.com
 
 - update to 13.0.1
