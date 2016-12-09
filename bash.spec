@@ -92,16 +92,12 @@ Patch27:        readline-6.2-xmalloc.dif
 Patch30:        readline-6.3-destdir.patch
 Patch31:        readline-6.3-rltrace.patch
 Patch40:        bash-4.1-bash.bashrc.dif
-# PATCH-FIX-UPSTREAM boo#1010845 -- CVE-2016-9401: bash: popd controlled free (Segmentation fault)
-Patch41:        popd-offset-overflow.patch
 Patch46:        man2html-no-timestamp.patch
 Patch47:        bash-4.3-perl522.patch
 # PATCH-FIX-SUSE
 Patch48:        bash-4.3-extra-import-func.patch
 # PATCH-EXTEND-SUSE Allow root to clean file system if filled up
 Patch49:        bash-4.3-pathtemp.patch
-# PATCH-FIX-OPENSUSE Don't warn about null bytes in command substitution
-Patch50:        no-null-warning.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
@@ -304,14 +300,12 @@ done
 #%patch25 -p0 -b .endpw
 %patch31 -p0 -b .tmp
 %patch40 -p0 -b .bashrc
-%patch41 -p0 -b .popd
 %patch46 -p0 -b .notimestamp
 %patch47 -p0 -b .perl522
 %if %{with import_function}
 %patch48 -b .eif
 %endif
 %patch49 -p0 -b .pthtmp
-%patch50 -p1
 %patch0  -p0 -b .0
 pushd ../readline-%{rl_vers}%{rextend}
 for patch in ../readline-%{rl_vers}-patches/*; do
