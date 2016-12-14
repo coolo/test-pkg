@@ -25,6 +25,7 @@ Wed Dec 14 09:37:40 UTC 2016 - idonmez@suse.com
     to disable match specifications hardcoded in completion functions.
 - Re-add custom zshrc and zshenv to unbreak compatibility with old
   usage (boo#998858).
+- Add fix-printf.patch to fix a regression in printf.
 
 -------------------------------------------------------------------
 Thu Sep  8 13:25:28 UTC 2016 - idonmez@suse.com
