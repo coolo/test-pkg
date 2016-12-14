@@ -1,4 +1,32 @@
 -------------------------------------------------------------------
+Wed Dec 14 09:37:40 UTC 2016 - idonmez@suse.com
+
+- Update to zsh 5.3
+  * Unicode9 support, this needs support from your terminal to
+    work correctly.
+  * The new word modifier ':P' computes the physical path of the
+    argument.
+  * The output of "typeset -p" uses "export" commands or the "-g"
+    option for parameters that are not local to the current scope.
+  * vi-repeat-change can repeat user-defined widgets if the widget
+    calls zle -f vichange.
+  * The parameter $registers now makes the contents of vi register
+    buffers available to user-defined widgets.
+  * New vi-up-case and vi-down-case builtin widgets bound to gU/gu
+    (or U/u in visual mode) for doing case conversion.
+  * A new select-word-match function provides vim-style text objects
+    with configurable word boundaries using the existing
+    match-words-by-style mechanism.
+  * Support for the conditional expression [[ -v var ]] to test if a
+    variable is set for compatibility with other shells.
+  * The print and printf builtins have a new option -v to assign the
+    output to a variable.
+  * New x: syntax in completion match specifications make it possible
+    to disable match specifications hardcoded in completion functions.
+- Re-add custom zshrc and zshenv to unbreak compatibility with old
+  usage (boo#998858).
+
+-------------------------------------------------------------------
 Thu Sep  8 13:25:28 UTC 2016 - idonmez@suse.com
 
 - Read /etc/profile as zsh again. 
