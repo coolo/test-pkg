@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Dec 12 14:22:12 UTC 2016 - mstaudt@suse.com
+
+- U_cso-don-t-release-sampler-states-that-are-bound.patch:
+  This avoids Radeon hangs due to a use-after-free bug in Gallium.
+  Fixes (boo#1015012), (fdo#93649)
+
+-------------------------------------------------------------------
 Mon Nov 28 19:36:00 UTC 2016 - mimi.vx@gmail.com
 
 - update to 13.0.2
