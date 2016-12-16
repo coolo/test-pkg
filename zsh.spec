@@ -17,7 +17,7 @@
 
 
 Name:           zsh
-Version:        5.2
+Version:        5.3
 Release:        0%{?dist}
 Summary:        Shell with comprehensive completion
 License:        MIT
@@ -26,7 +26,9 @@ Url:            http://www.zsh.org
 Source0:        http://www.zsh.org/pub/zsh-%{version}.tar.xz
 Source1:        http://www.zsh.org/pub/zsh-%{version}.tar.xz.asc
 Source2:        %{name}.keyring
-Source3:        zprofile
+Source3:        zshrc
+Source4:        zshenv
+Source5:        zprofile
 %if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
 Source11:       zlogin.rhs
 Source12:       zlogout.rhs
@@ -38,6 +40,7 @@ Source16:       dotzshrc.rh
 Patch1:         trim-unneeded-completions.patch
 # PATCH-FIX-OPENSUSE zsh-osc-completion.patch -- Fix openSUSE versions in osc completion
 Patch2:         zsh-osc-completion.patch
+Patch3:         fix-printf.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  groff
 %if 0%{?suse_version}
@@ -99,6 +102,7 @@ This package contains the Zsh manual in html format.
 %patch1 -p1
 %endif
 %patch2 -p1
+%patch3 -p1
 
 # Remove executable bit
 chmod 0644 Etc/changelog2html.pl
@@ -124,7 +128,8 @@ perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
     --with-tcsetpgrp \
     --enable-cap \
     --enable-multibyte \
-    --enable-pcre
+    --enable-pcre \
+    --enable-unicode9
 
 # Copy _rpm completion from Redhat (bnc#900424)
 %if 0%{?suse_version}
@@ -158,7 +163,7 @@ install -m 0755 -Dd  %{buildroot}/{etc,bin}
 
 %if 0%{?suse_version}
 # install SUSE configuration
-install -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}
+install -m 0644 %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}
 
 # Create custom completion directory
 mkdir %{buildroot}%{_sysconfdir}/zsh_completion.d
@@ -251,7 +256,8 @@ fi
 %defattr(-,root,root)
 %doc ChangeLog FEATURES LICENCE MACHINES META-FAQ NEWS README
 %doc Etc/* intro.ps Misc/compctl-examples
-
+%config(noreplace) %{_sysconfdir}/zshrc
+%config(noreplace) %{_sysconfdir}/zshenv
 %config(noreplace) %{_sysconfdir}/zprofile
 %if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
 %config(noreplace) %{_sysconfdir}/zlogin
