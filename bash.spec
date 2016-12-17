@@ -550,7 +550,7 @@ popd
 	SCREENRC=$SCREENRC SCREENDIR=$SCREENDIR \
 	screen -L -D -m make TESTSCRIPT=%{SOURCE4} check
   kill -TERM $pid
-  make %{?do_profiling:CFLAGS="$CFLAGS %cflags_profile_feedback" clean} all
+  make %{?do_profiling:CFLAGS="$CFLAGS %cflags_profile_feedback -fprofile-correction" clean} all
   make -C examples/loadables/
   make documentation
 
