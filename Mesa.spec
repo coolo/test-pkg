@@ -454,8 +454,8 @@ implementation of Mesa.
 %if 0%{?with_nine}
 %package libd3d
 Summary:        Mesa Direct3D9 state tracker
-Group:          System/Libraries
 # Manually provide d3d library (bnc#918294)
+Group:          System/Libraries
 %ifarch x86_64 s390x ppc64le aarch64
 Provides:       d3dadapter9.so.1()(64bit)
 %else
@@ -637,53 +637,39 @@ autoreconf -fvi
            --enable-gbm \
            --enable-glx-tls \
 %endif
+%if 0%{with_opencl}
+           --enable-opencl \
+           --enable-opencl-icd \
+%endif
 %if 0%{?suse_version} < 1315
            --with-dri-searchpath=%{_libdir}/dri/updates:%{_libdir}/dri \
 %else
            --with-dri-searchpath=%{_libdir}/dri \
 %endif
-%ifarch %ix86 x86_64
            --enable-xa \
            --enable-gallium-llvm \
-           --with-dri-drivers=i915,i965,nouveau,r200,radeon \
-%if 0%{with_vulkan}
-           --with-vulkan-drivers=intel \
-%endif
-%if 0%{with_opencl}
-           --enable-opencl \
-           --enable-opencl-icd \
-%endif
            --enable-llvm-shared-libs \
-           --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga,virgl \
            --enable-vdpau \
            --enable-va \
            --enable-xvmc \
+%if 0%{with_vulkan}
+           --with-vulkan-drivers=intel \
 %endif
-%ifarch aarch64 %arm ppc64 ppc64le
-           --enable-xa \
-           --enable-gallium-llvm \
-           --with-dri-drivers=nouveau \
+%ifarch %ix86 x86_64
+           --with-dri-drivers=i915,i965,nouveau,r200,radeon \
+           --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga,virgl \
+%endif
 %ifarch %arm aarch64
+           --with-dri-drivers=nouveau \
            --with-gallium-drivers=r300,r600,nouveau,swrast,svga,freedreno,vc4 \
-%else
+%endif
+%ifarch ppc64 ppc64le
+           --with-dri-drivers=nouveau \
            --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
 %endif
-           --enable-vdpau \
-           --enable-xvmc \
-%endif
-%ifarch ia64 ppc hppa
-           --with-dri-drivers=nouveau,r200,radeon \
-           --with-gallium-drivers=r300,r600,nouveau,swrast \
-%endif
-%ifarch s390
+%ifarch ia64 ppc hppa s390 s390x
            --with-dri-drivers=swrast \
            --with-gallium-drivers=swrast \
-%endif
-%ifarch s390x
-        --enable-xa \
-        --enable-gallium-llvm \
-        --with-dri-drivers=swrast \
-        --with-gallium-drivers=swrast,svga \
 %endif
         CFLAGS="%{optflags} -DNDEBUG"
 make %{?_smp_mflags}

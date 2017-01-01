@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Dec 15 07:39:30 UTC 2016 - dmueller@suse.com
+
+- clean up configuration settings to be uniform accross all
+  architectures except for list of dri and gallium drivers
+
+-------------------------------------------------------------------
 Mon Dec 12 14:22:12 UTC 2016 - mstaudt@suse.com
 
 - U_cso-don-t-release-sampler-states-that-are-bound.patch:
