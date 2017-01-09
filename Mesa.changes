@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Thu Jan  5 19:11:14 UTC 2017 - mimi.vx@gmail.com
+
+- update to 13.0.3
++ dropped U_cso-don-t-release-sampler-states-that-are-bound.patch
+* fdo#77662 Fail to render to different faces of depth-stencil cube map
+* fdo#92234 [BDW] GPU hang in Shogun2
+* fdo#98329 dEQP-EGL.functional.image.render_multiple_contexts.gles2_renderbuffer_depth16_depth_buffer
+* fdo#99038 dEQP-EGL.functional.negative_api.create_pixmap_surface crashes
+* many radeonsi and i965 bugfixes
+
+-------------------------------------------------------------------
 Thu Dec 15 07:39:30 UTC 2016 - dmueller@suse.com
 
 - clean up configuration settings to be uniform accross all
