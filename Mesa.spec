@@ -1,7 +1,7 @@
 #
 # spec file for package Mesa
 #
-# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -22,7 +22,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 13.0.2
+%define _version 13.0.3
 %define with_opencl 0
 %define with_vulkan 0
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
@@ -49,7 +49,7 @@
 %endif
 
 Name:           Mesa
-Version:        13.0.2
+Version:        13.0.3
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -74,8 +74,6 @@ Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # never to be upstreamed
 Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
-# Already upstream
-Patch22:        U_cso-don-t-release-sampler-states-that-are-bound.patch
 
 # Nouveau multithreading workarounds from https://github.com/imirkin/mesa/commits/locking
 Patch61:        N_01-WIP-nouveau-add-locking.patch
@@ -605,7 +603,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch13 -p1
 %patch18 -p1
 %patch21 -p1
-%patch22 -p1
 
 %if %{use_broken_nouveau_locking_patches}
 %patch61 -p1
