@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Jan 19 14:01:21 UTC 2017 - mimi.vx@gmail.com
+
+- Updated baselibs.conf to reflect libvulkan_radeon 
+
+-------------------------------------------------------------------
 Thu Jan 19 07:56:52 UTC 2017 - mimi.vx@gmail.com
 
 - Enabled RADV vulkan driver for AMD GPU cards
