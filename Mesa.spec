@@ -41,8 +41,8 @@
 %endif
 %ifarch %ix86 x86_64
 %define with_nine 1
-%if 0%{gallium_loader} && 0%{?suse_version} > 1310
-# llvm >= 3.7 not provided for <= 13.1
+%if 0%{gallium_loader} && 0%{?suse_version} >= 1330
+# llvm >= 3.9 not provided for <= 1330 
 %define with_opencl 1
 %define with_vulkan 1
 %endif
@@ -549,10 +549,20 @@ Supplements:    xf86-video-intel
 %description -n libvulkan_intel
 This package contains the Vulkan parts for Mesa.
 
+%package -n libvulkan_radeon
+Summary:        Mesa vulkan driver for AMD GPU
+Group:          System/Libraries
+Supplements:    xf86-video-ati
+Supplements:    xf86-video-amdgpu
+
+%description -n libvulkan_radeon
+This package contains the Vulkan parts for Mesa.
+
 %package  libVulkan-devel
 Summary:        Mesas Vulkan development files
 Group:          Development/Libraries/C and C++
 Requires:       libvulkan_intel = %{version}
+Requires:       libvulkan_radeon = %{version}
 Conflicts:      vulkan-devel
 
 %description libVulkan-devel
@@ -650,7 +660,7 @@ autoreconf -fvi
            --enable-va \
            --enable-xvmc \
 %if 0%{with_vulkan}
-           --with-vulkan-drivers=intel \
+           --with-vulkan-drivers=intel,radeon \
 %endif
 %ifarch %ix86 x86_64
            --with-dri-drivers=i915,i965,nouveau,r200,radeon \
@@ -802,6 +812,10 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 # only built with opencl
 %dir %{_libdir}/gallium-pipe/
 %{_libdir}/gallium-pipe/pipe_*.so
+%endif
+%if 0%{with_vulkan}
+%dir %{_datadir}/vulkan
+%dir %{_datadir}/vulkan/icd.d
 %endif
 
 %files -n Mesa-libEGL1
@@ -1004,8 +1018,6 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %if 0%{with_vulkan}
 %files -n libvulkan_intel
 %defattr(-,root,root)
-%dir %{_datadir}/vulkan
-%dir %{_datadir}/vulkan/icd.d
 %{_datadir}/vulkan/icd.d/intel_icd.*.json
 %{_libdir}/libvulkan_intel.so
 
@@ -1013,6 +1025,11 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %defattr(-,root,root)
 %dir %_includedir/vulkan
 %_includedir/vulkan
+
+%files -n libvulkan_radeon
+%defattr(-,root,root)
+%{_libdir}/libvulkan_radeon.so
+%{_datadir}/vulkan/icd.d/radeon_icd.*.json
 %endif
 
 %changelog

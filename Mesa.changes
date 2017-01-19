@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Jan 19 07:56:52 UTC 2017 - mimi.vx@gmail.com
+
+- Enabled RADV vulkan driver for AMD GPU cards
+
+-------------------------------------------------------------------
 Thu Jan  5 19:11:14 UTC 2017 - mimi.vx@gmail.com
 
 - update to 13.0.3
