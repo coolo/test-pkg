@@ -1,7 +1,7 @@
 #
 # spec file for package bash
 #
-# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -343,6 +343,7 @@ done
   SCREENLOG=${SCREENDIR}/log
   cat > $SCREENRC<<-EOF
 	deflogin off
+	deflog on
 	logfile $SCREENLOG
 	logfile flush 1
 	logtstamp off
@@ -548,7 +549,7 @@ popd
   tail -q -s 0.5 -f $SCREENLOG & pid=$!
   env -i HOME=$PWD TERM=$TERM LD_LIBRARY_PATH=$LD_RUN_PATH TMPDIR=$TMPDIR \
 	SCREENRC=$SCREENRC SCREENDIR=$SCREENDIR \
-	screen -L -D -m make TESTSCRIPT=%{SOURCE4} check
+	screen -D -m make TESTSCRIPT=%{SOURCE4} check
   kill -TERM $pid
   make %{?do_profiling:CFLAGS="$CFLAGS %cflags_profile_feedback -fprofile-correction" clean} all
   make -C examples/loadables/
