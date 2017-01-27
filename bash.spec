@@ -92,8 +92,6 @@ Patch27:        readline-6.2-xmalloc.dif
 Patch30:        readline-6.3-destdir.patch
 Patch31:        readline-6.3-rltrace.patch
 Patch40:        bash-4.1-bash.bashrc.dif
-# PATCH-FIX-UPSTREAM boo#1010845 -- CVE-2016-9401: bash: popd controlled free (Segmentation fault)
-Patch41:        popd-offset-overflow.patch
 Patch46:        man2html-no-timestamp.patch
 Patch47:        bash-4.3-perl522.patch
 # PATCH-FIX-SUSE
@@ -302,7 +300,6 @@ done
 #%patch25 -p0 -b .endpw
 %patch31 -p0 -b .tmp
 %patch40 -p0 -b .bashrc
-%patch41 -p0 -b .popd
 %patch46 -p0 -b .notimestamp
 %patch47 -p0 -b .perl522
 %if %{with import_function}
