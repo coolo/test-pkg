@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Jan 27 21:38:44 UTC 2017 - mimi.vx@gmail.com
+
+- Update baselibs.conf to ship i386 vulkan json files on x86_64 
+
+-------------------------------------------------------------------
 Thu Jan 19 14:01:21 UTC 2017 - mimi.vx@gmail.com
 
 - Updated baselibs.conf to reflect libvulkan_radeon 
