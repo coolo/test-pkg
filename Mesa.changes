@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Mon Jan 30 10:01:47 UTC 2017 - sndirsch@suse.com
+
+- baselibs.conf: replaced definition of packages, which default is
+  not set to be built in specfile to 
+    arch aarch64 ppc64 ppc64le s390x x86_64 package <package>
+ in order to make "osc service localrun source_validator" happy :-(
+
+-------------------------------------------------------------------
+Fri Jan 27 21:38:44 UTC 2017 - mimi.vx@gmail.com
+
+- Update baselibs.conf to ship i386 vulkan json files on x86_64 
+
+-------------------------------------------------------------------
 Thu Jan 19 14:01:21 UTC 2017 - mimi.vx@gmail.com
 
 - Updated baselibs.conf to reflect libvulkan_radeon 
