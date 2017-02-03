@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Thu Feb  2 15:28:27 UTC 2017 - sndirsch@suse.com
+
+- update to 13.0.4
+  * Multiple fixes for the i965 and radeonsi drivers. An odd glitch
+    in glxgears when using the freedreno driver was also addressed.
+  * The ANV driver being the prime source of patches - from
+    compatibility improvements with newer Vulkan loaders, 
+    smoketesting and various rendering and compliance fixes.
+  * A couple of longstanding issues in the VA state tracker have
+    also been resolved.  
+
+-------------------------------------------------------------------
 Mon Jan 30 10:01:47 UTC 2017 - sndirsch@suse.com
 
 - baselibs.conf: replaced definition of packages, which default is
