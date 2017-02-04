@@ -30,7 +30,7 @@
 %else
 %define gallium_loader 0
 %endif
-%ifarch %ix86 x86_64 aarch64 %arm ppc ppc64 ppc64le
+%ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le
 %define xvmc_support 1
 %define vdpau_nouveau 1
 %define vdpau_radeon 1
@@ -653,7 +653,6 @@ autoreconf -fvi
 %else
            --with-dri-searchpath=%{_libdir}/dri \
 %endif
-           --enable-xa \
            --enable-gallium-llvm \
            --enable-llvm-shared-libs \
            --enable-vdpau \
@@ -663,14 +662,17 @@ autoreconf -fvi
            --with-vulkan-drivers=intel,radeon \
 %endif
 %ifarch %ix86 x86_64
+           --enable-xa \
            --with-dri-drivers=i915,i965,nouveau,r200,radeon \
            --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga,virgl \
 %endif
 %ifarch %arm aarch64
+           --enable-xa \
            --with-dri-drivers=nouveau \
            --with-gallium-drivers=r300,r600,nouveau,swrast,svga,freedreno,vc4 \
 %endif
 %ifarch ppc64 ppc64le
+           --enable-xa \
            --with-dri-drivers=nouveau \
            --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
 %endif
@@ -806,8 +808,10 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %{_libdir}/dri/updates
 %endif
 %{_libdir}/dri/*_dri.so
+%ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le
 %exclude %{_libdir}/dri/nouveau_dri.so
 %exclude %{_libdir}/dri/nouveau_vieux_dri.so
+%endif
 %if 0%{with_opencl}
 # only built with opencl
 %dir %{_libdir}/gallium-pipe/
@@ -900,7 +904,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %{_libdir}/libgbm.so
 %{_libdir}/pkgconfig/gbm.pc
 
-%ifarch aarch64 %ix86 x86_64 %arm ppc64 ppc64le s390x
+%ifarch aarch64 %ix86 x86_64 %arm ppc64 ppc64le
 %files -n libxatracker2
 %defattr(-,root,root)
 %{_libdir}/libxatracker.so.2*
@@ -975,7 +979,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %{_includedir}/GL/internal
 %{_libdir}/pkgconfig/dri.pc
 
-%ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le ia64 ppc hppa
+%ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le
 %files -n Mesa-dri-nouveau
 %{_libdir}/dri/nouveau_dri.so
 %{_libdir}/dri/nouveau_vieux_dri.so
@@ -1008,7 +1012,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %{_libdir}/libMesaOpenCL.so*
 %endif
 
-%ifnarch s390 s390x
+%ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le
 %files libva
 %defattr(-,root,root)
 %dir %{_libdir}/dri
