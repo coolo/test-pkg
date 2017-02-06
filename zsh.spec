@@ -1,7 +1,7 @@
 #
 # spec file for package zsh
 #
-# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -41,6 +41,7 @@ Patch1:         trim-unneeded-completions.patch
 # PATCH-FIX-OPENSUSE zsh-osc-completion.patch -- Fix openSUSE versions in osc completion
 Patch2:         zsh-osc-completion.patch
 Patch3:         fix-printf.patch
+Patch4:         fix-patchutils-completion.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  groff
 %if 0%{?suse_version}
@@ -103,6 +104,7 @@ This package contains the Zsh manual in html format.
 %endif
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 # Remove executable bit
 chmod 0644 Etc/changelog2html.pl
