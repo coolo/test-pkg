@@ -71,8 +71,6 @@ Patch5:         bash-3.0-warn-locale.patch
 # Disabled
 Patch6:         bash-4.2-endpw.dif
 Patch7:         bash-4.3-decl.patch
-# Is this fixed meanwhile?
-Patch8:         bash-4.0-async-bnc523667.dif
 Patch9:         bash-4.3-include-unistd.dif
 Patch10:        bash-3.2-printf.patch
 Patch11:        bash-4.3-loadables.dif
@@ -285,7 +283,6 @@ done
 %patch5  -p0 -b .warnlc
 #%patch6  -p0 -b .endpw
 %patch7  -p0 -b .decl
-#%patch8  -p0 -b .async
 %patch9  -p0 -b .unistd
 %patch10 -p0 -b .printf
 %patch11 -p0 -b .plugins
