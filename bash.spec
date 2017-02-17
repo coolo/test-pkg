@@ -1,7 +1,7 @@
 #
 # spec file for package bash
 #
-# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -71,8 +71,6 @@ Patch5:         bash-3.0-warn-locale.patch
 # Disabled
 Patch6:         bash-4.2-endpw.dif
 Patch7:         bash-4.3-decl.patch
-# Is this fixed meanwhile?
-Patch8:         bash-4.0-async-bnc523667.dif
 Patch9:         bash-4.3-include-unistd.dif
 Patch10:        bash-3.2-printf.patch
 Patch11:        bash-4.3-loadables.dif
@@ -92,8 +90,6 @@ Patch27:        readline-6.2-xmalloc.dif
 Patch30:        readline-6.3-destdir.patch
 Patch31:        readline-6.3-rltrace.patch
 Patch40:        bash-4.1-bash.bashrc.dif
-# PATCH-FIX-UPSTREAM boo#1010845 -- CVE-2016-9401: bash: popd controlled free (Segmentation fault)
-Patch41:        popd-offset-overflow.patch
 Patch46:        man2html-no-timestamp.patch
 Patch47:        bash-4.3-perl522.patch
 # PATCH-FIX-SUSE
@@ -287,7 +283,6 @@ done
 %patch5  -p0 -b .warnlc
 #%patch6  -p0 -b .endpw
 %patch7  -p0 -b .decl
-#%patch8  -p0 -b .async
 %patch9  -p0 -b .unistd
 %patch10 -p0 -b .printf
 %patch11 -p0 -b .plugins
@@ -302,7 +297,6 @@ done
 #%patch25 -p0 -b .endpw
 %patch31 -p0 -b .tmp
 %patch40 -p0 -b .bashrc
-%patch41 -p0 -b .popd
 %patch46 -p0 -b .notimestamp
 %patch47 -p0 -b .perl522
 %if %{with import_function}
@@ -343,6 +337,7 @@ done
   SCREENLOG=${SCREENDIR}/log
   cat > $SCREENRC<<-EOF
 	deflogin off
+	deflog on
 	logfile $SCREENLOG
 	logfile flush 1
 	logtstamp off
@@ -548,7 +543,7 @@ popd
   tail -q -s 0.5 -f $SCREENLOG & pid=$!
   env -i HOME=$PWD TERM=$TERM LD_LIBRARY_PATH=$LD_RUN_PATH TMPDIR=$TMPDIR \
 	SCREENRC=$SCREENRC SCREENDIR=$SCREENDIR \
-	screen -L -D -m make TESTSCRIPT=%{SOURCE4} check
+	screen -D -m make TESTSCRIPT=%{SOURCE4} check
   kill -TERM $pid
   make %{?do_profiling:CFLAGS="$CFLAGS %cflags_profile_feedback -fprofile-correction" clean} all
   make -C examples/loadables/
