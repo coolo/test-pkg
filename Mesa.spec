@@ -22,7 +22,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 13.0.4
+%define _version 17.0.0
 %define with_opencl 0
 %define with_vulkan 0
 %ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
@@ -49,21 +49,22 @@
 %endif
 
 Name:           Mesa
-Version:        13.0.4
+Version:        17.0.0
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
 Group:          System/Libraries
 Url:            http://www.mesa3d.org
-Source:         ftp://ftp.freedesktop.org/pub/mesa/%{version}/%{_name_archive}-%{_version}.tar.xz
-Source1:        ftp://ftp.freedesktop.org/pub/mesa/%{version}/%{_name_archive}-%{_version}.tar.xz.sig
+# For now directory structure of Mesa's ftp changed
+# Source:         ftp://ftp.freedesktop.org/pub/mesa/%%{version}/%%{_name_archive}-%%{_version}.tar.xz
+Source:         ftp://ftp.freedesktop.org/pub/mesa/%{_name_archive}-%{_version}.tar.xz
+# Source1:        ftp://ftp.freedesktop.org/pub/mesa/%%{version}/%%{_name_archive}-%%{_version}.tar.xz.sig
+Source1:        ftp://ftp.freedesktop.org/pub/mesa/%{_name_archive}-%{_version}.tar.xz.sig
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source6:        %{name}-rpmlintrc
 Source7:        Mesa.keyring
-# required for building against wayland of openSUSE 13.1
-Patch0:         n_Fixed-build-against-wayland-1.2.1.patch
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 # Patch from Fedora, fix 16bpp in llvmpipe
@@ -133,13 +134,14 @@ Obsoletes:      Mesa-nouveau3d < %{version}
 Obsoletes:      xorg-x11-Mesa < %{version}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %ifarch %arm
-BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.67
+BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.74
 %endif
 %ifarch x86_64 %ix86
 BuildRequires:  libelf-devel
 BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.61
 %endif
-%if 0%{?suse_version} >= 1310
+# Requirments for wayland bumped up from 17.0
+%if 0%{?suse_version} > 1320
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-server)
 %endif
@@ -186,7 +188,7 @@ Obsoletes:      Mesa-devel-static < %{version}
 Obsoletes:      xorg-x11-Mesa-devel < %{version}
 Provides:       Mesa-libIndirectGL-devel = %{version}
 Obsoletes:      Mesa-libIndirectGL-devel < %{version}
-%if 0%{?suse_version} >= 1310
+%if 0%{?suse_version} > 1320
 Requires:       libwayland-egl-devel
 %endif
 
@@ -429,7 +431,7 @@ openwfd.
 This package provides the development environment for compiling
 programs against the GBM library.
 
-%if 0%{?suse_version} >= 1310
+%if 0%{?suse_version} > 1320
 %package -n libwayland-egl1
 Summary:        Additional egl functions for wayland
 Group:          System/Libraries
@@ -601,10 +603,6 @@ programs against the XA state tracker.
 %setup -q -n %{_name_archive}-%{_version} -b4
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
-%if 0%{?suse_version} < 1320
-# required for building against wayland of openSUSE 13.1
-%patch0 -p1
-%endif
 ### disabled, but not dropped yet; these still need investigation in
 ### order to figure out whether the issue is still reproducable and
 ### hence a fix is required
@@ -623,7 +621,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %endif
 
 %build
-%if 0%{?suse_version} >= 1310
+%if 0%{?suse_version} > 1320
 egl_platforms=x11,drm,wayland
 %else
 egl_platforms=x11,drm
@@ -648,11 +646,7 @@ autoreconf -fvi
            --enable-opencl \
            --enable-opencl-icd \
 %endif
-%if 0%{?suse_version} < 1315
-           --with-dri-searchpath=%{_libdir}/dri/updates:%{_libdir}/dri \
-%else
            --with-dri-searchpath=%{_libdir}/dri \
-%endif
            --enable-gallium-llvm \
            --enable-llvm-shared-libs \
            --enable-vdpau \
@@ -698,12 +692,6 @@ for dir in ../xc/doc/man/{GL/gl,GL/glx}; do
    make install.man DESTDIR=%{buildroot} MANPATH=%{_mandir} LIBMANSUFFIX=3gl
  popd
 done
-%if 0%{?suse_version} < 1315
-#DRI driver update mechanism
-mkdir -p %{buildroot}%{_libdir}/dri/updates
-install -m 644 $RPM_SOURCE_DIR/README.updates \
-  %{buildroot}%{_libdir}/dri/updates
-%endif
 
 %fdupes -s %{buildroot}/%{_mandir}
 
@@ -771,7 +759,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 
 %postun -n Mesa-libglapi0 -p /sbin/ldconfig
 
-%if 0%{?suse_version} >= 1310
+%if 0%{?suse_version} > 1320
 %post   -n libwayland-egl1 -p /sbin/ldconfig
 
 %postun -n libwayland-egl1 -p /sbin/ldconfig
@@ -804,9 +792,6 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %doc docs/README* docs/license.html
 %config %{_sysconfdir}/drirc
 %dir %{_libdir}/dri
-%if 0%{?suse_version} < 1315
-%{_libdir}/dri/updates
-%endif
 %{_libdir}/dri/*_dri.so
 %ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le
 %exclude %{_libdir}/dri/nouveau_dri.so
@@ -883,7 +868,7 @@ install -m 644 $RPM_SOURCE_DIR/README.updates \
 %{_libdir}/libOSMesa.so
 %{_libdir}/pkgconfig/osmesa.pc
 
-%if 0%{?suse_version} >= 1310
+%if 0%{?suse_version} > 1320
 %files -n libwayland-egl1
 %defattr(-,root,root)
 %{_libdir}/libwayland-egl.so.1*

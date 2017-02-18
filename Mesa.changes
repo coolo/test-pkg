@@ -1,4 +1,50 @@
 -------------------------------------------------------------------
+Mon Feb 13 14:10:52 UTC 2017 - mimi.vx@gmail.com
+
+- update to 17.0.0
+- removed n_Fixed-build-against-wayland-1.2.1.patch , version requirement
+   bumped up by upstream.
+* Vulkan drivers:
+  + Correctly return (and implement) VK_INCOMPLETE on multiple WSI queries
+  + Support for the VK_KHR_sampler_mirror_clamp_to_edge extension
+  + We now use the Khoronos vk.xml file to generate the entrypoints
+* ANV:
+  + HiZ and performance improvements
+  + Float64 support and tessellation shader support.
+* RADV:
+  + Support multiple devices
+  + Support for the VK_AMD_draw_indirect_count extension
+  + Support for the VK_AMD_negative_viewport_height extension
+* Mesa core:
+  + Noticeable refactoring en route to GLSL Shader Cache
+  + Groundwork for int64
+* i965:
+  + OpenGL 4.5 support on Haswell hardware
+  + Reuse the same BLORP and ISL code as the ANV driver
+* Gallium:
+  + HUD: A number of race issues and memory leaks were resolved.
+* freedreno
+  + Support for a5xx
+* nouveau:
+  + OpenGL 4.3 support on Maxwell hardware
+  + Improved performance due to instruction pipelining (Maxwell)
+* r600/radeonsi
+  + VCE: Handle H.264 level 5.2
+  + Polaris12 support
+  + Dozens of performance improvements
+* Clover:
+  + Implement clGetExtensionFunctionAddressForPlatform.
+  + Add missing clGetDeviceInfo CL1.2 queries
+* VDPAU:
+  + Use dri3 to directly send the buffer to X
+* Build:
+  + Building RADV requires --enable-gallium-llvm
+  + Compatibility fixes for building mesa as part of ARC
+  + The vulkan headers vk_platform.h and vulkan.h are no longer installed
+  + A couple of configure options (--with-sha1 and --disable-shader-cache) are
+    removed alongside their respective library requirements.
+
+-------------------------------------------------------------------
 Sat Feb  4 14:58:43 UTC 2017 - schwab@linux-m68k.org
 
 - specfile: fix build configuration for arm, ppc and s390 platforms
