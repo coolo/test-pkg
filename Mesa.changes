@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Feb 21 21:34:23 UTC 2017 - schwab@linux-m68k.org
+
+- Use --enable-gallium-llvm only if llvm is available
+
+-------------------------------------------------------------------
 Tue Feb 21 19:56:14 UTC 2017 - dimstar@opensuse.org
 
 - Provide libwayland-egl1 as -32bit compat library, required by

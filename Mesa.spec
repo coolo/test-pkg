@@ -641,8 +641,10 @@ autoreconf -fvi
            --enable-opencl-icd \
 %endif
            --with-dri-searchpath=%{_libdir}/dri \
+%ifarch aarch64 %arm ppc64 ppc64le s390x %ix86 x86_64
            --enable-gallium-llvm \
            --enable-llvm-shared-libs \
+%endif
            --enable-vdpau \
            --enable-va \
            --enable-xvmc \
