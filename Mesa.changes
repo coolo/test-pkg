@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Feb 21 19:56:14 UTC 2017 - dimstar@opensuse.org
+
+- Provide libwayland-egl1 as -32bit compat library, required by
+  libgtk-3-0.
+
+-------------------------------------------------------------------
 Tue Feb 14 17:32:13 UTC 2017 - jengelh@inai.de
 
 - Some %if around %post do not match with %if around %package;
