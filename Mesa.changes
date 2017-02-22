@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Feb 14 17:32:13 UTC 2017 - jengelh@inai.de
+
+- Some %if around %post do not match with %if around %package;
+  drop them altogether since they are not needed except around
+  %files.
+- Rename wrongly-named libOSMesa9 to libOSMesa8
+
+-------------------------------------------------------------------
 Mon Feb 13 14:10:52 UTC 2017 - mimi.vx@gmail.com
 
 - update to 17.0.0
