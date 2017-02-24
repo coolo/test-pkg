@@ -345,11 +345,14 @@ extensions for the special needs of embedded systems.
 This package provides a development environment for building
 applications using the OpenGL|ES 3.x APIs.
 
-%package -n libOSMesa9
+%package -n libOSMesa8
 Summary:        Mesa Off-screen rendering extension
+# Wrongly named package shipped .so.8
 Group:          System/Libraries
+Obsoletes:      libOSMesa9 < %{version}-%{release}
+Provides:       libOSMesa9 = %{version}-%{release}
 
-%description -n libOSMesa9
+%description -n libOSMesa8
 OSmesa is a Mesa extension that allows programs to render to an
 off-screen buffer using the OpenGL API without having to create a
 rendering context on an X Server. It uses a pure software renderer.
@@ -357,7 +360,7 @@ rendering context on an X Server. It uses a pure software renderer.
 %package -n libOSMesa-devel
 Summary:        Development files for the Mesa Offscreen Rendering extension
 Group:          Development/Libraries/C and C++
-Requires:       libOSMesa9 = %{version}
+Requires:       libOSMesa8 = %{version}
 
 %description -n libOSMesa-devel
 Development files for the OSmesa Mesa extension that allows programs to render to an
@@ -431,7 +434,6 @@ openwfd.
 This package provides the development environment for compiling
 programs against the GBM library.
 
-%if 0%{?suse_version} > 1320
 %package -n libwayland-egl1
 Summary:        Additional egl functions for wayland
 Group:          System/Libraries
@@ -449,13 +451,11 @@ Requires:       libwayland-egl1 = %{version}
 %description -n libwayland-egl-devel
 This package is required to link wayland client applications to the EGL
 implementation of Mesa.
-%endif
 
-%if 0%{?with_nine}
 %package libd3d
 Summary:        Mesa Direct3D9 state tracker
-Group:          System/Libraries
 # Manually provide d3d library (bnc#918294)
+Group:          System/Libraries
 %ifarch x86_64 s390x ppc64le aarch64
 Provides:       d3dadapter9.so.1()(64bit)
 %else
@@ -472,7 +472,6 @@ Requires:       %{name}-libd3d = %{version}
 
 %description libd3d-devel
 Mesa Direct3D9 state tracker development package
-%endif
 
 %package -n libXvMC_nouveau
 Summary:        XVMC state tracker for Nouveau
@@ -524,14 +523,12 @@ Supplements:    xf86-video-ati
 %description -n libvdpau_radeonsi
 This package contains the VDPAU state tracker for radeonsi.
 
-%if 0%{with_opencl}
 %package libOpenCL
 Summary:        Mesa OpenCL implementation
 Group:          System/Libraries
 
 %description libOpenCL
 This package contains the Mesa OpenCL implementation or GalliumCompute.
-%endif
 
 %package libva
 Summary:        Mesa VA-API implementation
@@ -541,8 +538,6 @@ Supplements:    Mesa
 %description libva
 This package contains the Mesa VA-API implementation provided through gallium.
 
-
-%if 0%{with_vulkan}
 %package -n libvulkan_intel
 Summary:        Mesa vulkan driver for Intel GPU
 Group:          System/Libraries
@@ -569,7 +564,6 @@ Conflicts:      vulkan-devel
 
 %description libVulkan-devel
 This package contains the development files for Mesas Vulkan implementation.
-%endif
 
 %package -n libxatracker2
 Version:        1.0.0
@@ -647,8 +641,10 @@ autoreconf -fvi
            --enable-opencl-icd \
 %endif
            --with-dri-searchpath=%{_libdir}/dri \
+%ifarch aarch64 %arm ppc64 ppc64le s390x %ix86 x86_64
            --enable-gallium-llvm \
            --enable-llvm-shared-libs \
+%endif
            --enable-vdpau \
            --enable-va \
            --enable-xvmc \
@@ -715,21 +711,18 @@ done
 
 %postun -n Mesa-libGLESv2-2 -p /sbin/ldconfig
 
-%post   -n libOSMesa9 -p /sbin/ldconfig
+%post   -n libOSMesa8 -p /sbin/ldconfig
 
-%postun -n libOSMesa9 -p /sbin/ldconfig
+%postun -n libOSMesa8 -p /sbin/ldconfig
 
 %post   -n libgbm1 -p /sbin/ldconfig
 
 %postun -n libgbm1 -p /sbin/ldconfig
 
-%ifarch aarch64 %ix86 x86_64 %arm ppc64 ppc64le s390x
 %post   -n libxatracker2 -p /sbin/ldconfig
 
 %postun -n libxatracker2 -p /sbin/ldconfig
-%endif
 
-%if %{xvmc_support}
 %post   -n libXvMC_nouveau -p /sbin/ldconfig
 
 %postun -n libXvMC_nouveau -p /sbin/ldconfig
@@ -737,9 +730,7 @@ done
 %post   -n libXvMC_r600 -p /sbin/ldconfig
 
 %postun -n libXvMC_r600 -p /sbin/ldconfig
-%endif
 
-%if %{vdpau_radeon}
 %post   -n libvdpau_r300 -p /sbin/ldconfig
 
 %postun -n libvdpau_r300 -p /sbin/ldconfig
@@ -747,45 +738,34 @@ done
 %post   -n libvdpau_r600 -p /sbin/ldconfig
 
 %postun -n libvdpau_r600 -p /sbin/ldconfig
-%endif
 
-%ifarch %ix86 x86_64
 %post   -n libvdpau_radeonsi -p /sbin/ldconfig
 
 %postun -n libvdpau_radeonsi -p /sbin/ldconfig
-%endif
 
 %post   -n Mesa-libglapi0 -p /sbin/ldconfig
 
 %postun -n Mesa-libglapi0 -p /sbin/ldconfig
 
-%if 0%{?suse_version} > 1320
 %post   -n libwayland-egl1 -p /sbin/ldconfig
 
 %postun -n libwayland-egl1 -p /sbin/ldconfig
-%endif
 
-%if 0%{?with_nine}
 %post libd3d -p /sbin/ldconfig
 
 %postun libd3d -p /sbin/ldconfig
-%endif
 
-%if 0%{with_opencl}
 %post   libOpenCL -p /sbin/ldconfig
 
 %postun libOpenCL -p /sbin/ldconfig
-%endif
 
 %post libva -p /sbin/ldconfig
 
 %postun libva -p /sbin/ldconfig
 
-%if 0%{with_vulkan}
 %post -n libvulkan_intel -p /sbin/ldconfig
 
 %postun -n libvulkan_intel -p /sbin/ldconfig
-%endif
 
 %files
 %defattr(-,root,root)
@@ -857,7 +837,7 @@ done
 #%_libdir/libGLESv3.so
 #%_libdir/pkgconfig/glesv3.pc
 
-%files -n libOSMesa9
+%files -n libOSMesa8
 %defattr(-,root,root)
 %{_libdir}/libOSMesa.so.8.0.0
 %{_libdir}/libOSMesa.so.8
