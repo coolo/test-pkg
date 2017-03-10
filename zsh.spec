@@ -17,7 +17,7 @@
 
 
 Name:           zsh
-Version:        5.3
+Version:        5.3.1
 Release:        0%{?dist}
 Summary:        Shell with comprehensive completion
 License:        MIT
@@ -40,16 +40,13 @@ Source16:       dotzshrc.rh
 Patch1:         trim-unneeded-completions.patch
 # PATCH-FIX-OPENSUSE zsh-osc-completion.patch -- Fix openSUSE versions in osc completion
 Patch2:         zsh-osc-completion.patch
-Patch3:         fix-printf.patch
-Patch4:         fix-patchutils-completion.patch
+Patch3:         fix-patchutils-completion.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  groff
 %if 0%{?suse_version}
 Requires(pre):  %{install_info_prereq}
-%if 0%{?suse_version} >= 1110
 BuildRequires:  fdupes
 BuildRequires:  yodl
-%endif
 %if 0%{?suse_version} >= 1210
 BuildRequires:  makeinfo
 BuildRequires:  texi2html
@@ -104,7 +101,6 @@ This package contains the Zsh manual in html format.
 %endif
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
 
 # Remove executable bit
 chmod 0644 Etc/changelog2html.pl
