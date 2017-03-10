@@ -1,4 +1,72 @@
 -------------------------------------------------------------------
+Sat Mar  4 16:29:46 UTC 2017 - mimi.vx@gmail.com
+
+- update to 17.0.1
+ * radv: Never try to create more than max_sets descriptor sets.
+ * radv: Reset emitted compute pipeline when calling secondary cmd buffer.
+ * radv: Only use PKT3_OCCLUSION_QUERY when it doesn't hang.
+ * radv: Use correct size for availability flag.
+ * gallivm: Reenable PPC VSX (v3)
+ * gallivm: Improve debug output (V2)
+ * gallivm: Override getHostCPUName() "generic" w/ "pwr8" (v4)
+ * egl/dri3: implement query surface hook
+ * etnaviv: move pctx initialisation to avoid a null dereference
+ * etnaviv: remove number of pixel pipes validation
+ * anv: fix Get*MemoryRequirements for !LLC
+ * egl/wayland: Don't use DRM format codes for SHM
+ * tgsi: fix memory leak in tgsi sanity check
+ * radv: change base aligmment for allocated memory.
+ * radv: fix cik macroModeIndex.
+ * radv: adopt some init config workarounds from radeonsi.
+ * radv: fix depth format in blit2d.
+ * radv: fix txs for sampler buffers
+ * bin/get-extra-pick-list: use git merge-base to get the branchpoint
+ * bin/get-extra-pick-list: rework to use already_picked list
+ * bin/get-typod-pick-list.sh: limit `git grep ...' to only as needed
+ * bin/get-pick-list.sh: limit `git grep ...' only as needed
+ * bin/get-pick-list.sh: remove ancient way of nominating patches
+ * bin/get-fixes-pick-list.sh: add new script
+ * vc4: Avoid emitting small immediates for UBO indirect load address guards.
+ * r300g: only allow byteswapped formats on big endian
+ * gallium/u_queue: fix a crash with atexit handlers
+ * gallium/u_queue: set num_threads correctly if not all threads start
+ * glx/glvnd: Fix GLXdispatchIndex sorting
+ * gm107/ir: fix address offset bitfield for ATOMS
+ * nvc0: set the render condition in the compute object
+ * st/mesa: don't pass compare mode for stencil-sampled textures
+ * nvc0: disable linked tsc mode in compute launch descriptor
+ * i965/sampler_state: Clamp min/max LOD to 14 on gen7+
+ * i965/sampler_state: Pass texObj into update_sampler_state
+ * i965/sampler_state: Set the "Base Mip Level" field on Sandy Bridge
+ * intel/blorp: Swizzle clear colors on the CPU
+ * i965/fs: Fix the inline nir_op_pack_double optimization
+ * anv: Add an invalidate_range helper
+ * anv/query: clflush the bo map on non-LLC platforms
+ * genxml: Make MI_STORE_DATA_IMM more consistent
+ * anv/query: Perform CmdResetQueryPool on the GPU
+ * intel/blorp: Explicitly flush all allocated state
+ * glsl: non-last member unsized array on SSBO must fail
+ * mesa: Do (TCS && !TES) draw time validation in ES as well.
+ * configure.ac: check require_basic_egl only if egl enabled
+ * anv: wsi: report presentation error per image request
+ * i965/fs: fix uninitialized memory access
+ * radeonsi: fix UNSIGNED_BYTE index buffer fallback with non-zero start (v2)
+ * gallium/util: remove unused u_index_modify helpers
+ * gallium/u_index_modify: don't add PIPE_TRANSFER_UNSYNCHRONIZED
+ * unconditionally
+ * gallium/u_queue: fix random crashes when the app calls exit()
+ * radeonsi: fix broken tessellation on Carrizo and Stoney
+ * amd/common: fix ASICREV_IS_POLARIS11_M for Polaris12
+ * android: radeonsi: fix sid_table.h generated header include path
+ * android: glsl: build shader cache sources
+ * configure.ac: Drop LLVM compiler flags more radically
+ * winsys/amdgpu: reduce max_alloc_size based on GTT limits
+ * radeonsi: handle MultiDrawIndirect in si_get_draw_start_count
+ * radeonsi: fix UINT/SINT clamping for 10-bit formats on <= CIK
+ * glsl: fix heap-use-after-free in ast_declarator_list::hir()
+ * android: fix droid_create_image_from_prime_fd_yuv for YV12
+
+-------------------------------------------------------------------
 Tue Feb 21 21:34:23 UTC 2017 - schwab@linux-m68k.org
 
 - Use --enable-gallium-llvm only if llvm is available
