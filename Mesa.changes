@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Mon Mar 20 18:07:07 UTC 2017 - mimi.vx@gmail.com
+
+- update to 17.0.2
+ * fdo#97988 [radeonsi] playing back videos with VDPAU exhibits
+    deinterlacing/anti-aliasing issues not visible with VA-API
+ * fdo#99484 Crusader Kings 2 - Loading bars, siege bars, morale bars, etc.
+    do not render correctly
+ * fdo#100049 ralloc: Make sure ralloc() allocations match malloc()'s alignment.
+    causes seg fault in 32bit build
+* many fixes for ANV, RADV, Vulkan and i965 + radeonsi drivers
+
+-------------------------------------------------------------------
 Sat Mar  4 16:29:46 UTC 2017 - mimi.vx@gmail.com
 
 - update to 17.0.1
