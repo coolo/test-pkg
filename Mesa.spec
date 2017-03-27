@@ -347,8 +347,8 @@ applications using the OpenGL|ES 3.x APIs.
 
 %package -n libOSMesa8
 Summary:        Mesa Off-screen rendering extension
-# Wrongly named package shipped .so.8
 Group:          System/Libraries
+# Wrongly named package shipped .so.8
 Obsoletes:      libOSMesa9 < %{version}-%{release}
 Provides:       libOSMesa9 = %{version}-%{release}
 
@@ -454,8 +454,8 @@ implementation of Mesa.
 
 %package libd3d
 Summary:        Mesa Direct3D9 state tracker
-# Manually provide d3d library (bnc#918294)
 Group:          System/Libraries
+# Manually provide d3d library (bnc#918294)
 %ifarch x86_64 s390x ppc64le aarch64
 Provides:       d3dadapter9.so.1()(64bit)
 %else
