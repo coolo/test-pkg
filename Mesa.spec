@@ -20,7 +20,10 @@
 # They may fix KDE on Nouveau. They may also deadlock your userland.
 %define use_broken_nouveau_locking_patches 0
 
+%define libglvnd 0
+%if 0%{?suse_version} >= 1330
 %define libglvnd 1
+%endif
 %define glamor 1
 %define _name_archive mesa
 %define _version 17.0.2

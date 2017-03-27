@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Mar 27 13:56:35 UTC 2017 - sndirsch@suse.com
+
+- disable libglvnd for openSUSE Leap 42.x and sle12
+
+-------------------------------------------------------------------
 Fri Mar 24 14:45:49 UTC 2017 - sndirsch@suse.com
 
 - update to 17.0.2
