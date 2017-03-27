@@ -20,6 +20,7 @@
 # They may fix KDE on Nouveau. They may also deadlock your userland.
 %define use_broken_nouveau_locking_patches 0
 
+%define libglvnd 1
 %define glamor 1
 %define _name_archive mesa
 %define _version 17.0.2
@@ -75,6 +76,13 @@ Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # never to be upstreamed
 Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
+# currently needed for libglvnd support
+Patch30:        archlinux_glapi-Link-with-glapi-when-built-shared.patch
+Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
+Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
+Patch33:        archlinux_0001-EGL-Implement-the-libglvnd-interface-for-EGL-v2.patch
+Patch34:        archlinux_0002-fixup-EGL-Implement-the-libglvnd-interface-for-EGL-v.patch
+Patch35:        fedora_0001-glxglvnddispatch-Add-missing-dispatch-for-GetDriverC.patch
 
 # Nouveau multithreading workarounds from https://github.com/imirkin/mesa/commits/locking
 Patch61:        N_01-WIP-nouveau-add-locking.patch
@@ -103,6 +111,9 @@ BuildRequires:  pkgconfig(libdrm) >= 2.4.66
 BuildRequires:  pkgconfig(libdrm_amdgpu) >= 2.4.63
 BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.66
 BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.56
+%if 0%{?libglvnd}
+BuildRequires:  pkgconfig(libglvnd) >= 0.1.0
+%endif
 BuildRequires:  pkgconfig(libkms) >= 1.0.0
 BuildRequires:  pkgconfig(libudev) > 151
 BuildRequires:  pkgconfig(libva)
@@ -153,6 +164,10 @@ BuildRequires:  ncurses-devel
 %if 0%{with_opencl}
 BuildRequires:  libclc
 BuildRequires:  llvm-clang-devel
+%endif
+
+%if 0%{?libglvnd}
+Requires:       libglvnd0 >= 0.1.0
 %endif
 
 %description
@@ -211,6 +226,7 @@ just Mesa or The Mesa 3-D graphics library.
 # Kudos to Debian for the descriptions
 Summary:        Free implementation of the EGL API
 Group:          System/Libraries
+Requires:       libglvnd0 >= 0.1.0
 
 %description -n Mesa-libEGL1
 This package contains the EGL native platform graphics interface
@@ -227,6 +243,7 @@ support.
 Summary:        Development files for the EGL API
 Group:          Development/Libraries/C and C++
 Requires:       Mesa-libEGL1 = %{version}
+Requires:       libglvnd-devel >= 0.1.0
 # Other requires taken care of by pkgconfig already
 
 %description -n Mesa-libEGL-devel
@@ -243,6 +260,7 @@ programs against the EGL library.
 Summary:        The GL/GLX runtime of the Mesa 3D graphics library
 Group:          System/Libraries
 Requires:       Mesa = %{version}
+Requires:       libglvnd0 >= 0.1.0
 
 %description -n Mesa-libGL1
 Mesa is a software library for 3D computer graphics that provides a
@@ -258,6 +276,7 @@ the X Window System.
 Summary:        GL/GLX development files of the OpenGL API
 Group:          Development/Libraries/C and C++
 Requires:       Mesa-libGL1 = %{version}
+Requires:       libglvnd-devel >= 0.1.0
 
 %description -n Mesa-libGL-devel
 Mesa is a software library for 3D computer graphics that provides a
@@ -270,6 +289,7 @@ programs with Mesa.
 %package -n Mesa-libGLESv1_CM1
 Summary:        Free implementation of the OpenGL|ES 1.x Common Profile API
 Group:          System/Libraries
+Requires:       libglvnd0 >= 0.1.0
 
 %description -n Mesa-libGLESv1_CM1
 OpenGL|ES is a cross-platform API for full-function 2D and 3D
@@ -283,6 +303,7 @@ OpenGL|ES 1.x provides an API for fixed-function hardware.
 Summary:        Development files for the OpenGL ES 1.x API
 Group:          Development/Libraries/C and C++
 Requires:       Mesa-libGLESv1_CM1 = %{version}
+Requires:       libglvnd-devel >= 0.1.0
 Requires:       pkgconfig(egl)
 
 %description -n Mesa-libGLESv1_CM-devel
@@ -299,6 +320,7 @@ using the OpenGL|ES 1.x APIs.
 %package -n Mesa-libGLESv2-2
 Summary:        Free implementation of the OpenGL|ES 2.x API
 Group:          System/Libraries
+Requires:       libglvnd0 >= 0.1.0
 
 %description -n Mesa-libGLESv2-2
 OpenGL|ES is a cross-platform API for full-function 2D and 3D
@@ -316,6 +338,7 @@ ES 3 entry points.
 Summary:        Development files for the OpenGL ES 2.x API
 Group:          Development/Libraries/C and C++
 Requires:       Mesa-libGLESv2-2 = %{version}
+Requires:       libglvnd-devel >= 0.1.0
 Requires:       pkgconfig(egl)
 
 %description -n Mesa-libGLESv2-devel
@@ -333,7 +356,9 @@ applications using the OpenGL|ES 2.x APIs.
 %package -n Mesa-libGLESv3-devel
 Summary:        Development files for the OpenGL ES 3.x API
 Group:          Development/Libraries/C and C++
+%if 0%{?libglvnd} == 0
 Requires:       Mesa-libGLESv2-2 = %{version}
+%endif
 Requires:       pkgconfig(egl)
 
 %description -n Mesa-libGLESv3-devel
@@ -606,6 +631,15 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch18 -p1
 %patch21 -p1
 
+%if 0%{?libglvnd}
+%patch30 -p1
+%patch31 -p1
+%patch32 -p1
+%patch33 -p1
+%patch34 -p1
+%patch35 -p1
+%endif
+
 %if %{use_broken_nouveau_locking_patches}
 %patch61 -p1
 %patch62 -p1
@@ -622,7 +656,11 @@ egl_platforms=x11,drm
 %endif
 autoreconf -fvi
 
-%configure --enable-gles1 \
+%configure \
+%if 0%{?libglvnd}
+           --enable-libglvnd \
+%endif
+           --enable-gles1 \
            --enable-gles2 \
            --enable-dri \
            --with-egl-platforms=$egl_platforms \
@@ -677,9 +715,16 @@ make %{?_smp_mflags}
 make DESTDIR=%{buildroot} install %{?_smp_mflags}
 find %{buildroot} -type f -name "*.la" -delete -print
 
+%if 0%{?libglvnd} == 0
 # Make a symlink to libGL.so.1.2 for compatibility (bnc#809359, bnc#831306)
 test -f %{buildroot}%{_libdir}/libGL.so.1.2 || \
   ln -s `readlink %{buildroot}%{_libdir}/libGL.so.1` %{buildroot}%{_libdir}/libGL.so.1.2
+%else
+rm -f %{buildroot}%{_libdir}/libGLES*
+# glvnd needs a default provider for indirect rendering where it cannot
+# determine the vendor
+ln -s %{_libdir}/libGLX_mesa.so.0 %{buildroot}%{_libdir}/libGLX_indirect.so.0
+%endif
 
 for dir in ../xc/doc/man/{GL/gl,GL/glx}; do
  pushd $dir
@@ -703,6 +748,7 @@ done
 
 %postun -n Mesa-libGL1 -p /sbin/ldconfig
 
+%if 0%{?libglvnd} == 0
 %post   -n Mesa-libGLESv1_CM1 -p /sbin/ldconfig
 
 %postun -n Mesa-libGLESv1_CM1 -p /sbin/ldconfig
@@ -710,6 +756,7 @@ done
 %post   -n Mesa-libGLESv2-2 -p /sbin/ldconfig
 
 %postun -n Mesa-libGLESv2-2 -p /sbin/ldconfig
+%endif
 
 %post   -n libOSMesa8 -p /sbin/ldconfig
 
@@ -789,46 +836,70 @@ done
 
 %files -n Mesa-libEGL1
 %defattr(-,root,root)
+%if 0%{?libglvnd}
+%{_libdir}/libEGL_mesa.so*
+%dir %{_datadir}/glvnd
+%dir %{_datadir}/glvnd/egl_vendor.d
+%{_datadir}/glvnd/egl_vendor.d/50_mesa.json
+%else
 %{_libdir}/libEGL.so.1*
+%endif
 
 %files -n Mesa-libEGL-devel
 %defattr(-,root,root)
 %{_includedir}/EGL
 %{_includedir}/KHR
+%if !0%{?libglvnd}
 %{_libdir}/libEGL.so
+%endif
 %{_libdir}/pkgconfig/egl.pc
 
 %files -n Mesa-libGL1
 %defattr(-,root,root)
+%if 0%{?libglvnd}
+%{_libdir}/libGLX_mesa.so*
+%{_libdir}/libGLX_indirect.so*
+%else
 %{_libdir}/libGL.so.1*
+%endif
 
 %files -n Mesa-libGL-devel
 %defattr(-,root,root)
 %dir %{_includedir}/GL
 %{_includedir}/GL/*.h
 %exclude %{_includedir}/GL/osmesa.h
+%if 0%{?libglvnd} == 0
 %{_libdir}/libGL.so
+%endif
 %{_libdir}/pkgconfig/gl.pc
 %{_mandir}/man3/gl[A-Z]*
 
 %files -n Mesa-libGLESv1_CM1
 %defattr(-,root,root)
+%if 0%{?libglvnd} == 0
 %{_libdir}/libGLESv1_CM.so.1*
+%endif
 
 %files -n Mesa-libGLESv1_CM-devel
 %defattr(-,root,root)
 %{_includedir}/GLES
+%if 0%{?libglvnd} == 0
 %{_libdir}/libGLESv1_CM.so
+%endif
 %{_libdir}/pkgconfig/glesv1_cm.pc
 
 %files -n Mesa-libGLESv2-2
 %defattr(-,root,root)
+%if 0%{?libglvnd} == 0
 %{_libdir}/libGLESv2.so.2*
+%endif
 
 %files -n Mesa-libGLESv2-devel
 %defattr(-,root,root)
 %{_includedir}/GLES2
+%if 0%{?libglvnd} == 0
 %{_libdir}/libGLESv2.so
+%endif
 %{_libdir}/pkgconfig/glesv2.pc
 
 %files -n Mesa-libGLESv3-devel

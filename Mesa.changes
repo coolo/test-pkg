@@ -1,14 +1,61 @@
 -------------------------------------------------------------------
-Mon Mar 20 18:07:07 UTC 2017 - mimi.vx@gmail.com
+Fri Mar 24 14:45:49 UTC 2017 - sndirsch@suse.com
 
 - update to 17.0.2
- * fdo#97988 [radeonsi] playing back videos with VDPAU exhibits
+  * fdo#97988 [radeonsi] playing back videos with VDPAU exhibits
     deinterlacing/anti-aliasing issues not visible with VA-API
- * fdo#99484 Crusader Kings 2 - Loading bars, siege bars, morale bars, etc.
+  * fdo#99484 Crusader Kings 2 - Loading bars, siege bars, morale bars, etc.
     do not render correctly
- * fdo#100049 ralloc: Make sure ralloc() allocations match malloc()'s alignment.
-    causes seg fault in 32bit build
-* many fixes for ANV, RADV, Vulkan and i965 + radeonsi drivers
+  * fdo#100049 ralloc: Make sure ralloc() allocations match malloc()'s
+    alignment. causes seg fault in 32bit build
+  * many fixes for ANV, RADV, Vulkan and i965 + radeonsi drivers
+
+-------------------------------------------------------------------
+Thu Mar 23 13:41:27 UTC 2017 - sndirsch@suse.com
+
+- fedora_0001-glxglvnddispatch-Add-missing-dispatch-for-GetDriverC.patch
+  * Fix glXGetDriverConfig not working with glvnd 
+  (https://bugzilla.redhat.com/show_bug.cgi?id=1429894)
+- Fix indirect rendering, add libGLX_indirect.so.0 symlink
+  (https://bugzilla.redhat.com/show_bug.cgi?id=1427174)
+- added Requires to libglvnd0/libglvnd-devel where still needed
+- patches picked from fedora:
+  http://pkgs.fedoraproject.org/cgit/rpms/mesa.git/tree/
+
+-------------------------------------------------------------------
+Wed Mar 22 11:21:25 UTC 2017 - sndirsch@suse.com
+
+- re-enabled GLES build with libglvnd build, just not package GLES
+  libs and require libglvnd0/libglvnd-devel instead
+
+-------------------------------------------------------------------
+Tue Mar 21 10:57:54 UTC 2017 - sndirsch@suse.com
+
+- archlinux_0001-Fix-linkage-against-shared-glapi.patch
+  * fixes libglvnd support for osmesa
+- archlinux_glvnd-fix-gl-dot-pc.patch
+  * fixes libglvnd support in pkgconfig file
+- archlinux_0001-EGL-Implement-the-libglvnd-interface-for-EGL-v2.patch/
+  archlinux_0002-fixup-EGL-Implement-the-libglvnd-interface-for-EGL-v.patch
+  * adds libglvnd support for EGL
+- patches picked from archlinux:
+  https://git.archlinux.org/svntogit/packages.git/tree/trunk?h=packages/mesa
+
+-------------------------------------------------------------------
+Fri Mar 17 15:06:03 UTC 2017 - sndirsch@suse.com
+
+- archlinux_glapi-Link-with-glapi-when-built-shared.patch
+  * currently needed for libglvnd support; picked from archlinux
+    https://git.archlinux.org/svntogit/packages.git/tree/trunk?h=packages/mesa
+- fixed typo in Requires to libglvnd
+
+-------------------------------------------------------------------
+Thu Mar  9 14:20:22 UTC 2017 - sndirsch@suse.com
+
+- build with libglvnd support enabled (can be easily disabled via
+  specfile define); requires libglvnd runtime and development
+  packages; disabled build of GLESv1/v2 libs/packages provided now
+  via libglvnd
 
 -------------------------------------------------------------------
 Sat Mar  4 16:29:46 UTC 2017 - mimi.vx@gmail.com
