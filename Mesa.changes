@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Mar 29 15:18:19 UTC 2017 - sndirsch@suse.com
+
+- specfile: Remove requires to libglvnd0/libglvnd-devel from 
+  baselibs.conf when libglvnd build has been disabled; ugly ...
+
+-------------------------------------------------------------------
 Wed Mar 29 09:23:27 UTC 2017 - sndirsch@suse.com
 
 - specfile: only require libglvnd0/libglvnd-devel, if libglvnd build

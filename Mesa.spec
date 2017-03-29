@@ -20,8 +20,6 @@
 # They may fix KDE on Nouveau. They may also deadlock your userland.
 %define use_broken_nouveau_locking_patches 0
 
-# Remove requires to libglvnd0/libglvnd-devel from baselibs.conf when
-# disabling libglvnd build
 %define libglvnd 0
 %if 0%{?suse_version} >= 1330
 %define libglvnd 1
@@ -667,6 +665,13 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch63 -p1
 %patch64 -p1
 %patch65 -p1
+%endif
+
+# Remove requires to libglvnd0/libglvnd-devel from baselibs.conf when
+# disabling libglvnd build; ugly ...
+%if 0%{?libglvnd} == 0
+grep -v libglvnd $RPM_SOURCE_DIR/baselibs.conf > $RPM_SOURCE_DIR/temp && \
+  mv $RPM_SOURCE_DIR/temp $RPM_SOURCE_DIR/baselibs.conf
 %endif
 
 %build
