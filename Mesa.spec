@@ -20,6 +20,8 @@
 # They may fix KDE on Nouveau. They may also deadlock your userland.
 %define use_broken_nouveau_locking_patches 0
 
+# Remove requires to libglvnd0/libglvnd-devel from baselibs.conf when
+# disabling libglvnd build
 %define libglvnd 0
 %if 0%{?suse_version} >= 1330
 %define libglvnd 1
@@ -229,7 +231,9 @@ just Mesa or The Mesa 3-D graphics library.
 # Kudos to Debian for the descriptions
 Summary:        Free implementation of the EGL API
 Group:          System/Libraries
+%if 0%{?libglvnd}
 Requires:       libglvnd0 >= 0.1.0
+%endif
 
 %description -n Mesa-libEGL1
 This package contains the EGL native platform graphics interface
@@ -246,7 +250,9 @@ support.
 Summary:        Development files for the EGL API
 Group:          Development/Libraries/C and C++
 Requires:       Mesa-libEGL1 = %{version}
+%if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
+%endif
 # Other requires taken care of by pkgconfig already
 
 %description -n Mesa-libEGL-devel
@@ -263,7 +269,9 @@ programs against the EGL library.
 Summary:        The GL/GLX runtime of the Mesa 3D graphics library
 Group:          System/Libraries
 Requires:       Mesa = %{version}
+%if 0%{?libglvnd}
 Requires:       libglvnd0 >= 0.1.0
+%endif
 
 %description -n Mesa-libGL1
 Mesa is a software library for 3D computer graphics that provides a
@@ -279,7 +287,9 @@ the X Window System.
 Summary:        GL/GLX development files of the OpenGL API
 Group:          Development/Libraries/C and C++
 Requires:       Mesa-libGL1 = %{version}
+%if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
+%endif
 
 %description -n Mesa-libGL-devel
 Mesa is a software library for 3D computer graphics that provides a
@@ -292,7 +302,9 @@ programs with Mesa.
 %package -n Mesa-libGLESv1_CM1
 Summary:        Free implementation of the OpenGL|ES 1.x Common Profile API
 Group:          System/Libraries
+%if 0%{?libglvnd}
 Requires:       libglvnd0 >= 0.1.0
+%endif
 
 %description -n Mesa-libGLESv1_CM1
 OpenGL|ES is a cross-platform API for full-function 2D and 3D
@@ -306,7 +318,9 @@ OpenGL|ES 1.x provides an API for fixed-function hardware.
 Summary:        Development files for the OpenGL ES 1.x API
 Group:          Development/Libraries/C and C++
 Requires:       Mesa-libGLESv1_CM1 = %{version}
+%if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
+%endif
 Requires:       pkgconfig(egl)
 
 %description -n Mesa-libGLESv1_CM-devel
@@ -323,7 +337,9 @@ using the OpenGL|ES 1.x APIs.
 %package -n Mesa-libGLESv2-2
 Summary:        Free implementation of the OpenGL|ES 2.x API
 Group:          System/Libraries
+%if 0%{?libglvnd}
 Requires:       libglvnd0 >= 0.1.0
+%endif
 
 %description -n Mesa-libGLESv2-2
 OpenGL|ES is a cross-platform API for full-function 2D and 3D
@@ -341,7 +357,9 @@ ES 3 entry points.
 Summary:        Development files for the OpenGL ES 2.x API
 Group:          Development/Libraries/C and C++
 Requires:       Mesa-libGLESv2-2 = %{version}
+%if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
+%endif
 Requires:       pkgconfig(egl)
 
 %description -n Mesa-libGLESv2-devel
