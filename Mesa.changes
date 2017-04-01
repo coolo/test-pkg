@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Sat Apr  1 15:59:08 UTC 2017 - mimi.vx@gmail.com
+
+- update to 17.0.3
+- change Mesa.keyring to new release manager key
+ * fdo#96743 [BYT, HSW, SKL, BXT, KBL] GPU hangs with GfxBench 4.0 CarChase
+ * fdo#99246 [d3dadapter+radeonsi] EVE-Online : hang on wormhole sight
+ * fdo#100061 LODQ instruction generated with invalid dst mask
+ * fdo#100182 Flickering in The Talos Principle on Sky Lake GT4
+ * radeonsi: add new polaris12 pci id
+ * many fixes for RADV, ANV, i915, radeonsi and freedreno drivers
+
+-------------------------------------------------------------------
 Wed Mar 29 15:18:19 UTC 2017 - sndirsch@suse.com
 
 - specfile: Remove requires to libglvnd0/libglvnd-devel from 
