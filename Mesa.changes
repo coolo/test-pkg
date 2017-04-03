@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Mon Apr  3 09:34:13 UTC 2017 - sndirsch@suse.com
+
+- update to Mesa 17.0.3
+  * hardware support for Intel Kabylake (fate#321223) and other GPUs
+  * bugfixes and performance improvements
+- removed unused Nouveau multithreading patches
+- enable opencl and wayland (needs wayland >= 1.11) on Leap 42.3, 
+  but let it disabled on sle12-sp3
+
+-------------------------------------------------------------------
 Fri Sep  9 13:31:16 UTC 2016 - mstaudt@suse.com
 
 - U_r300g-Set-R300_VAP_CNTL-on-RSxxx-to-avoid-triangle-flickering.patch:
