@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Apr  5 11:32:26 UTC 2017 - afaerber@suse.de
+
+- Prepare building OpenCL for non-x86 architectures, too
+* s390x can build it right away (swrast)
+* %arm aarch64 ppc64 ppc64le depend on LLVM amdgpu target for r600
+- Fix typo in specfile comment
+
+-------------------------------------------------------------------
 Sat Apr  1 15:59:08 UTC 2017 - mimi.vx@gmail.com
 
 - update to 17.0.3

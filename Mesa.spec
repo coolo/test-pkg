@@ -29,7 +29,7 @@
 %define _version 17.0.3
 %define with_opencl 0
 %define with_vulkan 0
-%ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
+%ifarch %ix86 x86_64 %arm aarch64 ppc ppc64 ppc64le s390x
 %define gallium_loader 1
 %else
 %define gallium_loader 0
@@ -45,9 +45,13 @@
 %endif
 %ifarch %ix86 x86_64
 %define with_nine 1
+%endif
 %if 0%{gallium_loader} && 0%{?suse_version} >= 1330
 # llvm >= 3.9 not provided for <= 1330 
+%ifarch %ix86 x86_64 s390x
 %define with_opencl 1
+%endif
+%ifarch %ix86 x86_64
 %define with_vulkan 1
 %endif
 %endif
@@ -153,8 +157,12 @@ BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.74
 %ifarch x86_64 %ix86
 BuildRequires:  libelf-devel
 BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.61
+%else
+%if 0%{with_opencl}
+BuildRequires:  libelf-devel
 %endif
-# Requirments for wayland bumped up from 17.0
+%endif
+# Requirements for wayland bumped up from 17.0
 %if 0%{?suse_version} > 1320
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-server)
