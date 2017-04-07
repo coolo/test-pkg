@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Apr  7 14:51:09 UTC 2017 - sndirsch@suse.com
+
+- U_draw-use-SoA-fetch-not-AoS-one.patch 
+  * reverse-apply this patch to fix OpenGL support on s390x
+    (bsc#1032272)
+
+-------------------------------------------------------------------
 Wed Apr  5 11:32:26 UTC 2017 - afaerber@suse.de
 
 - Prepare building OpenCL for non-x86 architectures, too
