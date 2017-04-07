@@ -1,4 +1,102 @@
 -------------------------------------------------------------------
+Wed Apr  5 11:32:26 UTC 2017 - afaerber@suse.de
+
+- Prepare building OpenCL for non-x86 architectures, too
+* s390x can build it right away (swrast)
+* %arm aarch64 ppc64 ppc64le depend on LLVM amdgpu target for r600
+- Fix typo in specfile comment
+
+-------------------------------------------------------------------
+Sat Apr  1 15:59:08 UTC 2017 - mimi.vx@gmail.com
+
+- update to 17.0.3
+- change Mesa.keyring to new release manager key
+ * fdo#96743 [BYT, HSW, SKL, BXT, KBL] GPU hangs with GfxBench 4.0 CarChase
+ * fdo#99246 [d3dadapter+radeonsi] EVE-Online : hang on wormhole sight
+ * fdo#100061 LODQ instruction generated with invalid dst mask
+ * fdo#100182 Flickering in The Talos Principle on Sky Lake GT4
+ * radeonsi: add new polaris12 pci id
+ * many fixes for RADV, ANV, i915, radeonsi and freedreno drivers
+
+-------------------------------------------------------------------
+Wed Mar 29 15:18:19 UTC 2017 - sndirsch@suse.com
+
+- specfile: Remove requires to libglvnd0/libglvnd-devel from 
+  baselibs.conf when libglvnd build has been disabled; ugly ...
+
+-------------------------------------------------------------------
+Wed Mar 29 09:23:27 UTC 2017 - sndirsch@suse.com
+
+- specfile: only require libglvnd0/libglvnd-devel, if libglvnd build
+  is enabled
+- baselibs.conf: added requires to libglvnd0/libglvnd-devel where
+  needed
+
+-------------------------------------------------------------------
+Mon Mar 27 13:56:35 UTC 2017 - sndirsch@suse.com
+
+- disable libglvnd for openSUSE Leap 42.x and sle12
+
+-------------------------------------------------------------------
+Fri Mar 24 14:45:49 UTC 2017 - sndirsch@suse.com
+
+- update to 17.0.2
+  * fdo#97988 [radeonsi] playing back videos with VDPAU exhibits
+    deinterlacing/anti-aliasing issues not visible with VA-API
+  * fdo#99484 Crusader Kings 2 - Loading bars, siege bars, morale bars, etc.
+    do not render correctly
+  * fdo#100049 ralloc: Make sure ralloc() allocations match malloc()'s
+    alignment. causes seg fault in 32bit build
+  * many fixes for ANV, RADV, Vulkan and i965 + radeonsi drivers
+
+-------------------------------------------------------------------
+Thu Mar 23 13:41:27 UTC 2017 - sndirsch@suse.com
+
+- fedora_0001-glxglvnddispatch-Add-missing-dispatch-for-GetDriverC.patch
+  * Fix glXGetDriverConfig not working with glvnd 
+  (https://bugzilla.redhat.com/show_bug.cgi?id=1429894)
+- Fix indirect rendering, add libGLX_indirect.so.0 symlink
+  (https://bugzilla.redhat.com/show_bug.cgi?id=1427174)
+- added Requires to libglvnd0/libglvnd-devel where still needed
+- patches picked from fedora:
+  http://pkgs.fedoraproject.org/cgit/rpms/mesa.git/tree/
+
+-------------------------------------------------------------------
+Wed Mar 22 11:21:25 UTC 2017 - sndirsch@suse.com
+
+- re-enabled GLES build with libglvnd build, just not package GLES
+  libs and require libglvnd0/libglvnd-devel instead
+
+-------------------------------------------------------------------
+Tue Mar 21 10:57:54 UTC 2017 - sndirsch@suse.com
+
+- archlinux_0001-Fix-linkage-against-shared-glapi.patch
+  * fixes libglvnd support for osmesa
+- archlinux_glvnd-fix-gl-dot-pc.patch
+  * fixes libglvnd support in pkgconfig file
+- archlinux_0001-EGL-Implement-the-libglvnd-interface-for-EGL-v2.patch/
+  archlinux_0002-fixup-EGL-Implement-the-libglvnd-interface-for-EGL-v.patch
+  * adds libglvnd support for EGL
+- patches picked from archlinux:
+  https://git.archlinux.org/svntogit/packages.git/tree/trunk?h=packages/mesa
+
+-------------------------------------------------------------------
+Fri Mar 17 15:06:03 UTC 2017 - sndirsch@suse.com
+
+- archlinux_glapi-Link-with-glapi-when-built-shared.patch
+  * currently needed for libglvnd support; picked from archlinux
+    https://git.archlinux.org/svntogit/packages.git/tree/trunk?h=packages/mesa
+- fixed typo in Requires to libglvnd
+
+-------------------------------------------------------------------
+Thu Mar  9 14:20:22 UTC 2017 - sndirsch@suse.com
+
+- build with libglvnd support enabled (can be easily disabled via
+  specfile define); requires libglvnd runtime and development
+  packages; disabled build of GLESv1/v2 libs/packages provided now
+  via libglvnd
+
+-------------------------------------------------------------------
 Sat Mar  4 16:29:46 UTC 2017 - mimi.vx@gmail.com
 
 - update to 17.0.1
