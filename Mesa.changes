@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Apr 12 12:15:27 UTC 2017 - sndirsch@suse.com
+
+- removed broken locking patches 
+
+-------------------------------------------------------------------
 Wed Apr 12 09:44:35 UTC 2017 - sndirsch@suse.com
 
 - let Mesa require Mesa-libGL1 for a libglvnd build (bsc#1033708)
