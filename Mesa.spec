@@ -154,9 +154,9 @@ BuildRequires:  libelf-devel
 %endif
 %endif
 # Requirements for wayland bumped up from 17.0
-%if 0%{?suse_version} > 1320
-BuildRequires:  pkgconfig(wayland-client)
-BuildRequires:  pkgconfig(wayland-server)
+%if 0%{?suse_version} > 1320 || 0%{?is_opensuse}
+BuildRequires:  pkgconfig(wayland-client) >= 1.11
+BuildRequires:  pkgconfig(wayland-server) >= 1.11
 %endif
 %ifarch aarch64 %arm ppc64 ppc64le s390x %ix86 x86_64
 BuildRequires:  llvm-devel
@@ -206,7 +206,7 @@ Obsoletes:      Mesa-devel-static < %{version}
 Obsoletes:      xorg-x11-Mesa-devel < %{version}
 Provides:       Mesa-libIndirectGL-devel = %{version}
 Obsoletes:      Mesa-libIndirectGL-devel < %{version}
-%if 0%{?suse_version} > 1320
+%if 0%{?suse_version} > 1320 || 0%{?is_opensuse}
 Requires:       libwayland-egl-devel
 %endif
 
@@ -670,7 +670,7 @@ grep -v libglvnd $RPM_SOURCE_DIR/baselibs.conf > $RPM_SOURCE_DIR/temp && \
 %endif
 
 %build
-%if 0%{?suse_version} > 1320
+%if 0%{?suse_version} > 1320 || 0%{?is_opensuse}
 egl_platforms=x11,drm,wayland
 %else
 egl_platforms=x11,drm
@@ -841,9 +841,11 @@ done
 %config %{_sysconfdir}/drirc
 %dir %{_libdir}/dri
 %{_libdir}/dri/*_dri.so
+%if 0%{?is_opensuse}
 %ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le
 %exclude %{_libdir}/dri/nouveau_dri.so
 %exclude %{_libdir}/dri/nouveau_vieux_dri.so
+%endif
 %endif
 %if 0%{with_opencl}
 # only built with opencl
@@ -940,7 +942,7 @@ done
 %{_libdir}/libOSMesa.so
 %{_libdir}/pkgconfig/osmesa.pc
 
-%if 0%{?suse_version} > 1320
+%if 0%{?suse_version} > 1320 || 0%{?is_opensuse}
 %files -n libwayland-egl1
 %defattr(-,root,root)
 %{_libdir}/libwayland-egl.so.1*
@@ -1036,10 +1038,12 @@ done
 %{_includedir}/GL/internal
 %{_libdir}/pkgconfig/dri.pc
 
+%if 0%{?is_opensuse}
 %ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le
 %files -n Mesa-dri-nouveau
 %{_libdir}/dri/nouveau_dri.so
 %{_libdir}/dri/nouveau_vieux_dri.so
+%endif
 %endif
 
 %files devel
