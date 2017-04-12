@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Apr 12 09:44:35 UTC 2017 - sndirsch@suse.com
+
+- let Mesa require Mesa-libGL1 for a libglvnd build (bsc#1033708)
+
+-------------------------------------------------------------------
 Fri Apr  7 14:51:09 UTC 2017 - sndirsch@suse.com
 
 - U_draw-use-SoA-fetch-not-AoS-one.patch 
