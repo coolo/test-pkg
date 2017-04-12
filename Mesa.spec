@@ -154,7 +154,7 @@ BuildRequires:  libelf-devel
 %endif
 %endif
 # Requirements for wayland bumped up from 17.0
-%if 0%{?suse_version} > 1320 || 0%{?is_opensuse}
+%if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
 BuildRequires:  pkgconfig(wayland-client) >= 1.11
 BuildRequires:  pkgconfig(wayland-server) >= 1.11
 %endif
@@ -206,7 +206,7 @@ Obsoletes:      Mesa-devel-static < %{version}
 Obsoletes:      xorg-x11-Mesa-devel < %{version}
 Provides:       Mesa-libIndirectGL-devel = %{version}
 Obsoletes:      Mesa-libIndirectGL-devel < %{version}
-%if 0%{?suse_version} > 1320 || 0%{?is_opensuse}
+%if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
 Requires:       libwayland-egl-devel
 %endif
 
@@ -670,7 +670,7 @@ grep -v libglvnd $RPM_SOURCE_DIR/baselibs.conf > $RPM_SOURCE_DIR/temp && \
 %endif
 
 %build
-%if 0%{?suse_version} > 1320 || 0%{?is_opensuse}
+%if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
 egl_platforms=x11,drm,wayland
 %else
 egl_platforms=x11,drm
@@ -942,7 +942,7 @@ done
 %{_libdir}/libOSMesa.so
 %{_libdir}/pkgconfig/osmesa.pc
 
-%if 0%{?suse_version} > 1320 || 0%{?is_opensuse}
+%if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
 %files -n libwayland-egl1
 %defattr(-,root,root)
 %{_libdir}/libwayland-egl.so.1*
