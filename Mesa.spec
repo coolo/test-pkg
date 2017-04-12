@@ -660,7 +660,9 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %endif
 
 # reverse-apply this patch to fix OpenGL support on s390x (bsc#1032272)
+%ifarch s390x
 %patch40 -R -p1
+%endif
 
 # Remove requires to libglvnd0/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...

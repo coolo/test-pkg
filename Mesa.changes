@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Apr 12 13:41:30 UTC 2017 - sndirsch@suse.com
+
+- only reverse-apply 'U_draw-use-SoA-fetch-not-AoS-one.patch' on 
+  s390x (bsc#1032272)
+
+-------------------------------------------------------------------
 Wed Apr 12 12:31:34 UTC 2017 - sndirsch@suse.com
 
 - build wayland on Leap >= 42.3
