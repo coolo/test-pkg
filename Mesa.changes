@@ -1,41 +1,691 @@
 -------------------------------------------------------------------
-Fri Apr  7 11:46:51 UTC 2017 - sndirsch@suse.com
+Wed Apr 12 13:41:30 UTC 2017 - sndirsch@suse.com
+
+- only reverse-apply 'U_draw-use-SoA-fetch-not-AoS-one.patch' on 
+  s390x (bsc#1032272)
+
+-------------------------------------------------------------------
+Wed Apr 12 12:31:34 UTC 2017 - sndirsch@suse.com
+
+- build wayland on Leap >= 42.3
+- separate package 'Mesa-dri-nouveau' on Leap
+
+-------------------------------------------------------------------
+Wed Apr 12 12:15:27 UTC 2017 - sndirsch@suse.com
+
+- removed broken locking patches for nouveau DRI driver
+  * N_01-WIP-nouveau-add-locking.patch
+  * N_02-nouveau-more-locking-make-sure-that-fence-work-is-always-done-with-the-push-mutex-acquired.patch
+  * N_03-nv30-locking-fixes.patch
+  * N_04-nv50-Fix-double-lock-in-nv50_hw_sm_get_query_result.patch
+  * N_05-Use-nv50_render_condition-in-nv50_blitctx_post_blit.patch
+
+-------------------------------------------------------------------
+Wed Apr 12 09:44:35 UTC 2017 - sndirsch@suse.com
+
+- let Mesa require Mesa-libGL1 for a libglvnd build (bsc#1033708)
+
+-------------------------------------------------------------------
+Fri Apr  7 14:51:09 UTC 2017 - sndirsch@suse.com
 
 - U_draw-use-SoA-fetch-not-AoS-one.patch 
   * reverse-apply this patch to fix OpenGL support on s390x
     (bsc#1032272)
 
 -------------------------------------------------------------------
-Mon Apr  3 09:34:13 UTC 2017 - sndirsch@suse.com
+Wed Apr  5 11:32:26 UTC 2017 - afaerber@suse.de
 
-- update to Mesa 17.0.3
-  * hardware support for Intel Kabylake (fate#321223) and other GPUs
-  * bugfixes and performance improvements
-- removed unused Nouveau multithreading patches
-- enable opencl and wayland (needs wayland >= 1.11) on Leap 42.3, 
-  but let it disabled on sle12-sp3
+- Prepare building OpenCL for non-x86 architectures, too
+* s390x can build it right away (swrast)
+* %arm aarch64 ppc64 ppc64le depend on LLVM amdgpu target for r600
+- Fix typo in specfile comment
 
 -------------------------------------------------------------------
-Fri Sep  9 13:31:16 UTC 2016 - mstaudt@suse.com
+Sat Apr  1 15:59:08 UTC 2017 - mimi.vx@gmail.com
+
+- update to 17.0.3
+- change Mesa.keyring to new release manager key
+ * fdo#96743 [BYT, HSW, SKL, BXT, KBL] GPU hangs with GfxBench 4.0 CarChase
+ * fdo#99246 [d3dadapter+radeonsi] EVE-Online : hang on wormhole sight
+ * fdo#100061 LODQ instruction generated with invalid dst mask
+ * fdo#100182 Flickering in The Talos Principle on Sky Lake GT4
+ * radeonsi: add new polaris12 pci id
+ * many fixes for RADV, ANV, i915, radeonsi and freedreno drivers
+
+-------------------------------------------------------------------
+Wed Mar 29 15:18:19 UTC 2017 - sndirsch@suse.com
+
+- specfile: Remove requires to libglvnd0/libglvnd-devel from 
+  baselibs.conf when libglvnd build has been disabled; ugly ...
+
+-------------------------------------------------------------------
+Wed Mar 29 09:23:27 UTC 2017 - sndirsch@suse.com
+
+- specfile: only require libglvnd0/libglvnd-devel, if libglvnd build
+  is enabled
+- baselibs.conf: added requires to libglvnd0/libglvnd-devel where
+  needed
+
+-------------------------------------------------------------------
+Mon Mar 27 13:56:35 UTC 2017 - sndirsch@suse.com
+
+- disable libglvnd for openSUSE Leap 42.x and sle12
+
+-------------------------------------------------------------------
+Fri Mar 24 14:45:49 UTC 2017 - sndirsch@suse.com
+
+- update to 17.0.2
+  * fdo#97988 [radeonsi] playing back videos with VDPAU exhibits
+    deinterlacing/anti-aliasing issues not visible with VA-API
+  * fdo#99484 Crusader Kings 2 - Loading bars, siege bars, morale bars, etc.
+    do not render correctly
+  * fdo#100049 ralloc: Make sure ralloc() allocations match malloc()'s
+    alignment. causes seg fault in 32bit build
+  * many fixes for ANV, RADV, Vulkan and i965 + radeonsi drivers
+
+-------------------------------------------------------------------
+Thu Mar 23 13:41:27 UTC 2017 - sndirsch@suse.com
+
+- fedora_0001-glxglvnddispatch-Add-missing-dispatch-for-GetDriverC.patch
+  * Fix glXGetDriverConfig not working with glvnd 
+  (https://bugzilla.redhat.com/show_bug.cgi?id=1429894)
+- Fix indirect rendering, add libGLX_indirect.so.0 symlink
+  (https://bugzilla.redhat.com/show_bug.cgi?id=1427174)
+- added Requires to libglvnd0/libglvnd-devel where still needed
+- patches picked from fedora:
+  http://pkgs.fedoraproject.org/cgit/rpms/mesa.git/tree/
+
+-------------------------------------------------------------------
+Wed Mar 22 11:21:25 UTC 2017 - sndirsch@suse.com
+
+- re-enabled GLES build with libglvnd build, just not package GLES
+  libs and require libglvnd0/libglvnd-devel instead
+
+-------------------------------------------------------------------
+Tue Mar 21 10:57:54 UTC 2017 - sndirsch@suse.com
+
+- archlinux_0001-Fix-linkage-against-shared-glapi.patch
+  * fixes libglvnd support for osmesa
+- archlinux_glvnd-fix-gl-dot-pc.patch
+  * fixes libglvnd support in pkgconfig file
+- archlinux_0001-EGL-Implement-the-libglvnd-interface-for-EGL-v2.patch/
+  archlinux_0002-fixup-EGL-Implement-the-libglvnd-interface-for-EGL-v.patch
+  * adds libglvnd support for EGL
+- patches picked from archlinux:
+  https://git.archlinux.org/svntogit/packages.git/tree/trunk?h=packages/mesa
+
+-------------------------------------------------------------------
+Fri Mar 17 15:06:03 UTC 2017 - sndirsch@suse.com
+
+- archlinux_glapi-Link-with-glapi-when-built-shared.patch
+  * currently needed for libglvnd support; picked from archlinux
+    https://git.archlinux.org/svntogit/packages.git/tree/trunk?h=packages/mesa
+- fixed typo in Requires to libglvnd
+
+-------------------------------------------------------------------
+Thu Mar  9 14:20:22 UTC 2017 - sndirsch@suse.com
+
+- build with libglvnd support enabled (can be easily disabled via
+  specfile define); requires libglvnd runtime and development
+  packages; disabled build of GLESv1/v2 libs/packages provided now
+  via libglvnd
+
+-------------------------------------------------------------------
+Sat Mar  4 16:29:46 UTC 2017 - mimi.vx@gmail.com
+
+- update to 17.0.1
+ * radv: Never try to create more than max_sets descriptor sets.
+ * radv: Reset emitted compute pipeline when calling secondary cmd buffer.
+ * radv: Only use PKT3_OCCLUSION_QUERY when it doesn't hang.
+ * radv: Use correct size for availability flag.
+ * gallivm: Reenable PPC VSX (v3)
+ * gallivm: Improve debug output (V2)
+ * gallivm: Override getHostCPUName() "generic" w/ "pwr8" (v4)
+ * egl/dri3: implement query surface hook
+ * etnaviv: move pctx initialisation to avoid a null dereference
+ * etnaviv: remove number of pixel pipes validation
+ * anv: fix Get*MemoryRequirements for !LLC
+ * egl/wayland: Don't use DRM format codes for SHM
+ * tgsi: fix memory leak in tgsi sanity check
+ * radv: change base aligmment for allocated memory.
+ * radv: fix cik macroModeIndex.
+ * radv: adopt some init config workarounds from radeonsi.
+ * radv: fix depth format in blit2d.
+ * radv: fix txs for sampler buffers
+ * bin/get-extra-pick-list: use git merge-base to get the branchpoint
+ * bin/get-extra-pick-list: rework to use already_picked list
+ * bin/get-typod-pick-list.sh: limit `git grep ...' to only as needed
+ * bin/get-pick-list.sh: limit `git grep ...' only as needed
+ * bin/get-pick-list.sh: remove ancient way of nominating patches
+ * bin/get-fixes-pick-list.sh: add new script
+ * vc4: Avoid emitting small immediates for UBO indirect load address guards.
+ * r300g: only allow byteswapped formats on big endian
+ * gallium/u_queue: fix a crash with atexit handlers
+ * gallium/u_queue: set num_threads correctly if not all threads start
+ * glx/glvnd: Fix GLXdispatchIndex sorting
+ * gm107/ir: fix address offset bitfield for ATOMS
+ * nvc0: set the render condition in the compute object
+ * st/mesa: don't pass compare mode for stencil-sampled textures
+ * nvc0: disable linked tsc mode in compute launch descriptor
+ * i965/sampler_state: Clamp min/max LOD to 14 on gen7+
+ * i965/sampler_state: Pass texObj into update_sampler_state
+ * i965/sampler_state: Set the "Base Mip Level" field on Sandy Bridge
+ * intel/blorp: Swizzle clear colors on the CPU
+ * i965/fs: Fix the inline nir_op_pack_double optimization
+ * anv: Add an invalidate_range helper
+ * anv/query: clflush the bo map on non-LLC platforms
+ * genxml: Make MI_STORE_DATA_IMM more consistent
+ * anv/query: Perform CmdResetQueryPool on the GPU
+ * intel/blorp: Explicitly flush all allocated state
+ * glsl: non-last member unsized array on SSBO must fail
+ * mesa: Do (TCS && !TES) draw time validation in ES as well.
+ * configure.ac: check require_basic_egl only if egl enabled
+ * anv: wsi: report presentation error per image request
+ * i965/fs: fix uninitialized memory access
+ * radeonsi: fix UNSIGNED_BYTE index buffer fallback with non-zero start (v2)
+ * gallium/util: remove unused u_index_modify helpers
+ * gallium/u_index_modify: don't add PIPE_TRANSFER_UNSYNCHRONIZED
+ * unconditionally
+ * gallium/u_queue: fix random crashes when the app calls exit()
+ * radeonsi: fix broken tessellation on Carrizo and Stoney
+ * amd/common: fix ASICREV_IS_POLARIS11_M for Polaris12
+ * android: radeonsi: fix sid_table.h generated header include path
+ * android: glsl: build shader cache sources
+ * configure.ac: Drop LLVM compiler flags more radically
+ * winsys/amdgpu: reduce max_alloc_size based on GTT limits
+ * radeonsi: handle MultiDrawIndirect in si_get_draw_start_count
+ * radeonsi: fix UINT/SINT clamping for 10-bit formats on <= CIK
+ * glsl: fix heap-use-after-free in ast_declarator_list::hir()
+ * android: fix droid_create_image_from_prime_fd_yuv for YV12
+
+-------------------------------------------------------------------
+Tue Feb 21 21:34:23 UTC 2017 - schwab@linux-m68k.org
+
+- Use --enable-gallium-llvm only if llvm is available
+
+-------------------------------------------------------------------
+Tue Feb 21 19:56:14 UTC 2017 - dimstar@opensuse.org
+
+- Provide libwayland-egl1 as -32bit compat library, required by
+  libgtk-3-0.
+
+-------------------------------------------------------------------
+Tue Feb 14 17:32:13 UTC 2017 - jengelh@inai.de
+
+- Some %if around %post do not match with %if around %package;
+  drop them altogether since they are not needed except around
+  %files.
+- Rename wrongly-named libOSMesa9 to libOSMesa8
+
+-------------------------------------------------------------------
+Mon Feb 13 14:10:52 UTC 2017 - mimi.vx@gmail.com
+
+- update to 17.0.0
+- removed n_Fixed-build-against-wayland-1.2.1.patch , version requirement
+   bumped up by upstream.
+* Vulkan drivers:
+  + Correctly return (and implement) VK_INCOMPLETE on multiple WSI queries
+  + Support for the VK_KHR_sampler_mirror_clamp_to_edge extension
+  + We now use the Khoronos vk.xml file to generate the entrypoints
+* ANV:
+  + HiZ and performance improvements
+  + Float64 support and tessellation shader support.
+* RADV:
+  + Support multiple devices
+  + Support for the VK_AMD_draw_indirect_count extension
+  + Support for the VK_AMD_negative_viewport_height extension
+* Mesa core:
+  + Noticeable refactoring en route to GLSL Shader Cache
+  + Groundwork for int64
+* i965:
+  + OpenGL 4.5 support on Haswell hardware
+  + Reuse the same BLORP and ISL code as the ANV driver
+* Gallium:
+  + HUD: A number of race issues and memory leaks were resolved.
+* freedreno
+  + Support for a5xx
+* nouveau:
+  + OpenGL 4.3 support on Maxwell hardware
+  + Improved performance due to instruction pipelining (Maxwell)
+* r600/radeonsi
+  + VCE: Handle H.264 level 5.2
+  + Polaris12 support
+  + Dozens of performance improvements
+* Clover:
+  + Implement clGetExtensionFunctionAddressForPlatform.
+  + Add missing clGetDeviceInfo CL1.2 queries
+* VDPAU:
+  + Use dri3 to directly send the buffer to X
+* Build:
+  + Building RADV requires --enable-gallium-llvm
+  + Compatibility fixes for building mesa as part of ARC
+  + The vulkan headers vk_platform.h and vulkan.h are no longer installed
+  + A couple of configure options (--with-sha1 and --disable-shader-cache) are
+    removed alongside their respective library requirements.
+
+-------------------------------------------------------------------
+Sat Feb  4 14:58:43 UTC 2017 - schwab@linux-m68k.org
+
+- specfile: fix build configuration for arm, ppc and s390 platforms
+
+-------------------------------------------------------------------
+Thu Feb  2 15:28:27 UTC 2017 - sndirsch@suse.com
+
+- update to 13.0.4
+  * Multiple fixes for the i965 and radeonsi drivers. An odd glitch
+    in glxgears when using the freedreno driver was also addressed.
+  * The ANV driver being the prime source of patches - from
+    compatibility improvements with newer Vulkan loaders, 
+    smoketesting and various rendering and compliance fixes.
+  * A couple of longstanding issues in the VA state tracker have
+    also been resolved.  
+
+-------------------------------------------------------------------
+Mon Jan 30 10:01:47 UTC 2017 - sndirsch@suse.com
+
+- baselibs.conf: replaced definition of packages, which default is
+  not set to be built in specfile to 
+    arch aarch64 ppc64 ppc64le s390x x86_64 package <package>
+ in order to make "osc service localrun source_validator" happy :-(
+
+-------------------------------------------------------------------
+Fri Jan 27 21:38:44 UTC 2017 - mimi.vx@gmail.com
+
+- Update baselibs.conf to ship i386 vulkan json files on x86_64 
+
+-------------------------------------------------------------------
+Thu Jan 19 14:01:21 UTC 2017 - mimi.vx@gmail.com
+
+- Updated baselibs.conf to reflect libvulkan_radeon 
+
+-------------------------------------------------------------------
+Thu Jan 19 07:56:52 UTC 2017 - mimi.vx@gmail.com
+
+- Enabled RADV vulkan driver for AMD GPU cards
+
+-------------------------------------------------------------------
+Thu Jan  5 19:11:14 UTC 2017 - mimi.vx@gmail.com
+
+- update to 13.0.3
++ dropped U_cso-don-t-release-sampler-states-that-are-bound.patch
+* fdo#77662 Fail to render to different faces of depth-stencil cube map
+* fdo#92234 [BDW] GPU hang in Shogun2
+* fdo#98329 dEQP-EGL.functional.image.render_multiple_contexts.gles2_renderbuffer_depth16_depth_buffer
+* fdo#99038 dEQP-EGL.functional.negative_api.create_pixmap_surface crashes
+* many radeonsi and i965 bugfixes
+
+-------------------------------------------------------------------
+Thu Dec 15 07:39:30 UTC 2016 - dmueller@suse.com
+
+- clean up configuration settings to be uniform accross all
+  architectures except for list of dri and gallium drivers
+
+-------------------------------------------------------------------
+Mon Dec 12 14:22:12 UTC 2016 - mstaudt@suse.com
+
+- U_cso-don-t-release-sampler-states-that-are-bound.patch:
+  This avoids Radeon hangs due to a use-after-free bug in Gallium.
+  Fixes (boo#1015012), (fdo#93649)
+
+-------------------------------------------------------------------
+Mon Nov 28 19:36:00 UTC 2016 - mimi.vx@gmail.com
+
+- update to 13.0.2
+* fdo#97321 Query INFO_LOG_LENGTH for empty info log should return 0
+* fdo#97420  &quot;#version 0&quot; crashes glsl_compiler
+* i965: Add some APL and KBL SKU strings
+* i965: Reorder PCI ID list to match release order
+* i965/glk: Add basic Geminilake support
+* wsi: fix VK_INCOMPLETE for vkGetSwapchainImagesKHR
+* ac/nir/llvm: fix channel in texture gather lowering code.
+* vulkan/wsi/x11: handle timeouts properly in next image acquire (v1.1)
+* vulkan/wsi: store present mode in swapchain base class
+* vulkan/wsi/x11: add support for IMMEDIATE present mode
+* vulkan/wsi/x11: Fix behavior of vkGetPhysicalDeviceSurfaceFormatsKHR
+* vulkan/wsi/x11: Fix behavior of vkGetPhysicalDeviceSurfacePresentModesKHR
+* cherry-ignore: add reverted LLVM_LIBDIR patch
+* anv: fix enumeration of properties
+* vc4: Don't abort when a shader compile fails.
+* vc4: Clamp the shadow comparison value.
+* vc4: Fix register class handling of DDX/DDY arguments.
+* util/disk_cache: close a previously opened handle in disk_cache_put (v2)
+* anv: Fix unintentional integer overflow in anv_CreateDmaBufImageINTEL
+* anv/format: handle unsupported formats properly
+* glcpp: Handle '#version 0' and other invalid values
+* glsl: Parse 0 as a preprocessor INTCONSTANT
+* anv/gen8: Stall when needed in Cmd(Set|Reset)Event
+* anv/wsi: Set the fence to signaled in AcquireNextImageKHR
+* anv: Rework fences
+* vulkan/wsi/wayland: Include pthread.h
+* vulkan/wsi/wayland: Clean up some error handling paths
+* vulkan/wsi: Report the correct min/maxImageCount
+* i965/gs: Allow primitive id to be a system value
+* anv: Handle null in all destructors
+* anv/fence: Handle ANV_FENCE_CREATE_SIGNALED_BIT
+* nir/spirv: Fix handling of gl_PrimitiveId
+* anv/blorp: Ignore clears for attachments first used as resolve destinations
+* anv: Implement a depth stall restriction on gen7
+* anv/cmd_buffer: Handle running out of binding tables in compute shaders
+* anv/cmd_buffer: Emit a CS stall before setting a CS pipeline
+* vulkan/wsi/x11: Implement FIFO mode.
+* isl: Fix height calculation in isl_msaa_interleaved_scale_px_to_sa
+* i965/hsw: Set integer mode in sampling state for stencil texturing
+* intel: Set min_ds_entries on Broxton.
+* i965: Fix compute shader crash.
+* mesa: Drop PATH_MAX usage.
+* i965: Fix GS push inputs with enhanced layouts.
+* vulkan/wsi: Add a thread-safe queue implementation
+* anv: fix multi level clears with VK_REMAINING_MIP_LEVELS
+* gbm: request correct version of the DRI2_FENCE extension
+* radeonsi: store group_size_variable in struct si_compute
+* glsl/lower_output_reads: fix geometry shader output handling with conditional emit
+* Fix races during _mesa_HashWalk().
+* mesa: fix empty program log length
+
+-------------------------------------------------------------------
+Mon Nov 21 11:53:40 UTC 2016 - sndirsch@suse.com
+
+- baselibs.conf: enabled build of 32bit Mesa-dri-nouveau package,
+  e.g. required for Steam (bnc#1011156)
+
+-------------------------------------------------------------------
+Mon Nov 14 19:12:26 UTC 2016 - mimi.vx@gmail.com
+
+- update to 13.0.1
+* fdo#97715 [ILK,G45,G965] piglit.spec.arb_separate_shader_objects.misc
+    api error checks
+* fdo#98012 [IVB] Segfault when running Dolphin twice with Vulkan
+* fdo#98512 radeon r600 vdpau: Invalid command stream: texture bo too small
+* i965: Fix GPU hang related to multiple render targets and alpha testing
+* Revert "st/vdpau: use linear layout for output surfaces"
+* ac/nir: add support for discard_if intrinsic (v2)
+* nir: add conditional discard optimisation (v4)
+* amd/addrlib: limit fastcall/regparm to GCC i386
+* anv: use correct .specVersion for extensions
+* vc4: Use Newton-Raphson on the 1/W write to fix glmark2 terrain.
+* ir: Flip gl_SamplePosition in nir_lower_wpos_ytransform().
+* anv/device: Return DEVICE_LOST if execbuf2 fails
+* vulkan/wsi/x11: Better handle wsi_x11_connection_create failure
+* vulkan/wsi/x11: Clean up connections in finish_wsi
+* anv: Better handle return codes from anv_physical_device_init
+* intel/blorp: Use wm_prog_data instead of hand-rolling our own
+* intel/blorp: Pass a brw_stage_prog_data to upload_shader
+* anv/pipeline: Put actual pointers in anv_shader_bin
+* anv/pipeline: Properly cache prog_data::param
+* intel/blorp: Emit all the binding tables
+* anv/device: Add an execbuf wrapper
+* anv: Add a cmd_buffer_execbuf helper
+* anv: Don't presume to know what address is in a surface relocation
+* anv: Add a new bo_pool_init helper
+* anv/allocator: Simplify anv_scratch_pool
+* anv: Initialize anv_bo::offset to -1
+* anv/batch_chain: Improve write_reloc
+* anv: Add an anv_execbuf helper struct
+* anv/batch: Move last_ss_pool_bo_offset to the command buffer
+* anv: Move relocation handling from EndCommandBuffer to QueueSubmit
+* anv/cmd_buffer: Take a command buffer instead of a batch in two helpers
+* anv/cmd_buffer: Enable a CS stall workaround for Sky Lake gt4
+* glsl: Update deref types when resizing implicitly sized arrays.
+* mesa: Fix pixel shader scratch space allocation on Gen9+ platforms.
+* anv: Do relocations in userspace before execbuf ioctl
+* egl: use util/macros.h
+* egl: make interop ABI visible again
+* glx: make interop ABI visible again
+* radeonsi: fix an assertion failure in si_decompress_sampler_color_textures
+* radeonsi: fix BFE/BFI lowering for GLSL semantics
+* glsl: fix lowering of UBO references of named blocks
+* st/glsl_to_tgsi: fix dvec[34] loads from SSBO
+* st/mesa: fix the layer of VDPAU surface samplers
+* gallium/hud: fix a problem where objects are free'd while in use.
+* gallium/hud: close a previously opened handle
+* gallium/hud: protect against and initialization race
+* mesa/glsl: delete previously linked shaders earlier when linking
+
+-------------------------------------------------------------------
+Mon Nov  7 15:09:08 UTC 2016 - schwab@suse.de
+
+- Build Mesa-dri-nouveau only where available
+
+-------------------------------------------------------------------
+Wed Nov  2 11:44:47 UTC 2016 - zaitor@opensuse.org
+
+- Drop u_Mesa_i965-import-prime-buffers.patch: Upstream fixed the
+  bug in a different way, and we should not keep the now obsolete
+  patch (boo#991638, fdo#71759).
+
+-------------------------------------------------------------------
+Tue Nov  1 18:14:28 UTC 2016 - mimi.vx@gmail.com
+
+- update to 13.0.0
+- openGL 4.5 with i965 driver on intel bbroadwell and newer hw
+- openGL ES for haswell supports 3.1, skylake 3.2
+- fixes for intel vulkan driver
+- early support fot GP100
+- better radeonSI performace
+- dropped U_r300g-Set-R300_VAP_CNTL-on-RSxxx-to-avoid-triangle-flickering.patch
+- refreshed u_Mesa_i965-import-prime-buffers.patch
+
+-------------------------------------------------------------------
+Tue Oct 25 10:05:26 UTC 2016 - sndirsch@suse.com
+
+- let Mesa-dri-nouveau supplement xf86-video-nouveau, so it  gets
+  preselected as well once hardware supplements for Mesa-dri-nouveau
+  match (bnc#1005323)
+
+-------------------------------------------------------------------
+Mon Oct 17 14:35:07 UTC 2016 - mstaudt@suse.com
+
+- Mesa.spec: %ifdef'd out patches by mistake
+
+-------------------------------------------------------------------
+Mon Oct 17 13:45:06 UTC 2016 - mstaudt@suse.com
+
+- Split off nouveau*_dri.so into Mesa-dri-nouveau.
+  Nouveau's 3D support is too unstable to enable by default.
+
+-------------------------------------------------------------------
+Mon Oct 17 12:34:12 UTC 2016 - mstaudt@suse.com
+
+- Mesa.spec: Disable Nouveau locking patches by default
+
+-------------------------------------------------------------------
+Fri Oct 14 10:17:17 UTC 2016 - mstaudt@suse.com
 
 - U_r300g-Set-R300_VAP_CNTL-on-RSxxx-to-avoid-triangle-flickering.patch:
   Initialize RSxxx chipsets correctly (bsc#985650)
 
 -------------------------------------------------------------------
-Fri Sep  9 13:27:39 UTC 2016 - mstaudt@suse.com
+Fri Oct 14 09:10:46 UTC 2016 - mstaudt@suse.com
 
-- baselibs.conf:
-  Remove libwayland-egl1 and Mesa-libOpenCL as they are not being
-  built.
+- N_01-WIP-nouveau-add-locking.patch
+  N_02-nouveau-more-locking-make-sure-that-fence-work-is-always-done-with-the-push-mutex-acquired.patch
+  N_03-nv30-locking-fixes.patch
+  N_04-nv50-Fix-double-lock-in-nv50_hw_sm_get_query_result.patch
+  N_05-Use-nv50_render_condition-in-nv50_blitctx_post_blit.patch
+
+  Backport nouveau locking workaround to enable multithreading.
+
+  Source: https://github.com/imirkin/mesa/commits/locking
+
+  According to the author, crashes may still happen, but much more rarely.
+
+  Tested on GK107.
+
+  N_04-* and N_05-* include untested fixes for nv50.
+
+  Fixes (boo#997171) as suggested in (fdo#91632).
 
 -------------------------------------------------------------------
-Thu Sep  1 08:43:15 UTC 2016 - idonmez@suse.com
+Mon Sep 19 10:00:05 UTC 2016 - zaitor@opensuse.org
 
-- Add u_add_llvm_codegen_dependencies.patch to link to
-  libLLVMCodegen to fix cyclic linking problems. bsc#981975
+- Add u_Mesa_i965-import-prime-buffers.patch: i965: import prime
+  buffers in the current context, not screen (fdo#71759,
+  boo#991638).
 
 -------------------------------------------------------------------
-Wed Jun  1 13:27:12 UTC 2016 - eich@suse.com
+Sat Sep 17 16:40:56 UTC 2016 - mimi.vx@gmail.com
+
+- update to 12.0.3
+* fdo#97781 - [HSW, BYT, IVB] es2-cts.gtf.gl2extensiontests.depth_texture_cube_map.depth_texture_cube_map
+* Revert "i965/miptree: Stop multiplying cube depth by 6 in HiZ calculations"
+
+-------------------------------------------------------------------
+Mon Sep  5 17:05:57 UTC 2016 - mimi.vx@gmail.com
+
+- update to 12.0.2
+* fdo#69622 - eglTerminate then eglMakeCurrent crahes
+* fdo#89599 - symbol 'x86_64_entry_start' is already defined when building
+    with LLVM/clang
+* fdo#91342 - Very dark textures on some objects in indoors environments in
+    Postal 2
+* fdo#92306 - GL Excess demo renders incorrectly on nv43
+* fdo#94148 - Framebuffer considered invalid when a draw call is done
+    before glCheckFramebufferStatus
+* fdo#96274 - [NVC0] Failure when compiling compute shader: Assertion
+    `bb-<getFirst()-<serial >= bb-<getExit()-<serial' failed
+* fdo#96358 - SSO: wrong interface validation between GS and VS (regresion
+    due to latest gles 3.1)
+* fdo#96381 - Texture artifacts with immutable texture storage and mipmaps
+* fdo#96762 - [radeonsi,apitrace] Firewatch: nothing rendered
+    in scrollable (text) areas
+* fdo#96835 - "gallium: Force blend color to 16-byte alignment" crash with
+    "-march=native -O3" causes some 32bit games to crash
+* fdo#96850 - Crucible tests fail for 32bit mesa
+* fdo#96908 - [radeonsi] MSAA causes graphical artifacts
+* fdo#96911 - webgl2 conformance2/textures/misc/tex-mipmap-levels.html
+    crashes 12.1 Intel driver
+* fdo#96971 - invariant qualifier is not valid for shader inputs
+* fdo#97039 - The Talos Principle and Serious Sam 3 GPU faults
+* fdo#97207 - [IVY BRIDGE] Fragment shader discard writing to depth
+* fdo#97214 - X not running with error &quot;Failed to make EGL context current
+* fdo#97225 - [i965 on HD4600 Haswell] xcom switch to ingame cinematics cause
+    segmentation fault
+* fdo#97231 - GL_DEPTH_CLAMP doesn't clamp to the far plane
+* fdo#97307 - glsl/glcpp/tests/glcpp-test regression
+* fdo#97331 - glDrawElementsBaseVertex doesn't work in display list on i915
+* fdo#97351 - DrawElementsBaseVertex with VBO ignores base vertex on
+    Intel GMA 9xx in some cases
+* fdo#97426 - glScissor gives vertically inverted result
+* fdo#97476 - Shader binaries should not be stored in the PipelineCache
+* fdo#97567 - [SNB, ILK] ctl, piglit regressions in mesa 12.0.2rc1
++ many other fixes from 12.0.1
+
+
+-------------------------------------------------------------------
+Sat Jul  9 07:11:14 UTC 2016 - mimi.vx@gmail.com
+
+- update to 12.0.1
+* Vulkan driver for Intel hardware from Ivy Bridge onward.
+* OpenGL 4.3 for nvc0, radeonsi and i965 (Gen8+)
+* OpenGL ES 3.1 on nvc0 and radeonsi
+* DRI3 enablement for VDPAU, OMX and VAAPI
+
+-------------------------------------------------------------------
+Tue Jul  5 20:08:21 UTC 2016 - toddrme2178@gmail.com
+
+- Fix Group tag.
+
+-------------------------------------------------------------------
+Tue Jun 21 19:57:26 UTC 2016 - mimi.vx@gmail.com
+
+- update to 12.0.0-rc4 final RC
+
+-------------------------------------------------------------------
+Fri Jun 17 14:57:47 UTC 2016 - sndirsch@suse.com
+
+- moved libxatracker package definition to the end to get rid of
+  issues related to the special version of this package
+
+-------------------------------------------------------------------
+Fri Jun 17 14:12:52 UTC 2016 - sndirsch@suse.com
+
+- let Mesa-libVulkan-devel conflict with vulkan-devel due to file
+  conflics in both packages
+
+-------------------------------------------------------------------
+Wed Jun 15 14:39:32 UTC 2016 - sndirsch@suse.com
+
+- Update to version 12.0.0-rc2
+  * Bug fixes and performance improvements
+- supersedes patches:
+  u_st-va-hardlink-driver-instances-to-gallium_drv_video.patch,
+  U_anv-add-the-X-related-and-Wayland-CFLAGS-to-VULKAN.patch
+- removed option for build in verbose log mode
+- improved Group tag for libVulkan-devel
+
+-------------------------------------------------------------------
+Sun Jun 12 09:22:10 UTC 2016 - sndirsch@suse.com
+
+- fixed 'osc service localrun download_files' run by removing
+  rc release from version define
+
+-------------------------------------------------------------------
+Thu Jun  9 20:29:29 UTC 2016 - mimi.vx@gmail.com
+
+- fix vulkan naming scheme, add supplement for xf86-video-intel 
+
+-------------------------------------------------------------------
+Wed Jun  8 20:10:11 UTC 2016 - tobias.johannes.klausmann@mni.thm.de
+
+- Fix Requirement for Mesa-libVulkan-devel, not Mesa-libvulkan, but
+  Mesa-libVulkan
+
+-------------------------------------------------------------------
+Wed Jun  8 07:33:35 UTC 2016 - jslaby@suse.com
+
+- x86: enable virgl gallium driver
+
+-------------------------------------------------------------------
+Tue Jun  7 23:25:31 UTC 2016 - tobias.johannes.klausmann@mni.thm.de
+
+- Update to version 12.0.0-rc2:
+- New features:
+  + OpenGL 4.3 on nvc0, radeonsi, i965 (Gen8+)
+  + OpenGL ES 3.1 on nvc0, radeonsi
+  + GL_ARB_ES3_1_compatibility on nvc0, radeonsi
+  + GL_ARB_compute_shader on nvc0, radeonsi, softpipe
+  + GL_ARB_cull_distance on i965/gen6+, nv50, nvc0, llvmpipe, softpipe
+  + GL_ARB_framebuffer_no_attachments on nvc0, r600, radeonsi, softpipe
+  + GL_ARB_internalformat_query2 on all drivers
+  + GL_ARB_query_buffer_object on i965/hsw+
+  + GL_ARB_robust_buffer_access_behavior on i965, nvc0, radeonsi
+  + GL_ARB_shader_atomic_counters on radeonsi, softpipe
+  + GL_ARB_shader_atomic_counter_ops on nvc0, radeonsi, softpipe
+  + GL_ARB_shader_image_load_store on nvc0, radeonsi, softpipe
+  + GL_ARB_shader_image_size on nvc0, radeonsi, softpipe
+  + GL_ARB_shader_storage_buffer_objects on radeonsi, softpipe
+  + GL_ATI_fragment_shader on all Gallium drivers
+  + GL_EXT_base_instance on all drivers that support GL_ARB_base_instance
+  + GL_EXT_clip_cull_distance on all drivers that support GL_ARB_cull_distance
+  + GL_KHR_robustness on i965
+  + GL_OES_copy_image on i965 (Baytrail and Gen8+)
+  + GL_OES_draw_buffers_indexed and GL_EXT_draw_buffers_indexed on all drivers
+    that support GL_ARB_draw_buffers_blend
+  +GL_OES_gpu_shader5 and GL_EXT_gpu_shader5 on all drivers that support
+   GL_ARB_gpu_shader5
+  +GL_OES_sample_shading on i965, nvc0, r600, radeonsi
+  +GL_OES_sample_variables on i965, nvc0, r600, radeonsi
+  +GL_OES_shader_image_atomic on all drivers that support
+   GL_ARB_shader_image_load_store
+  +GL_OES_shader_io_blocks on i965, nvc0, radeonsi
+  +GL_OES_shader_multisample_interpolation on i965, nvc0, r600, radeonsi
+  + GL_OES_texture_border_clamp and GL_EXT_texture_border_clamp on all drivers 
+    that support +GL_ARB_texture_border_clamp
+  + GL_OES_texture_buffer and GL_EXT_texture_buffer on i965, nvc0, radeonsi
+  + EGL_KHR_reusable_sync on all drivers
+  + GL_ARB_stencil_texture8 and GL_OES_stencil_texture8 on i965/gen8+
+- Enable build of the Intel Vulkan driver (anv):
+  + Introduce new packages: libVulkan and libVulkan-devel
+- Remove upstreamed patches:
+  + u_glxcmds-glXGetFBConfigs-fix-screen-bounds.patch
+  + U_gallivm-disable-avx512-features.patch
+- Upstream Patches:
+  + U_anv-add-the-X-related-and-Wayland-CFLAGS-to-VULKAN.patch
+    * Otherwise we might fail to find the headers in some scenarios.
+- drop docs/COPYING: No GPL licensed code in Mesa resident (upstream change)
+
+-------------------------------------------------------------------
+Wed Jun  1 14:48:38 UTC 2016 - eich@suse.com
 
 - U_gallivm-disable-avx512-features.patch:
   Fix crashes on some Skykake CPUs by disabling avx512 features
@@ -44,63 +694,130 @@ Wed Jun  1 13:27:12 UTC 2016 - eich@suse.com
 -------------------------------------------------------------------
 Wed May 25 11:39:12 UTC 2016 - dmueller@suse.com
 
-- enable vc4 and freedreno on aarch64 as well (bsc#983451)
+- enable vc4 and freedreno on aarch64 as well
 
 -------------------------------------------------------------------
-Wed May 18 16:57:28 UTC 2016 - eich@suse.com
+Wed May 18 17:01:35 UTC 2016 - eich@suse.com
 
 - u_glxcmds-glXGetFBConfigs-fix-screen-bounds.patch:
-  Fix crash due to oud of founds screen (boo#980382).
+  Fix crash due to oud of founds screen (boo#980382). 
 
 -------------------------------------------------------------------
-Mon Apr 18 10:12:07 UTC 2016 - sndirsch@suse.com
+Mon May  9 15:24:00 UTC 2016 - mimi.vx@gmail.com
+
+- update to 11.2.2
+- removed upstreamed patches:
+    + u_dri2-Check-for-dummyContext-to-see-if-the-glx_context-is-valid.patch
+    + u_dri3-Check-for-dummyContext-to-see-if-the-glx_contex.patch
+* fdo#92850 - Segfault loading War Thunder
+* fdo#93767 - Glitches with soft shadows and MSAA in Knights of the Old Republic 2
+* fdo#94955 - Uninitialized variables leads to random segfaults (valgrind log, 
+	apitrace attached)
+* fdo#94994 -  OSMesaGetProcAdress always fails on mangled OSMesa
+* fdo#95026 - Alien Isolation segfault after initial loading screen/video
+* fdo#95133 - X-COM Enemy Within crashes when entering tactical mission with Bonaire
+* fdo#95164 - GLSL compiler (linker I think) emits assertion upon call to
+	 glAttachShader
+* fdo#95251 - vdpau decoder capabilities: not supported
+* radeon/uvd: alignment fix for decode message buffer
+* st/mesa: fix sampler view leak in st_DrawAtlasBitmaps()
+* gallium/util: initialize pipe_framebuffer_state to zeros
+* dri: Fix robust context creation via EGL attribute
+* dri2: Check for dummyContext to see if the glx_context is valid
+* cherry-ignore: remove duplicate commit
+* cherry-ignore: ignore the GetSamplerParameterIuiv{EXT,OES} fixups
+* vc4: Fix subimage accesses to LT textures.
+* vc4: Add support for rendering to cube map surfaces.
+* vc4: Fix tests for format supported with nr_samples == 1.
+* vc4: Make sure we recompile when sample_mask changes.
+* glapi: fix _glapi_get_proc_address() for mangled function names
+* nvc0: fix retrieving query results into buffer for timestamps
+* nouveau/video: properly detect the decoder class for availability checks
+* i965/fs: Properly report regs_written from SAMPLEINFO
+* egl/x11: authenticate before doing chipset id ioctls
+* winsys/sw/xlib: use correct free function for xlib_dt-&gt;data
+* i965: Fix clear code for ignoring colormask for XRGB formats on Gen9+.
+* glsl: Convert lower_vec_index_to_swizzle to a rvalue visitor.
+* glsl: Lower vector_extracts to swizzles after lower_vector_derefs.
+* radeon/uvd: fix tonga feedback buffer size
+* st/mesa: fix blit-based GetTexImage for non-finalized textures
+* gallium/radeon: handle failure when mapping staging buffer
+* st/glsl_to_tgsi: reduce stack explosion in recursive expression visitor
+* gallium/radeon: fix crash in r600_set_streamout_targets
+* radeonsi: correct NULL-pointer check in si_upload_const_buffer
+* radeonsi: work around an MSAA fast stencil clear problem
+* r600g/radeonsi: send endian info to format translation functions
+* r600g: set endianess of 16/32-bit buffers according to do_endian_swap
+* r600g: use do_endian_swap in color swapping functions
+* r600g: use do_endian_swap in texture swapping function
+* r600g: fix and optimize tgsi_cmp when using ABS and NEG modifier
+* llvmpipe: (trivial) initialize src1_alpha var to NULL
+* gallivm: fix bogus argument order to lp_build_sample_mipmap function
+* gallivm: make sampling more robust against bogus coordinates
+* gk110/ir: do not overwrite def value with zero for EXCH ops
+* gk110/ir: make use of IMUL32I for all immediates
+* nvc0/ir: fix wrong emission of (a OP b) OP c
+* gk110/ir: add emission for (a OP b) OP c
+* nvc0: reduce GL_MAX_3D_TEXTURE_SIZE to 2048 on Kepler+
+* st/glsl_to_tgsi: fix potential crash when allocating temporaries
+* dri3: Check for dummyContext to see if the glx_context is valid
+* i965/blorp/gen7: Prepare re-using for gen8
+* i965/blorp: Use 8k chunk size for urb allocation
+* tgsi: initialize stack allocated struct
+* winsys/sw/dri: use correct free function for dri_sw_dt-&gt;data
+* android: enable dlopen() on all architectures
+
+-------------------------------------------------------------------
+Thu Apr 21 09:36:08 UTC 2016 - sndirsch@suse.com
+
+- u_dri3-Check-for-dummyContext-to-see-if-the-glx_contex.patch 
+  * dri3: Check for dummyContext to see if the glx_context is valid
+    According to the comments in src/glx/glxcurrent.c 
+    __glXGetCurrentContext() always returns a valid pointer. If no
+    context is made current, it will contain dummyContext. Thus a
+    test for NULL will always fail.
+
+-------------------------------------------------------------------
+Sun Apr 17 19:13:12 UTC 2016 - mimi.vx@gmail.com
 
 - update to 11.2.1
 * It fixes crashes in VAAPI, some build problems in Nine has been addressed,
-  adds a drirc workaround for Warsow and resolves issues in the nouveau,
-  radeonsi and i965 drivers.
+    adds a drirc workaround for Warsow and resolves issues in the nouveau,
+    radeonsi and i965 drivers.
 * fdo#93962 ES2-CTS.gtf.GL2FixedTests.scissor.scissor - segfault/asserts
 
 -------------------------------------------------------------------
-Wed Apr  6 09:46:31 UTC 2016 - sndirsch@suse.com
+Mon Apr  4 19:57:06 UTC 2016 - mimi.vx@gmail.com
 
-- update to 11.2.0 (fate #315643-315645, 319159-319161, 319618)
+- update to 11.2.0
 - dropped U_clover-Fix-build-against-LLVM-3.8.patch
+- dropped U_llvmpipe-Do-not-use-barriers-if-not-using-threads.patch 
 - New Features:
-  * GL_ARB_arrays_of_arrays on all gallium drivers that provide GLSL 1.30
-  * GL_ARB_base_instance on freedreno/a4xx
-  * GL_ARB_compute_shader on i965
-  * GL_ARB_copy_image on r600
-  * GL_ARB_indirect_parameters on nvc0
-  * GL_ARB_query_buffer_object on nvc0
-  * GL_ARB_shader_atomic_counters on nvc0
-  * GL_ARB_shader_draw_parameters on i965, nvc0
-  * GL_ARB_shader_storage_buffer_object on nvc0
-  * GL_ARB_tessellation_shader on i965 and r600 (evergreen/cayman only)
-  * GL_ARB_texture_buffer_object_rgb32 on freedreno/a4xx
-  * GL_ARB_texture_buffer_range on freedreno/a4xx
-  * GL_ARB_texture_query_lod on freedreno/a4xx
-  * GL_ARB_texture_rgb10_a2ui on freedreno/a4xx
-  * GL_ARB_texture_view on freedreno/a4xx
-  * GL_ARB_vertex_type_10f_11f_11f_rev on freedreno/a4xx
-  * GL_KHR_texture_compression_astc_ldr on freedreno/a4xx
-  * GL_AMD_performance_monitor on radeonsi (CIK+ only)
-  * GL_ATI_meminfo on r600, radeonsi
-  * GL_NVX_gpu_memory_info on r600, radeonsi
-  * New OSMesaCreateContextAttribs() function (for creating core profile
-    contexts)
-- Many bugfixes, for more info see relnotes/11.2.0.html
+	* GL_ARB_arrays_of_arrays on all gallium drivers that provide GLSL 1.30
+	* GL_ARB_base_instance on freedreno/a4xx
+	* GL_ARB_compute_shader on i965
+	* GL_ARB_copy_image on r600
+	* GL_ARB_indirect_parameters on nvc0
+	* GL_ARB_query_buffer_object on nvc0
+	* GL_ARB_shader_atomic_counters on nvc0
+	* GL_ARB_shader_draw_parameters on i965, nvc0
+	* GL_ARB_shader_storage_buffer_object on nvc0
+	* GL_ARB_tessellation_shader on i965 and r600 (evergreen/cayman only)
+	* GL_ARB_texture_buffer_object_rgb32 on freedreno/a4xx
+	* GL_ARB_texture_buffer_range on freedreno/a4xx
+	* GL_ARB_texture_query_lod on freedreno/a4xx
+	* GL_ARB_texture_rgb10_a2ui on freedreno/a4xx
+	* GL_ARB_texture_view on freedreno/a4xx
+	* GL_ARB_vertex_type_10f_11f_11f_rev on freedreno/a4xx
+	* GL_KHR_texture_compression_astc_ldr on freedreno/a4xx
+	* GL_AMD_performance_monitor on radeonsi (CIK+ only)
+	* GL_ATI_meminfo on r600, radeonsi
+	* GL_NVX_gpu_memory_info on r600, radeonsi
+	* New OSMesaCreateContextAttribs() function (for creating core profile contexts)
++ Many bugfixes, for more info see relnotes/11.2.0.html
 
 -------------------------------------------------------------------
-Tue Mar 22 16:52:22 UTC 2016 - eich@suse.com
-
-- n_Replace-_LOADER_FATAL-by-_LOADER_WARNING-in-CriticalErrorMessageF.patch:
-  Allow to muffle:
-  	 libGL error: failed to load driver: XXX
-  warnings on ssh connections (bsc#971950).
-
--------------------------------------------------------------------
-Wed Mar 16 18:06:58 UTC 2016 - eich@suse.com
+Wed Mar 16 18:12:00 UTC 2016 - eich@suse.com
 
 - n_Define-GLAPIVAR-separate-from-GLAPI.patch:
   Add separate definition GLAPIVAR as GLAPI
@@ -108,34 +825,20 @@ Wed Mar 16 18:06:58 UTC 2016 - eich@suse.com
   versions. This is needed for GLw (bsc#970725).
 
 -------------------------------------------------------------------
+Wed Mar 16 11:31:20 UTC 2016 - sndirsch@suse.com
+
+- U_llvmpipe-Do-not-use-barriers-if-not-using-threads.patch
+  * llvmpipe: Do not use barriers if not using threads; triggers
+    on single cpu machines (like KVM in openQA) with gcc6 and
+    latest glibc(bnc#971350)
+
+-------------------------------------------------------------------
 Mon Mar 14 12:02:29 UTC 2016 - dmueller@suse.com
 
 - enable llvmpipe for aarch64 (fate#320649)
 
 -------------------------------------------------------------------
-Tue Feb 23 15:37:22 UTC 2016 - sndirsch@suse.com
-
-- disable wayland support again for sle12 (has been an oversight
-  before!) [fate #315643-315645, 319159-319161, 319618]
-- commented in specfile, that libdrm_amdgpu is required for building
-  radeonsi DRI driver
-
--------------------------------------------------------------------
-Thu Feb 11 14:55:55 UTC 2016 - sndirsch@suse.com
-
-- latest Mesa version for sle12 (fate #315643-315645, 319159-319161, 319618)
-- disabled opencl (no longer libclc required)
-- obsolete patches:
-  * Mesa-PowerLE.patch
-  * Mesa-bnc864943-10.0.3-swrast-copy-sub-buffer.patch
-  * Mesa-fix-llvm-link.patch
-  * U_0001-glx-Fix-the-default-values-for-GLXFBConfig-attribute.patch
-  * U_0002-glx-Fix-the-GLXFBConfig-attrib-sort-priorities.patch
-  * U_swrast-allocate-swrast_texture_image-ImageSlices-array-if-needed.patch
-  * mesa-overflow-fix.patch
-
--------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Thu Feb 11 13:18:31 UTC 2016 - mimi.vx@gmail.com
 
 -  update to 11.1.2
 * Bugfix release:
@@ -151,19 +854,19 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
 + Some bugfixes in i965,nv50,radeonsi,r600g,vc4 drivers
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Thu Jan 28 09:37:21 UTC 2016 - idonmez@suse.com
 
 - Add U_clover-Fix-build-against-LLVM-3.8.patch to fix build
   against llvm 3.8
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Wed Jan 20 16:40:10 UTC 2016 - eich@suse.com
 
 - u_dri2-Check-for-dummyContext-to-see-if-the-glx_context-is-valid.patch
   Check for dummyContext to see if the glx_context is valid (boo#962609).
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Wed Jan 20 15:16:11 UTC 2016 - sndirsch@suse.com
 
 - n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch 
   * Since these are packaged separately in (open)SUSE anyway, one
@@ -171,7 +874,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
     again. (bnc #962609)
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Wed Jan 13 23:14:33 UTC 2016 - mimi.vx@gmail.com
 
 - update to 11.1.1
 * Bugfix release and adding KB Lake PCI id's
@@ -185,25 +888,25 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
 + fixes for r600,nv*,glx,glsl,radeonsi and i965
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Wed Jan  6 14:00:51 UTC 2016 - schwab@suse.de
 
 - Enable swrast gallium driver on s390/aarch64
 - Exclude Mesa-libva on s390/s390x/aarch64
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Sun Dec 20 05:03:08 UTC 2015 - jimmy@boombatower.com
 
 - Apply patch: st/va: hardlink driver instances to
   gallium_drv_video.so
   + u_st-va-hardlink-driver-instances-to-gallium_drv_video.patch
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Thu Dec 17 07:06:21 UTC 2015 - jimmy@boombatower.com
 
 - Add Mesa-libva.
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Tue Dec 15 16:17:22 UTC 2015 - mimi.vx@gmail.com
 
 - update to 11.1.0, new stable release
 * New features:
@@ -247,7 +950,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
 * +many bugfixes, please see relnotes
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Wed Dec  9 19:15:39 UTC 2015 - mimi.vx@gmail.com
 
 - Update to version 11.0.7
     + bugfixes release for bugs found since 11.0.6
@@ -261,12 +964,12 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
     + plus fixes for r600g,llvmpipe,i955,egl,gles2
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Tue Dec  1 07:57:16 UTC 2015 - jimmy@boombatower.com
 
 - Add Mesa-libOpenCL.
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Sun Nov 22 11:05:34 UTC 2015 - zaitor@opensuse.org
 
 - Update to version 11.0.6:
   + This release brings driver fixes for i965, r600, radeonsi,
@@ -276,7 +979,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
     decoding.
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Wed Nov 11 18:08:32 UTC 2015 - mimi.vx@gmail.com
 
 - update to 11.0.5
 * With this release we have some driver patches for i965 and nouveau, a couple
@@ -284,7 +987,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
 * Additionally we have a few new PCI ids for i965 and radeonsi.
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Sun Oct 25 18:08:04 UTC 2015 - mimi.vx@gmail.com
 
 - update to 11.0.4
   * bug fix release which fixes bugs found since the 11.0.3 release
@@ -293,33 +996,33 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
     U_i965-Remove-early-release-of-DRI2-miptree.patch
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Thu Oct 22 13:08:47 UTC 2015 - sndirsch@suse.com
 
 - U_gallium-add-PIPE_SHADER_CAP_MAX_UNROLL_ITERATIONS_HI.patch
   * This avoids a serious r600g bug leading to a GPU hang (bnc#951298)
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Tue Oct 20 12:27:16 UTC 2015 - sndirsch@suse.com
 
 - Update to 11.0.3
   * bug fix release which fixes bugs found since the 11.0.2 release
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Thu Oct  1 12:47:05 UTC 2015 - sndirsch@suse.com
 
 - Update to 11.0.2
   * This is a emergency release which covers the final dEQP
     regressions introduced in the 11.0 development cycle.
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Wed Sep 30 09:29:30 UTC 2015 - jslaby@suse.com
 
 - update upstream status:
   * remove n_i965-Remove-early-release-of-DRI2-miptree.patch
   * add U_i965-Remove-early-release-of-DRI2-miptree.patch
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Sat Sep 26 20:06:50 UTC 2015 - mpluskal@suse.com
 
 - Update to 11.0.1
   * i965/vec4: Fix saturation errors when coalescing registers
@@ -354,18 +1057,18 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
   * mesa: Fix texture compression on big-endian systems
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Mon Sep 14 15:40:22 UTC 2015 - jslaby@suse.com
 
 - add n_i965-Remove-early-release-of-DRI2-miptree.patch (bnc#945444)
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Mon Sep 14 07:49:02 UTC 2015 - sndirsch@suse.com
 
 - marked Mesa.keyring and mesa-11.0.0.tar.xz.sig as source in 
   specfile in order to make factory checkin policy happy
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Sat Sep 12 15:36:35 UTC 2015 - mimi.vx@gmail.com
 
 - Update to version 11.0.0
 *  Mesa 11.0 brings core Mesa support for OpenGL 4.2, RadeonSI and Nouveau NVC0 
@@ -376,7 +1079,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
 + drop U_mesa-llvm37-rename-r600-to-amdgpu.patch and U_mesa-llvm37.patch 
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Fri Sep 11 18:00:38 UTC 2015 - mimi.vx@gmail.com
 
 - Update to version 10.6.7
 + add gpg verification of source package
@@ -385,7 +1088,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
 * mesa/teximage: use correct extension for accept stencil texture.
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Mon Sep  7 08:33:46 UTC 2015 - zaitor@opensuse.org
 
 - Update to version 10.6.6:
   * This release includes patches for mesa core, i965 (regression
@@ -396,18 +1099,18 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
   pkgconfig(expat) BuildRequires.
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Mon Sep  7 03:45:34 UTC 2015 - alarrosa@suse.com
 
 - Add U_mesa-llvm37-rename-r600-to-amdgpu.patch to fix build with llvm 3.7
   due to rename of llvm target R600 to AMDGPU 
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Sat Sep  5 11:45:32 UTC 2015 - idonmez@suse.com
 
 - Add U_mesa-llvm37.patch to fix build with llvm 3.7
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Sat Aug 22 14:17:01 UTC 2015 - zaitor@opensuse.org
 
 - Update to version 10.6.5:
   * Apart from the usual nouveau, i965 and radeon driver fixes,
@@ -417,7 +1120,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
 - Replace libvdpau-devel for pkgconfig(vdpau) BuildRequires.
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Wed Aug 12 09:38:10 UTC 2015 - sndirsch@suse.com
 
 - update to 10.6.4
   * In this release we have a few GL specific fixes (in both dri
@@ -425,7 +1128,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
     crashfix for the standalone glcpp tool.
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Wed Jul 29 19:55:48 UTC 2015 - mimi.vx@gmail.com
 
 - update to 10.6.3
 * fdo#90728 - dvd playback with vlc and vdpau causes segmentation fault
@@ -444,7 +1147,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
 *  xa: don't leak fences
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Sun Jul 12 08:32:38 UTC 2015 - mimi.vx@gmail.com
 
 - update to 10.6.2
 * fdo#73528 - Deferred lighting in Second Life causes system hiccups and screen flickering
@@ -498,12 +1201,12 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
 * glsl: validate sampler array indexing for 'constant-index-expression'
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Mon Jun 29 14:13:43 UTC 2015 - mimi.vx@gmail.com
 
 - adjust libdrm dependencies
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Mon Jun 29 10:09:24 UTC 2015 - sndirsch@suse.com
 
 - Update to version 10.6.1
   * This release includes core mesa and glsl patches (amonst which
@@ -512,13 +1215,13 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
     ones ensuring that the dri modules can be loaded.
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Tue Jun 23 14:26:17 UTC 2015 - sndirsch@suse.com
 
 - n_Fixed-build-against-wayland-1.2.1.patch
   * required to fix build with wayland on openSUSE 13.1 
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Mon Jun 15 14:19:06 UTC 2015 - tobias.johannes.klausmann@mni.thm.de
 
 - Update to version 10.6.0:
 - New GL/EGL Features:
@@ -552,7 +1255,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
   + remove Patch102: U_0003_fix_build_after_macro_include.patch
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Mon Jun  8 23:10:43 UTC 2015 - zaitor@opensuse.org
 
 - Update to version 10.5.7:
   + i965: Emit 3DSTATE_MULTISAMPLE before WM_HZ_OP (gen8+)
@@ -582,7 +1285,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
   + st/dri: fix postprocessing crash when there's no depth buffer
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Mon May 25 06:29:26 UTC 2015 - mimi.vx@gmail.com
 
 - update to 10.5.6
 * fdo#86792 - [NVC0] Portal 2 Crashes in Wi* ne
@@ -618,7 +1321,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
 * clover: Fix a bug with multi-threaded events v2
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Sat May 16 19:56:36 UTC 2015 - mimi.vx@gmail.com
 
 - Update to 10.5.5
 * fdo#88521 - GLBenchmark 2.7 TRex renders with artifacts on Gen8 with !UXA
@@ -636,14 +1339,14 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
 * draw: fix prim ids when there's no gs
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Mon May 11 15:15:57 UTC 2015 - fstrba@suse.com
 
 - BuildIgnore python so that it is not sucked in by coincidence
   * The python-base provides enough python functionalities
     necessary for build.
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Mon Apr 27 09:55:36 UTC 2015 - sndirsch@suse.com
 
 - Update to 10.5.4
   * This release includes fixes for the mesa state-tracker used by
@@ -652,7 +1355,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
     includes many compilation fixes with more to come shortly.
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Thu Apr 16 19:50:30 UTC 2015 - mimi.vx@gmail.com
 
 - Update to 10.5.3
  + fdo#83962 - [HSW/BYT]Piglit spec_ARB_gpu_shader5_arb_gpu_shader5-emitstreamvertex_nodraw fails
@@ -682,7 +1385,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
  + i965: Fix URB size for CHV
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Sun Mar 29 13:55:46 UTC 2015 - mimi.vx@gmail.com
 
 - Update to  10.5.2
  + fdo#88534 - include/c11/threads_posix.h PTHREAD_MUTEX_RECURSIVE_NP not defined
@@ -710,7 +1413,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
  + clover: Return 0 as storage size for local kernel args that are not set v2
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Sat Mar 14 18:31:08 UTC 2015 - mimi.vx@gmail.com
 
 - Update  to 10.5.1
  + fdo#79202 - valgrind errors in glsl-fs-uniform-array-loop-unroll.shader_test; random code generation
@@ -790,7 +1493,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
  + r300g: Fix the ATI1N swizzle (RGTC1 and LATC1) 
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Sat Mar  7 02:13:12 UTC 2015 - tobias.johannes.klausmann@mni.thm.de
 
 - Update to version 10.5.0:
   + Initial support for the new Intel Skylake GPUs and Adreno 4xx 
@@ -820,29 +1523,29 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
   + add Patch102: U_0003_fix_build_after_macro_include.patch
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Mon Mar  2 19:27:19 UTC 2015 - idonmez@suse.com
 
 - Add u_gallivm_Update_for_RTDyldMemoryManager_unique_ptr.patch to
   fix build with llvm 3.6 (fdo#86958)
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Tue Feb 24 16:08:49 UTC 2015 - tobias.johannes.klausmann@mni.thm.de
 
 - Fix file permissions for the Gallium Nine files
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Mon Feb 23 15:28:29 UTC 2015 - sndirsch@suse.com
 
 - specfile/baselibs.conf: Manually provide d3d library (bnc#918294) 
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Tue Feb 10 12:30:49 UTC 2015 - zaitor@opensuse.org
 
 - Drop pkgconfig(libva) BuildRequires for now, as it introduces a
   build-cycle.
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Sun Feb  8 21:45:01 UTC 2015 - zaitor@opensuse.org
 
 - Update to version 10.4.4:
   + mesa: fix display list 8-byte alignment issue.
@@ -857,24 +1560,24 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
 - Add pkgconfig(libva) BuildRequires: Build VA API support.
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Mon Feb  2 08:59:10 UTC 2015 - sndirsch@suse.com
 
 - baselibs.conf: enabled build of 32bit Mesa-libd3d package
   (bnc#910109)
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Thu Jan 29 09:39:48 UTC 2015 - sndirsch@suse.com
 
 - moved definition of Mesa-libd3d package above definition of
   libxatracker packages in order to fix version requires
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Wed Jan 28 16:30:06 UTC 2015 - sndirsch@suse.com
 
 - fixed Requires for libd3d-devel 
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Tue Jan 27 11:05:40 UTC 2015 - sndirsch@suse.com
 
 - enabled build of Direct3D 9 (Gallium3D Nine) state tracker (bnc#910109)
 - removed obsolete patch u_be_assert_include.patch, addressed by
@@ -882,12 +1585,12 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
   (bnc#910109)
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Tue Jan 27 10:02:46 UTC 2015 - schwab@suse.de
 
 - Set xvmc_support also on ppc
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Sun Jan 25 12:13:06 UTC 2015 - mimi.vx@gmail.com
 
 - Version bump to 10.4.3 (bugfix release):
   * Bug 80568 - [gen4] GPU Crash During Google Chrome Operation
@@ -900,7 +1603,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
   * i965: Work around mysterious Gen4 GPU hangs with minimal state changes. 
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Fri Jan 16 12:08:42 UTC 2015 - tchvatal@suse.com
 
 - Clean up with the spec-cleaner
 - Drop obsolete obsoletes comming from fix for sle10
@@ -911,7 +1614,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
 - Various other rpmlint issues silenced.
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Fri Jan 16 11:54:23 UTC 2015 - tchvatal@suse.com
 
 - Version bump to 10.4.2 (bugfix release):
   * Bug 85529 - Surfaces not drawn in Unvanquished
@@ -941,7 +1644,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
 - Use download url fully in Source line
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Sun Dec 14 15:41:33 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
 
 - Update to version 10.4.0 (10.4 Final):
 - New features:
@@ -958,19 +1661,19 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
   + Add subpackage libvdpau_r300
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Sun Nov 16 11:24:04 UTC 2014 - afaerber@suse.de
 
 - Enable VideoCore IV (vc4) support for ARM
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Fri Nov 14 18:26:31 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
 
 - Cleanup Spec:
   + smaller cleanups
   + Remove all traces of talloc, Mesa uses ralloc
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Fri Nov 14 13:15:52 UTC 2014 - seanpwatson@live.com
 
 - Update to 10.3.3
 	+ fdo#82921 layout(location=0) emits error 
@@ -981,7 +1684,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
   + fdo#70410 egl-static/Makefile: linking fails with llvm >= 3.4
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Tue Nov  4 10:08:35 UTC 2014 - seanpwatson@live.com
 
 - Update to 10.3.2
 	+ (fdo#54372) GLX_INTEL_swap_event crashes driver when swapping 
@@ -996,19 +1699,19 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
   + (fdo#85267) vlc crashes with vdpau (Radeon 3850HD) [r600]
 	
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Thu Oct 30 09:37:08 UTC 2014 - jengelh@inai.de
 
 - Update descriptions and Requires for GLES3
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Sat Oct 25 10:24:33 UTC 2014 - josua.mayer97@gmail.com
 
 - add Mesa-devel-dri package:
   This way dri.pc will no longer pull in all of Mesa, just as
   packages requiring dri do not have to require Mesa-devel anymore
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Mon Oct 13 19:48:42 UTC 2014 - seanpwatson@live.com
 
 - Update to 10.3.1
   + [NVC0/Codegen] Shader compilation falis in spill logic
@@ -1023,7 +1726,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
     Test: PutImage XY 500x500 Square
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Thu Sep 25 13:00:23 UTC 2014 - dvaleev@suse.com
 
 - Fix ppc64 build (bnc#893275 bnc#871128)
   u_be_assert_include.patch
@@ -1032,7 +1735,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
 - Enable shared on ppc64 and ppc64le
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Sat Sep 20 23:31:03 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
 
 - Update to version 10.3.0 (10.3 Final):
 - New features:
@@ -1066,7 +1769,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
   Nevertheless keep it around as it may get enabled again.
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Mon Aug 25 10:34:26 UTC 2014 - sndirsch@suse.com
 
 - Update to version 10.3.0-RC1
   * Mesa 10.3 brings many performance improvements, more 
@@ -1075,26 +1778,45 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
   * supersedes U_mesa-glx-Reduce-error-log-level.patch
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Sun Aug 24 12:59:50 UTC 2014 - dvlaeev@suse.com
 
 - Package vdpau_r600 for ppc64le as well (bnc#893275) 
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Fri Aug 22 13:46:54 UTC 2014 - sndirsch@suse.com
+
+- u_Suppress-any-libGL-.-warnings-when-LIBGL_DEBUG-is-se.patch
+  Suppress any "libGL:..." warnings when LIBGL_DEBUG == "quiet"
+  (bnc#892896)
+
+-------------------------------------------------------------------
+Fri Aug 15 12:31:54 UTC 2014 - sndirsch@suse.com
+
+- no longer add /usr/%{_lib}/dri/updates to DRI driver search path
+  (FATE#317822)
+
+-------------------------------------------------------------------
+Thu Aug  7 12:29:38 UTC 2014 - sndirsch@suse.com
 
 - Update to version 10.2.5
   * Mesa 10.2.5 is a bug fix release which fixes bugs fixed since
     the 10.2.4 release
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Tue Jul 29 16:58:23 CEST 2014 - tiwai@suse.de
+
+- Reduce error log level for annoying dlopen messages (bnc#889391)
+  U_mesa-glx-Reduce-error-log-level.patch
+
+-------------------------------------------------------------------
+Mon Jul 21 14:10:26 UTC 2014 - sndirsch@suse.com
 
 - Update to version 10.2.4
   * Mesa 10.2.4 is a bug fix release which fixes bugs fixed since
     the 10.2.3 release
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Wed Jul  9 09:04:35 UTC 2014 - sndirsch@suse.com
 
 - Update to version 10.2.3
   * Mesa 10.2.3 is a bug fix release which fixes bugs fixed since
@@ -1102,47 +1824,55 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
 - obsoletes u_mesa-gallium-llvmpipe-fix-SIGFPE.patch
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Sun Jun  8 01:22:36 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
 
 - Update to version 10.2.1
 - Mesa 10.2.1 is an emergency release to fix a build failure added
   to 10.2 between 10.2-rc5 and the final release.
+
 - Mesa 10.2 is a feature release that includes many updates and
   enhancements. The full list is available in the release notes
   file in docs/relnotes/10.2.html.
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Wed Jun  4 10:12:49 UTC 2014 - sndirsch@suse.com
 
 - Update to version 10.2-rc5
   Another round of bugfixes towards the final 10.2
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Tue May 27 13:39:00 CEST 2014 - tiwai@suse.de
+
+- Fix zero-division with empty height (bnc#879462)
+  u_mesa-gallium-llvmpipe-fix-SIGFPE.patch
+
+-------------------------------------------------------------------
+Mon May 26 23:36:44 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
 
 - Update to version 10.2-rc4:
   Another round of bugfixes towards the final 10.2
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Mon May 19 16:10:36 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
 
 - Update to 10.2-rc3
   Even more bugfixes
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Mon May 12 09:32:19 UTC 2014 - schwab@suse.de
 
 - no shared llvm libs on ppc64
 - vdpau no longer enabled by default
 - xa or gallium-gbm implies gallium-loader
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Sat May 10 14:00:50 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
+
 - Update to 10.2-rc2:
   More bugfixes
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Sat May  3 22:15:22 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
 
 - Update to 10.2-rc1:
 - Remove U_gallium_util_add_missing_u_math_include.patch (patch27)
@@ -1151,17 +1881,17 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
 - Remove U_nouveau_fix_fence_waiting_logic.patch (patch30)
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Fri Apr 25 00:19:50 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
 
 - Add missing BuildRequires, remove old xorg-x11-*-devel packages
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Mon Apr  7 14:15:39 UTC 2014 - schwab@suse.de
 
 - Include XA tracker sub packages on s390x
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Mon Mar 31 09:57:12 UTC 2014 - schwab@suse.de
 
 - Clean up specfile
 - Turn negative arch checks into positive ones for non-default configure
@@ -1170,7 +1900,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
 - Don't enable gallium-egl on ppc64 for now to work around llvm bug
 
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Thu Mar 13 15:20:17 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
 
 - Add U_gallium_util_add_missing_u_math_include.patch (patch27)
 - Add U_nouveau_create_only_one_shared_screen.patch (patch28)
@@ -1180,7 +1910,7 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
   + https://bugs.freedesktop.org/show_bug.cgi?id=75279
   
 -------------------------------------------------------------------
-Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
+Wed Mar  5 16:17:42 UTC 2014 - tobias.johannes.klausmann@mni.thm.de
 
 - Update to version 10.1:
 - New features:
@@ -1195,95 +1925,6 @@ Thu Feb 11 14:48:44 UTC 2016 - sndirsch@suse.com
   + OpenGL 3.3 support on nv50, nvc0, r600 and radeonsi
 - Changes:
   + Removed support for the GL_MESA_texture_array extension. 
--------------------------------------------------------------------
-Tue Sep 30 08:38:17 UTC 2014 - eich@suse.com
-
-- U_swrast-allocate-swrast_texture_image-ImageSlices-array-if-needed.patch
-  Mapping textures in swrast may crash if no image slices array is allocated.
-  This may happen in some software fallback paths (bnc#899106).
-
--------------------------------------------------------------------
-Tue Aug 26 14:46:19 UTC 2014 - sndirsch@suse.com
-
-- remove mesa-ppc64le-novector.patch, since llvm meanwhile 
-  supports vector intrinsics (bnc#893594)
-
--------------------------------------------------------------------
-Fri Aug 22 12:37:07 UTC 2014 - sndirsch@suse.com
-
-- u_Suppress-any-libGL-.-warnings-when-LIBGL_DEBUG-is-se.patch
-  Suppress any "libGL:..." warnings when LIBGL_DEBUG == "quiet"
-  (bnc#892896)
-
--------------------------------------------------------------------
-Fri Aug 15 12:44:36 UTC 2014 - sndirsch@suse.com
-
-- no longer add /usr/%{_lib}/dri/updates to DRI driver search path
-  (FATE#317822)
-
--------------------------------------------------------------------
-Thu Aug  7 18:52:02 UTC 2014 - idonmez@suse.com
-
-- Add PowerLE support (Mesa-PowerLE.patch bnc#887778)
-
--------------------------------------------------------------------
-Tue Jul 29 17:21:45 CEST 2014 - tiwai@suse.de
-
-- Reduce error log level for annoying dlopen messages (bnc#889391)
-  U_mesa-glx-Reduce-error-log-level.patch
-
--------------------------------------------------------------------
-Mon May 26 18:35:11 CEST 2014 - tiwai@suse.de
-
-- Fix zero-division with empty height (bnc#879462)
-  u_mesa-gallium-llvmpipe-fix-SIGFPE.patch
-
--------------------------------------------------------------------
-Fri May 16 20:50:46 UTC 2014 - idonmez@suse.com
-
-- Workaround for Mesa-fix-llvm-link.patch, --system-libs does not
-  exist on llvm 3.4
-
--------------------------------------------------------------------
-Fri May 16 07:10:05 UTC 2014 - idonmez@suse.com
-
-- Add Mesa-fix-llvm-link.patch to fix LLVM linkage (bnc#865586)
-
--------------------------------------------------------------------
-Tue May 13 07:33:24 UTC 2014 - idonmez@suse.com
-
-- PPC64LE fixes from IBM (bnc#865586)
-
--------------------------------------------------------------------
-Tue Mar 25 09:37:30 UTC 2014 - sndirsch@suse.com
-
-- U_0001-glx-Fix-the-default-values-for-GLXFBConfig-attribute.patch/
-  U_0002-glx-Fix-the-GLXFBConfig-attrib-sort-priorities.patch
-  * glx: Fix the default values for GLXFBConfig attributes, fix the
-    GLXFBConfig attrib sort priorities (bnc#865586, fdo#70706)
-
--------------------------------------------------------------------
-Tue Mar 11 11:02:54 CST 2014 - federico@suse.com
-
-- Removed Mesa-9.2.3-drisw-copy-buffers-to-front-left.patch, as it is
-  superseded by the following patch from upstream.
-
-- Added Mesa-bnc864943-9.2.0-swrast-copy-sub-buffer.patch, which adds
-  the CopySubBuffer extension to the software renderer.  This lets
-  clients update only a small portion of the front buffer, for
-  example, when updating a small part of the screen, instead of doing
-  a full buffer swap.  bnc#864943.
-
--------------------------------------------------------------------
-Tue Feb 25 19:32:04 CST 2014 - federico@suse.com
-
-- Added Mesa-9.2.3-drisw-copy-buffers-to-front-left.patch for
-  bnc#864943.  This fixes software-only rendering for Clutter clients.
-
--------------------------------------------------------------------
-Mon Feb 24 12:52:15 UTC 2014 - sndirsch@suse.com
-
-- disable wayland support for sle12, i.e. suse < 1320
 
 -------------------------------------------------------------------
 Tue Feb  4 16:26:20 UTC 2014 - sndirsch@suse.com
@@ -3636,4 +4277,3 @@ Wed Oct 19 12:53:49 CEST 2005 - sndirsch@suse.de
 Sun Oct  2 22:15:48 CEST 2005 - sndirsch@suse.de
 
 - created package
-

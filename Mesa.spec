@@ -15,6 +15,7 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
+
 %define libglvnd 0
 %if 0%{?suse_version} >= 1330
 %define libglvnd 1
@@ -24,7 +25,7 @@
 %define _version 17.0.3
 %define with_opencl 0
 %define with_vulkan 0
-%ifarch %ix86 x86_64 %arm ppc ppc64 ppc64le s390x
+%ifarch %ix86 x86_64 %arm aarch64 ppc ppc64 ppc64le s390x
 %define gallium_loader 1
 %else
 %define gallium_loader 0
@@ -40,12 +41,14 @@
 %endif
 %ifarch %ix86 x86_64
 %define with_nine 1
-%if 0%{gallium_loader} && (0%{?suse_version} >= 1330 || 0%{?is_opensuse})
-%define with_opencl 1
-# llvm >= 3.9 not provided for <= 1330 
-%if 0
-%define with_vulkan 1
 %endif
+%if 0%{gallium_loader} && 0%{?suse_version} >= 1330
+# llvm >= 3.9 not provided for <= 1330 
+%ifarch %ix86 x86_64 s390x
+%define with_opencl 1
+%endif
+%ifarch %ix86 x86_64
+%define with_vulkan 1
 %endif
 %endif
 
@@ -145,9 +148,13 @@ BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.74
 %ifarch x86_64 %ix86
 BuildRequires:  libelf-devel
 BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.61
+%else
+%if 0%{with_opencl}
+BuildRequires:  libelf-devel
 %endif
-# Requirments for wayland bumped up from 17.0
-%if 0%{?suse_version} > 1320 || 0%{?is_opensuse}
+%endif
+# Requirements for wayland bumped up from 17.0
+%if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
 BuildRequires:  pkgconfig(wayland-client) >= 1.11
 BuildRequires:  pkgconfig(wayland-server) >= 1.11
 %endif
@@ -162,6 +169,7 @@ BuildRequires:  llvm-clang-devel
 %endif
 
 %if 0%{?libglvnd}
+Requires:       Mesa-libGL1  = %{version}
 Requires:       libglvnd0 >= 0.1.0
 %endif
 
@@ -198,7 +206,7 @@ Obsoletes:      Mesa-devel-static < %{version}
 Obsoletes:      xorg-x11-Mesa-devel < %{version}
 Provides:       Mesa-libIndirectGL-devel = %{version}
 Obsoletes:      Mesa-libIndirectGL-devel < %{version}
-%if 0%{?suse_version} > 1320 || 0%{?is_opensuse}
+%if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
 Requires:       libwayland-egl-devel
 %endif
 
@@ -383,8 +391,8 @@ applications using the OpenGL|ES 3.x APIs.
 
 %package -n libOSMesa8
 Summary:        Mesa Off-screen rendering extension
-Group:          System/Libraries
 # Wrongly named package shipped .so.8
+Group:          System/Libraries
 Obsoletes:      libOSMesa9 < %{version}-%{release}
 Provides:       libOSMesa9 = %{version}-%{release}
 
@@ -490,8 +498,8 @@ implementation of Mesa.
 
 %package libd3d
 Summary:        Mesa Direct3D9 state tracker
-Group:          System/Libraries
 # Manually provide d3d library (bnc#918294)
+Group:          System/Libraries
 %ifarch x86_64 s390x ppc64le aarch64
 Provides:       d3dadapter9.so.1()(64bit)
 %else
@@ -652,7 +660,9 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %endif
 
 # reverse-apply this patch to fix OpenGL support on s390x (bsc#1032272)
+%ifarch s390x
 %patch40 -R -p1
+%endif
 
 # Remove requires to libglvnd0/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
@@ -662,7 +672,7 @@ grep -v libglvnd $RPM_SOURCE_DIR/baselibs.conf > $RPM_SOURCE_DIR/temp && \
 %endif
 
 %build
-%if 0%{?suse_version} > 1320 || 0%{?is_opensuse}
+%if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
 egl_platforms=x11,drm,wayland
 %else
 egl_platforms=x11,drm
@@ -934,7 +944,7 @@ done
 %{_libdir}/libOSMesa.so
 %{_libdir}/pkgconfig/osmesa.pc
 
-%if 0%{?suse_version} > 1320 || 0%{?is_opensuse}
+%if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
 %files -n libwayland-egl1
 %defattr(-,root,root)
 %{_libdir}/libwayland-egl.so.1*
