@@ -1,4 +1,38 @@
 -------------------------------------------------------------------
+Wed Apr 12 13:41:30 UTC 2017 - sndirsch@suse.com
+
+- only reverse-apply 'U_draw-use-SoA-fetch-not-AoS-one.patch' on 
+  s390x (bsc#1032272)
+
+-------------------------------------------------------------------
+Wed Apr 12 12:31:34 UTC 2017 - sndirsch@suse.com
+
+- build wayland on Leap >= 42.3
+- separate package 'Mesa-dri-nouveau' on Leap
+
+-------------------------------------------------------------------
+Wed Apr 12 12:15:27 UTC 2017 - sndirsch@suse.com
+
+- removed broken locking patches for nouveau DRI driver
+  * N_01-WIP-nouveau-add-locking.patch
+  * N_02-nouveau-more-locking-make-sure-that-fence-work-is-always-done-with-the-push-mutex-acquired.patch
+  * N_03-nv30-locking-fixes.patch
+  * N_04-nv50-Fix-double-lock-in-nv50_hw_sm_get_query_result.patch
+  * N_05-Use-nv50_render_condition-in-nv50_blitctx_post_blit.patch
+
+-------------------------------------------------------------------
+Wed Apr 12 09:44:35 UTC 2017 - sndirsch@suse.com
+
+- let Mesa require Mesa-libGL1 for a libglvnd build (bsc#1033708)
+
+-------------------------------------------------------------------
+Fri Apr  7 14:51:09 UTC 2017 - sndirsch@suse.com
+
+- U_draw-use-SoA-fetch-not-AoS-one.patch 
+  * reverse-apply this patch to fix OpenGL support on s390x
+    (bsc#1032272)
+
+-------------------------------------------------------------------
 Wed Apr  5 11:32:26 UTC 2017 - afaerber@suse.de
 
 - Prepare building OpenCL for non-x86 architectures, too

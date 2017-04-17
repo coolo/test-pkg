@@ -16,10 +16,6 @@
 #
 
 
-# Only enable the Nouveau locking patches if you know what you're doing.
-# They may fix KDE on Nouveau. They may also deadlock your userland.
-%define use_broken_nouveau_locking_patches 0
-
 %define libglvnd 0
 %if 0%{?suse_version} >= 1330
 %define libglvnd 1
@@ -90,13 +86,8 @@ Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 Patch33:        archlinux_0001-EGL-Implement-the-libglvnd-interface-for-EGL-v2.patch
 Patch34:        archlinux_0002-fixup-EGL-Implement-the-libglvnd-interface-for-EGL-v.patch
 Patch35:        fedora_0001-glxglvnddispatch-Add-missing-dispatch-for-GetDriverC.patch
-
-# Nouveau multithreading workarounds from https://github.com/imirkin/mesa/commits/locking
-Patch61:        N_01-WIP-nouveau-add-locking.patch
-Patch62:        N_02-nouveau-more-locking-make-sure-that-fence-work-is-always-done-with-the-push-mutex-acquired.patch
-Patch63:        N_03-nv30-locking-fixes.patch
-Patch64:        N_04-nv50-Fix-double-lock-in-nv50_hw_sm_get_query_result.patch
-Patch65:        N_05-Use-nv50_render_condition-in-nv50_blitctx_post_blit.patch
+# reverse-apply this to fix OpenGL support on s390x (bsc#1032272)
+Patch40:        U_draw-use-SoA-fetch-not-AoS-one.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -163,9 +154,9 @@ BuildRequires:  libelf-devel
 %endif
 %endif
 # Requirements for wayland bumped up from 17.0
-%if 0%{?suse_version} > 1320
-BuildRequires:  pkgconfig(wayland-client)
-BuildRequires:  pkgconfig(wayland-server)
+%if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
+BuildRequires:  pkgconfig(wayland-client) >= 1.11
+BuildRequires:  pkgconfig(wayland-server) >= 1.11
 %endif
 %ifarch aarch64 %arm ppc64 ppc64le s390x %ix86 x86_64
 BuildRequires:  llvm-devel
@@ -178,6 +169,7 @@ BuildRequires:  llvm-clang-devel
 %endif
 
 %if 0%{?libglvnd}
+Requires:       Mesa-libGL1  = %{version}
 Requires:       libglvnd0 >= 0.1.0
 %endif
 
@@ -214,7 +206,7 @@ Obsoletes:      Mesa-devel-static < %{version}
 Obsoletes:      xorg-x11-Mesa-devel < %{version}
 Provides:       Mesa-libIndirectGL-devel = %{version}
 Obsoletes:      Mesa-libIndirectGL-devel < %{version}
-%if 0%{?suse_version} > 1320
+%if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
 Requires:       libwayland-egl-devel
 %endif
 
@@ -399,8 +391,8 @@ applications using the OpenGL|ES 3.x APIs.
 
 %package -n libOSMesa8
 Summary:        Mesa Off-screen rendering extension
-Group:          System/Libraries
 # Wrongly named package shipped .so.8
+Group:          System/Libraries
 Obsoletes:      libOSMesa9 < %{version}-%{release}
 Provides:       libOSMesa9 = %{version}-%{release}
 
@@ -506,8 +498,8 @@ implementation of Mesa.
 
 %package libd3d
 Summary:        Mesa Direct3D9 state tracker
-Group:          System/Libraries
 # Manually provide d3d library (bnc#918294)
+Group:          System/Libraries
 %ifarch x86_64 s390x ppc64le aarch64
 Provides:       d3dadapter9.so.1()(64bit)
 %else
@@ -667,12 +659,9 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch35 -p1
 %endif
 
-%if %{use_broken_nouveau_locking_patches}
-%patch61 -p1
-%patch62 -p1
-%patch63 -p1
-%patch64 -p1
-%patch65 -p1
+# reverse-apply this patch to fix OpenGL support on s390x (bsc#1032272)
+%ifarch s390x
+%patch40 -R -p1
 %endif
 
 # Remove requires to libglvnd0/libglvnd-devel from baselibs.conf when
@@ -683,7 +672,7 @@ grep -v libglvnd $RPM_SOURCE_DIR/baselibs.conf > $RPM_SOURCE_DIR/temp && \
 %endif
 
 %build
-%if 0%{?suse_version} > 1320
+%if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
 egl_platforms=x11,drm,wayland
 %else
 egl_platforms=x11,drm
@@ -854,9 +843,11 @@ done
 %config %{_sysconfdir}/drirc
 %dir %{_libdir}/dri
 %{_libdir}/dri/*_dri.so
+%if 0%{?is_opensuse}
 %ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le
 %exclude %{_libdir}/dri/nouveau_dri.so
 %exclude %{_libdir}/dri/nouveau_vieux_dri.so
+%endif
 %endif
 %if 0%{with_opencl}
 # only built with opencl
@@ -953,7 +944,7 @@ done
 %{_libdir}/libOSMesa.so
 %{_libdir}/pkgconfig/osmesa.pc
 
-%if 0%{?suse_version} > 1320
+%if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
 %files -n libwayland-egl1
 %defattr(-,root,root)
 %{_libdir}/libwayland-egl.so.1*
@@ -1049,10 +1040,12 @@ done
 %{_includedir}/GL/internal
 %{_libdir}/pkgconfig/dri.pc
 
+%if 0%{?is_opensuse}
 %ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le
 %files -n Mesa-dri-nouveau
 %{_libdir}/dri/nouveau_dri.so
 %{_libdir}/dri/nouveau_vieux_dri.so
+%endif
 %endif
 
 %files devel
