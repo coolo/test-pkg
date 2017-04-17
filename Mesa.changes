@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Mon Apr 17 17:17:22 UTC 2017 - mimi.vx@gmail.com
+
+- update to 17.0.4
+ * fdo#100391 - SachaWillems deferredmultisampling asserts
+ * fdo#100452 - push_constants host memory leak when resetting command buffer
+ * fdo#100582 - piglit.spec.arb_stencil_texturing.glblitframebuffer corrupts
+    state.gl_texture* assertions
+ * radeonsi: add new polaris10 pci ids
+ * fixes for anv, radv, i965 and nouveau drivers
+
+-------------------------------------------------------------------
 Wed Apr 12 13:41:30 UTC 2017 - sndirsch@suse.com
 
 - only reverse-apply 'U_draw-use-SoA-fetch-not-AoS-one.patch' on 

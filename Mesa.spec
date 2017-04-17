@@ -22,7 +22,7 @@
 %endif
 %define glamor 1
 %define _name_archive mesa
-%define _version 17.0.3
+%define _version 17.0.4
 %define with_opencl 0
 %define with_vulkan 0
 %ifarch %ix86 x86_64 %arm aarch64 ppc ppc64 ppc64le s390x
@@ -43,7 +43,7 @@
 %define with_nine 1
 %endif
 %if 0%{gallium_loader} && 0%{?suse_version} >= 1330
-# llvm >= 3.9 not provided for <= 1330 
+# llvm >= 3.9 not provided for <= 1330
 %ifarch %ix86 x86_64 s390x
 %define with_opencl 1
 %endif
@@ -53,7 +53,7 @@
 %endif
 
 Name:           Mesa
-Version:        17.0.3
+Version:        17.0.4
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
