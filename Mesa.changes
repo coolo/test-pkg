@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Apr 18 21:33:50 UTC 2017 - afaerber@suse.de
+
+- Enable OpenCL for aarch64, ppc64 and ppc64le now, too.
+  %arm is still left out, waiting for llvm4 to build.
+
+-------------------------------------------------------------------
 Mon Apr 17 17:17:22 UTC 2017 - mimi.vx@gmail.com
 
 - update to 17.0.4
