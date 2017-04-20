@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Apr 20 13:16:22 UTC 2017 - idonmez@suse.com
+
+- Add u_add_llvm_codegen_dependencies.patch to link to
+  libLLVMCodegen to fix cyclic linking problems. bsc#981975
+
+-------------------------------------------------------------------
 Tue Apr 18 21:33:50 UTC 2017 - afaerber@suse.de
 
 - Enable OpenCL for aarch64, ppc64 and ppc64le now, too.
