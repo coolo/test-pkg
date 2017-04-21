@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Apr 21 09:09:25 UTC 2017 - sndirsch@suse.com
+
+- let Mesa require Mesa-libEGL1 for a libglvnd build; 
+  xf86-video-amdgpu driver needs it for 2D support via glamor
+  (boo#1034832)
+
+-------------------------------------------------------------------
 Thu Apr 20 13:16:22 UTC 2017 - idonmez@suse.com
 
 - Add u_add_llvm_codegen_dependencies.patch to link to
