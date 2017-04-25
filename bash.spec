@@ -71,8 +71,6 @@ Patch5:         bash-3.0-warn-locale.patch
 # Disabled
 Patch6:         bash-4.2-endpw.dif
 Patch7:         bash-4.3-decl.patch
-# Is this fixed meanwhile?
-Patch8:         bash-4.0-async-bnc523667.dif
 Patch9:         bash-4.3-include-unistd.dif
 Patch10:        bash-3.2-printf.patch
 Patch11:        bash-4.3-loadables.dif
@@ -285,7 +283,6 @@ done
 %patch5  -p0 -b .warnlc
 #%patch6  -p0 -b .endpw
 %patch7  -p0 -b .decl
-#%patch8  -p0 -b .async
 %patch9  -p0 -b .unistd
 %patch10 -p0 -b .printf
 %patch11 -p0 -b .plugins
@@ -613,8 +610,6 @@ EOF
   # remove unpackaged files
   rm -fv %{buildroot}%{_libdir}/libhistory.so.*
   rm -fv %{buildroot}%{_libdir}/libreadline.so.*
-  rm -fv %{buildroot}%{_infodir}/rluserman.info.gz
-  rm -fv %{buildroot}%{_mandir}/man3/history.3*
   rm -fv %{buildroot}%{_defaultdocdir}/readline/INSTALL
   mkdir -p %{buildroot}%{_sysconfdir}/skel
   install -m 644 %{S:5}    %{buildroot}%{_sysconfdir}/skel/.bashrc
@@ -637,10 +632,12 @@ EOF
 %post -n readline-doc
 %install_info --info-dir=%{_infodir} %{_infodir}/history.info.gz
 %install_info --info-dir=%{_infodir} %{_infodir}/readline.info.gz
+%install_info --info-dir=%{_infodir} %{_infodir}/rluserman.info.gz
 
 %preun -n readline-doc
 %install_info_delete --info-dir=%{_infodir} %{_infodir}/history.info.gz
 %install_info_delete --info-dir=%{_infodir} %{_infodir}/readline.info.gz
+%install_info_delete --info-dir=%{_infodir} %{_infodir}/rluserman.info.gz
 
 %clean
 LD_LIBRARY_PATH=%{buildroot}/%{_lib} \
@@ -668,11 +665,11 @@ ldd -u -r %{buildroot}/%{_lib}/libreadline.so.* || true
 
 %files -n bash-doc
 %defattr(-,root,root)
-%doc %{_infodir}/bash.info.gz
-%doc %{_mandir}/man1/bash.1.gz
-%doc %{_mandir}/man1/bashbuiltins.1.gz
-%doc %{_mandir}/man1/bashbug.1.gz
-%doc %{_mandir}/man1/rbash.1.gz
+%doc %{_infodir}/bash.info*
+%doc %{_mandir}/man1/bash.1*
+%doc %{_mandir}/man1/bashbuiltins.1*
+%doc %{_mandir}/man1/bashbug.1*
+%doc %{_mandir}/man1/rbash.1*
 %doc %{_defaultdocdir}/bash/
 
 %if 0%suse_version >= 1020
@@ -706,12 +703,14 @@ ldd -u -r %{buildroot}/%{_lib}/libreadline.so.* || true
 %{_incdir}/readline/
 %{_libdir}/libhistory.so
 %{_libdir}/libreadline.so
-%doc %{_mandir}/man3/readline.3.gz
 
 %files -n readline-doc
 %defattr(-,root,root)
-%doc %{_infodir}/history.info.gz
-%doc %{_infodir}/readline.info.gz
+%doc %{_infodir}/history.info*
+%doc %{_infodir}/readline.info*
+%doc %{_infodir}/rluserman.info*
+%doc %{_mandir}/man3/history.3*
+%doc %{_mandir}/man3/readline.3*
 %doc %{_defaultdocdir}/readline/
 
 %changelog
