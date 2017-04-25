@@ -22,7 +22,7 @@
 %endif
 %define glamor 1
 %define _name_archive mesa
-%define _version 17.0.3
+%define _version 17.0.4
 %define with_opencl 0
 %define with_vulkan 0
 %ifarch %ix86 x86_64 %arm aarch64 ppc ppc64 ppc64le s390x
@@ -43,8 +43,9 @@
 %define with_nine 1
 %endif
 %if 0%{gallium_loader} && 0%{?suse_version} >= 1330
-# llvm >= 3.9 not provided for <= 1330 
-%ifarch %ix86 x86_64 s390x
+# llvm >= 3.9 not provided for <= 1330
+%ifnarch %arm
+# TODO Drop ifnarch %%arm once llvm4 has built in Factory
 %define with_opencl 1
 %endif
 %ifarch %ix86 x86_64
@@ -53,7 +54,7 @@
 %endif
 
 Name:           Mesa
-Version:        17.0.3
+Version:        17.0.4
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -71,6 +72,7 @@ Source6:        %{name}-rpmlintrc
 Source7:        Mesa.keyring
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
+Patch12:        u_add_llvm_codegen_dependencies.patch
 # Patch from Fedora, fix 16bpp in llvmpipe
 Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 # Patch from Fedora, use shmget when available, under llvmpipe
@@ -169,6 +171,7 @@ BuildRequires:  llvm-clang-devel
 %endif
 
 %if 0%{?libglvnd}
+Requires:       Mesa-libEGL1  = %{version}
 Requires:       Mesa-libGL1  = %{version}
 Requires:       libglvnd0 >= 0.1.0
 %endif
@@ -647,6 +650,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch11 -p1
 #%patch15 -p1
 #%patch13 -p1
+%patch12 -p1
 %patch18 -p1
 %patch21 -p1
 
