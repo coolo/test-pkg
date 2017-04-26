@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Apr 25 11:13:30 UTC 2017 - schwab@linux-m68k.org
+
+- No OpenCL on ppc
+
+-------------------------------------------------------------------
 Fri Apr 21 09:09:25 UTC 2017 - sndirsch@suse.com
 
 - let Mesa require Mesa-libEGL1 for a libglvnd build; 
