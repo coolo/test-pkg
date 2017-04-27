@@ -44,7 +44,7 @@
 %endif
 %if 0%{gallium_loader} && 0%{?suse_version} >= 1330
 # llvm >= 3.9 not provided for <= 1330
-%ifnarch %arm
+%ifnarch %arm ppc
 # TODO Drop ifnarch %%arm once llvm4 has built in Factory
 %define with_opencl 1
 %endif
