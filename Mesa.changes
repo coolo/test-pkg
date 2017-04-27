@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Apr 27 09:54:43 UTC 2017 - sndirsch@suse.com
+
+- baselibs.conf: added libvulkan_intel-32bit as a requirement for
+  Mesa-libd3d (boo#1036282)
+
+-------------------------------------------------------------------
 Tue Apr 25 11:13:30 UTC 2017 - schwab@linux-m68k.org
 
 - No OpenCL on ppc
