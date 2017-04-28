@@ -88,8 +88,7 @@ Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 Patch33:        archlinux_0001-EGL-Implement-the-libglvnd-interface-for-EGL-v2.patch
 Patch34:        archlinux_0002-fixup-EGL-Implement-the-libglvnd-interface-for-EGL-v.patch
 Patch35:        fedora_0001-glxglvnddispatch-Add-missing-dispatch-for-GetDriverC.patch
-# reverse-apply this to fix OpenGL support on s390x (bsc#1032272)
-Patch40:        U_draw-use-SoA-fetch-not-AoS-one.patch
+Patch40:        u_gallivm-correct-channel-shift-logic-on-big-endian.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -663,10 +662,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch35 -p1
 %endif
 
-# reverse-apply this patch to fix OpenGL support on s390x (bsc#1032272)
-%ifarch s390x
-%patch40 -R -p1
-%endif
+%patch40 -p1
 
 # Remove requires to libglvnd0/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
