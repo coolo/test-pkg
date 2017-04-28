@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Fri Apr 28 12:26:02 UTC 2017 - sndirsch@suse.com
+
+- u_gallivm-correct-channel-shift-logic-on-big-endian.patch:
+  * instead of reverse applying a change on s390x
+    ("U_draw-use-SoA-fetch-not-AoS-one.patch") address the 
+    issue by a real fix (bsc#1032272, fdo#100613)
+
+-------------------------------------------------------------------
 Thu Apr 27 09:54:43 UTC 2017 - sndirsch@suse.com
 
 - baselibs.conf: added libvulkan_intel-32bit as a requirement for
