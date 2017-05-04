@@ -22,7 +22,7 @@
 %endif
 %define glamor 1
 %define _name_archive mesa
-%define _version 17.0.4
+%define _version 17.0.5
 %define with_opencl 0
 %define with_vulkan 0
 %ifarch %ix86 x86_64 %arm aarch64 ppc ppc64 ppc64le s390x
@@ -44,7 +44,7 @@
 %endif
 %if 0%{gallium_loader} && 0%{?suse_version} >= 1330
 # llvm >= 3.9 not provided for <= 1330
-%ifnarch %arm
+%ifnarch %arm ppc
 # TODO Drop ifnarch %%arm once llvm4 has built in Factory
 %define with_opencl 1
 %endif
@@ -54,7 +54,7 @@
 %endif
 
 Name:           Mesa
-Version:        17.0.4
+Version:        17.0.5
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -88,8 +88,7 @@ Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 Patch33:        archlinux_0001-EGL-Implement-the-libglvnd-interface-for-EGL-v2.patch
 Patch34:        archlinux_0002-fixup-EGL-Implement-the-libglvnd-interface-for-EGL-v.patch
 Patch35:        fedora_0001-glxglvnddispatch-Add-missing-dispatch-for-GetDriverC.patch
-# reverse-apply this to fix OpenGL support on s390x (bsc#1032272)
-Patch40:        U_draw-use-SoA-fetch-not-AoS-one.patch
+Patch40:        u_gallivm-correct-channel-shift-logic-on-big-endian.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -663,10 +662,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch35 -p1
 %endif
 
-# reverse-apply this patch to fix OpenGL support on s390x (bsc#1032272)
-%ifarch s390x
-%patch40 -R -p1
-%endif
+%patch40 -p1
 
 # Remove requires to libglvnd0/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
