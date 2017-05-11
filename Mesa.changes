@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu May 11 09:10:25 UTC 2017 - sndirsch@suse.com
+
+- baselibs.conf: libglvnd0 -> libglvnd; missed the package name
+  change in libglvnd package (boo#1038619)
+
+-------------------------------------------------------------------
 Wed May 10 17:44:38 UTC 2017 - mimi.vx@gmail.com
 
 - update to 17.1.0
