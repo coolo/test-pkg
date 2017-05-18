@@ -130,6 +130,9 @@ Patch27:        U_i965-Remove-early-release-of-DRI2-miptree.patch
 Patch28:        u_dri2-Check-for-dummyContext-to-see-if-the-glx_context-is-valid.patch
 Patch29:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
 Patch30:        u_glxcmds-glXGetFBConfigs-fix-screen-bounds.patch
+Patch31:        u_add_llvm_codegen_dependencies.patch
+Patch32:        U_r300g-Set-R300_VAP_CNTL-on-RSxxx-to-avoid-triangle-flickering.patch
+Patch33:        U_cso-don-t-release-sampler-states-that-are-bound.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -505,6 +508,9 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch28 -p1
 %patch29 -p1
 %patch30 -p1
+%patch31 -p1
+%patch32 -p1
+%patch33 -p1
 
 %build
 rm -f src/mesa/depend

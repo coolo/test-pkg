@@ -1,4 +1,29 @@
 -------------------------------------------------------------------
+Mon Dec 12 11:22:58 UTC 2016 - mstaudt@suse.com
+
+- U_cso-don-t-release-sampler-states-that-are-bound.patch:
+  This avoids Radeon hangs due to a use-after-free bug in Gallium.
+  Fixes (boo#1015012), (fdo#93649)
+
+-------------------------------------------------------------------
+Fri Sep  9 13:12:55 UTC 2016 - mstaudt@suse.com
+
+- U_r300g-Set-R300_VAP_CNTL-on-RSxxx-to-avoid-triangle-flickering.patch:
+  Initialize RSxxx chipsets correctly (bsc#985650)
+
+-------------------------------------------------------------------
+Fri Sep  9 12:32:31 UTC 2016 - mstaudt@suse.com
+
+- baselibs.conf:
+  Remove libwayland-egl1 as it's not being built.
+
+-------------------------------------------------------------------
+Tue Aug 16 08:21:42 UTC 2016 - idonmez@suse.com
+
+- Add u_add_llvm_codegen_dependencies.patch to link to
+  libLLVMCodegen to fix cyclic linking problems. bsc#981975
+
+-------------------------------------------------------------------
 Wed May 18 16:44:25 UTC 2016 - eich@suse.com
 
 - u_glxcmds-glXGetFBConfigs-fix-screen-bounds.patch:
