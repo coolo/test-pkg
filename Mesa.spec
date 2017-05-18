@@ -75,6 +75,7 @@ Patch22:        u_glxcmds-glXGetFBConfigs-fix-screen-bounds.patch
 Patch23:        U_gallivm-disable-avx512-features.patch
 Patch24:        u_add_llvm_codegen_dependencies.patch
 Patch25:        U_r300g-Set-R300_VAP_CNTL-on-RSxxx-to-avoid-triangle-flickering.patch
+Patch26:        U_cso-don-t-release-sampler-states-that-are-bound.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -577,6 +578,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch23 -p1
 %patch24 -p1
 %patch25 -p1
+%patch26 -p1
 
 %build
 %if 0%{?suse_version} >= 1320

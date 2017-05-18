@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Dec 12 11:25:05 UTC 2016 - mstaudt@suse.com
+
+- U_cso-don-t-release-sampler-states-that-are-bound.patch:
+  This avoids Radeon hangs due to a use-after-free bug in Gallium.
+  Fixes (boo#1015012), (fdo#93649)
+
+-------------------------------------------------------------------
 Fri Sep  9 13:31:16 UTC 2016 - mstaudt@suse.com
 
 - U_r300g-Set-R300_VAP_CNTL-on-RSxxx-to-avoid-triangle-flickering.patch:
