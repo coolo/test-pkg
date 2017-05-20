@@ -1,4 +1,28 @@
 -------------------------------------------------------------------
+Thu May 11 09:10:25 UTC 2017 - sndirsch@suse.com
+
+- baselibs.conf: libglvnd0 -> libglvnd; missed the package name
+  change in libglvnd package (boo#1038619)
+
+-------------------------------------------------------------------
+Wed May 10 17:44:38 UTC 2017 - mimi.vx@gmail.com
+
+- update to 17.1.0
+- drop upstreamed patches:
+    archlinux_0002-fixup-EGL-Implement-the-libglvnd-interface-for-EGL-v.patch
+    archlinux_0001-EGL-Implement-the-libglvnd-interface-for-EGL-v2.patch
+    archlinux_glapi-Link-with-glapi-when-built-shared.patch
++ New major release with:
+  + OpenGL 4.2 support for Intel Ivy Bridge chips.
+  + The RADV driver passes the Khronos CTS
+  + Shader on-disk cache. Improving the startup and shader compilation
+      times in some games.
+  + This release includes significant performance improvements for games by
+     Feral Interactive.
+ * for full list of changes please check docs/relnotes/17.1.0.html	
+
+
+-------------------------------------------------------------------
 Sat Apr 29 06:36:50 UTC 2017 - mimi.vx@gmail.com
 
 - update to 17.0.5

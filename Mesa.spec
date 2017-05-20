@@ -22,7 +22,7 @@
 %endif
 %define glamor 1
 %define _name_archive mesa
-%define _version 17.0.5
+%define _version 17.1.0
 %define with_opencl 0
 %define with_vulkan 0
 %ifarch %ix86 x86_64 %arm aarch64 ppc ppc64 ppc64le s390x
@@ -54,7 +54,7 @@
 %endif
 
 Name:           Mesa
-Version:        17.0.5
+Version:        17.1.0
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -82,11 +82,8 @@ Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # never to be upstreamed
 Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
 # currently needed for libglvnd support
-Patch30:        archlinux_glapi-Link-with-glapi-when-built-shared.patch
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
-Patch33:        archlinux_0001-EGL-Implement-the-libglvnd-interface-for-EGL-v2.patch
-Patch34:        archlinux_0002-fixup-EGL-Implement-the-libglvnd-interface-for-EGL-v.patch
 Patch35:        fedora_0001-glxglvnddispatch-Add-missing-dispatch-for-GetDriverC.patch
 Patch40:        u_gallivm-correct-channel-shift-logic-on-big-endian.patch
 
@@ -106,10 +103,10 @@ BuildRequires:  pkgconfig(dri2proto)
 BuildRequires:  pkgconfig(dri3proto)
 BuildRequires:  pkgconfig(expat)
 BuildRequires:  pkgconfig(glproto)
-BuildRequires:  pkgconfig(libdrm) >= 2.4.66
-BuildRequires:  pkgconfig(libdrm_amdgpu) >= 2.4.63
+BuildRequires:  pkgconfig(libdrm) >= 2.4.75
+BuildRequires:  pkgconfig(libdrm_amdgpu) >= 2.4.79
 BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.66
-BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.56
+BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.71
 %if 0%{?libglvnd}
 BuildRequires:  pkgconfig(libglvnd) >= 0.1.0
 %endif
@@ -145,10 +142,11 @@ Obsoletes:      xorg-x11-Mesa < %{version}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %ifarch %arm
 BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.74
+BuildRequires:  pkgconfig(libelf)
 %endif
 %ifarch x86_64 %ix86
 BuildRequires:  libelf-devel
-BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.61
+BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.75
 %else
 %if 0%{with_opencl}
 BuildRequires:  libelf-devel
@@ -654,11 +652,8 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch21 -p1
 
 %if 0%{?libglvnd}
-%patch30 -p1
 %patch31 -p1
 %patch32 -p1
-%patch33 -p1
-%patch34 -p1
 %patch35 -p1
 %endif
 
@@ -686,12 +681,11 @@ autoreconf -fvi
            --enable-gles1 \
            --enable-gles2 \
            --enable-dri \
-           --with-egl-platforms=$egl_platforms \
+           --with-platforms=$egl_platforms \
            --enable-shared-glapi \
            --enable-texture-float \
            --enable-osmesa \
            --enable-dri3 \
-           --enable-shader-cache \
            %{?with_nine:--enable-nine} \
 %if %{glamor}
            --enable-gbm \
@@ -703,7 +697,7 @@ autoreconf -fvi
 %endif
            --with-dri-searchpath=%{_libdir}/dri \
 %ifarch aarch64 %arm ppc64 ppc64le s390x %ix86 x86_64
-           --enable-gallium-llvm \
+           --enable-llvm \
            --enable-llvm-shared-libs \
 %endif
            --enable-vdpau \
