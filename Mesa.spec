@@ -170,7 +170,7 @@ BuildRequires:  llvm-clang-devel
 %if 0%{?libglvnd}
 Requires:       Mesa-libEGL1  = %{version}
 Requires:       Mesa-libGL1  = %{version}
-Requires:       libglvnd0 >= 0.1.0
+Requires:       libglvnd >= 0.1.0
 %endif
 
 %description
@@ -230,7 +230,7 @@ just Mesa or The Mesa 3-D graphics library.
 Summary:        Free implementation of the EGL API
 Group:          System/Libraries
 %if 0%{?libglvnd}
-Requires:       libglvnd0 >= 0.1.0
+Requires:       libglvnd >= 0.1.0
 %endif
 
 %description -n Mesa-libEGL1
@@ -268,7 +268,7 @@ Summary:        The GL/GLX runtime of the Mesa 3D graphics library
 Group:          System/Libraries
 Requires:       Mesa = %{version}
 %if 0%{?libglvnd}
-Requires:       libglvnd0 >= 0.1.0
+Requires:       libglvnd >= 0.1.0
 %endif
 
 %description -n Mesa-libGL1
@@ -301,7 +301,7 @@ programs with Mesa.
 Summary:        Free implementation of the OpenGL|ES 1.x Common Profile API
 Group:          System/Libraries
 %if 0%{?libglvnd}
-Requires:       libglvnd0 >= 0.1.0
+Requires:       libglvnd >= 0.1.0
 %endif
 
 %description -n Mesa-libGLESv1_CM1
@@ -336,7 +336,7 @@ using the OpenGL|ES 1.x APIs.
 Summary:        Free implementation of the OpenGL|ES 2.x API
 Group:          System/Libraries
 %if 0%{?libglvnd}
-Requires:       libglvnd0 >= 0.1.0
+Requires:       libglvnd >= 0.1.0
 %endif
 
 %description -n Mesa-libGLESv2-2
@@ -659,7 +659,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 
 %patch40 -p1
 
-# Remove requires to libglvnd0/libglvnd-devel from baselibs.conf when
+# Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
 %if 0%{?libglvnd} == 0
 grep -v libglvnd $RPM_SOURCE_DIR/baselibs.conf > $RPM_SOURCE_DIR/temp && \
