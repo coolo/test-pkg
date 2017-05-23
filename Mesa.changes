@@ -1,9 +1,4 @@
 -------------------------------------------------------------------
-Tue May 23 15:47:29 UTC 2017 - sndirsch@suse.com
-
-- reenabled libxatracker2 on s390x (unintentionally removed)
-
--------------------------------------------------------------------
 Sun May 21 21:07:48 UTC 2017 - sndirsch@suse.com
 
 - specfile: libglvnd0 -> libglvnd; missed the package name
