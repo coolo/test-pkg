@@ -722,6 +722,7 @@ autoreconf -fvi
            --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
 %endif
 %ifarch ia64 ppc hppa s390 s390x
+           --enable-xa \
            --with-dri-drivers=swrast \
            --with-gallium-drivers=swrast \
 %endif
@@ -959,7 +960,7 @@ done
 %{_libdir}/libgbm.so
 %{_libdir}/pkgconfig/gbm.pc
 
-%ifarch aarch64 %ix86 x86_64 %arm ppc64 ppc64le
+%ifarch aarch64 %ix86 x86_64 %arm ppc64 ppc64le ia64 ppc hppa s390 s390x
 %files -n libxatracker2
 %defattr(-,root,root)
 %{_libdir}/libxatracker.so.2*
