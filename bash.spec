@@ -536,7 +536,11 @@ popd
 	--disable-strict-posix-default	\
 	--enable-separate-helpfiles=%{_datadir}/bash/helpfiles \
 	$READLINE
-  make %{?do_profiling:CFLAGS="$CFLAGS %cflags_profile_generate"} \
+  profilecflags=CFLAGS="$CFLAGS"
+%if 0%{?do_profiling}
+  profilecflags=CFLAGS="$CFLAGS %cflags_profile_generate"
+%endif
+  make "$profilecflags" \
 	all printenv recho zecho xcase
   TMPDIR=$(mktemp -d /tmp/bash.XXXXXXXXXX) || exit 1
   > $SCREENLOG
@@ -545,7 +549,11 @@ popd
 	SCREENRC=$SCREENRC SCREENDIR=$SCREENDIR \
 	screen -D -m make TESTSCRIPT=%{SOURCE4} check
   kill -TERM $pid
-  make %{?do_profiling:CFLAGS="$CFLAGS %cflags_profile_feedback -fprofile-correction" clean} all
+%if 0%{?do_profiling}
+  profilecflags=CFLAGS="$CFLAGS %cflags_profile_feedback -fprofile-correction"
+  clean=clean
+%endif
+  make "$profilecflags" $clean all
   make -C examples/loadables/
   make documentation
 
