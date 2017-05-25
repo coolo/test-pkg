@@ -22,7 +22,7 @@
 %endif
 %define glamor 1
 %define _name_archive mesa
-%define _version 17.1.0
+%define _version 17.1.1
 %define with_opencl 0
 %define with_vulkan 0
 %ifarch %ix86 x86_64 %arm aarch64 ppc ppc64 ppc64le s390x
@@ -54,7 +54,7 @@
 %endif
 
 Name:           Mesa
-Version:        17.1.0
+Version:        17.1.1
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -84,7 +84,6 @@ Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
 # currently needed for libglvnd support
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
-Patch35:        fedora_0001-glxglvnddispatch-Add-missing-dispatch-for-GetDriverC.patch
 Patch40:        u_gallivm-correct-channel-shift-logic-on-big-endian.patch
 
 BuildRequires:  autoconf >= 2.60
@@ -654,7 +653,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %if 0%{?libglvnd}
 %patch31 -p1
 %patch32 -p1
-%patch35 -p1
 %endif
 
 %patch40 -p1
