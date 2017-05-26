@@ -550,6 +550,7 @@ popd
 	screen -D -m make TESTSCRIPT=%{SOURCE4} check
   kill -TERM $pid
 %if 0%{?do_profiling}
+  rm -f jobs.gcda
   profilecflags=CFLAGS="$CFLAGS %cflags_profile_feedback -fprofile-correction"
   clean=clean
 %endif
