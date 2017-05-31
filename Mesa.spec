@@ -85,6 +85,7 @@ Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 Patch40:        u_gallivm-correct-channel-shift-logic-on-big-endian.patch
+Patch41:        u_llvmpipe-lp_build_gather_elem_vec-BE-fix-for-3x16-lo.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -656,6 +657,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %endif
 
 %patch40 -p1
+%patch41 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...

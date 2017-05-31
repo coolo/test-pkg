@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed May 31 07:42:39 UTC 2017 - sndirsch@suse.com
+
+- u_llvmpipe-lp_build_gather_elem_vec-BE-fix-for-3x16-lo.patch
+  * Fix loading of a 3x16 vector as a single 48-bit load on 
+    big-endian systems (PPC64, S390). [fdo#100613]
+
+-------------------------------------------------------------------
 Thu May 25 07:48:22 UTC 2017 - mimi.vx@gmail.com
 
 - update to 17.1.1
