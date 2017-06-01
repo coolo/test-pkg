@@ -22,7 +22,7 @@
 %endif
 %define glamor 1
 %define _name_archive mesa
-%define _version 17.1.0
+%define _version 17.1.1
 %define with_opencl 0
 %define with_vulkan 0
 %ifarch %ix86 x86_64 %arm aarch64 ppc ppc64 ppc64le s390x
@@ -54,7 +54,7 @@
 %endif
 
 Name:           Mesa
-Version:        17.1.0
+Version:        17.1.1
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -84,8 +84,8 @@ Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
 # currently needed for libglvnd support
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
-Patch35:        fedora_0001-glxglvnddispatch-Add-missing-dispatch-for-GetDriverC.patch
 Patch40:        u_gallivm-correct-channel-shift-logic-on-big-endian.patch
+Patch41:        u_llvmpipe-lp_build_gather_elem_vec-BE-fix-for-3x16-lo.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -170,7 +170,7 @@ BuildRequires:  llvm-clang-devel
 %if 0%{?libglvnd}
 Requires:       Mesa-libEGL1  = %{version}
 Requires:       Mesa-libGL1  = %{version}
-Requires:       libglvnd0 >= 0.1.0
+Requires:       libglvnd >= 0.1.0
 %endif
 
 %description
@@ -230,7 +230,7 @@ just Mesa or The Mesa 3-D graphics library.
 Summary:        Free implementation of the EGL API
 Group:          System/Libraries
 %if 0%{?libglvnd}
-Requires:       libglvnd0 >= 0.1.0
+Requires:       libglvnd >= 0.1.0
 %endif
 
 %description -n Mesa-libEGL1
@@ -268,7 +268,7 @@ Summary:        The GL/GLX runtime of the Mesa 3D graphics library
 Group:          System/Libraries
 Requires:       Mesa = %{version}
 %if 0%{?libglvnd}
-Requires:       libglvnd0 >= 0.1.0
+Requires:       libglvnd >= 0.1.0
 %endif
 
 %description -n Mesa-libGL1
@@ -301,7 +301,7 @@ programs with Mesa.
 Summary:        Free implementation of the OpenGL|ES 1.x Common Profile API
 Group:          System/Libraries
 %if 0%{?libglvnd}
-Requires:       libglvnd0 >= 0.1.0
+Requires:       libglvnd >= 0.1.0
 %endif
 
 %description -n Mesa-libGLESv1_CM1
@@ -336,7 +336,7 @@ using the OpenGL|ES 1.x APIs.
 Summary:        Free implementation of the OpenGL|ES 2.x API
 Group:          System/Libraries
 %if 0%{?libglvnd}
-Requires:       libglvnd0 >= 0.1.0
+Requires:       libglvnd >= 0.1.0
 %endif
 
 %description -n Mesa-libGLESv2-2
@@ -654,12 +654,12 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %if 0%{?libglvnd}
 %patch31 -p1
 %patch32 -p1
-%patch35 -p1
 %endif
 
 %patch40 -p1
+%patch41 -p1
 
-# Remove requires to libglvnd0/libglvnd-devel from baselibs.conf when
+# Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
 %if 0%{?libglvnd} == 0
 grep -v libglvnd $RPM_SOURCE_DIR/baselibs.conf > $RPM_SOURCE_DIR/temp && \

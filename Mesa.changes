@@ -1,4 +1,54 @@
 -------------------------------------------------------------------
+Wed May 31 07:42:39 UTC 2017 - sndirsch@suse.com
+
+- u_llvmpipe-lp_build_gather_elem_vec-BE-fix-for-3x16-lo.patch
+  * Fix loading of a 3x16 vector as a single 48-bit load on 
+    big-endian systems (PPC64, S390). [fdo#100613]
+
+-------------------------------------------------------------------
+Thu May 25 07:48:22 UTC 2017 - mimi.vx@gmail.com
+
+- update to 17.1.1
+- dropped patch:
+    fedora_0001-glxglvnddispatch-Add-missing-dispatch-for-GetDriverC.patch
+ * fdo#100854 - YUV to RGB Color Space Conversion result is not precise
+ * fdo#100925 - [HSW/BSW/BDW/SKL] Google Earth is not resolving
+    all the details in the map correctly
+ * radeonsi: add new vega10 pci ids
+ * gbm/dri: Fix sign-extension in modifier query
+ * radeon: automake: remove unneeded elf Cflags/Libs
+ * egl: add g_egldispatchstubs.h to the release tarball
+ * renderonly: Initialize fields of struct winsys_handle
+ * vc4: Don't allocate new BOs to avoid synchronization when they're shared
+ * anv: fix possible stack corruption
+ * anv: don't leak DRM devices
+ * glxglvnddispatch: Add missing dispatch for GetDriverConfig
+ * nvc0/ir: SHLADD's middle source must be an immediate
+ * nir/lower_tex: Fix minor error in YUV color conversion matrix
+ * amd/addrlib: import Raven support
+ * radeonsi/gfx9: add support for Raven
+ * anv/formats: Update the three-channel BC1 mappings
+ * 965/formats: Update the three-channel DXT1 mapping
+ * radeonsi: mark fast-cleared textures as compressed when dirtying
+ * radeonsi: fix primitive ID in fragment shader when using tessellation
+ * radeonsi: fix gl_PrimitiveID in tessellation with instanced draws on SI
+ * radeonsi: fix gl_PrimitiveIDIn in geometry shader when using tessellation
+ * intel/isl/gen7: Use stencil vertical alignment of 8 instead of 4
+ * mesa/st: fix yuv EGLImage's
+ * virgl: fix virgl_bo_transfer_{put, get} box struct cop
+ * 965/vec4/gs: restore the uniform values which was overwritten by failed
+    vec4_gs_visitor execution
+ * i965/vec4: fix swizzle and writemask when loading an uniform with constant offset
+ * i965/vec4: load dvec3/4 uniforms first in the push constant buffer
+ * gallivm: Make sure module has the correct data layout when pass manager runs
+
+-------------------------------------------------------------------
+Sun May 21 21:07:48 UTC 2017 - sndirsch@suse.com
+
+- specfile: libglvnd0 -> libglvnd; missed the package name
+  change in libglvnd package (boo#1038619, comment#5)
+
+-------------------------------------------------------------------
 Thu May 11 09:10:25 UTC 2017 - sndirsch@suse.com
 
 - baselibs.conf: libglvnd0 -> libglvnd; missed the package name
