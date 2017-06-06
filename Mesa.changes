@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Tue Jun  6 10:50:56 UTC 2017 - mimi.vx@gmail.com
+
+- update to 17.1.2
+ * fdo#98833 - [REGRESSION, bisected] Wayland revert commit breaks
+    non-Vsync fullscreen frame updates
+ * fdo#100741 - Chromium - Memory leak
+ * fdo#100877 - vulkan/tests/block_pool_no_free regression
+ * fdo#101110 - Build failure in GNOME Continuous
+ * many ANV, RADV, vulkan, i965 and egl fixes
+
+-------------------------------------------------------------------
 Wed May 31 07:42:39 UTC 2017 - sndirsch@suse.com
 
 - u_llvmpipe-lp_build_gather_elem_vec-BE-fix-for-3x16-lo.patch
