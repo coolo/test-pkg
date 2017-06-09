@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jun  7 13:53:26 UTC 2017 - sndirsch@suse.com
+
+- specfile: Remove requires to vulkan libs from baselibs.conf on
+  platforms where vulkan build is disabled; ugly ... (bsc#1042900)
+
+-------------------------------------------------------------------
 Wed May 31 07:50:22 UTC 2017 - sndirsch@suse.com
 
 - u_llvmpipe-lp_build_gather_elem_vec-BE-fix-for-3x16-lo.patch

@@ -673,6 +673,13 @@ grep -v libglvnd $RPM_SOURCE_DIR/baselibs.conf > $RPM_SOURCE_DIR/temp && \
   mv $RPM_SOURCE_DIR/temp $RPM_SOURCE_DIR/baselibs.conf
 %endif
 
+# Remove requires to vulkan libs from baselibs.conf on platforms
+# where vulkan build is disabled; ugly ...
+%if 0%{?with_vulkan} == 0
+grep -v -i vulkan $RPM_SOURCE_DIR/baselibs.conf > $RPM_SOURCE_DIR/temp && \
+  mv $RPM_SOURCE_DIR/temp $RPM_SOURCE_DIR/baselibs.conf
+%endif
+
 %build
 %if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
 egl_platforms=x11,drm,wayland
