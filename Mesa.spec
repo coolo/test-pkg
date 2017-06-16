@@ -570,6 +570,7 @@ This package contains the VDPAU state tracker for radeonsi.
 %package libOpenCL
 Summary:        Mesa OpenCL implementation
 Group:          System/Libraries
+Requires:       libclc
 
 %description libOpenCL
 This package contains the Mesa OpenCL implementation or GalliumCompute.
