@@ -22,7 +22,7 @@
 %endif
 %define glamor 1
 %define _name_archive mesa
-%define _version 17.1.1
+%define _version 17.1.2
 %define with_opencl 0
 %define with_vulkan 0
 %ifarch %ix86 x86_64 %arm aarch64 ppc ppc64 ppc64le s390x
@@ -54,7 +54,7 @@
 %endif
 
 Name:           Mesa
-Version:        17.1.1
+Version:        17.1.2
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -570,6 +570,7 @@ This package contains the VDPAU state tracker for radeonsi.
 %package libOpenCL
 Summary:        Mesa OpenCL implementation
 Group:          System/Libraries
+Requires:       libclc
 
 %description libOpenCL
 This package contains the Mesa OpenCL implementation or GalliumCompute.
@@ -663,6 +664,13 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 # disabling libglvnd build; ugly ...
 %if 0%{?libglvnd} == 0
 grep -v libglvnd $RPM_SOURCE_DIR/baselibs.conf > $RPM_SOURCE_DIR/temp && \
+  mv $RPM_SOURCE_DIR/temp $RPM_SOURCE_DIR/baselibs.conf
+%endif
+
+# Remove requires to vulkan libs from baselibs.conf on platforms
+# where vulkan build is disabled; ugly ...
+%if 0%{?with_vulkan} == 0
+grep -v -i vulkan $RPM_SOURCE_DIR/baselibs.conf > $RPM_SOURCE_DIR/temp && \
   mv $RPM_SOURCE_DIR/temp $RPM_SOURCE_DIR/baselibs.conf
 %endif
 
