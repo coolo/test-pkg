@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sat Jun 17 20:27:49 UTC 2017 - mimi.vx@gmail.com
+
+- Fix baselibs.conf -> boo#1044813 
+
+-------------------------------------------------------------------
 Fri Jun 16 08:14:57 UTC 2017 - sndirsch@suse.com
 
 - added "Requires: libclc" to Mesa-libOpenCL packages (boo#1044646) 
