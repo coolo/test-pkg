@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Mon Jun 19 13:10:37 UTC 2017 - mimi.vx@gmail.com
+
+- update to 17.1.3
+ * fdo#100988 - glXGetCurrentDisplay() no longer works for FakeGLX contexts?
+ * fixes for radv, radeonsi, i965
+
+-------------------------------------------------------------------
+Sat Jun 17 20:27:49 UTC 2017 - mimi.vx@gmail.com
+
+- Fix baselibs.conf -> boo#1044813 
+
+-------------------------------------------------------------------
 Fri Jun 16 08:14:57 UTC 2017 - sndirsch@suse.com
 
 - added "Requires: libclc" to Mesa-libOpenCL packages (boo#1044646) 
