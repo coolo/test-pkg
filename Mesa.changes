@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Sat Jul  1 09:10:11 UTC 2017 - mimi.vx@gmail.com
+
+- update to 17.1.4
+ * fdo#77240 - khrplatform.h not installed if EGL is disabled
+ * fdo#95530 - Stellaris - colored overlay of sectors doesn't render on i965
+ * fdo#96958 - [SKL] Improper rendering in Europa Universalis IV
+ * fdo#99467 - [radv] DOOM 2016 + wine. Green screen everywhere
+ * fdo#101071 - compiling glsl fails with undefined reference to `pthread_create'
+ * fdo#101252 - eglGetDisplay() is not thread safe
+ * fdo#101294 - radeonsi minecraft forge splash freeze since 17.1
+ * fdo#101451 - [G33] ES2-CTS.functional.clipping.polygon regression
+ * and some other fixes as usualy
+
+-------------------------------------------------------------------
 Mon Jun 19 13:10:37 UTC 2017 - mimi.vx@gmail.com
 
 - update to 17.1.3
