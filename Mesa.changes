@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Sun Jul 16 09:25:32 UTC 2017 - mimi.vx@gmail.com
+
+- update to 17.1.5
+ * fdo#100242 - radeon buffer allocation failure during startup of Factorio
+ * fdo#101657 - strtod.c:32:10: fatal error: xlocale.h: No such file or directory
+ * fdo#101666 - bitfieldExtract is marked as a built-in function
+    on OpenGL ES 3.0, but was added in OpenGL ES 3.1
+ * fdo#101703 - No stencil buffer allocated when requested by GLUT
+ * and other bugfixes
+
+-------------------------------------------------------------------
 Sat Jul  1 09:10:11 UTC 2017 - mimi.vx@gmail.com
 
 - update to 17.1.4
