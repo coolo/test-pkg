@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Jul 17 07:20:51 UTC 2017 - msrb@suse.com
+
+- u_r600-Add-support-for-B5G5R5A1.patch
+  * Fixes rendercheck tests when X server accelerates using glamor.
+    (bnc#1047154)
+
+-------------------------------------------------------------------
 Sun Jul 16 09:25:32 UTC 2017 - mimi.vx@gmail.com
 
 - update to 17.1.5
