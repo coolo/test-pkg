@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Mon Aug  7 19:13:20 UTC 2017 - mimi.vx@gmail.com
+
+- update to 17.1.6
+ * fdo#97957 - Awful screen tearing in a separate X server with DRI3
+ * fdo#101683 - Some games hang while loading when compositing is shut
+    off or absent
+ * fdo#101867 - Launch options window renders black in Feral Games
+    in current Mesa trunk
+ * and some other fixes as usualy 
+
+-------------------------------------------------------------------
 Mon Jul 17 07:20:51 UTC 2017 - msrb@suse.com
 
 - u_r600-Add-support-for-B5G5R5A1.patch
