@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Aug  8 14:12:45 UTC 2017 - sndirsch@suse.com
+
+- n_glesv2.pc-Add-lGL-for-libglvnd-builds-boo-1052776.patch
+  glesv2.pc: Add "-lGL" for libglvnd builds (boo#1052776)
+
+-------------------------------------------------------------------
 Mon Aug  7 19:13:20 UTC 2017 - mimi.vx@gmail.com
 
 - update to 17.1.6
