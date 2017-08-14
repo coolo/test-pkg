@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Aug 14 14:06:35 UTC 2017 - msrb@suse.com
+
+- Removed n_glesv2.pc-Add-lGL-for-libglvnd-builds-boo-1052776.patch
+  * The issue was in libglvnd which is fixed now. (boo#1052776)
+
+-------------------------------------------------------------------
 Tue Aug  8 14:12:45 UTC 2017 - sndirsch@suse.com
 
 - n_glesv2.pc-Add-lGL-for-libglvnd-builds-boo-1052776.patch

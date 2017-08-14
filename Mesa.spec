@@ -84,7 +84,6 @@ Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
 # currently needed for libglvnd support
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
-Patch33:        n_glesv2.pc-Add-lGL-for-libglvnd-builds-boo-1052776.patch
 Patch40:        u_gallivm-correct-channel-shift-logic-on-big-endian.patch
 Patch41:        u_llvmpipe-lp_build_gather_elem_vec-BE-fix-for-3x16-lo.patch
 Patch42:        u_r600-Add-support-for-B5G5R5A1.patch
@@ -657,7 +656,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %if 0%{?libglvnd}
 %patch31 -p1
 %patch32 -p1
-%patch33 -p1
 %endif
 
 %patch40 -p1
