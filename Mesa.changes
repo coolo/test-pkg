@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Aug 23 09:01:46 UTC 2017 - sndirsch@suse.com
+
+- u_llvmpipe-lp_build_gather_elem_vec-BE-fix-for-3x16-lo.patch
+  updated; fixes three of the four regressions observed (PPC64, S390)
+  [fdo#100613, comment#42]
+
+-------------------------------------------------------------------
 Mon Aug 14 17:16:34 UTC 2017 - jberry@suse.com
 
 - Replace uses of arch directive with targettype within a package
