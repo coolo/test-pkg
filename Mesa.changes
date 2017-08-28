@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Aug 28 12:53:03 UTC 2017 - fvogt@suse.com
+
+- Add patch to fix strtod on non-EN locale (boo#1055929):
+  * n_force-xlocale-funcs.patch
+
+-------------------------------------------------------------------
 Wed Aug 23 09:01:46 UTC 2017 - sndirsch@suse.com
 
 - u_llvmpipe-lp_build_gather_elem_vec-BE-fix-for-3x16-lo.patch
