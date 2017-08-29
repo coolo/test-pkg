@@ -1,10 +1,27 @@
 -------------------------------------------------------------------
+Mon Aug 28 14:17:25 UTC 2017 - mimi.vx@gmail.com
+
+- update to 17.1.8 
+ * fdo#101334 - AMD SI cards: Some vulkan apps freeze the system
+ * fdo#101766 - Assertion `!&quot;invalid type&quot;' failed when constant
+    expression involves literal of different type<
+ * fdo#102024 - FORMAT_FEATURE_SAMPLED_IMAGE_BIT not supported for D16_UNORM
+    and D32_SFLOAT
+ * fdo#102148 - Crash when running qopenglwidget example on mesa llvmpipe win32
+ * fdo#102241 - gallium/wgl: SwapBuffers freezing regularly with swap
+    interval enabled
+ * fdo#101910 - [BYT]
+    ES31-CTS.functional.copy_image.non_compressed.viewclass_96_bits.rgb32f_rgb32f
+  * fdo#102308 - segfault in glCompressedTextureSubImage3D
+
+-------------------------------------------------------------------
 Mon Aug 28 12:53:03 UTC 2017 - fvogt@suse.com
 
 - Add patch to fix strtod on non-EN locale (boo#1055929):
   * n_force-xlocale-funcs.patch
 
 -------------------------------------------------------------------
+>>>>>>> ./Mesa.changes.r797cdae3a18826447fbc3669ad9416d2
 Wed Aug 23 09:01:46 UTC 2017 - sndirsch@suse.com
 
 - u_llvmpipe-lp_build_gather_elem_vec-BE-fix-for-3x16-lo.patch
