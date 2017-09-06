@@ -1,7 +1,7 @@
 #
 # spec file for package Mesa
 #
-# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -76,6 +76,7 @@ Patch23:        U_gallivm-disable-avx512-features.patch
 Patch24:        u_add_llvm_codegen_dependencies.patch
 Patch25:        U_r300g-Set-R300_VAP_CNTL-on-RSxxx-to-avoid-triangle-flickering.patch
 Patch26:        U_cso-don-t-release-sampler-states-that-are-bound.patch
+Patch27:        U_r600-Add-support-for-B5G5R5A1.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -579,6 +580,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch24 -p1
 %patch25 -p1
 %patch26 -p1
+%patch27 -p1
 
 %build
 %if 0%{?suse_version} >= 1320
