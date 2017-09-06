@@ -92,6 +92,7 @@ Patch34:        archlinux_0002-fixup-EGL-Implement-the-libglvnd-interface-for-EG
 Patch35:        fedora_0001-glxglvnddispatch-Add-missing-dispatch-for-GetDriverC.patch
 Patch40:        u_gallivm-correct-channel-shift-logic-on-big-endian.patch
 Patch41:        u_llvmpipe-lp_build_gather_elem_vec-BE-fix-for-3x16-lo.patch
+Patch42:        u_r600-Add-support-for-B5G5R5A1.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -668,6 +669,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 
 %patch40 -p1
 %patch41 -p1
+%patch42 -p1
 
 # Remove requires to libglvnd0/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...

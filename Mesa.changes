@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Wed Aug 23 09:10:36 UTC 2017 - sndirsch@suse.com
+
+- u_llvmpipe-lp_build_gather_elem_vec-BE-fix-for-3x16-lo.patch
+  updated; fixes three of the four regressions observed (PPC64, S390)
+  [fdo#100613, comment#42]
+
+-------------------------------------------------------------------
+Mon Jul 17 07:20:51 UTC 2017 - msrb@suse.com
+
+- u_r600-Add-support-for-B5G5R5A1.patch
+  * Fixes rendercheck tests when X server accelerates using glamor.
+    (bnc#1047154)
+
+-------------------------------------------------------------------
 Fri Jun 16 14:15:47 CEST 2017 - tiwai@suse.de
 
 - Fix Xvfb segfault after reset (bsc#1042764):
