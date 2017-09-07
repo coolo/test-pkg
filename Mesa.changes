@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Sep  7 10:16:43 UTC 2017 - sndirsch@suse.com
+
+- u_svga-Fix-build-on-ppc64le.patch
+  * This let us compile the code on ppc64le, but it no-ops the log
+    function.
+
+-------------------------------------------------------------------
 Tue Sep  5 09:50:56 UTC 2017 - sndirsch@suse.com
 
 - update to 17.2.0
