@@ -22,7 +22,7 @@
 %endif
 %define glamor 1
 %define _name_archive mesa
-%define _version 17.1.8
+%define _version 17.2.0
 %define with_opencl 0
 %define with_vulkan 0
 %ifarch %ix86 x86_64 %arm aarch64 ppc ppc64 ppc64le s390x
@@ -54,7 +54,7 @@
 %endif
 
 Name:           Mesa
-Version:        17.1.6
+Version:        17.2.0
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -89,6 +89,7 @@ Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 Patch40:        u_gallivm-correct-channel-shift-logic-on-big-endian.patch
 Patch41:        u_llvmpipe-lp_build_gather_elem_vec-BE-fix-for-3x16-lo.patch
 Patch42:        u_r600-Add-support-for-B5G5R5A1.patch
+Patch43:        u_svga-Fix-build-on-ppc64le.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -158,6 +159,7 @@ BuildRequires:  libelf-devel
 # Requirements for wayland bumped up from 17.0
 %if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
 BuildRequires:  pkgconfig(wayland-client) >= 1.11
+BuildRequires:  pkgconfig(wayland-protocols) >= 1.8
 BuildRequires:  pkgconfig(wayland-server) >= 1.11
 %endif
 %ifarch aarch64 %arm ppc64 ppc64le s390x %ix86 x86_64
@@ -664,6 +666,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch40 -p1
 %patch41 -p1
 %patch42 -p1
+%patch43 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...

@@ -1,4 +1,23 @@
 -------------------------------------------------------------------
+Thu Sep  7 10:16:43 UTC 2017 - sndirsch@suse.com
+
+- u_svga-Fix-build-on-ppc64le.patch
+  * This let us compile the code on ppc64le, but it no-ops the log
+    function.
+
+-------------------------------------------------------------------
+Tue Sep  5 09:50:56 UTC 2017 - sndirsch@suse.com
+
+- update to 17.2.0
+  * many RADV/ANV Vulkan driver improvements
+  * Vulkan and OpenGL performance improvements
+  * more work towards OpenGL 4.6 compliance
+  * a wealth of other open-source driver improvements
+  * initial Raven Ridge support (used on Vega-class graphics)
+  * Intel Cannonlake Support 
+- adjusted archlinux_0001-Fix-linkage-against-shared-glapi.patch
+
+-------------------------------------------------------------------
 Mon Aug 28 14:17:25 UTC 2017 - mimi.vx@gmail.com
 
 - update to 17.1.8 
