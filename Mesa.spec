@@ -22,7 +22,7 @@
 %endif
 %define glamor 1
 %define _name_archive mesa
-%define _version 17.2.0
+%define _version 17.2.1
 %define with_opencl 0
 %define with_vulkan 0
 %ifarch %ix86 x86_64 %arm aarch64 ppc ppc64 ppc64le s390x
@@ -54,7 +54,7 @@
 %endif
 
 Name:           Mesa
-Version:        17.2.0
+Version:        17.2.1
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -81,13 +81,9 @@ Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # never to be upstreamed
 Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
-# never to be upstreamed
-Patch22:        n_force-xlocale-funcs.patch
 # currently needed for libglvnd support
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
-Patch40:        u_gallivm-correct-channel-shift-logic-on-big-endian.patch
-Patch41:        u_llvmpipe-lp_build_gather_elem_vec-BE-fix-for-3x16-lo.patch
 Patch42:        u_r600-Add-support-for-B5G5R5A1.patch
 Patch43:        u_svga-Fix-build-on-ppc64le.patch
 
@@ -656,15 +652,12 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch12 -p1
 %patch18 -p1
 %patch21 -p1
-%patch22 -p1
 
 %if 0%{?libglvnd}
 %patch31 -p1
 %patch32 -p1
 %endif
 
-%patch40 -p1
-%patch41 -p1
 %patch42 -p1
 %patch43 -p1
 

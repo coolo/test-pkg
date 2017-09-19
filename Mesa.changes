@@ -1,4 +1,21 @@
 -------------------------------------------------------------------
+Mon Sep 18 08:38:41 UTC 2017 - mimi.vx@gmail.com
+
+- update to 17.2.1
+  * drop upstreamed patches
+         n_force-xlocale-funcs.patch 
+         u_gallivm-correct-channel-shift-logic-on-big-endian.patch
+         u_llvmpipe-lp_build_gather_elem_vec-BE-fix-for-3x16-lo.patch
+  * fdo#100613 - Regression in Mesa 17 on s390x (zSystems)
+  * fdo#101709 - [llvmpipe] piglit gl-1.0-scissor-offscreen regression
+  * fdo#102454 - glibc 2.26 doesn't provide anymore xlocale.h
+  * fdo#102467 - [src/mesa/state_tracker/st_cb_readpixels.c:178]: (warning)
+        Redundant assignment
+  * fdo#102502 - [bisected] Kodi crashes since commit 707d2e8b - gallium:
+        fold u_trim_pipe_prim call from st/mesa to drivers
+  * many fixes for RADV a glsl
+
+-------------------------------------------------------------------
 Thu Sep  7 10:16:43 UTC 2017 - sndirsch@suse.com
 
 - u_svga-Fix-build-on-ppc64le.patch
