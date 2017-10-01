@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sat Sep 30 18:54:29 UTC 2017 - stefan.bruens@rwth-aachen.de
+
+- Drop gallium svga driver for arm/aarch64. The svga driver is a vmware
+  guest driver, thus only usable on x86(_64) platforms
+- Also enable OpenCL on arm (32bit), llvm4 has reached Factory
+
+-------------------------------------------------------------------
 Mon Sep 18 08:38:41 UTC 2017 - mimi.vx@gmail.com
 
 - update to 17.2.1
