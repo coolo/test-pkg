@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Wed Oct  4 09:51:03 UTC 2017 - sndirsch@suse.com
+
+- update to 17.2.2
+  * several Vulkan ANV/RADV driver fixes including Wayland WSI 
+    improvements, RadeonSI / i965 / VC4 OpenGL fixes among other
+    work, some fixes to common Gallium3D code, support for LLVM 5.0
+    in Gallium3D when using the SCons build system, and a range of
+    other fixes/improvements. 
+
+-------------------------------------------------------------------
 Sat Sep 30 18:54:29 UTC 2017 - stefan.bruens@rwth-aachen.de
 
 - Drop gallium svga driver for arm/aarch64. The svga driver is a vmware
