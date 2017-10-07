@@ -22,7 +22,7 @@
 %endif
 %define glamor 1
 %define _name_archive mesa
-%define _version 17.2.1
+%define _version 17.2.2
 %define with_opencl 0
 %define with_vulkan 0
 %ifarch %ix86 x86_64 %arm aarch64 ppc ppc64 ppc64le s390x
@@ -44,8 +44,7 @@
 %endif
 %if 0%{gallium_loader} && 0%{?suse_version} >= 1330
 # llvm >= 3.9 not provided for <= 1330
-%ifnarch %arm ppc
-# TODO Drop ifnarch %%arm once llvm4 has built in Factory
+%ifnarch ppc
 %define with_opencl 1
 %endif
 %ifarch %ix86 x86_64
@@ -54,7 +53,7 @@
 %endif
 
 Name:           Mesa
-Version:        17.2.1
+Version:        17.2.2
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -723,7 +722,7 @@ autoreconf -fvi
 %ifarch %arm aarch64
            --enable-xa \
            --with-dri-drivers=nouveau \
-           --with-gallium-drivers=r300,r600,nouveau,swrast,svga,freedreno,vc4 \
+           --with-gallium-drivers=r300,r600,nouveau,swrast,freedreno,vc4 \
 %endif
 %ifarch ppc64 ppc64le
            --enable-xa \
