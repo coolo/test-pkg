@@ -163,8 +163,9 @@ BuildRequires:  ncurses-devel
 %endif
 
 %if 0%{with_opencl}
+BuildRequires:  clang-devel
+BuildRequires:  clang-devel-static
 BuildRequires:  libclc
-BuildRequires:  llvm-clang-devel
 %endif
 
 %if 0%{?libglvnd}
