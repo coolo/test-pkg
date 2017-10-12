@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Oct 12 12:29:38 UTC 2017 - schwab@suse.de
+
+- svga is x86-only
+- u_svga-Fix-build-on-ppc64le.patch: Remove
+
+-------------------------------------------------------------------
 Wed Oct 11 13:26:07 UTC 2017 - msrb@suse.com
 
 - Add build dependency on clang-devel-static.
