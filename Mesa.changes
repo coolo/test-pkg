@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Oct 17 13:55:17 UTC 2017 - msrb@suse.com
+
+- U_configure.ac-rework-llvm-libs-handling-for-3.9.patch
+  * llvm-config 3.9 and higher works properly, use its values
+    instead of guessing. Fixes build against llvm built as single
+    shared library.
+
+-------------------------------------------------------------------
 Thu Oct 12 12:29:38 UTC 2017 - schwab@suse.de
 
 - svga is x86-only

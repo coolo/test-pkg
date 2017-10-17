@@ -84,6 +84,7 @@ Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 Patch42:        u_r600-Add-support-for-B5G5R5A1.patch
+Patch43:        U_configure.ac-rework-llvm-libs-handling-for-3.9.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -658,6 +659,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %endif
 
 %patch42 -p1
+%patch43 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
