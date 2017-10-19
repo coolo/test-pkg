@@ -84,7 +84,7 @@ Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 Patch42:        u_r600-Add-support-for-B5G5R5A1.patch
-Patch43:        u_svga-Fix-build-on-ppc64le.patch
+Patch43:        U_configure.ac-rework-llvm-libs-handling-for-3.9.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -163,8 +163,9 @@ BuildRequires:  ncurses-devel
 %endif
 
 %if 0%{with_opencl}
+BuildRequires:  clang-devel
+BuildRequires:  clang-devel-static
 BuildRequires:  libclc
-BuildRequires:  llvm-clang-devel
 %endif
 
 %if 0%{?libglvnd}
@@ -391,8 +392,8 @@ applications using the OpenGL|ES 3.x APIs.
 
 %package -n libOSMesa8
 Summary:        Mesa Off-screen rendering extension
-# Wrongly named package shipped .so.8
 Group:          System/Libraries
+# Wrongly named package shipped .so.8
 Obsoletes:      libOSMesa9 < %{version}-%{release}
 Provides:       libOSMesa9 = %{version}-%{release}
 
@@ -498,8 +499,8 @@ implementation of Mesa.
 
 %package libd3d
 Summary:        Mesa Direct3D9 state tracker
-# Manually provide d3d library (bnc#918294)
 Group:          System/Libraries
+# Manually provide d3d library (bnc#918294)
 %ifarch x86_64 s390x ppc64le aarch64
 Provides:       d3dadapter9.so.1()(64bit)
 %else
@@ -727,7 +728,7 @@ autoreconf -fvi
 %ifarch ppc64 ppc64le
            --enable-xa \
            --with-dri-drivers=nouveau \
-           --with-gallium-drivers=r300,r600,nouveau,swrast,svga \
+           --with-gallium-drivers=r300,r600,nouveau,swrast \
 %endif
 %ifarch ia64 ppc hppa s390 s390x
            --with-dri-drivers=swrast \
