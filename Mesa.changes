@@ -1,4 +1,26 @@
 -------------------------------------------------------------------
+Tue Oct 17 13:55:17 UTC 2017 - msrb@suse.com
+
+- U_configure.ac-rework-llvm-libs-handling-for-3.9.patch
+  * llvm-config 3.9 and higher works properly, use its values
+    instead of guessing. Fixes build against llvm built as single
+    shared library.
+
+-------------------------------------------------------------------
+Thu Oct 12 12:29:38 UTC 2017 - schwab@suse.de
+
+- svga is x86-only
+- u_svga-Fix-build-on-ppc64le.patch: Remove
+
+-------------------------------------------------------------------
+Wed Oct 11 13:26:07 UTC 2017 - msrb@suse.com
+
+- Add build dependency on clang-devel-static.
+  * Required with new llvm4 build mode (bnc#1049703).
+  * Also rename dependency llvm-clang-devel to clang-devel. The
+    llvm-clang-devel is old name kept around for compatibility.
+
+-------------------------------------------------------------------
 Wed Oct  4 09:51:03 UTC 2017 - sndirsch@suse.com
 
 - update to 17.2.2
