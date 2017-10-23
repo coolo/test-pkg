@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Mon Oct 23 09:26:42 UTC 2017 - sndirsch@suse.com
+
+- update to 17.2.3
+  * The Vulkan drivers ANV and RADV have multiple small fixes.
+  * The EGL code has improved handling of the new wl_dmabuf codepath.
+  * SWR no longer crashes when checking environment variables.
+  * Other gallium drivers have also seen updates - freedreno, nouveau and
+    radeonsi. The gallivm module, used by llvmpipe et al. has gained little
+    endian PPC64 fixes.
+  * The VA and VDPAU state-trackers have seems improvements handling
+    interlaced videos.
+  * We're using python3 compatible constructs which gives us SCons 3.0
+    support.
+
+-------------------------------------------------------------------
 Tue Oct 17 13:55:17 UTC 2017 - msrb@suse.com
 
 - U_configure.ac-rework-llvm-libs-handling-for-3.9.patch
