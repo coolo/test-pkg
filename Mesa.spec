@@ -22,7 +22,7 @@
 %endif
 %define glamor 1
 %define _name_archive mesa
-%define _version 17.2.2
+%define _version 17.2.3
 %define with_opencl 0
 %define with_vulkan 0
 %ifarch %ix86 x86_64 %arm aarch64 ppc ppc64 ppc64le s390x
@@ -53,7 +53,7 @@
 %endif
 
 Name:           Mesa
-Version:        17.2.2
+Version:        17.2.3
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -392,8 +392,8 @@ applications using the OpenGL|ES 3.x APIs.
 
 %package -n libOSMesa8
 Summary:        Mesa Off-screen rendering extension
-Group:          System/Libraries
 # Wrongly named package shipped .so.8
+Group:          System/Libraries
 Obsoletes:      libOSMesa9 < %{version}-%{release}
 Provides:       libOSMesa9 = %{version}-%{release}
 
@@ -499,8 +499,8 @@ implementation of Mesa.
 
 %package libd3d
 Summary:        Mesa Direct3D9 state tracker
-Group:          System/Libraries
 # Manually provide d3d library (bnc#918294)
+Group:          System/Libraries
 %ifarch x86_64 s390x ppc64le aarch64
 Provides:       d3dadapter9.so.1()(64bit)
 %else
