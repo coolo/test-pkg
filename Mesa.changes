@@ -1,4 +1,25 @@
 -------------------------------------------------------------------
+Tue Oct 31 04:55:54 UTC 2017 - aavindraa@gmail.com
+
+- update to 17.2.4
+ * Mesa Core includes a change to prevent KOTOR from breaking when
+   in combination with the ATI fragment shader extension. 
+ * Additionally, NIR has also received a correction.
+ * Mesa's state tracker has gotten a patch to avoid leaks in
+   certain situations such as resizing a window.
+ * Intel drivers have received fixes. The compiler has
+   gotten a couple, while anv also received one.
+ * i965 got a patch to avoid VA-API, Beignet and other contexts
+   in the system to break when in combination with previous versions of Mesa 17.2.x.
+ * AMD's compiler received fixes. `radv` has also
+   received another couple, including one to avoid a hang due to
+   overflow on huge textures.
+ * Broadcom's vc4 has corrected a problem when compiling with
+   Android's clang.
+ * Clover compilation issue fixed (affecting a specific clang revision)
+ * Fixed Vulkan's WSI memory leak in X11.
+
+-------------------------------------------------------------------
 Mon Oct 23 09:26:42 UTC 2017 - sndirsch@suse.com
 
 - update to 17.2.3
