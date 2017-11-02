@@ -95,9 +95,9 @@ BuildRequires:  gcc-c++
 BuildRequires:  imake
 BuildRequires:  libtool
 BuildRequires:  pkgconfig
-BuildRequires:  python3-base
-BuildRequires:  python3-mako
-BuildRequires:  python3-xml
+BuildRequires:  python-base
+BuildRequires:  python-mako
+BuildRequires:  python-xml
 BuildRequires:  pkgconfig(dri2proto)
 BuildRequires:  pkgconfig(dri3proto)
 BuildRequires:  pkgconfig(expat)
