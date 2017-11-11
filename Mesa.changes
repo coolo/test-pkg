@@ -1,4 +1,29 @@
 -------------------------------------------------------------------
+Sat Nov 11 03:46:49 UTC 2017 - aavindraa@gmail.com
+
+- update to 17.2.5
+  * In Core, a GL error related to the ARB_ES3_1_compatibility spec
+    noticed with the GFXBench 5 Aztec Ruins has been corrected. 
+  * The GLSL compiler is not giving a linker error for mismatching
+    uniform precision with GLSL ES 1.00 any more. This enables,
+    specially, several Android applications which violate this rule,
+    e.g., Forge of Empires.
+  * The SPIR-V compiler has corrected an assert triggered when
+    support for the simple memory model was claimed.
+  * NIR has also received a correction related with
+    gl_SubGroupG{e,t}MaskARB.
+  * Intel drivers, specially i965, got several fixes, including a
+    plug for a memory leak and another one in the compiler to avoid
+    GPU hangs on Broxton.
+  * The gallium i915g driver for Intel has seen an important fix.
+  * AMD drivers (mostly radv) have received several fixes, including a
+    correction for a DCC corruption that was visible with Rust,
+    breaking an endless loop in r600, avoiding a GPU hang with vulkan
+    dota2 in VR mode and a plug for a memory leak.
+  * Broadcom's vc4 gotten a fix to exclude some code that shouldn't
+    be there in release builds.
+
+-------------------------------------------------------------------
 Tue Oct 31 04:55:54 UTC 2017 - aavindraa@gmail.com
 
 - update to 17.2.4
