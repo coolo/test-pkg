@@ -1,4 +1,36 @@
 -------------------------------------------------------------------
+Sun Nov 26 16:03:29 UTC 2017 - aavindraa@gmail.com
+
+- update to 17.2.6
+  * Core: fix to keep a program alive when re-linking and prevent
+    an use-after-free.
+  * GLSL compiler: several fixes, including one to prevent a
+    SIGSEV when calling an undeclared subroutine in certain
+    conditions and another to mark the xfb buffers as active only
+    if a variable uses them.
+  * SPIR-V compiler: fixed seveal problems involving the usage of
+    separate images and texture/samplers.
+  * Intel drivers: many new fixes, specially for i965. Several are
+    focused on improving SIMD32 and little-core. It also includes a
+    fix for a GPU hang which was detected while playing HW
+    accelerated video with mpv.
+  * AMD drivers: radv has seen plugged 2 memory leaks while r600
+    has gotten a fix through reversing the tess factor components
+    for isolines.
+  * swr driver: fixes for two performance regressions (one for 
+    avx512 platforms and the other for the avx/avx2 platforms).
+  * ddebug gallium driver: fix for an use-after-free.
+  * EGL: Wayland platform of the the DRI2 drivers got a fix to
+    prevent crashing in ancient systems.
+  * GLX has also received corrections to prevent a couple of errors
+    when creating and binding a context in DRI3 and DRISW,
+    respectively.
+  * Build and integration: allow building libglvnd when EGL is present
+    but not GLX. Enable building targets which don't need X11, such
+    as omx and va, when XCB is not present. You can now specify
+    the prefix installation for the OpenCL icd file.
+
+-------------------------------------------------------------------
 Sat Nov 11 03:46:49 UTC 2017 - aavindraa@gmail.com
 
 - update to 17.2.5
