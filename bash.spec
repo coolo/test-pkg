@@ -534,6 +534,7 @@ popd
 	--enable-command-timing		\
 	--enable-disabled-builtins	\
 	--disable-strict-posix-default	\
+	--enable-multibyte		\
 	--enable-separate-helpfiles=%{_datadir}/bash/helpfiles \
 	$READLINE
   profilecflags=CFLAGS="$CFLAGS"
