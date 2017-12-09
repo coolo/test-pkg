@@ -1,5 +1,5 @@
 #
-# spec file for package Mesa
+# spec file for package Mesa-mini
 #
 # Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
 #
@@ -28,8 +28,10 @@
 # At the moment Mesa-mini is Mesa without everything that requires llvm and
 # without all dri and gallium drivers except for swrast.
 
-%define bootstrap 0
-%define mini %nil
+##### WARNING: please do not edit this auto generated spec file. Use the Mesa.spec! #####
+%define bootstrap 1
+##### WARNING: please do not edit this auto generated spec file. Use the Mesa.spec! #####
+%define mini -mini
 
 %define libglvnd 0
 
@@ -101,7 +103,7 @@
   %define with_vulkan 0
 %endif
 
-Name:           Mesa
+Name:           Mesa-mini
 Version:        17.2.6
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
@@ -852,7 +854,7 @@ autoreconf -fvi
            --enable-texture-float \
            --enable-osmesa \
            --enable-dri3 \
-%if 0%{?with_nine}
+%if %{with_nine}
            --enable-nine \
 %endif
 %if %{glamor}
