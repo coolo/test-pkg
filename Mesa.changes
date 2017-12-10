@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Fri Dec  8 16:47:00 UTC 2017 - mimi.vx@gmail.com
+
+- update to 17.3.0
+- drop U_configure.ac-rework-llvm-libs-handling-for-3.9.patch
+  * new major release comitng with changes in RADV, intel ANV,
+     S3TC support, RadeonSI driver with RX Vega. On-disk shader cache
+
+-------------------------------------------------------------------
 Wed Dec  6 12:37:01 UTC 2017 - msrb@suse.com
 
 - Split Mesa into Mesa and Mesa-mini. Mesa-mini does not depend on

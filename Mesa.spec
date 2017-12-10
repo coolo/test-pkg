@@ -39,7 +39,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 17.2.6
+%define _version 17.3.0
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -102,7 +102,7 @@
 %endif
 
 Name:           Mesa
-Version:        17.2.6
+Version:        17.3.0
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -133,7 +133,6 @@ Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 Patch42:        u_r600-Add-support-for-B5G5R5A1.patch
-Patch43:        U_configure.ac-rework-llvm-libs-handling-for-3.9.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -187,6 +186,10 @@ Provides:       Mesa-nouveau3d = %{version}
 Provides:       xorg-x11-Mesa = %{version}
 Obsoletes:      Mesa-nouveau3d < %{version}
 Obsoletes:      xorg-x11-Mesa < %{version}
+Provides:       s2tc = %{version}
+Obsoletes:      s2tc < %{version}
+Provides:       libtxc_dxtn = %{version}
+Obsoletes:      libtxc_dxtn < %{version}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %ifarch %arm
 BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.74
@@ -264,6 +267,10 @@ Obsoletes:      Mesa-devel-static < %{version}
 Obsoletes:      xorg-x11-Mesa-devel < %{version}
 Provides:       Mesa-libIndirectGL-devel = %{version}
 Obsoletes:      Mesa-libIndirectGL-devel < %{version}
+Provides:       s2tc-devel = %{version}
+Obsoletes:      s2tc-devel < %{version}
+Provides:       libtxc_dxtn-devel = %{version}
+Obsoletes:      libtxc_dxtn-devel < %{version}
 %if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
 Requires:       libwayland-egl%{?mini}-devel
 %endif
@@ -816,7 +823,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %endif
 
 %patch42 -p1
-%patch43 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
