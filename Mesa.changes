@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Wed Dec 13 15:13:14 UTC 2017 - msrb@suse.com
+
+- Use different form of split for faster build (bnc#1071297)
+  * Mesa.spec does not use llvm and builds most of the *-devel
+    subpackages.
+  * Mesa-drivers.spec uses llvm and builds extra things installable
+    in addition to packages from Mesa.spec. These packages are
+    required for actual rendering.
+
+-------------------------------------------------------------------
 Fri Dec  8 16:47:00 UTC 2017 - mimi.vx@gmail.com
 
 - update to 17.3.0

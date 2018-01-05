@@ -1,7 +1,7 @@
 #
-# spec file for package Mesa-mini
+# spec file for package Mesa-drivers
 #
-# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,22 +16,24 @@
 #
 
 
-# Following two defines and the Name attribute are the only difference between
-# Mesa.spec and Mesa-mini.spec. Mesa-mini.spec is generated from Mesa.spec
-# using the pre_checkin.sh script.
+# Following define and the Name attribute are the only difference between
+# Mesa.spec and Mesa-drivers.spec. Mesa-drivers.spec is generated from
+# Mesa.spec using the pre_checkin.sh script.
 #
-# The purpose of Mesa-mini is to provide something that can be build fast
-# without waiting for llvm and can be used as BuildRequirement for most
-# packages that build against Mesa. These packages should later work correctly
-# when installed together with the full Mesa package.
+# Mesa.spec builds everything that is hardware independent and does not
+# require llvm. Most importantly it builds all OpenGL (ES) libraries.
 #
-# At the moment Mesa-mini is Mesa without everything that requires llvm and
-# without all dri and gallium drivers except for swrast.
+# Mesa-drivers.spec builds hardware specific drivers and parts that require
+# llvm.
+#
+# The purpose of this split is to be able to build most Mesa-* packages fast
+# without waiting for llvm. This helps speed up whole distribution build in
+# OBS. (https://bugzilla.suse.com/show_bug.cgi?id=1071297)
+# Note that if you actually need to render something, you need the packages
+# from Mesa-driver.
 
 ##### WARNING: please do not edit this auto generated spec file. Use the Mesa.spec! #####
-%define bootstrap 1
-##### WARNING: please do not edit this auto generated spec file. Use the Mesa.spec! #####
-%define mini -mini
+%define drivers 1
 
 %define libglvnd 0
 
@@ -80,7 +82,9 @@
   %define with_llvm 1
 %endif
 
-%if %{bootstrap}
+%if %{drivers}
+  %define glamor 0
+%else
   # No llvm dependencies
   %define with_llvm 0
 
@@ -103,7 +107,7 @@
   %define with_vulkan 0
 %endif
 
-Name:           Mesa-mini
+Name:           Mesa-drivers
 Version:        17.3.0
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
@@ -225,15 +229,9 @@ BuildRequires:  libclc
 %endif
 
 %if 0%{?libglvnd}
-Requires:       Mesa%{mini}-libEGL1  = %{version}
-Requires:       Mesa%{mini}-libGL1  = %{version}
+Requires:       Mesa-libEGL1  = %{version}
+Requires:       Mesa-libGL1  = %{version}
 Requires:       libglvnd >= 0.1.0
-%endif
-
-%if 0%{?bootstrap}
-Requires:       this-is-only-for-build-envs
-Provides:       Mesa = %{version}-%{release}
-Conflicts:      Mesa
 %endif
 
 %description
@@ -254,15 +252,15 @@ just Mesa or The Mesa 3-D graphics library.
 %package devel
 Summary:        Libraries, includes and more to develop Mesa applications
 Group:          Development/Libraries/X11
-Requires:       Mesa%{?mini} = %{version}
-Requires:       Mesa%{?mini}-dri-devel = %{version}
-Requires:       Mesa%{?mini}-libEGL-devel = %{version}
-Requires:       Mesa%{?mini}-libGL-devel = %{version}
-Requires:       Mesa%{?mini}-libGLESv1_CM-devel = %{version}
-Requires:       Mesa%{?mini}-libGLESv2-devel = %{version}
-Requires:       Mesa%{?mini}-libglapi-devel = %{version}
-Requires:       libOSMesa%{?mini}-devel = %{version}
-Requires:       libgbm%{?mini}-devel
+Requires:       Mesa = %{version}
+Requires:       Mesa-dri-devel = %{version}
+Requires:       Mesa-libEGL-devel = %{version}
+Requires:       Mesa-libGL-devel = %{version}
+Requires:       Mesa-libGLESv1_CM-devel = %{version}
+Requires:       Mesa-libGLESv2-devel = %{version}
+Requires:       Mesa-libglapi-devel = %{version}
+Requires:       libOSMesa-devel = %{version}
+Requires:       libgbm-devel
 Provides:       Mesa-devel-static = %{version}
 Provides:       xorg-x11-Mesa-devel = %{version}
 Obsoletes:      Mesa-devel-static < %{version}
@@ -274,12 +272,7 @@ Obsoletes:      s2tc-devel < %{version}
 Provides:       libtxc_dxtn-devel = %{version}
 Obsoletes:      libtxc_dxtn-devel < %{version}
 %if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
-Requires:       libwayland-egl%{?mini}-devel
-%endif
-%if 0%{?bootstrap}
-Requires:       this-is-only-for-build-envs
-Provides:       Mesa-devel = %{version}-%{release}
-Conflicts:      Mesa-devel
+Requires:       libwayland-egl-devel
 %endif
 
 %description devel
@@ -304,11 +297,6 @@ Group:          System/Libraries
 %if 0%{?libglvnd}
 Requires:       libglvnd >= 0.1.0
 %endif
-%if 0%{?bootstrap}
-Requires:       this-is-only-for-build-envs
-Provides:       Mesa-libEGL1 = %{version}-%{release}
-Conflicts:      Mesa-libEGL1
-%endif
 
 %description libEGL1
 This package contains the EGL native platform graphics interface
@@ -324,16 +312,11 @@ support.
 %package libEGL-devel
 Summary:        Development files for the EGL API
 Group:          Development/Libraries/C and C++
-Requires:       Mesa%{?mini}-libEGL1 = %{version}
+Requires:       Mesa-libEGL1 = %{version}
 %if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
 %endif
 # Other requires taken care of by pkgconfig already
-%if 0%{?bootstrap}
-Requires:       this-is-only-for-build-envs
-Provides:       Mesa-libEGL-devel = %{version}-%{release}
-Conflicts:      Mesa-libEGL-devel
-%endif
 
 %description libEGL-devel
 This package contains the development environment required for
@@ -348,14 +331,9 @@ programs against the EGL library.
 %package libGL1
 Summary:        The GL/GLX runtime of the Mesa 3D graphics library
 Group:          System/Libraries
-Requires:       Mesa%{?mini} = %{version}
+Requires:       Mesa = %{version}
 %if 0%{?libglvnd}
 Requires:       libglvnd >= 0.1.0
-%endif
-%if 0%{?bootstrap}
-Requires:       this-is-only-for-build-envs
-Provides:       Mesa-libGL1 = %{version}-%{release}
-Conflicts:      Mesa-libGL1
 %endif
 
 %description libGL1
@@ -371,14 +349,9 @@ the X Window System.
 %package libGL-devel
 Summary:        GL/GLX development files of the OpenGL API
 Group:          Development/Libraries/C and C++
-Requires:       Mesa%{?mini}-libGL1 = %{version}
+Requires:       Mesa-libGL1 = %{version}
 %if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
-%endif
-%if 0%{?bootstrap}
-Requires:       this-is-only-for-build-envs
-Provides:       Mesa-libGL-devel = %{version}-%{release}
-Conflicts:      Mesa-libGL-devel
 %endif
 
 %description libGL-devel
@@ -395,11 +368,6 @@ Group:          System/Libraries
 %if 0%{?libglvnd}
 Requires:       libglvnd >= 0.1.0
 %endif
-%if 0%{?bootstrap}
-Requires:       this-is-only-for-build-envs
-Provides:       Mesa-libGLESv1_CM1 = %{version}-%{release}
-Conflicts:      Mesa-libGLESv1_CM1
-%endif
 
 %description libGLESv1_CM1
 OpenGL|ES is a cross-platform API for full-function 2D and 3D
@@ -412,16 +380,11 @@ OpenGL|ES 1.x provides an API for fixed-function hardware.
 %package libGLESv1_CM-devel
 Summary:        Development files for the OpenGL ES 1.x API
 Group:          Development/Libraries/C and C++
-Requires:       Mesa%{?mini}-libGLESv1_CM1 = %{version}
+Requires:       Mesa-libGLESv1_CM1 = %{version}
 %if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
 %endif
 Requires:       pkgconfig(egl)
-%if 0%{?bootstrap}
-Requires:       this-is-only-for-build-envs
-Provides:       Mesa-libGLESv1_CM-devel = %{version}-%{release}
-Conflicts:      Mesa-libGLESv1_CM-devel
-%endif
 
 %description libGLESv1_CM-devel
 OpenGL|ES is a cross-platform API for full-function 2D and 3D
@@ -440,11 +403,6 @@ Group:          System/Libraries
 %if 0%{?libglvnd}
 Requires:       libglvnd >= 0.1.0
 %endif
-%if 0%{?bootstrap}
-Requires:       this-is-only-for-build-envs
-Provides:       Mesa-libGLESv2-2 = %{version}-%{release}
-Conflicts:      Mesa-libGLESv2-2
-%endif
 
 %description libGLESv2-2
 OpenGL|ES is a cross-platform API for full-function 2D and 3D
@@ -461,16 +419,11 @@ ES 3 entry points.
 %package libGLESv2-devel
 Summary:        Development files for the OpenGL ES 2.x API
 Group:          Development/Libraries/C and C++
-Requires:       Mesa%{?mini}-libGLESv2-2 = %{version}
+Requires:       Mesa-libGLESv2-2 = %{version}
 %if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
 %endif
 Requires:       pkgconfig(egl)
-%if 0%{?bootstrap}
-Requires:       this-is-only-for-build-envs
-Provides:       Mesa-libGLESv2-devel = %{version}-%{release}
-Conflicts:      Mesa-libGLESv2-devel
-%endif
 
 %description libGLESv2-devel
 OpenGL|ES is a cross-platform API for full-function 2D and 3D
@@ -488,14 +441,9 @@ applications using the OpenGL|ES 2.x APIs.
 Summary:        Development files for the OpenGL ES 3.x API
 Group:          Development/Libraries/C and C++
 %if 0%{?libglvnd} == 0
-Requires:       Mesa%{?mini}-libGLESv2-2 = %{version}
+Requires:       Mesa-libGLESv2-2 = %{version}
 %endif
 Requires:       pkgconfig(egl)
-%if 0%{?bootstrap}
-Requires:       this-is-only-for-build-envs
-Provides:       Mesa-libGLESv3-devel = %{version}-%{release}
-Conflicts:      Mesa-libGLESv3-devel
-%endif
 
 %description libGLESv3-devel
 OpenGL|ES is a cross-platform API for full-function 2D and 3D
@@ -506,34 +454,24 @@ extensions for the special needs of embedded systems.
 This package provides a development environment for building
 applications using the OpenGL|ES 3.x APIs.
 
-%package -n libOSMesa%{?mini}8
+%package -n libOSMesa8
 Summary:        Mesa Off-screen rendering extension
 # Wrongly named package shipped .so.8
 Group:          System/Libraries
 Obsoletes:      libOSMesa9 < %{version}-%{release}
 Provides:       libOSMesa9 = %{version}-%{release}
-%if 0%{?bootstrap}
-Requires:       this-is-only-for-build-envs
-Provides:       libOSMesa8 = %{version}-%{release}
-Conflicts:      libOSMesa8
-%endif
 
-%description -n libOSMesa%{?mini}8
+%description -n libOSMesa8
 OSmesa is a Mesa extension that allows programs to render to an
 off-screen buffer using the OpenGL API without having to create a
 rendering context on an X Server. It uses a pure software renderer.
 
-%package -n libOSMesa%{?mini}-devel
+%package -n libOSMesa-devel
 Summary:        Development files for the Mesa Offscreen Rendering extension
 Group:          Development/Libraries/C and C++
-Requires:       libOSMesa%{?mini}8 = %{version}
-%if 0%{?bootstrap}
-Requires:       this-is-only-for-build-envs
-Provides:       libOSMesa-devel = %{version}-%{release}
-Conflicts:      libOSMesa-devel
-%endif
+Requires:       libOSMesa8 = %{version}
 
-%description -n libOSMesa%{?mini}-devel
+%description -n libOSMesa-devel
 Development files for the OSmesa Mesa extension that allows programs to render to an
 off-screen buffer using the OpenGL API without having to create a
 rendering context on an X Server. It uses a pure software renderer.
@@ -541,11 +479,6 @@ rendering context on an X Server. It uses a pure software renderer.
 %package libglapi0
 Summary:        Free implementation of the GL API
 Group:          System/Libraries
-%if 0%{?bootstrap}
-Requires:       this-is-only-for-build-envs
-Provides:       Mesa-libglapi0 = %{version}-%{release}
-Conflicts:      Mesa-libglapi0
-%endif
 
 %description libglapi0
 The Mesa GL API module is responsible for dispatching all the gl*
@@ -555,58 +488,56 @@ packages.
 %package libglapi-devel
 Summary:        Development files for the free implementation of the GL API
 Group:          Development/Libraries/C and C++
-Requires:       Mesa%{?mini}-libglapi0 = %{version}
-%if 0%{?bootstrap}
-Requires:       this-is-only-for-build-envs
-Provides:       Mesa-libglapi-devel = %{version}-%{release}
-Conflicts:      Mesa-libglapi-devel
-%endif
+Requires:       Mesa-libglapi0 = %{version}
 
 %description libglapi-devel
 Development files for the Mesa GL API module which is responsible for
 dispatching all the gl* functions. It is intended to be mainly used by
 the Mesa-libGLES* packages.
 
+%package -n Mesa-dri
+Summary:        DRI plug-ins for 3D acceleration
+Group:          System/Libraries
+Requires:       Mesa = %{version}
+Supplements:    Mesa
+
+%description -n Mesa-dri
+This package contains Mesa DRI drivers for 3D acceleration.
+
 %package dri-devel
 Summary:        Development files for the DRI API
 Group:          Development/Libraries/C and C++
-Requires:       Mesa%{?mini} = %{version}
-%if 0%{?bootstrap}
-Requires:       this-is-only-for-build-envs
-Provides:       Mesa-dri-devel = %{version}-%{release}
-Conflicts:      Mesa-dri-devel
-%endif
+Requires:       Mesa = %{version}
 
 %description dri-devel
 This package contains the development environment required for
 compiling programs and libraries using the DRI API.
 
-%package dri-nouveau
+%package -n Mesa-dri-nouveau
 Summary:        Mesa DRI plug-in for 3D acceleration via Nouveau
 Group:          System/Libraries
-Requires:       Mesa%{?mini} = %{version}
+Requires:       Mesa = %{version}
 Supplements:    xf86-video-nouveau
-%if 0%{?bootstrap}
-Requires:       this-is-only-for-build-envs
-Provides:       Mesa-dri-nouveau = %{version}-%{release}
-Conflicts:      Mesa-dri-nouveau
-%endif
 
-%description dri-nouveau
+%description -n Mesa-dri-nouveau
 This package contains nouveau_dri.so, which is necessary for
 Nouveau's 3D acceleration to work. It is packaged separately
 since it is still experimental.
 
-%package -n libgbm%{?mini}1
+%package -n Mesa-gallium
+Summary:        Mesa gallium GPU drivers
+Group:          System/Libraries
+Requires:       Mesa = %{version}
+Supplements:    Mesa
+
+%description -n Mesa-gallium
+This package contains Mesa gallium drivers for 3D acceleration.
+
+%package -n libgbm1
 Summary:        Generic buffer management API
 Group:          System/Libraries
-%if 0%{?bootstrap}
-Requires:       this-is-only-for-build-envs
-Provides:       libgbm1 = %{version}-%{release}
-Conflicts:      libgbm1
-%endif
 
-%description -n libgbm%{?mini}1
+%description -n libgbm1
 This package contains the GBM buffer management library. It provides
 a mechanism for allocating buffers for graphics rendering tied to
 Mesa.
@@ -614,17 +545,12 @@ Mesa.
 GBM is intended to be used as a native platform for EGL on drm or
 openwfd.
 
-%package -n libgbm%{?mini}-devel
+%package -n libgbm-devel
 Summary:        Development files for the EGL API
 Group:          Development/Libraries/C and C++
-Requires:       libgbm%{?mini}1 = %{version}
-%if 0%{?bootstrap}
-Requires:       this-is-only-for-build-envs
-Provides:       libgbm-devel = %{version}-%{release}
-Conflicts:      libgbm-devel
-%endif
+Requires:       libgbm1 = %{version}
 
-%description -n libgbm%{?mini}-devel
+%description -n libgbm-devel
 This package contains the GBM buffer management library. It provides
 a mechanism for allocating buffers for graphics rendering tied to
 Mesa.
@@ -635,35 +561,25 @@ openwfd.
 This package provides the development environment for compiling
 programs against the GBM library.
 
-%package -n libwayland-egl%{?mini}1
+%package -n libwayland-egl1
 Summary:        Additional egl functions for wayland
 Group:          System/Libraries
-%if 0%{?bootstrap}
-Requires:       this-is-only-for-build-envs
-Provides:       libwayland-egl1 = %{version}-%{release}
-Conflicts:      libwayland-egl1
-%endif
 
-%description -n libwayland-egl%{?mini}1
+%description -n libwayland-egl1
 This package provides additional functions for egl-using programs
 that run within the wayland framework. This allows for applications
 that need not run full-screen and cooperate with a compositor.
 
-%package -n libwayland-egl%{?mini}-devel
+%package -n libwayland-egl-devel
 Summary:        Development files for libwayland-egl1
 Group:          Development/Libraries/C and C++
-Requires:       libwayland-egl%{?mini}1 = %{version}
-%if 0%{?bootstrap}
-Requires:       this-is-only-for-build-envs
-Provides:       libwayland-egl-devel = %{version}-%{release}
-Conflicts:      libwayland-egl-devel
-%endif
+Requires:       libwayland-egl1 = %{version}
 
-%description -n libwayland-egl%{?mini}-devel
+%description -n libwayland-egl-devel
 This package is required to link wayland client applications to the EGL
 implementation of Mesa.
 
-%package libd3d
+%package -n Mesa-libd3d
 Summary:        Mesa Direct3D9 state tracker
 # Manually provide d3d library (bnc#918294)
 Group:          System/Libraries
@@ -673,15 +589,15 @@ Provides:       d3dadapter9.so.1()(64bit)
 Provides:       d3dadapter9.so.1
 %endif
 
-%description libd3d
+%description -n Mesa-libd3d
 Mesa Direct3D9 state tracker
 
-%package libd3d-devel
+%package -n Mesa-libd3d-devel
 Summary:        Mesa Direct3D9 state tracker development package
 Group:          Development/Libraries/C and C++
-Requires:       %{name}-libd3d = %{version}
+Requires:       Mesa-libd3d = %{version}
 
-%description libd3d-devel
+%description -n Mesa-libd3d-devel
 Mesa Direct3D9 state tracker development package
 
 %package -n libXvMC_nouveau
@@ -734,20 +650,20 @@ Supplements:    xf86-video-ati
 %description -n libvdpau_radeonsi
 This package contains the VDPAU state tracker for radeonsi.
 
-%package libOpenCL
+%package -n Mesa-libOpenCL
 Summary:        Mesa OpenCL implementation
 Group:          System/Libraries
 Requires:       libclc
 
-%description libOpenCL
+%description -n Mesa-libOpenCL
 This package contains the Mesa OpenCL implementation or GalliumCompute.
 
-%package libva
+%package -n Mesa-libva
 Summary:        Mesa VA-API implementation
 Group:          System/Libraries
 Supplements:    Mesa
 
-%description libva
+%description -n Mesa-libva
 This package contains the Mesa VA-API implementation provided through gallium.
 
 %package -n libvulkan_intel
@@ -767,14 +683,14 @@ Supplements:    xf86-video-amdgpu
 %description -n libvulkan_radeon
 This package contains the Vulkan parts for Mesa.
 
-%package  libVulkan-devel
+%package -n Mesa-libVulkan-devel
 Summary:        Mesas Vulkan development files
 Group:          Development/Libraries/C and C++
 Requires:       libvulkan_intel = %{version}
 Requires:       libvulkan_radeon = %{version}
 Conflicts:      vulkan-devel
 
-%description libVulkan-devel
+%description -n Mesa-libVulkan-devel
 This package contains the development files for Mesas Vulkan implementation.
 
 %package -n libxatracker2
@@ -849,17 +765,26 @@ egl_platforms=x11,drm
 autoreconf -fvi
 
 %configure \
+%if %{drivers}
+           --disable-gles1 \
+           --disable-gles2 \
+           --disable-egl \
+           --disable-glx \
+           --disable-osmesa \
+%else
 %if 0%{?libglvnd}
            --enable-libglvnd \
 %endif
            --enable-gles1 \
            --enable-gles2 \
-           --enable-dri \
-           --with-platforms=$egl_platforms \
-           --enable-shared-glapi \
-           --enable-texture-float \
+           --enable-egl \
            --enable-osmesa \
+%endif
+           --with-platforms=$egl_platforms \
+           --enable-dri \
+           --enable-texture-float \
            --enable-dri3 \
+           --enable-shared-glapi \
 %if 0%{?with_nine}
            --enable-nine \
 %endif
@@ -882,10 +807,7 @@ autoreconf -fvi
 %if 0%{with_vulkan}
            --with-vulkan-drivers=intel,radeon \
 %endif
-%if %{bootstrap}
-           --with-dri-drivers=swrast \
-           --with-gallium-drivers=swrast \
-%else
+%if %{drivers}
   %ifarch %ix86 x86_64
            --enable-xa \
            --with-dri-drivers=i915,i965,nouveau,r200,radeon \
@@ -905,6 +827,9 @@ autoreconf -fvi
            --with-dri-drivers=swrast \
            --with-gallium-drivers=swrast \
   %endif
+%else
+           --with-dri-drivers= \
+           --with-gallium-drivers= \
 %endif
         CFLAGS="%{optflags} -DNDEBUG"
 make %{?_smp_mflags}
@@ -913,6 +838,32 @@ make %{?_smp_mflags}
 make DESTDIR=%{buildroot} install %{?_smp_mflags}
 find %{buildroot} -type f -name "*.la" -delete -print
 
+%if %{drivers}
+# Delete things that we do not package in the Mesa-drivers variant, but can
+# not disable from buildling and installing.
+
+# in Mesa
+rm %{buildroot}/%{_sysconfdir}/drirc
+
+# in Mesa-libGL-devel
+rm -rf %{buildroot}/%{_includedir}/GL
+
+# in Mesa-libglapi0
+rm %{buildroot}/%{_libdir}/libglapi.so*
+
+# in libwayland-egl1
+rm %{buildroot}/%{_libdir}/libwayland-egl.so*
+rm %{buildroot}/%{_libdir}/pkgconfig/wayland-egl.pc
+
+# in Mesa-dri-devel
+rm %{buildroot}/%{_libdir}/pkgconfig/dri.pc
+
+# in libgbm-devel
+rm %{buildroot}/%{_includedir}/gbm.h
+rm %{buildroot}/%{_libdir}/libgbm.so*
+rm %{buildroot}/%{_libdir}/pkgconfig/gbm.pc
+
+%else
 %if 0%{?libglvnd} == 0
 # Make a symlink to libGL.so.1.2 for compatibility (bnc#809359, bnc#831306)
 test -f %{buildroot}%{_libdir}/libGL.so.1.2 || \
@@ -931,6 +882,7 @@ for dir in ../xc/doc/man/{GL/gl,GL/glx}; do
    make install.man DESTDIR=%{buildroot} MANPATH=%{_mandir} LIBMANSUFFIX=3gl
  popd
 done
+%endif
 
 %fdupes -s %{buildroot}/%{_mandir}
 
@@ -956,13 +908,13 @@ done
 %postun libGLESv2-2 -p /sbin/ldconfig
 %endif
 
-%post   -n libOSMesa%{?mini}8 -p /sbin/ldconfig
+%post   -n libOSMesa8 -p /sbin/ldconfig
 
-%postun -n libOSMesa%{?mini}8 -p /sbin/ldconfig
+%postun -n libOSMesa8 -p /sbin/ldconfig
 
-%post   -n libgbm%{?mini}1 -p /sbin/ldconfig
+%post   -n libgbm1 -p /sbin/ldconfig
 
-%postun -n libgbm%{?mini}1 -p /sbin/ldconfig
+%postun -n libgbm1 -p /sbin/ldconfig
 
 %post   -n libxatracker2 -p /sbin/ldconfig
 
@@ -992,47 +944,31 @@ done
 
 %postun libglapi0 -p /sbin/ldconfig
 
-%post   -n libwayland-egl%{?mini}1 -p /sbin/ldconfig
+%post   -n libwayland-egl1 -p /sbin/ldconfig
 
-%postun -n libwayland-egl%{?mini}1 -p /sbin/ldconfig
+%postun -n libwayland-egl1 -p /sbin/ldconfig
 
-%post libd3d -p /sbin/ldconfig
+%post -n Mesa-libd3d -p /sbin/ldconfig
 
-%postun libd3d -p /sbin/ldconfig
+%postun -n Mesa-libd3d -p /sbin/ldconfig
 
-%post   libOpenCL -p /sbin/ldconfig
+%post   -n Mesa-libOpenCL -p /sbin/ldconfig
 
-%postun libOpenCL -p /sbin/ldconfig
+%postun -n Mesa-libOpenCL -p /sbin/ldconfig
 
-%post libva -p /sbin/ldconfig
+%post -n Mesa-libva -p /sbin/ldconfig
 
-%postun libva -p /sbin/ldconfig
+%postun -n Mesa-libva -p /sbin/ldconfig
 
 %post -n libvulkan_intel -p /sbin/ldconfig
 
 %postun -n libvulkan_intel -p /sbin/ldconfig
 
+%if !%{drivers}
 %files
 %defattr(-,root,root)
 %doc docs/README* docs/license.html
 %config %{_sysconfdir}/drirc
-%dir %{_libdir}/dri
-%{_libdir}/dri/*_dri.so
-%if 0%{?is_opensuse} && !%{bootstrap}
-%ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le
-%exclude %{_libdir}/dri/nouveau_dri.so
-%exclude %{_libdir}/dri/nouveau_vieux_dri.so
-%endif
-%endif
-%if 0%{with_opencl}
-# only built with opencl
-%dir %{_libdir}/gallium-pipe/
-%{_libdir}/gallium-pipe/pipe_*.so
-%endif
-%if 0%{with_vulkan}
-%dir %{_datadir}/vulkan
-%dir %{_datadir}/vulkan/icd.d
-%endif
 
 %files libEGL1
 %defattr(-,root,root)
@@ -1108,40 +1044,41 @@ done
 #%_libdir/libGLESv3.so
 #%_libdir/pkgconfig/glesv3.pc
 
-%files -n libOSMesa%{?mini}8
+%files -n libOSMesa8
 %defattr(-,root,root)
 %{_libdir}/libOSMesa.so.8.0.0
 %{_libdir}/libOSMesa.so.8
 
-%files -n libOSMesa%{?mini}-devel
+%files -n libOSMesa-devel
 %defattr(-,root,root)
 %{_includedir}/GL/osmesa.h
 %{_libdir}/libOSMesa.so
 %{_libdir}/pkgconfig/osmesa.pc
 
 %if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
-%files -n libwayland-egl%{?mini}1
+%files -n libwayland-egl1
 %defattr(-,root,root)
 %{_libdir}/libwayland-egl.so.1*
 
-%files -n libwayland-egl%{?mini}-devel
+%files -n libwayland-egl-devel
 %defattr(-,root,root)
 %{_libdir}/libwayland-egl.so
 %{_libdir}/pkgconfig/wayland-egl.pc
 %endif
 
-%files -n libgbm%{?mini}1
+%files -n libgbm1
 %defattr(-,root,root)
 %{_libdir}/libgbm.so.1*
 
-%files -n libgbm%{?mini}-devel
+%files -n libgbm-devel
 %defattr(-,root,root)
 %{_includedir}/gbm.h
 %{_libdir}/libgbm.so
 %{_libdir}/pkgconfig/gbm.pc
+%endif
 
+%if %{drivers}
 %ifarch aarch64 %ix86 x86_64 %arm ppc64 ppc64le
-%if !%{bootstrap}
 %files -n libxatracker2
 %defattr(-,root,root)
 %{_libdir}/libxatracker.so.2*
@@ -1151,7 +1088,6 @@ done
 %{_includedir}/xa_*.h
 %{_libdir}/libxatracker.so
 %{_libdir}/pkgconfig/xatracker.pc
-%endif
 %endif
 
 %if %{xvmc_support}
@@ -1195,7 +1131,6 @@ done
 %{_libdir}/vdpau/libvdpau_r600.so.1.0.0
 %endif
 
-%if !%{bootstrap}
 %ifarch %ix86 x86_64
 %files -n libvdpau_radeonsi
 %defattr(-,root,root)
@@ -1206,6 +1141,7 @@ done
 %endif
 %endif
 
+%if !%{drivers}
 %files libglapi0
 %defattr(-,root,root)
 %{_libdir}/libglapi.so.0*
@@ -1213,32 +1149,57 @@ done
 %files libglapi-devel
 %defattr(-,root,root)
 %{_libdir}/libglapi.so
+%endif
 
-%files dri-devel
-%defattr(-,root,root)
-%{_includedir}/GL/internal
-%{_libdir}/pkgconfig/dri.pc
-
-%if 0%{?is_opensuse} && !%{bootstrap}
+%if %{drivers}
+%files -n Mesa-dri
+%{_libdir}/dri/*_dri.so
+%if 0%{?is_opensuse}
 %ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le
-%files dri-nouveau
+%exclude %{_libdir}/dri/nouveau_dri.so
+%exclude %{_libdir}/dri/nouveau_vieux_dri.so
+%endif
+%endif
+
+%if 0%{with_opencl}
+# only built with opencl
+%files -n Mesa-gallium
+%dir %{_libdir}/gallium-pipe/
+%{_libdir}/gallium-pipe/pipe_*.so
+%endif
+
+%if 0%{?is_opensuse}
+%ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le
+%files -n Mesa-dri-nouveau
 %{_libdir}/dri/nouveau_dri.so
 %{_libdir}/dri/nouveau_vieux_dri.so
 %endif
 %endif
 
+# drivers
+%endif
+
+%if !%{drivers}
+%files dri-devel
+%defattr(-,root,root)
+%{_includedir}/GL/internal
+%{_libdir}/pkgconfig/dri.pc
+
 %files devel
 %defattr(-,root,root)
 %doc docs/*.html
 
+# !drivers
+%endif
+
 %if 0%{?with_nine}
-%files libd3d
+%files -n Mesa-libd3d
 %defattr(-,root,root)
 %dir %{_libdir}/d3d/
 %{_libdir}/d3d/*.so.*
 #%%{_sysconfdir}/OpenCL/vendors/mesa.icd
 
-%files libd3d-devel
+%files -n Mesa-libd3d-devel
 %defattr(-,root,root)
 %{_libdir}/pkgconfig/d3d.pc
 %{_includedir}/d3dadapter/
@@ -1246,7 +1207,7 @@ done
 %endif
 
 %if 0%{with_opencl}
-%files libOpenCL
+%files -n Mesa-libOpenCL
 %defattr(-,root,root)
 %dir %{_sysconfdir}/OpenCL
 %dir %{_sysconfdir}/OpenCL/vendors
@@ -1254,9 +1215,9 @@ done
 %{_libdir}/libMesaOpenCL.so*
 %endif
 
+%if %{drivers}
 %ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le
-%if !%{bootstrap}
-%files libva
+%files -n Mesa-libva
 %defattr(-,root,root)
 %dir %{_libdir}/dri
 %{_libdir}/dri/*_drv_video.so
@@ -1266,18 +1227,22 @@ done
 %if 0%{with_vulkan}
 %files -n libvulkan_intel
 %defattr(-,root,root)
+%dir %{_datadir}/vulkan
+%dir %{_datadir}/vulkan/icd.d
 %{_datadir}/vulkan/icd.d/intel_icd.*.json
 %{_libdir}/libvulkan_intel.so
-
-%files libVulkan-devel
-%defattr(-,root,root)
-%dir %_includedir/vulkan
-%_includedir/vulkan
 
 %files -n libvulkan_radeon
 %defattr(-,root,root)
 %{_libdir}/libvulkan_radeon.so
+%dir %{_datadir}/vulkan
+%dir %{_datadir}/vulkan/icd.d
 %{_datadir}/vulkan/icd.d/radeon_icd.*.json
+
+%files -n Mesa-libVulkan-devel
+%defattr(-,root,root)
+%dir %_includedir/vulkan
+%_includedir/vulkan
 %endif
 
 %changelog
