@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan  8 07:55:49 UTC 2018 - msrb@suse.com
+
+- Add Mesa-dri and Mesa-gallium to baselibs.conf.
+
+-------------------------------------------------------------------
 Wed Dec 13 15:13:14 UTC 2017 - msrb@suse.com
 
 - Use different form of split for faster build (bnc#1071297)
