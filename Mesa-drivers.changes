@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Jan  8 14:26:50 UTC 2018 - tchvatal@suse.com
+
+- Switch to python3 during build instead of python2
+  * Add patch u_mesa-python3-only.patch
+
+-------------------------------------------------------------------
 Mon Jan  8 07:55:49 UTC 2018 - msrb@suse.com
 
 - Add Mesa-dri and Mesa-gallium to baselibs.conf.

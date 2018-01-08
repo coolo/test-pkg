@@ -138,6 +138,8 @@ Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 Patch42:        u_r600-Add-support-for-B5G5R5A1.patch
+# Upstream
+Patch43:        u_mesa-python3-only.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -148,9 +150,9 @@ BuildRequires:  gcc-c++
 BuildRequires:  imake
 BuildRequires:  libtool
 BuildRequires:  pkgconfig
-BuildRequires:  python-base
-BuildRequires:  python-mako
-BuildRequires:  python-xml
+BuildRequires:  python3-base
+BuildRequires:  python3-mako
+BuildRequires:  python3-xml
 BuildRequires:  pkgconfig(dri2proto)
 BuildRequires:  pkgconfig(dri3proto)
 BuildRequires:  pkgconfig(expat)
@@ -740,6 +742,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %endif
 
 %patch42 -p1
+%patch43 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
@@ -763,6 +766,7 @@ egl_platforms=x11,drm
 %endif
 autoreconf -fvi
 
+export PYTHON2=/usr/bin/python3
 %configure \
 %if %{drivers}
            --disable-gles1 \
