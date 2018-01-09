@@ -43,7 +43,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 17.3.0
+%define _version 17.3.1
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -108,7 +108,7 @@
 %endif
 
 Name:           Mesa-drivers
-Version:        17.3.0
+Version:        17.3.1
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT

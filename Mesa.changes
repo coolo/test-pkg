@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Mon Jan  8 14:44:46 UTC 2018 - msrb@suse.com
+
+- Update to 17.3.1
+  * Multiple fixes and improvements of the GLSL shader cache. The
+    RADV driver no longer advertises VK_EXT_debug_report - there is
+    no support for it.
+  * The i965, radeonsi, nvc0 and freedreno drivers have received a
+    few small fixes each.
+  * A number of big endian fixes have been merged.
+
+-------------------------------------------------------------------
 Thu Jan  8 14:26:50 UTC 2018 - tchvatal@suse.com
 
 - Switch to python3 during build instead of python2
