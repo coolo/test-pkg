@@ -109,10 +109,11 @@
 Name:           Mesa
 Version:        17.3.2
 Release:        0
-Summary:        System for rendering interactive 3-D graphics
+Summary:        System for rendering 3-D graphics
 License:        MIT
 Group:          System/Libraries
 Url:            http://www.mesa3d.org
+#Git-Clone:     git://anongit.freedesktop.org/mesa/mesa
 # For now directory structure of Mesa's ftp changed
 # Source:         ftp://ftp.freedesktop.org/pub/mesa/%%{version}/%%{_name_archive}-%%{_version}.tar.xz
 Source:         ftp://ftp.freedesktop.org/pub/mesa/%{_name_archive}-%{_version}.tar.xz
@@ -292,7 +293,7 @@ just Mesa or The Mesa 3-D graphics library.
 
 %package libEGL1
 # Kudos to Debian for the descriptions
-Summary:        Free implementation of the EGL API
+Summary:        EGL API implementation
 Group:          System/Libraries
 %if 0%{?libglvnd}
 Requires:       libglvnd >= 0.1.0
@@ -363,14 +364,14 @@ This package includes headers and static libraries for compiling
 programs with Mesa.
 
 %package libGLESv1_CM1
-Summary:        Free implementation of the OpenGL|ES 1.x Common Profile API
+Summary:        OpenGL|ES 1.x Common Profile API implementation
 Group:          System/Libraries
 %if 0%{?libglvnd}
 Requires:       libglvnd >= 0.1.0
 %endif
 
 %description libGLESv1_CM1
-OpenGL|ES is a cross-platform API for full-function 2D and 3D
+OpenGL|ES is an API for full-function 2D and 3D
 graphics on embedded systems - including consoles, phones, appliances
 and vehicles. It contains a subset of OpenGL plus a number of
 extensions for the special needs of embedded systems.
@@ -387,7 +388,7 @@ Requires:       libglvnd-devel >= 0.1.0
 Requires:       pkgconfig(egl)
 
 %description libGLESv1_CM-devel
-OpenGL|ES is a cross-platform API for full-function 2D and 3D
+OpenGL|ES is an API for full-function 2D and 3D
 graphics on embedded systems - including consoles, phones, appliances
 and vehicles. It contains a subset of OpenGL plus a number of
 extensions for the special needs of embedded systems.
@@ -398,14 +399,14 @@ This package provides a development environment for building programs
 using the OpenGL|ES 1.x APIs.
 
 %package libGLESv2-2
-Summary:        Free implementation of the OpenGL|ES 2.x API
+Summary:        OpenGL|ES 2.x API implementation
 Group:          System/Libraries
 %if 0%{?libglvnd}
 Requires:       libglvnd >= 0.1.0
 %endif
 
 %description libGLESv2-2
-OpenGL|ES is a cross-platform API for full-function 2D and 3D
+OpenGL|ES is an API for full-function 2D and 3D
 graphics on embedded systems - including consoles, phones, appliances
 and vehicles. It contains a subset of OpenGL plus a number of
 extensions for the special needs of embedded systems.
@@ -426,7 +427,7 @@ Requires:       libglvnd-devel >= 0.1.0
 Requires:       pkgconfig(egl)
 
 %description libGLESv2-devel
-OpenGL|ES is a cross-platform API for full-function 2D and 3D
+OpenGL|ES is an API for full-function 2D and 3D
 graphics on embedded systems - including consoles, phones, appliances
 and vehicles. It contains a subset of OpenGL plus a number of
 extensions for the special needs of embedded systems.
@@ -446,7 +447,7 @@ Requires:       Mesa-libGLESv2-2 = %{version}
 Requires:       pkgconfig(egl)
 
 %description libGLESv3-devel
-OpenGL|ES is a cross-platform API for full-function 2D and 3D
+OpenGL|ES is an API for full-function 2D and 3D
 graphics on embedded systems - including consoles, phones, appliances
 and vehicles. It contains a subset of OpenGL plus a number of
 extensions for the special needs of embedded systems.
@@ -486,7 +487,7 @@ functions. It is intended to be mainly used by the Mesa-libGLES*
 packages.
 
 %package libglapi-devel
-Summary:        Development files for the free implementation of the GL API
+Summary:        Development files for the Mesa GL API implementation
 Group:          Development/Libraries/C and C++
 Requires:       Mesa-libglapi0 = %{version}
 
@@ -525,13 +526,13 @@ Nouveau's 3D acceleration to work. It is packaged separately
 since it is still experimental.
 
 %package -n Mesa-gallium
-Summary:        Mesa gallium GPU drivers
+Summary:        Mesa Gallium GPU drivers
 Group:          System/Libraries
 Requires:       Mesa = %{version}
 Supplements:    Mesa
 
 %description -n Mesa-gallium
-This package contains Mesa gallium drivers for 3D acceleration.
+This package contains Mesa Gallium drivers for 3D acceleration.
 
 %package -n libgbm1
 Summary:        Generic buffer management API
@@ -684,14 +685,14 @@ Supplements:    xf86-video-amdgpu
 This package contains the Vulkan parts for Mesa.
 
 %package -n Mesa-libVulkan-devel
-Summary:        Mesas Vulkan development files
+Summary:        Mesa's Vulkan development files
 Group:          Development/Libraries/C and C++
 Requires:       libvulkan_intel = %{version}
 Requires:       libvulkan_radeon = %{version}
 Conflicts:      vulkan-devel
 
 %description -n Mesa-libVulkan-devel
-This package contains the development files for Mesas Vulkan implementation.
+This package contains the development files for Mesa's Vulkan implementation.
 
 %package -n libxatracker2
 Version:        1.0.0
@@ -745,15 +746,15 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
 %if 0%{?libglvnd} == 0
-grep -v libglvnd $RPM_SOURCE_DIR/baselibs.conf > $RPM_SOURCE_DIR/temp && \
-  mv $RPM_SOURCE_DIR/temp $RPM_SOURCE_DIR/baselibs.conf
+grep -v libglvnd "%{_sourcedir}/baselibs.conf" >"%{_sourcedir}/temp" && \
+  mv "%{_sourcedir}/temp" "%{_sourcedir}/baselibs.conf"
 %endif
 
 # Remove requires to vulkan libs from baselibs.conf on platforms
 # where vulkan build is disabled; ugly ...
 %if 0%{?with_vulkan} == 0
-grep -v -i vulkan $RPM_SOURCE_DIR/baselibs.conf > $RPM_SOURCE_DIR/temp && \
-  mv $RPM_SOURCE_DIR/temp $RPM_SOURCE_DIR/baselibs.conf
+grep -v -i vulkan "%{_sourcedir}/baselibs.conf" >"%{_sourcedir}/temp" && \
+  mv "%{_sourcedir}/temp" "%{_sourcedir}/baselibs.conf"
 %endif
 
 %build
@@ -899,7 +900,6 @@ done
 
 %postun libGL1 -p /sbin/ldconfig
 
-%if 0%{?libglvnd} == 0
 %post   libGLESv1_CM1 -p /sbin/ldconfig
 
 %postun libGLESv1_CM1 -p /sbin/ldconfig
@@ -907,7 +907,6 @@ done
 %post   libGLESv2-2 -p /sbin/ldconfig
 
 %postun libGLESv2-2 -p /sbin/ldconfig
-%endif
 
 %post   -n libOSMesa8 -p /sbin/ldconfig
 
