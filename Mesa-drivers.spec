@@ -43,7 +43,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 17.3.1
+%define _version 17.3.2
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -108,7 +108,7 @@
 %endif
 
 Name:           Mesa-drivers
-Version:        17.3.1
+Version:        17.3.2
 Release:        0
 Summary:        System for rendering interactive 3-D graphics
 License:        MIT
@@ -138,7 +138,6 @@ Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
 # currently needed for libglvnd support
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
-Patch42:        u_r600-Add-support-for-B5G5R5A1.patch
 # Upstream
 Patch43:        u_mesa-python3-only.patch
 
@@ -742,7 +741,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch32 -p1
 %endif
 
-%patch42 -p1
 %patch43 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
