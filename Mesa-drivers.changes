@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Jan 15 15:08:13 UTC 2018 - msrb@suse.com
+
+- U_intel-Add-more-Coffee-Lake-PCI-IDs.patch
+  * Add more Coffeelake PCI IDs (request by Intel)
+
+-------------------------------------------------------------------
 Wed Jan 10 08:28:09 UTC 2018 - msrb@suse.com
 
 - Update to 17.3.2

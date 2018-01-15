@@ -140,6 +140,7 @@ Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 # Upstream
 Patch43:        u_mesa-python3-only.patch
+Patch44:        U_intel-Add-more-Coffee-Lake-PCI-IDs.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -742,6 +743,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %endif
 
 %patch43 -p1
+%patch44 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
@@ -887,6 +889,11 @@ done
 %endif
 
 %fdupes -s %{buildroot}/%{_mandir}
+
+%if !%{drivers}
+# Use dummy README file that can be included in both Mesa and Mesa-32bit. This way Mesa-32bit will be build (otherwise it would be skipped as empty) and it can be used by the other *-32bit packages.
+echo "The \"Mesa\" package does not have the ability to render, but is supplemented by \"Mesa-dri\" and \"Mesa-gallium\" which contain the drivers for rendering" > docs/README.package.%{_arch}
+%endif
 
 %post   -p /sbin/ldconfig
 
