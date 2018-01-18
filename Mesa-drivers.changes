@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jan 17 16:52:35 UTC 2018 - normand@linux.vnet.ibm.com
+
+- Add _constraints to select 6G disk for PowerPC
+  to avoid cpio: write error on obs-power8-05 workers boo#1076325
+
+-------------------------------------------------------------------
 Mon Jan 15 15:08:13 UTC 2018 - msrb@suse.com
 
 - U_intel-Add-more-Coffee-Lake-PCI-IDs.patch
