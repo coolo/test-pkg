@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Fri Jan 19 13:37:00 UTC 2018 - msrb@suse.com
+
+- Update to 17.3.3
+  * Fixes to radv, anv, etnaviv, swrast and radeonsi drivers.
+  * Fixes for DRI3.
+- Make Mesa require Mesa-dri and Mesa-gallium. This makes Mesa
+  usable again for users who do not install recommended packages.
+  It breaks the Mesa and Mesa-drivers split, which has to be fixed
+  by ignoring it in obs.
+
+-------------------------------------------------------------------
 Wed Jan 17 16:52:35 UTC 2018 - normand@linux.vnet.ibm.com
 
 - Add _constraints to select 6G disk for PowerPC
