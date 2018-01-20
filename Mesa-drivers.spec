@@ -43,7 +43,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 17.3.2
+%define _version 17.3.3
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -108,7 +108,7 @@
 %endif
 
 Name:           Mesa-drivers
-Version:        17.3.2
+Version:        17.3.3
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -236,6 +236,12 @@ Requires:       Mesa-libEGL1  = %{version}
 Requires:       Mesa-libGL1  = %{version}
 Requires:       libglvnd >= 0.1.0
 %endif
+
+# This dependency on Mesa-dri and Mesa-gallium is here to make sure users that
+# do not install recommends on their system still get working Mesa. It is
+# ignored in obs when Mesa is installed as build dependency.
+Requires:       Mesa-dri = %{version}
+Requires:       Mesa-gallium = %{version}
 
 %description
 Mesa is a 3-D graphics library with an API which is very similar to
