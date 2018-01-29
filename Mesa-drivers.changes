@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan 22 09:43:41 UTC 2018 - normand@linux.vnet.ibm.com
+
+- in spec file move %dir %{_libdir}/dri to avoid ppc build failure
+
+-------------------------------------------------------------------
 Fri Jan 19 13:37:00 UTC 2018 - msrb@suse.com
 
 - Update to 17.3.3

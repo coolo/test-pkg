@@ -1167,6 +1167,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %if %{drivers}
 %files -n Mesa-dri
+%dir %{_libdir}/dri
 %{_libdir}/dri/*_dri.so
 %if 0%{?is_opensuse}
 %ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le
@@ -1233,7 +1234,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le
 %files -n Mesa-libva
 %defattr(-,root,root)
-%dir %{_libdir}/dri
 %{_libdir}/dri/*_drv_video.so
 %endif
 %endif
