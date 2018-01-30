@@ -1,7 +1,7 @@
 #
 # spec file for package bash
 #
-# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -96,7 +96,6 @@ Patch47:        bash-4.3-perl522.patch
 Patch48:        bash-4.3-extra-import-func.patch
 # PATCH-EXTEND-SUSE Allow root to clean file system if filled up
 Patch49:        bash-4.3-pathtemp.patch
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
 %global         _ldldir     /%{_lib}/bash
@@ -561,9 +560,9 @@ popd
 
 %install
 pushd ../readline-%{rl_vers}%{rextend}
-  make install htmldir=%{_defaultdocdir}/readline \
-	       installdir=%{_defaultdocdir}/readline/examples DESTDIR=%{buildroot}
-  make install-shared libdir=/%{_lib} linkagedir=%{_libdir} DESTDIR=%{buildroot}
+  %make_install htmldir=%{_defaultdocdir}/readline \
+	       installdir=%{_defaultdocdir}/readline/examples
+  %make_install install-shared libdir=/%{_lib} linkagedir=%{_libdir}
   rm -rf %{buildroot}%{_defaultdocdir}/bash
   mkdir -p %{buildroot}%{_defaultdocdir}/bash
   chmod 0755 %{buildroot}/%{_lib}/libhistory.so.%{rl_vers}
@@ -575,7 +574,7 @@ pushd ../readline-%{rl_vers}%{rextend}
   ln -sf /%{_lib}/libhistory.so.%{rl_vers}  %{buildroot}/%{_libdir}/libhistory.so
   ln -sf /%{_lib}/libreadline.so.%{rl_vers} %{buildroot}/%{_libdir}/libreadline.so
 popd
-  make install DESTDIR=%{buildroot}
+  %make_install
   make -C examples/loadables/ install-supported DESTDIR=%{buildroot} libdir=/%{_lib}
   rm -rf %{buildroot}%{_libdir}/bash
   rm -rf %{buildroot}/%{_lib}/pkgconfig
@@ -656,7 +655,6 @@ ldd -u -r %{buildroot}/%{_lib}/libreadline.so.* || true
 %{?buildroot: %{__rm} -rf %{buildroot}}
 
 %files
-%defattr(-,root,root)
 %config %attr(600,root,root) %{_sysconfdir}/skel/.bash_history
 %config %attr(644,root,root) %{_sysconfdir}/skel/.bashrc
 %config %attr(644,root,root) %{_sysconfdir}/skel/.profile
@@ -671,10 +669,8 @@ ldd -u -r %{buildroot}/%{_lib}/libreadline.so.* || true
 %{_datadir}/bash/helpfiles/*
 
 %files -n bash-lang -f bash.lang
-%defattr(-,root,root)
 
 %files -n bash-doc
-%defattr(-,root,root)
 %doc %{_infodir}/bash.info*
 %doc %{_mandir}/man1/bash.1*
 %doc %{_mandir}/man1/bashbuiltins.1*
@@ -684,7 +680,6 @@ ldd -u -r %{buildroot}/%{_lib}/libreadline.so.* || true
 
 %if 0%suse_version >= 1020
 %files -n bash-devel
-%defattr(-,root,root)
 %dir /%{_includedir}/bash/
 %dir /%{_includedir}/bash/
 %dir /%{_includedir}/bash/builtins/
@@ -696,26 +691,22 @@ ldd -u -r %{buildroot}/%{_lib}/libreadline.so.* || true
 %endif
 
 %files -n bash-loadables
-%defattr(-,root,root)
 %dir %{_ldldir}/
 %dir %{_ldldir}/
 %{_ldldir}/*
 
 %files -n libreadline7
-%defattr(-,root,root)
 /%{_lib}/libhistory.so.%{rl_major}
 /%{_lib}/libhistory.so.%{rl_vers}
 /%{_lib}/libreadline.so.%{rl_major}
 /%{_lib}/libreadline.so.%{rl_vers}
 
 %files -n readline-devel
-%defattr(-,root,root)
 %{_incdir}/readline/
 %{_libdir}/libhistory.so
 %{_libdir}/libreadline.so
 
 %files -n readline-doc
-%defattr(-,root,root)
 %doc %{_infodir}/history.info*
 %doc %{_infodir}/readline.info*
 %doc %{_infodir}/rluserman.info*
