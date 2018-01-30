@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jan 30 14:42:52 UTC 2018 - msrb@suse.com
+
+- Require Mesa-dri-32bit and Mesa-gallium-32bit by Mesa-32bit. It
+  mirrors the requirement of the normal packages. (bnc#1078261)
+
+-------------------------------------------------------------------
 Mon Jan 29 10:43:04 UTC 2018 - msrb@suse.com
 
 - Disable AMDGPU GFX9/Vega with LLVM < 6.0.0.
