@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Jan 31 14:58:07 UTC 2018 - msrb@suse.com
+
+- Remove dependency on clang-devel-static. (bnc#1065464)
+  * It was removed, clang-devel now again provides everything
+    necessary as shared libraries.
+
+-------------------------------------------------------------------
 Tue Jan 30 14:42:52 UTC 2018 - msrb@suse.com
 
 - Require Mesa-dri-32bit and Mesa-gallium-32bit by Mesa-32bit. It
