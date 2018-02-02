@@ -42,7 +42,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 17.3.3
+%define _version 18.0.0-rc3
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -107,7 +107,7 @@
 %endif
 
 Name:           Mesa
-Version:        17.3.3
+Version:        18.0.0
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -140,7 +140,6 @@ Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 # Upstream
 Patch43:        u_mesa-python3-only.patch
-Patch44:        U_intel-Add-more-Coffee-Lake-PCI-IDs.patch
 Patch45:        n_Disable-AMDGPU-GFX9-Vega-on-LLVM-lessthan-6.0.0.patch
 
 BuildRequires:  autoconf >= 2.60
@@ -749,7 +748,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %endif
 
 %patch43 -p1
-%patch44 -p1
 %patch45 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when

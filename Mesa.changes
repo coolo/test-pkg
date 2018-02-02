@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Feb  2 13:52:41 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.0.0-rc3
+  * includes significant improvements for OpenGL and Vulkan support
+    and performance.
+
+-------------------------------------------------------------------
 Wed Jan 31 14:58:07 UTC 2018 - msrb@suse.com
 
 - Remove dependency on clang-devel-static. (bnc#1065464)
