@@ -4,6 +4,7 @@ Fri Feb  2 13:52:41 UTC 2018 - sndirsch@suse.com
 - Update to 18.0.0-rc3
   * includes significant improvements for OpenGL and Vulkan support
     and performance.
+- supersedes U_intel-Add-more-Coffee-Lake-PCI-IDs.patch
 
 -------------------------------------------------------------------
 Wed Jan 31 14:58:07 UTC 2018 - msrb@suse.com
