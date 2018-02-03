@@ -96,6 +96,7 @@ Patch47:        bash-4.3-perl522.patch
 Patch48:        bash-4.3-extra-import-func.patch
 # PATCH-EXTEND-SUSE Allow root to clean file system if filled up
 Patch49:        bash-4.3-pathtemp.patch
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
 %global         _ldldir     /%{_lib}/bash
@@ -560,9 +561,9 @@ popd
 
 %install
 pushd ../readline-%{rl_vers}%{rextend}
-  %make_install htmldir=%{_defaultdocdir}/readline \
-	       installdir=%{_defaultdocdir}/readline/examples
-  %make_install install-shared libdir=/%{_lib} linkagedir=%{_libdir}
+  make install htmldir=%{_defaultdocdir}/readline \
+	       installdir=%{_defaultdocdir}/readline/examples DESTDIR=%{buildroot}
+  make install-shared libdir=/%{_lib} linkagedir=%{_libdir} DESTDIR=%{buildroot}
   rm -rf %{buildroot}%{_defaultdocdir}/bash
   mkdir -p %{buildroot}%{_defaultdocdir}/bash
   chmod 0755 %{buildroot}/%{_lib}/libhistory.so.%{rl_vers}
@@ -574,7 +575,7 @@ pushd ../readline-%{rl_vers}%{rextend}
   ln -sf /%{_lib}/libhistory.so.%{rl_vers}  %{buildroot}/%{_libdir}/libhistory.so
   ln -sf /%{_lib}/libreadline.so.%{rl_vers} %{buildroot}/%{_libdir}/libreadline.so
 popd
-  %make_install
+  make install DESTDIR=%{buildroot}
   make -C examples/loadables/ install-supported DESTDIR=%{buildroot} libdir=/%{_lib}
   rm -rf %{buildroot}%{_libdir}/bash
   rm -rf %{buildroot}/%{_lib}/pkgconfig
