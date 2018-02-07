@@ -140,6 +140,7 @@ Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 # Upstream
 Patch43:        u_mesa-python3-only.patch
+Patch44:        u_mesa-st-shader_cache-restore-num_tgsi_tokens-when-loading.patch
 Patch45:        n_Disable-AMDGPU-GFX9-Vega-on-LLVM-lessthan-6.0.0.patch
 
 BuildRequires:  autoconf >= 2.60
@@ -748,6 +749,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %endif
 
 %patch43 -p1
+%patch44 -p1
 %patch45 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when

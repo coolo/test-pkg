@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Feb  6 08:42:03 UTC 2018 - msrb@suse.com
+
+- u_mesa-st-shader_cache-restore-num_tgsi_tokens-when-loading.patch
+  * Fix crash when loading shader. (bnc#1079465)
+
+-------------------------------------------------------------------
 Fri Feb  2 13:52:41 UTC 2018 - sndirsch@suse.com
 
 - Update to 18.0.0-rc3
