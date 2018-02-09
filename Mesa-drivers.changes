@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Feb  9 13:45:16 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.0.0-rc4
+- supersedes u_mesa-st-shader_cache-restore-num_tgsi_tokens-when-loading.patch 
+
+-------------------------------------------------------------------
 Tue Feb  6 08:42:03 UTC 2018 - msrb@suse.com
 
 - u_mesa-st-shader_cache-restore-num_tgsi_tokens-when-loading.patch
