@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Feb 12 12:32:21 UTC 2018 - joop.boonen@opensuse.org
+
+- Added %{release} so the correct package release is used
+  when a package has been patched
+
+-------------------------------------------------------------------
 Fri Feb  9 13:45:16 UTC 2018 - sndirsch@suse.com
 
 - Update to 18.0.0-rc4

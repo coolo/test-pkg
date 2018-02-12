@@ -231,16 +231,16 @@ BuildRequires:  libclc
 %endif
 
 %if 0%{?libglvnd}
-Requires:       Mesa-libEGL1  = %{version}
-Requires:       Mesa-libGL1  = %{version}
+Requires:       Mesa-libEGL1  = %{version}-%{release}
+Requires:       Mesa-libGL1  = %{version}-%{release}
 Requires:       libglvnd >= 0.1.0
 %endif
 
 # This dependency on Mesa-dri and Mesa-gallium is here to make sure users that
 # do not install recommends on their system still get working Mesa. It is
 # ignored in obs when Mesa is installed as build dependency.
-Requires:       Mesa-dri = %{version}
-Requires:       Mesa-gallium = %{version}
+Requires:       Mesa-dri = %{version}-%{release}
+Requires:       Mesa-gallium = %{version}-%{release}
 
 %description
 Mesa is a 3-D graphics library with an API which is very similar to
@@ -260,25 +260,25 @@ just Mesa or The Mesa 3-D graphics library.
 %package devel
 Summary:        Libraries, includes and more to develop Mesa applications
 Group:          Development/Libraries/X11
-Requires:       Mesa = %{version}
-Requires:       Mesa-dri-devel = %{version}
-Requires:       Mesa-libEGL-devel = %{version}
-Requires:       Mesa-libGL-devel = %{version}
-Requires:       Mesa-libGLESv1_CM-devel = %{version}
-Requires:       Mesa-libGLESv2-devel = %{version}
-Requires:       Mesa-libglapi-devel = %{version}
-Requires:       libOSMesa-devel = %{version}
+Requires:       Mesa = %{version}-%{release}
+Requires:       Mesa-dri-devel = %{version}-%{release}
+Requires:       Mesa-libEGL-devel = %{version}-%{release}
+Requires:       Mesa-libGL-devel = %{version}-%{release}
+Requires:       Mesa-libGLESv1_CM-devel = %{version}-%{release}
+Requires:       Mesa-libGLESv2-devel = %{version}-%{release}
+Requires:       Mesa-libglapi-devel = %{version}-%{release}
+Requires:       libOSMesa-devel = %{version}-%{release}
 Requires:       libgbm-devel
-Provides:       Mesa-devel-static = %{version}
-Provides:       xorg-x11-Mesa-devel = %{version}
-Obsoletes:      Mesa-devel-static < %{version}
-Obsoletes:      xorg-x11-Mesa-devel < %{version}
-Provides:       Mesa-libIndirectGL-devel = %{version}
-Obsoletes:      Mesa-libIndirectGL-devel < %{version}
-Provides:       s2tc-devel = %{version}
-Obsoletes:      s2tc-devel < %{version}
-Provides:       libtxc_dxtn-devel = %{version}
-Obsoletes:      libtxc_dxtn-devel < %{version}
+Provides:       Mesa-devel-static = %{version}-%{release}
+Provides:       xorg-x11-Mesa-devel = %{version}-%{release}
+Obsoletes:      Mesa-devel-static < %{version}-%{release}
+Obsoletes:      xorg-x11-Mesa-devel < %{version}-%{release}
+Provides:       Mesa-libIndirectGL-devel = %{version}-%{release}
+Obsoletes:      Mesa-libIndirectGL-devel < %{version}-%{release}
+Provides:       s2tc-devel = %{version}-%{release}
+Obsoletes:      s2tc-devel < %{version}-%{release}
+Provides:       libtxc_dxtn-devel = %{version}-%{release}
+Obsoletes:      libtxc_dxtn-devel < %{version}-%{release}
 %if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
 Requires:       libwayland-egl-devel
 %endif
@@ -320,7 +320,7 @@ support.
 %package libEGL-devel
 Summary:        Development files for the EGL API
 Group:          Development/Libraries/C and C++
-Requires:       Mesa-libEGL1 = %{version}
+Requires:       Mesa-libEGL1 = %{version}-%{release}
 %if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
 %endif
@@ -339,7 +339,7 @@ programs against the EGL library.
 %package libGL1
 Summary:        The GL/GLX runtime of the Mesa 3D graphics library
 Group:          System/Libraries
-Requires:       Mesa = %{version}
+Requires:       Mesa = %{version}-%{release}
 %if 0%{?libglvnd}
 Requires:       libglvnd >= 0.1.0
 %endif
@@ -357,7 +357,7 @@ the X Window System.
 %package libGL-devel
 Summary:        GL/GLX development files of the OpenGL API
 Group:          Development/Libraries/C and C++
-Requires:       Mesa-libGL1 = %{version}
+Requires:       Mesa-libGL1 = %{version}-%{release}
 %if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
 %endif
@@ -388,7 +388,7 @@ OpenGL|ES 1.x provides an API for fixed-function hardware.
 %package libGLESv1_CM-devel
 Summary:        Development files for the OpenGL ES 1.x API
 Group:          Development/Libraries/C and C++
-Requires:       Mesa-libGLESv1_CM1 = %{version}
+Requires:       Mesa-libGLESv1_CM1 = %{version}-%{release}
 %if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
 %endif
@@ -427,7 +427,7 @@ ES 3 entry points.
 %package libGLESv2-devel
 Summary:        Development files for the OpenGL ES 2.x API
 Group:          Development/Libraries/C and C++
-Requires:       Mesa-libGLESv2-2 = %{version}
+Requires:       Mesa-libGLESv2-2 = %{version}-%{release}
 %if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
 %endif
@@ -449,7 +449,7 @@ applications using the OpenGL|ES 2.x APIs.
 Summary:        Development files for the OpenGL ES 3.x API
 Group:          Development/Libraries/C and C++
 %if 0%{?libglvnd} == 0
-Requires:       Mesa-libGLESv2-2 = %{version}
+Requires:       Mesa-libGLESv2-2 = %{version}-%{release}
 %endif
 Requires:       pkgconfig(egl)
 
@@ -477,7 +477,7 @@ rendering context on an X Server. It uses a pure software renderer.
 %package -n libOSMesa-devel
 Summary:        Development files for the Mesa Offscreen Rendering extension
 Group:          Development/Libraries/C and C++
-Requires:       libOSMesa8 = %{version}
+Requires:       libOSMesa8 = %{version}-%{release}
 
 %description -n libOSMesa-devel
 Development files for the OSmesa Mesa extension that allows programs to render to an
@@ -496,7 +496,7 @@ packages.
 %package libglapi-devel
 Summary:        Development files for the Mesa GL API implementation
 Group:          Development/Libraries/C and C++
-Requires:       Mesa-libglapi0 = %{version}
+Requires:       Mesa-libglapi0 = %{version}-%{release}
 
 %description libglapi-devel
 Development files for the Mesa GL API module which is responsible for
@@ -506,7 +506,7 @@ the Mesa-libGLES* packages.
 %package -n Mesa-dri
 Summary:        DRI plug-ins for 3D acceleration
 Group:          System/Libraries
-Requires:       Mesa = %{version}
+Requires:       Mesa = %{version}-%{release}
 Supplements:    Mesa
 
 %description -n Mesa-dri
@@ -515,7 +515,7 @@ This package contains Mesa DRI drivers for 3D acceleration.
 %package dri-devel
 Summary:        Development files for the DRI API
 Group:          Development/Libraries/C and C++
-Requires:       Mesa = %{version}
+Requires:       Mesa = %{version}-%{release}
 
 %description dri-devel
 This package contains the development environment required for
@@ -524,7 +524,7 @@ compiling programs and libraries using the DRI API.
 %package -n Mesa-dri-nouveau
 Summary:        Mesa DRI plug-in for 3D acceleration via Nouveau
 Group:          System/Libraries
-Requires:       Mesa = %{version}
+Requires:       Mesa = %{version}-%{release}
 Supplements:    xf86-video-nouveau
 
 %description -n Mesa-dri-nouveau
@@ -535,7 +535,7 @@ since it is still experimental.
 %package -n Mesa-gallium
 Summary:        Mesa Gallium GPU drivers
 Group:          System/Libraries
-Requires:       Mesa = %{version}
+Requires:       Mesa = %{version}-%{release}
 Supplements:    Mesa
 
 %description -n Mesa-gallium
@@ -556,7 +556,7 @@ openwfd.
 %package -n libgbm-devel
 Summary:        Development files for the EGL API
 Group:          Development/Libraries/C and C++
-Requires:       libgbm1 = %{version}
+Requires:       libgbm1 = %{version}-%{release}
 
 %description -n libgbm-devel
 This package contains the GBM buffer management library. It provides
@@ -581,7 +581,7 @@ that need not run full-screen and cooperate with a compositor.
 %package -n libwayland-egl-devel
 Summary:        Development files for libwayland-egl1
 Group:          Development/Libraries/C and C++
-Requires:       libwayland-egl1 = %{version}
+Requires:       libwayland-egl1 = %{version}-%{release}
 
 %description -n libwayland-egl-devel
 This package is required to link wayland client applications to the EGL
@@ -603,7 +603,7 @@ Mesa Direct3D9 state tracker
 %package -n Mesa-libd3d-devel
 Summary:        Mesa Direct3D9 state tracker development package
 Group:          Development/Libraries/C and C++
-Requires:       Mesa-libd3d = %{version}
+Requires:       Mesa-libd3d = %{version}-%{release}
 
 %description -n Mesa-libd3d-devel
 Mesa Direct3D9 state tracker development package
@@ -694,8 +694,8 @@ This package contains the Vulkan parts for Mesa.
 %package -n Mesa-libVulkan-devel
 Summary:        Mesa's Vulkan development files
 Group:          Development/Libraries/C and C++
-Requires:       libvulkan_intel = %{version}
-Requires:       libvulkan_radeon = %{version}
+Requires:       libvulkan_intel = %{version}-%{release}
+Requires:       libvulkan_radeon = %{version}-%{release}
 Conflicts:      vulkan-devel
 
 %description -n Mesa-libVulkan-devel
@@ -718,7 +718,7 @@ Version:        1.0.0
 Release:        0
 Summary:        Development files for the XA API
 Group:          Development/Libraries/C and C++
-Requires:       libxatracker2 = %{version}
+Requires:       libxatracker2 = %{version}-%{release}
 
 %description -n libxatracker-devel
 This package contains the XA state tracker for gallium3D driver.
