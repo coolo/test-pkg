@@ -142,6 +142,7 @@ Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 # Upstream
 Patch43:        u_mesa-python3-only.patch
 Patch45:        n_Disable-AMDGPU-GFX9-Vega-on-LLVM-lessthan-6.0.0.patch
+Patch46:        u_glsl-linker-error.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -750,6 +751,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 
 %patch43 -p1
 %patch45 -p1
+%patch46 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...

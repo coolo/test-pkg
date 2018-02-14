@@ -1,8 +1,15 @@
 -------------------------------------------------------------------
-Mon Feb 12 12:32:21 UTC 2018 - joop.boonen@opensuse.org
+Wed Feb 14 09:48:41 UTC 2018 - mimi.vx@gmail.com
+
+- add u_glsl-linker-error.patch
+  * fix fdo#104777 - Attaching multiple shader objects for the same
+      stage to a GLSL program triggers a linker error
+
+-------------------------------------------------------------------
+Mon Feb 12 12:31:05 UTC 2018 - joop.boonen@opensuse.org
 
 - Added %{release} so the correct package release is used
-  when a package has been patched
+  when a package has been patched 
 
 -------------------------------------------------------------------
 Fri Feb  9 13:45:16 UTC 2018 - sndirsch@suse.com
