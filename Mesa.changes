@@ -2,8 +2,9 @@
 Wed Feb 14 09:48:41 UTC 2018 - mimi.vx@gmail.com
 
 - add u_glsl-linker-error.patch
-  * fix fdo#104777 - Attaching multiple shader objects for the same
-      stage to a GLSL program triggers a linker error
+  * Fix attaching multiple shader objects for the same stage to a
+    GLSL program triggers a linker error (fdo#104777, bnc#1080492)
+  * Fixes issue with wine applications.
 
 -------------------------------------------------------------------
 Mon Feb 12 12:31:05 UTC 2018 - joop.boonen@opensuse.org
