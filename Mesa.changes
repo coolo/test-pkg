@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Feb 15 09:25:16 UTC 2018 - mimi.vx@gmail.com
+
+- remove %{release} based dependecies
+   Unfortuanetly Mesa and Mesa-drivers can have different release number
+   Release is Commit_Count.Build_Count and build count can be different
+   because both packages have different dependencies
+
+-------------------------------------------------------------------
 Wed Feb 14 09:48:41 UTC 2018 - mimi.vx@gmail.com
 
 - add u_glsl-linker-error.patch
