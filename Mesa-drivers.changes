@@ -1,4 +1,29 @@
 -------------------------------------------------------------------
+Wed Jan 31 14:58:07 UTC 2018 - msrb@suse.com
+
+- Remove dependency on clang-devel-static. (bnc#1065464)
+  * It was removed, clang-devel now again provides everything
+    necessary as shared libraries.
+
+-------------------------------------------------------------------
+Tue Jan 30 14:42:52 UTC 2018 - msrb@suse.com
+
+- Require Mesa-dri-32bit and Mesa-gallium-32bit by Mesa-32bit. It
+  mirrors the requirement of the normal packages. (bnc#1078261)
+
+-------------------------------------------------------------------
+Mon Jan 29 10:43:04 UTC 2018 - msrb@suse.com
+
+- Disable AMDGPU GFX9/Vega with LLVM < 6.0.0.
+  * n_Disable-AMDGPU-GFX9-Vega-on-LLVM-lessthan-6.0.0.patch
+  * While it is supported since LLVM 5.0.0, it was not working
+    correctly (bnc#1075901). Since we do not have the resources to
+    determine which fixes should be backported and LLVM 6 will be
+    released relatively soon, disable the support until then. Users
+    with the card will have working desktop using software
+    rendering just like they did with LLVM 4.
+
+-------------------------------------------------------------------
 Mon Jan 22 09:43:41 UTC 2018 - normand@linux.vnet.ibm.com
 
 - in spec file move %dir %{_libdir}/dri to avoid ppc build failure
