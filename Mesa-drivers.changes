@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Feb 16 14:59:04 UTC 2018 - mstaudt@suse.com
+
+- Split Nouveau and VC4 from the main driver package on all systems
+
+  Fixes (boo#1081210).
+
+-------------------------------------------------------------------
 Thu Feb 15 09:25:16 UTC 2018 - mimi.vx@gmail.com
 
 - remove %{release} based dependecies

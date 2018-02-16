@@ -533,6 +533,16 @@ This package contains nouveau_dri.so, which is necessary for
 Nouveau's 3D acceleration to work. It is packaged separately
 since it is still experimental.
 
+%package -n Mesa-dri-vc4
+Summary:        Mesa DRI plug-in for 3D acceleration on Raspberry Pi
+Group:          System/Libraries
+Requires:       Mesa = %{version}
+
+%description -n Mesa-dri-vc4
+This package contains vc4_dri.so, which is necessary for 3D
+acceleration on the Raspberry Pi to work. It is packaged separately
+since it is still experimental.
+
 %package -n Mesa-gallium
 Summary:        Mesa Gallium GPU drivers
 Group:          System/Libraries
@@ -1170,11 +1180,12 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %files -n Mesa-dri
 %dir %{_libdir}/dri
 %{_libdir}/dri/*_dri.so
-%if 0%{?is_opensuse}
 %ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le
 %exclude %{_libdir}/dri/nouveau_dri.so
 %exclude %{_libdir}/dri/nouveau_vieux_dri.so
 %endif
+%ifarch %arm aarch64
+%exclude %{_libdir}/dri/vc4_dri.so
 %endif
 
 %if 0%{with_opencl}
@@ -1184,12 +1195,15 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_libdir}/gallium-pipe/pipe_*.so
 %endif
 
-%if 0%{?is_opensuse}
 %ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le
 %files -n Mesa-dri-nouveau
 %{_libdir}/dri/nouveau_dri.so
 %{_libdir}/dri/nouveau_vieux_dri.so
 %endif
+
+%ifarch aarch64 %arm
+%files -n Mesa-dri-vc4
+%{_libdir}/dri/vc4_dri.so
 %endif
 
 # drivers
