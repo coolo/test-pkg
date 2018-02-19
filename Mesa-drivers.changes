@@ -1,4 +1,39 @@
 -------------------------------------------------------------------
+Fri Feb 16 14:59:04 UTC 2018 - mstaudt@suse.com
+
+- Split Nouveau and VC4 from the main driver package on all systems
+
+  Fixes (boo#1081210).
+
+-------------------------------------------------------------------
+Thu Feb 15 09:25:16 UTC 2018 - mimi.vx@gmail.com
+
+- remove %{release} based dependecies
+   Unfortuanetly Mesa and Mesa-drivers can have different release number
+   Release is Commit_Count.Build_Count and build count can be different
+   because both packages have different dependencies
+
+-------------------------------------------------------------------
+Wed Feb 14 09:48:41 UTC 2018 - mimi.vx@gmail.com
+
+- add u_glsl-linker-error.patch
+  * Fix attaching multiple shader objects for the same stage to a
+    GLSL program triggers a linker error (fdo#104777, bnc#1080492)
+  * Fixes issue with wine applications.
+
+-------------------------------------------------------------------
+Mon Feb 12 12:31:05 UTC 2018 - joop.boonen@opensuse.org
+
+- Added %{release} so the correct package release is used
+  when a package has been patched 
+
+-------------------------------------------------------------------
+Fri Feb  9 13:45:16 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.0.0-rc4
+- supersedes u_mesa-st-shader_cache-restore-num_tgsi_tokens-when-loading.patch 
+
+-------------------------------------------------------------------
 Tue Feb  6 08:42:03 UTC 2018 - msrb@suse.com
 
 - u_mesa-st-shader_cache-restore-num_tgsi_tokens-when-loading.patch
