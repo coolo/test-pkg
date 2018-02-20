@@ -42,7 +42,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 17.3.3
+%define _version 18.0.0-rc4
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -107,7 +107,7 @@
 %endif
 
 Name:           Mesa
-Version:        17.3.3
+Version:        18.0.0
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -140,8 +140,8 @@ Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 # Upstream
 Patch43:        u_mesa-python3-only.patch
-Patch44:        U_intel-Add-more-Coffee-Lake-PCI-IDs.patch
 Patch45:        n_Disable-AMDGPU-GFX9-Vega-on-LLVM-lessthan-6.0.0.patch
+Patch46:        u_glsl-linker-error.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -466,8 +466,8 @@ applications using the OpenGL|ES 3.x APIs.
 Summary:        Mesa Off-screen rendering extension
 # Wrongly named package shipped .so.8
 Group:          System/Libraries
-Obsoletes:      libOSMesa9 < %{version}-%{release}
-Provides:       libOSMesa9 = %{version}-%{release}
+Obsoletes:      libOSMesa9 < %{version}
+Provides:       libOSMesa9 = %{version}
 
 %description -n libOSMesa8
 OSmesa is a Mesa extension that allows programs to render to an
@@ -530,6 +530,16 @@ Supplements:    xf86-video-nouveau
 %description -n Mesa-dri-nouveau
 This package contains nouveau_dri.so, which is necessary for
 Nouveau's 3D acceleration to work. It is packaged separately
+since it is still experimental.
+
+%package -n Mesa-dri-vc4
+Summary:        Mesa DRI plug-in for 3D acceleration on Raspberry Pi
+Group:          System/Libraries
+Requires:       Mesa = %{version}
+
+%description -n Mesa-dri-vc4
+This package contains vc4_dri.so, which is necessary for 3D
+acceleration on the Raspberry Pi to work. It is packaged separately
 since it is still experimental.
 
 %package -n Mesa-gallium
@@ -749,8 +759,8 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %endif
 
 %patch43 -p1
-%patch44 -p1
 %patch45 -p1
+%patch46 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
@@ -1169,11 +1179,12 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %files -n Mesa-dri
 %dir %{_libdir}/dri
 %{_libdir}/dri/*_dri.so
-%if 0%{?is_opensuse}
 %ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le
 %exclude %{_libdir}/dri/nouveau_dri.so
 %exclude %{_libdir}/dri/nouveau_vieux_dri.so
 %endif
+%ifarch %arm aarch64
+%exclude %{_libdir}/dri/vc4_dri.so
 %endif
 
 %if 0%{with_opencl}
@@ -1183,12 +1194,15 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_libdir}/gallium-pipe/pipe_*.so
 %endif
 
-%if 0%{?is_opensuse}
 %ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le
 %files -n Mesa-dri-nouveau
 %{_libdir}/dri/nouveau_dri.so
 %{_libdir}/dri/nouveau_vieux_dri.so
 %endif
+
+%ifarch aarch64 %arm
+%files -n Mesa-dri-vc4
+%{_libdir}/dri/vc4_dri.so
 %endif
 
 # drivers
