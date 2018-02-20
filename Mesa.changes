@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Feb 19 23:24:22 UTC 2018 - schwab@suse.de
+
+- Mesa-gallium only exists if %{with_opencl}
+- Add support for riscv64
+
+-------------------------------------------------------------------
 Fri Feb 16 14:59:04 UTC 2018 - mstaudt@suse.com
 
 - Split Nouveau and VC4 from the main driver package on all systems

@@ -82,6 +82,12 @@
   %define with_llvm 1
 %endif
 
+%if 0%{with_opencl}
+%define have_gallium 1
+%else
+%define have_gallium 0
+%endif
+
 %if %{drivers}
   %define glamor 0
 %else
@@ -241,7 +247,9 @@ Requires:       libglvnd >= 0.1.0
 # do not install recommends on their system still get working Mesa. It is
 # ignored in obs when Mesa is installed as build dependency.
 Requires:       Mesa-dri = %{version}
+%if 0%{have_gallium}
 Requires:       Mesa-gallium = %{version}
+%endif
 
 %description
 Mesa is a 3-D graphics library with an API which is very similar to
@@ -465,8 +473,8 @@ applications using the OpenGL|ES 3.x APIs.
 
 %package -n libOSMesa8
 Summary:        Mesa Off-screen rendering extension
-# Wrongly named package shipped .so.8
 Group:          System/Libraries
+# Wrongly named package shipped .so.8
 Obsoletes:      libOSMesa9 < %{version}
 Provides:       libOSMesa9 = %{version}
 
@@ -600,9 +608,9 @@ implementation of Mesa.
 
 %package -n Mesa-libd3d
 Summary:        Mesa Direct3D9 state tracker
-# Manually provide d3d library (bnc#918294)
 Group:          System/Libraries
-%ifarch x86_64 s390x ppc64le aarch64
+# Manually provide d3d library (bnc#918294)
+%ifarch x86_64 s390x ppc64le aarch64 riscv64
 Provides:       d3dadapter9.so.1()(64bit)
 %else
 Provides:       d3dadapter9.so.1
@@ -845,7 +853,7 @@ export PYTHON2=/usr/bin/python3
            --with-dri-drivers=nouveau \
            --with-gallium-drivers=r300,r600,nouveau,swrast \
   %endif
-  %ifarch ia64 ppc hppa s390 s390x
+  %ifarch ia64 ppc hppa s390 s390x riscv64
            --with-dri-drivers=swrast \
            --with-gallium-drivers=swrast \
   %endif
