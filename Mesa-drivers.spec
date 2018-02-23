@@ -222,9 +222,6 @@ BuildRequires:  pkgconfig(wayland-server) >= 1.11
 %if 0%{with_llvm}
 BuildRequires:  llvm-devel >= 3.9.0
 %endif
-%ifarch aarch64 %arm ppc64 ppc64le s390x %ix86 x86_64
-BuildRequires:  ncurses-devel
-%endif
 
 %if 0%{with_opencl}
 BuildRequires:  clang-devel

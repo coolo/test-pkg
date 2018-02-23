@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Feb 23 13:25:16 UTC 2018 - sndirsch@suse.com
+
+- removed no longer needed ncurses-devel BuildRequires (boo#1082315)
+
+-------------------------------------------------------------------
 Fri Feb 23 13:19:41 UTC 2018 - sndirsch@suse.com
 
 - redone u_add_llvm_codegen_dependencies.patch and renamed to
