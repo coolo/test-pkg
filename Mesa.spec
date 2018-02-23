@@ -139,8 +139,6 @@ Patch13:        u_mesa-8.0.1-fix-16bpp.patch
 Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
 # never to be upstreamed
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
-# never to be upstreamed
-Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
 # currently needed for libglvnd support
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
@@ -472,8 +470,8 @@ applications using the OpenGL|ES 3.x APIs.
 
 %package -n libOSMesa8
 Summary:        Mesa Off-screen rendering extension
-Group:          System/Libraries
 # Wrongly named package shipped .so.8
+Group:          System/Libraries
 Obsoletes:      libOSMesa9 < %{version}
 Provides:       libOSMesa9 = %{version}
 
@@ -607,8 +605,8 @@ implementation of Mesa.
 
 %package -n Mesa-libd3d
 Summary:        Mesa Direct3D9 state tracker
-Group:          System/Libraries
 # Manually provide d3d library (bnc#918294)
+Group:          System/Libraries
 %ifarch x86_64 s390x ppc64le aarch64 riscv64
 Provides:       d3dadapter9.so.1()(64bit)
 %else
@@ -759,7 +757,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 #%patch13 -p1
 %patch12 -p1
 %patch18 -p1
-%patch21 -p1
 
 %if 0%{?libglvnd}
 %patch31 -p1

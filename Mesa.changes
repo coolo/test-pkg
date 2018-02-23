@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Feb 23 10:51:04 UTC 2018 - sndirsch@suse.com
+
+- removed n_Define-GLAPIVAR-separate-from-GLAPI.patch 
+  * bits moved to libGLw's n_Use-newly-introduced-GLAPIVAR-for-variables.patch
+    (boo#1082297)
+
+-------------------------------------------------------------------
 Mon Feb 19 23:24:22 UTC 2018 - schwab@suse.de
 
 - Mesa-gallium only exists if %{with_opencl}
