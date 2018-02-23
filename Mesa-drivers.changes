@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Feb 23 13:03:51 UTC 2018 - sndirsch@suse.com
+
+- removed u_mesa-8.0.1-fix-16bpp.patch and
+  u_mesa-8.0-llvmpipe-shmget.patch, which we no longer apply since
+  about 5 years (boo#1082305)
+
+-------------------------------------------------------------------
 Fri Feb 23 12:01:29 UTC 2018 - sndirsch@suse.com
 
 - recreated u_mesa-python3-only.patch and renamed to
