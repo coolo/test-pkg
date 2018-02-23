@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Feb 23 13:19:41 UTC 2018 - sndirsch@suse.com
+
+- redone u_add_llvm_codegen_dependencies.patch and renamed to
+  u_configure.ac-Link-to-libLLVMCodegen-to-fix-cyclic-li.patch
+  (boo#1082307)
+
+-------------------------------------------------------------------
 Fri Feb 23 13:03:51 UTC 2018 - sndirsch@suse.com
 
 - removed u_mesa-8.0.1-fix-16bpp.patch and

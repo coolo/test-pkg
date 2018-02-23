@@ -133,7 +133,7 @@ Source6:        %{name}-rpmlintrc
 Source7:        Mesa.keyring
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
-Patch12:        u_add_llvm_codegen_dependencies.patch
+Patch12:        u_configure.ac-Link-to-libLLVMCodegen-to-fix-cyclic-li.patch
 # never to be upstreamed
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # currently needed for libglvnd support
