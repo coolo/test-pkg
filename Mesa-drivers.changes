@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Feb 23 12:01:29 UTC 2018 - sndirsch@suse.com
+
+- recreated u_mesa-python3-only.patch and renamed to
+  u_r600-egd_tables.py-added-support-for-python-3.patch; also
+  removed first hunk (boo#1082303)
+
+-------------------------------------------------------------------
 Fri Feb 23 10:51:04 UTC 2018 - sndirsch@suse.com
 
 - removed n_Define-GLAPIVAR-separate-from-GLAPI.patch 
