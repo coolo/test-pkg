@@ -1,4 +1,43 @@
 -------------------------------------------------------------------
+Fri Feb 23 13:25:16 UTC 2018 - sndirsch@suse.com
+
+- removed no longer needed ncurses-devel BuildRequires (boo#1082315)
+
+-------------------------------------------------------------------
+Fri Feb 23 13:19:41 UTC 2018 - sndirsch@suse.com
+
+- redone u_add_llvm_codegen_dependencies.patch and renamed to
+  u_configure.ac-Link-to-libLLVMCodegen-to-fix-cyclic-li.patch
+  (boo#1082307)
+
+-------------------------------------------------------------------
+Fri Feb 23 13:03:51 UTC 2018 - sndirsch@suse.com
+
+- removed u_mesa-8.0.1-fix-16bpp.patch and
+  u_mesa-8.0-llvmpipe-shmget.patch, which we no longer apply since
+  about 5 years (boo#1082305)
+
+-------------------------------------------------------------------
+Fri Feb 23 12:01:29 UTC 2018 - sndirsch@suse.com
+
+- recreated u_mesa-python3-only.patch and renamed to
+  u_r600-egd_tables.py-added-support-for-python-3.patch; also
+  removed first hunk (boo#1082303)
+
+-------------------------------------------------------------------
+Fri Feb 23 10:51:04 UTC 2018 - sndirsch@suse.com
+
+- removed n_Define-GLAPIVAR-separate-from-GLAPI.patch 
+  * bits moved to libGLw's n_Use-newly-introduced-GLAPIVAR-for-variables.patch
+    (boo#1082297)
+
+-------------------------------------------------------------------
+Mon Feb 19 23:24:22 UTC 2018 - schwab@suse.de
+
+- Mesa-gallium only exists if %{with_opencl}
+- Add support for riscv64
+
+-------------------------------------------------------------------
 Fri Feb 16 14:59:04 UTC 2018 - mstaudt@suse.com
 
 - Split Nouveau and VC4 from the main driver package on all systems
