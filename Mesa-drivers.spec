@@ -82,6 +82,12 @@
   %define with_llvm 1
 %endif
 
+%if 0%{with_opencl}
+%define have_gallium 1
+%else
+%define have_gallium 0
+%endif
+
 %if %{drivers}
   %define glamor 0
 %else
@@ -127,20 +133,14 @@ Source6:        %{name}-rpmlintrc
 Source7:        Mesa.keyring
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
-Patch12:        u_add_llvm_codegen_dependencies.patch
-# Patch from Fedora, fix 16bpp in llvmpipe
-Patch13:        u_mesa-8.0.1-fix-16bpp.patch
-# Patch from Fedora, use shmget when available, under llvmpipe
-Patch15:        u_mesa-8.0-llvmpipe-shmget.patch
+Patch12:        u_configure.ac-Link-to-libLLVMCodegen-to-fix-cyclic-li.patch
 # never to be upstreamed
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
-# never to be upstreamed
-Patch21:        n_Define-GLAPIVAR-separate-from-GLAPI.patch
 # currently needed for libglvnd support
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 # Upstream
-Patch43:        u_mesa-python3-only.patch
+Patch43:        u_r600-egd_tables.py-added-support-for-python-3.patch
 Patch45:        n_Disable-AMDGPU-GFX9-Vega-on-LLVM-lessthan-6.0.0.patch
 Patch46:        u_glsl-linker-error.patch
 
@@ -222,9 +222,6 @@ BuildRequires:  pkgconfig(wayland-server) >= 1.11
 %if 0%{with_llvm}
 BuildRequires:  llvm-devel >= 3.9.0
 %endif
-%ifarch aarch64 %arm ppc64 ppc64le s390x %ix86 x86_64
-BuildRequires:  ncurses-devel
-%endif
 
 %if 0%{with_opencl}
 BuildRequires:  clang-devel
@@ -241,7 +238,9 @@ Requires:       libglvnd >= 0.1.0
 # do not install recommends on their system still get working Mesa. It is
 # ignored in obs when Mesa is installed as build dependency.
 Requires:       Mesa-dri = %{version}
+%if 0%{have_gallium}
 Requires:       Mesa-gallium = %{version}
+%endif
 
 %description
 Mesa is a 3-D graphics library with an API which is very similar to
@@ -602,7 +601,7 @@ implementation of Mesa.
 Summary:        Mesa Direct3D9 state tracker
 # Manually provide d3d library (bnc#918294)
 Group:          System/Libraries
-%ifarch x86_64 s390x ppc64le aarch64
+%ifarch x86_64 s390x ppc64le aarch64 riscv64
 Provides:       d3dadapter9.so.1()(64bit)
 %else
 Provides:       d3dadapter9.so.1
@@ -748,11 +747,8 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 ### order to figure out whether the issue is still reproducable and
 ### hence a fix is required
 #%patch11 -p1
-#%patch15 -p1
-#%patch13 -p1
 %patch12 -p1
 %patch18 -p1
-%patch21 -p1
 
 %if 0%{?libglvnd}
 %patch31 -p1
@@ -845,7 +841,7 @@ export PYTHON2=/usr/bin/python3
            --with-dri-drivers=nouveau \
            --with-gallium-drivers=r300,r600,nouveau,swrast \
   %endif
-  %ifarch ia64 ppc hppa s390 s390x
+  %ifarch ia64 ppc hppa s390 s390x riscv64
            --with-dri-drivers=swrast \
            --with-gallium-drivers=swrast \
   %endif
