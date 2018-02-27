@@ -941,26 +941,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %postun -n libxatracker2 -p /sbin/ldconfig
 
-%post   -n libXvMC_nouveau -p /sbin/ldconfig
-
-%postun -n libXvMC_nouveau -p /sbin/ldconfig
-
-%post   -n libXvMC_r600 -p /sbin/ldconfig
-
-%postun -n libXvMC_r600 -p /sbin/ldconfig
-
-%post   -n libvdpau_r300 -p /sbin/ldconfig
-
-%postun -n libvdpau_r300 -p /sbin/ldconfig
-
-%post   -n libvdpau_r600 -p /sbin/ldconfig
-
-%postun -n libvdpau_r600 -p /sbin/ldconfig
-
-%post   -n libvdpau_radeonsi -p /sbin/ldconfig
-
-%postun -n libvdpau_radeonsi -p /sbin/ldconfig
-
 %post   libglapi0 -p /sbin/ldconfig
 
 %postun libglapi0 -p /sbin/ldconfig
@@ -972,18 +952,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %post -n Mesa-libd3d -p /sbin/ldconfig
 
 %postun -n Mesa-libd3d -p /sbin/ldconfig
-
-%post   -n Mesa-libOpenCL -p /sbin/ldconfig
-
-%postun -n Mesa-libOpenCL -p /sbin/ldconfig
-
-%post -n Mesa-libva -p /sbin/ldconfig
-
-%postun -n Mesa-libva -p /sbin/ldconfig
-
-%post -n libvulkan_intel -p /sbin/ldconfig
-
-%postun -n libvulkan_intel -p /sbin/ldconfig
 
 %if !%{drivers}
 %files
