@@ -130,7 +130,6 @@ Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source6:        %{name}-rpmlintrc
 Source7:        Mesa.keyring
-Source8:        rpmlintrc
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 Patch12:        u_configure.ac-Link-to-libLLVMCodegen-to-fix-cyclic-li.patch
