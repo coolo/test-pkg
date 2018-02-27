@@ -44,7 +44,7 @@ Recommends:     bash-doc = %bash_vers
 Version:        4.4
 Release:        0
 Summary:        The GNU Bourne-Again Shell
-License:        GPL-3.0+
+License:        GPL-3.0-or-later
 Group:          System/Shells
 Url:            http://www.gnu.org/software/bash/bash.html
 # Git:          http://git.savannah.gnu.org/cgit/bash.git
@@ -230,7 +230,6 @@ includes history and search functionality.
 %package -n readline-devel
 Summary:        Include Files and Libraries mandatory for Development
 Group:          Development/Libraries/C and C++
-Provides:       bash:%{_libdir}/libreadline.a
 Version:        %{rl_vers}
 Release:        0
 Requires:       libreadline7 = %{rl_vers}
@@ -244,6 +243,20 @@ Obsoletes:      readline-devel-64bit
 
 %description -n readline-devel
 This package contains all necessary include files and libraries needed
+to develop applications that require these.
+
+%package -n readline-devel-static
+Summary:        Static library for Development
+Group:          Development/Libraries/C and C++
+Version:        %{rl_vers}
+Release:        0
+Requires:       ncurses-devel
+Requires:       readline-devel = %{rl_vers}
+Recommends:     readline-doc = %{rl_vers}
+#
+
+%description -n readline-devel-static
+This package contains the static library needed
 to develop applications that require these.
 
 %package -n readline-doc
@@ -426,7 +439,9 @@ pushd ../readline-%{rl_vers}%{rextend}
   LDFLAGS_FOR_BUILD="$LDFLAGS"
   export CC_FOR_BUILD CFLAGS_FOR_BUILD LDFLAGS_FOR_BUILD CFLAGS LDFLAGS CC
   ./configure --build=%{_target_cpu}-suse-linux	\
-	--disable-static		\
+	--enable-static			\
+	--enable-shared			\
+	--enable-multibyte		\
 	--prefix=%{_prefix}		\
 	--with-curses			\
 	--mandir=%{_mandir}		\
@@ -519,6 +534,7 @@ popd
 	--with-afs			\
 	$SYSMALLOC			\
 	--enable-job-control		\
+	--enable-net-redirections	\
 	--enable-alias			\
 	--enable-readline		\
 	--enable-history		\
@@ -562,7 +578,7 @@ popd
 pushd ../readline-%{rl_vers}%{rextend}
   %make_install htmldir=%{_defaultdocdir}/readline \
 	       installdir=%{_defaultdocdir}/readline/examples
-  %make_install install-shared libdir=/%{_lib} linkagedir=%{_libdir}
+  %make_install install libdir=/%{_lib} linkagedir=%{_libdir}
   rm -rf %{buildroot}%{_defaultdocdir}/bash
   mkdir -p %{buildroot}%{_defaultdocdir}/bash
   chmod 0755 %{buildroot}/%{_lib}/libhistory.so.%{rl_vers}
@@ -573,6 +589,9 @@ pushd ../readline-%{rl_vers}%{rextend}
   rm -vf %{buildroot}/%{_lib}/libreadline.so
   ln -sf /%{_lib}/libhistory.so.%{rl_vers}  %{buildroot}/%{_libdir}/libhistory.so
   ln -sf /%{_lib}/libreadline.so.%{rl_vers} %{buildroot}/%{_libdir}/libreadline.so
+  mv -vf %{buildroot}/%{_lib}/libhistory.a  %{buildroot}/%{_libdir}/libhistory.a
+  mv -vf %{buildroot}/%{_lib}/libreadline.a %{buildroot}/%{_libdir}/libreadline.a 
+  rm -vrf %{buildroot}%{_datadir}/readline/
 popd
   %make_install
   make -C examples/loadables/ install-supported DESTDIR=%{buildroot} libdir=/%{_lib}
@@ -714,6 +733,11 @@ ldd -u -r %{buildroot}/%{_lib}/libreadline.so.* || true
 %{_incdir}/readline/
 %{_libdir}/libhistory.so
 %{_libdir}/libreadline.so
+
+%files -n readline-devel-static
+%defattr(-,root,root)
+%{_libdir}/libhistory.a
+%{_libdir}/libreadline.a
 
 %files -n readline-doc
 %defattr(-,root,root)
