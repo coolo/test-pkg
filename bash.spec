@@ -656,6 +656,7 @@ ldd -u -r %{buildroot}/%{_lib}/libreadline.so.* || true
 
 %files
 %defattr(-,root,root)
+%license COPYING
 %config %attr(600,root,root) %{_sysconfdir}/skel/.bash_history
 %config %attr(644,root,root) %{_sysconfdir}/skel/.bashrc
 %config %attr(644,root,root) %{_sysconfdir}/skel/.profile
@@ -702,6 +703,7 @@ ldd -u -r %{buildroot}/%{_lib}/libreadline.so.* || true
 
 %files -n libreadline7
 %defattr(-,root,root)
+%license COPYING
 /%{_lib}/libhistory.so.%{rl_major}
 /%{_lib}/libhistory.so.%{rl_vers}
 /%{_lib}/libreadline.so.%{rl_major}
