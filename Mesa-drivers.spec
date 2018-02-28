@@ -145,9 +145,7 @@ Patch46:        u_glsl-linker-error.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
-BuildRequires:  bison
 BuildRequires:  fdupes
-BuildRequires:  flex
 BuildRequires:  gcc-c++
 BuildRequires:  imake
 BuildRequires:  libtool
@@ -167,9 +165,7 @@ BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.71
 BuildRequires:  pkgconfig(libglvnd) >= 0.1.0
 %endif
 BuildRequires:  pkgconfig(libkms) >= 1.0.0
-BuildRequires:  pkgconfig(libudev) > 151
 BuildRequires:  pkgconfig(libva)
-BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(presentproto)
 BuildRequires:  pkgconfig(vdpau) >= 1.1
 BuildRequires:  pkgconfig(x11)
