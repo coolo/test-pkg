@@ -132,7 +132,6 @@ Source6:        %{name}-rpmlintrc
 Source7:        Mesa.keyring
 # to be upstreamed
 Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
-Patch12:        u_configure.ac-Link-to-libLLVMCodegen-to-fix-cyclic-li.patch
 # never to be upstreamed
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # currently needed for libglvnd support
@@ -145,9 +144,7 @@ Patch46:        u_glsl-linker-error.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
-BuildRequires:  bison
 BuildRequires:  fdupes
-BuildRequires:  flex
 BuildRequires:  gcc-c++
 BuildRequires:  imake
 BuildRequires:  libtool
@@ -167,9 +164,7 @@ BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.71
 BuildRequires:  pkgconfig(libglvnd) >= 0.1.0
 %endif
 BuildRequires:  pkgconfig(libkms) >= 1.0.0
-BuildRequires:  pkgconfig(libudev) > 151
 BuildRequires:  pkgconfig(libva)
-BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(presentproto)
 BuildRequires:  pkgconfig(vdpau) >= 1.1
 BuildRequires:  pkgconfig(x11)
@@ -746,7 +741,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 ### order to figure out whether the issue is still reproducable and
 ### hence a fix is required
 #%patch11 -p1
-%patch12 -p1
 %patch18 -p1
 
 %if 0%{?libglvnd}
@@ -940,26 +934,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %postun -n libxatracker2 -p /sbin/ldconfig
 
-%post   -n libXvMC_nouveau -p /sbin/ldconfig
-
-%postun -n libXvMC_nouveau -p /sbin/ldconfig
-
-%post   -n libXvMC_r600 -p /sbin/ldconfig
-
-%postun -n libXvMC_r600 -p /sbin/ldconfig
-
-%post   -n libvdpau_r300 -p /sbin/ldconfig
-
-%postun -n libvdpau_r300 -p /sbin/ldconfig
-
-%post   -n libvdpau_r600 -p /sbin/ldconfig
-
-%postun -n libvdpau_r600 -p /sbin/ldconfig
-
-%post   -n libvdpau_radeonsi -p /sbin/ldconfig
-
-%postun -n libvdpau_radeonsi -p /sbin/ldconfig
-
 %post   libglapi0 -p /sbin/ldconfig
 
 %postun libglapi0 -p /sbin/ldconfig
@@ -971,18 +945,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %post -n Mesa-libd3d -p /sbin/ldconfig
 
 %postun -n Mesa-libd3d -p /sbin/ldconfig
-
-%post   -n Mesa-libOpenCL -p /sbin/ldconfig
-
-%postun -n Mesa-libOpenCL -p /sbin/ldconfig
-
-%post -n Mesa-libva -p /sbin/ldconfig
-
-%postun -n Mesa-libva -p /sbin/ldconfig
-
-%post -n libvulkan_intel -p /sbin/ldconfig
-
-%postun -n libvulkan_intel -p /sbin/ldconfig
 
 %if !%{drivers}
 %files
