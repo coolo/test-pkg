@@ -751,6 +751,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %endif
 
 #%patch43 -p1
+# fails once src/gallium/drivers/r600/egd_tables.h is part of release tarball
 %patch44 -p1
 %patch45 -p1
 %patch46 -p1
