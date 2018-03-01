@@ -138,7 +138,7 @@ Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 # Upstream
-#Patch43:        u_r600-egd_tables.py-added-support-for-python-3.patch
+Patch43:        u_r600-egd_tables.py-added-support-for-python-3.patch
 Patch44:        n_egd_tables_h.patch
 Patch45:        n_Disable-AMDGPU-GFX9-Vega-on-LLVM-lessthan-6.0.0.patch
 Patch46:        u_glsl-linker-error.patch
