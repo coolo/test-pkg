@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Mar  1 13:29:46 UTC 2018 - sndirsch@suse.com
+
+- added n_egd_tables_h.patch and disabled u_mesa-python3-only.patch
+  * use pregenerated egd_tables.h (via python2) instead of trying
+    to generate it during buildtime with python3 using an apparently
+    broken patch (boo#1082303)
+
+-------------------------------------------------------------------
 Wed Feb 28 14:57:00 UTC 2018 - sndirsch@suse.com
 
 - removed more unneeded buildrequires: libudev, openssl, bison, 
