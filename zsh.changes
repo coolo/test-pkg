@@ -1,4 +1,20 @@
 -------------------------------------------------------------------
+Tue Feb 27 12:21:43 UTC 2018 - kbabioch@suse.com
+
+- Updated to 5.4.2
+  * The 'exec' and 'command' precommand modifiers, and options to
+    them, are now parsed after parameter expansion.
+  * Functions executed by ZLE widgets no longer have their standard
+    input closed, but redirected from /dev/null instead.
+  * There is an option WARN_NESTED_VAR, a companion to the existing
+    WARN_CREATE_GLOBAL that causes a warning if a function updates a
+    variable from an enclosing scope without using typeset -g.
+  * zmodload now has an option -s to be silent on a failure to find
+    a module but still print other errors.
+- Dropped patch merged upstream:
+  * fix-patchutils-completion.patch
+
+-------------------------------------------------------------------
 Sun Mar  5 14:40:13 UTC 2017 - rpm@fthiessen.de
 
 - Update to 5.3.1

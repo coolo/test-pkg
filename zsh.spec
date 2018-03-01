@@ -1,7 +1,7 @@
 #
 # spec file for package zsh
 #
-# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,14 +17,14 @@
 
 
 Name:           zsh
-Version:        5.3.1
+Version:        5.4.2
 Release:        0%{?dist}
 Summary:        Shell with comprehensive completion
 License:        MIT
 Group:          System/Shells
 Url:            http://www.zsh.org
-Source0:        http://www.zsh.org/pub/zsh-%{version}.tar.xz
-Source1:        http://www.zsh.org/pub/zsh-%{version}.tar.xz.asc
+Source0:        http://www.zsh.org/pub/zsh-%{version}.tar.gz
+Source1:        http://www.zsh.org/pub/zsh-%{version}.tar.gz.asc
 Source2:        %{name}.keyring
 Source3:        zshrc
 Source4:        zshenv
@@ -40,7 +40,6 @@ Source16:       dotzshrc.rh
 Patch1:         trim-unneeded-completions.patch
 # PATCH-FIX-OPENSUSE zsh-osc-completion.patch -- Fix openSUSE versions in osc completion
 Patch2:         zsh-osc-completion.patch
-Patch3:         fix-patchutils-completion.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  groff
 %if 0%{?suse_version}
@@ -100,7 +99,6 @@ This package contains the Zsh manual in html format.
 %patch1 -p1
 %endif
 %patch2 -p1
-%patch3 -p1
 
 # Remove executable bit
 chmod 0644 Etc/changelog2html.pl
