@@ -139,15 +139,13 @@ Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 # Upstream
-Patch43:        u_r600-egd_tables.py-added-support-for-python-3.patch
+Patch43:        u_r600-egd_tables.py-make-the-script-python-2-3-compat.patch
 Patch45:        n_Disable-AMDGPU-GFX9-Vega-on-LLVM-lessthan-6.0.0.patch
 Patch46:        u_glsl-linker-error.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
-BuildRequires:  bison
 BuildRequires:  fdupes
-BuildRequires:  flex
 BuildRequires:  gcc-c++
 BuildRequires:  imake
 BuildRequires:  libtool
@@ -167,9 +165,7 @@ BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.71
 BuildRequires:  pkgconfig(libglvnd) >= 0.1.0
 %endif
 BuildRequires:  pkgconfig(libkms) >= 1.0.0
-BuildRequires:  pkgconfig(libudev) > 151
 BuildRequires:  pkgconfig(libva)
-BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(presentproto)
 BuildRequires:  pkgconfig(vdpau) >= 1.1
 BuildRequires:  pkgconfig(x11)
