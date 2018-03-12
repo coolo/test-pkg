@@ -29,29 +29,25 @@ BuildRequires:  makeinfo
 BuildRequires:  ncurses-devel
 BuildRequires:  patchutils
 BuildRequires:  pkg-config
+BuildRequires:  readline7-devel
 BuildRequires:  screen
 BuildRequires:  sed
-%define         bash_vers 4.4
-%define         rl_vers   7.0
 %define         bextend	 %nil
-%define         rextend  %nil
-Recommends:     bash-lang = %bash_vers
-# The package bash-completion is a source of
-# bugs which will hit at most this package
-#Recommends:	bash-completion
-Suggests:       command-not-found
-Recommends:     bash-doc = %bash_vers
 Version:        4.4
 Release:        0
 Summary:        The GNU Bourne-Again Shell
 License:        GPL-3.0-or-later
 Group:          System/Shells
+Recommends:     bash-lang = %version
+# The package bash-completion is a source of
+# bugs which will hit at most this package
+#Recommends:	bash-completion
+Suggests:       command-not-found
+Recommends:     bash-doc = %version
 Url:            http://www.gnu.org/software/bash/bash.html
 # Git:          http://git.savannah.gnu.org/cgit/bash.git
-Source0:        ftp://ftp.gnu.org/gnu/bash/bash-%{bash_vers}%{bextend}.tar.gz
-Source1:        ftp://ftp.gnu.org/gnu/readline/readline-%{rl_vers}%{rextend}.tar.gz
-Source2:        bash-%{bash_vers}-patches.tar.bz2
-Source3:        readline-%{rl_vers}-patches.tar.bz2
+Source0:        ftp://ftp.gnu.org/gnu/bash/bash-%{version}%{bextend}.tar.gz
+Source1:        bash-%{version}-patches.tar.bz2
 Source4:        run-tests
 Source5:        dot.bashrc
 Source6:        dot.profile
@@ -62,7 +58,7 @@ Source8:        baselibs.conf
 # http://lists.gnu.org/archive/html/bug-bash/2011-03/msg00071.html
 # http://lists.gnu.org/archive/html/bug-bash/2011-03/msg00073.html
 Source9:        bash-4.2-history-myown.dif.bz2
-Patch0:         bash-%{bash_vers}.dif
+Patch0:         bash-%{version}.dif
 Patch1:         bash-2.03-manual.patch
 Patch2:         bash-4.0-security.patch
 Patch3:         bash-4.3-2.4.4.patch
@@ -81,14 +77,6 @@ Patch14:        bash-4.3-sigrestart.patch
 Patch16:        bash-4.0-setlocale.dif
 # PATCH-EXTEND-SUSE bnc#828877 -- xterm resizing does not pass to all sub clients
 Patch18:        bash-4.3-winch.dif
-Patch20:        readline-%{rl_vers}.dif
-Patch21:        readline-6.3-input.dif
-Patch23:        readline-5.2-conf.patch
-Patch24:        readline-6.2-metamode.patch
-Patch25:        readline-6.2-endpw.dif
-Patch27:        readline-6.2-xmalloc.dif
-Patch30:        readline-6.3-destdir.patch
-Patch31:        readline-6.3-rltrace.patch
 Patch40:        bash-4.1-bash.bashrc.dif
 Patch46:        man2html-no-timestamp.patch
 Patch47:        bash-4.3-perl522.patch
@@ -100,7 +88,6 @@ Patch49:        bash-4.3-pathtemp.patch
 %global         _incdir     %{_includedir}
 %global         _ldldir     /%{_lib}/bash
 %global         _minsh      0
-%{expand:       %%global rl_major %(echo %{rl_vers} | sed -r 's/.[0-9]+//g')}
 
 %description
 Bash is an sh-compatible command interpreter that executes commands
@@ -109,16 +96,14 @@ features from the Korn and C shells (ksh and csh).  Bash is intended to
 be a conformant implementation of the IEEE Posix Shell and Tools
 specification (IEEE Working Group 1003.2).
 
-%package -n bash-doc
+%package doc
 Summary:        Documentation how to Use the GNU Bourne-Again Shell
 Group:          Documentation/Man
 Provides:       bash:%{_infodir}/bash.info.gz
 PreReq:         %install_info_prereq
-Version:        %{bash_vers}
-Release:        0
 BuildArch:      noarch
 
-%description -n bash-doc
+%description doc
 This package contains the documentation for using the bourne shell
 interpreter Bash.
 
@@ -126,34 +111,29 @@ interpreter Bash.
 %lang_package(bash)
 %else
 
-%package -n bash-lang
+%package lang
 Summary:        Languages for package bash
 Group:          System/Localization
-Provides:       bash-lang = %{bash_vers}
-Requires:       bash = %{bash_vers}
+Requires:       bash = %{version}
 
-%description -n bash-lang
+%description lang
 Provides translations to the package bash
 %endif
 
-%package -n bash-devel
+%package devel
 Summary:        Include Files mandatory for Development of bash loadable builtins
 Group:          Development/Languages/C and C++
-Version:        %{bash_vers}
-Release:        0
 
-%description -n bash-devel
+%description devel
 This package contains the C header files for writing loadable new
 builtins for the interpreter Bash. Use -I /usr/include/bash/<version>
 on the compilers command line.
 
-%package -n bash-loadables
+%package loadables
 Summary:        Loadable bash builtins
 Group:          System/Shells
-Version:        %{bash_vers}
-Release:        0
 
-%description -n bash-loadables
+%description loadables
 This package contains the examples for the ready-to-dynamic-load
 builtins found in the source tar ball of the bash:
 
@@ -207,75 +187,10 @@ unlink	      Remove a directory entry.
 whoami	      Print out username of current user.
 
 
-%package -n libreadline7
-Summary:        The Readline Library
-Group:          System/Libraries
-Provides:       bash:/%{_lib}/libreadline.so.%{rl_major}
-Version:        %{rl_vers}
-Release:        0
-Recommends:     readline-doc = %{version}
-# bug437293
-%ifarch ppc64
-Obsoletes:      readline-64bit
-%endif
-#
-Provides:       readline =  %{rl_vers}
-Obsoletes:      readline <= 6.3
-
-%description -n libreadline7
-The readline library is used by the Bourne Again Shell (bash, the
-standard command interpreter) for easy editing of command lines.  This
-includes history and search functionality.
-
-%package -n readline-devel
-Summary:        Include Files and Libraries mandatory for Development
-Group:          Development/Libraries/C and C++
-Version:        %{rl_vers}
-Release:        0
-Requires:       libreadline7 = %{rl_vers}
-Requires:       ncurses-devel
-Recommends:     readline-doc = %{rl_vers}
-# bug437293
-%ifarch ppc64
-Obsoletes:      readline-devel-64bit
-%endif
-#
-
-%description -n readline-devel
-This package contains all necessary include files and libraries needed
-to develop applications that require these.
-
-%package -n readline-devel-static
-Summary:        Static library for Development
-Group:          Development/Libraries/C and C++
-Version:        %{rl_vers}
-Release:        0
-Requires:       ncurses-devel
-Requires:       readline-devel = %{rl_vers}
-Recommends:     readline-doc = %{rl_vers}
-#
-
-%description -n readline-devel-static
-This package contains the static library needed
-to develop applications that require these.
-
-%package -n readline-doc
-Summary:        Documentation how to Use and Program with the Readline Library
-Group:          System/Libraries
-Provides:       readline:%{_infodir}/readline.info.gz
-PreReq:         %install_info_prereq
-Version:        %{rl_vers}
-Release:        0
-BuildArch:      noarch
-
-%description -n readline-doc
-This package contains the documentation for using the readline library
-as well as programming with the interface of the readline library.
-
 %prep
-%setup -q -n bash-%{bash_vers}%{bextend} -b1 -b2 -b3
+%setup -q -n bash-%{version}%{bextend} -b1
 typeset -i level
-for patch in ../bash-%{bash_vers}-patches/*; do
+for patch in ../bash-%{version}-patches/*; do
     test -e $patch || break
     let level=0 || true
     file=$(lsdiff --files=1 $patch)
@@ -284,7 +199,7 @@ for patch in ../bash-%{bash_vers}-patches/*; do
 	let level++ || true
     fi
     test -e $file || exit 1
-    sed -ri '/^\*\*\* \.\./{ s@\.\./bash-%{bash_vers}[^/]*/@@ }' $patch
+    sed -ri '/^\*\*\* \.\./{ s@\.\./bash-%{version}[^/]*/@@ }' $patch
     echo Patch $patch
     patch -s -p$level < $patch
 done
@@ -303,11 +218,6 @@ done
 %patch14 -p0 -b .sigrestart
 %patch16 -p0 -b .setlocale
 %patch18 -p0 -b .winch
-%patch21 -p0 -b .zerotty
-%patch23 -p0 -b .conf
-%patch24 -p0 -b .metamode
-#%patch25 -p0 -b .endpw
-%patch31 -p0 -b .tmp
 %patch40 -p0 -b .bashrc
 %patch46 -p0 -b .notimestamp
 %patch47 -p0 -b .perl522
@@ -316,27 +226,6 @@ done
 %endif
 %patch49 -p0 -b .pthtmp
 %patch0  -p0 -b .0
-pushd ../readline-%{rl_vers}%{rextend}
-for patch in ../readline-%{rl_vers}-patches/*; do
-    test -e $patch || break
-    let level=0 || true
-    file=$(lsdiff --files=1 $patch)
-    if test ! -e $file ; then
-	file=${file#*/}
-	let level++ || true
-    fi
-    sed -ri '/^\*\*\* \.\./{ s@\.\./readline-%{rl_vers}[^/]*/@@ }' $patch
-    echo Patch $patch
-    patch -s -p$level < $patch
-done
-%patch21 -p2 -b .zerotty
-%patch23 -p2 -b .conf
-%patch24 -p2 -b .metamode
-#%patch25 -p2 -b .endpw
-%patch31 -p2 -b .tmp
-%patch27 -p0 -b .xm
-%patch30 -p0 -b .destdir
-%patch20 -p0 -b .0
 
 %build
   LANG=POSIX
@@ -363,8 +252,6 @@ done
   HOSTTYPE=${CPU}
   MACHTYPE=${CPU}-suse-linux
   export LANG LC_ALL HOSTTYPE MACHTYPE
-pushd ../readline-%{rl_vers}%{rextend}
-  autoconf
   cflags ()
   {
       local flag=$1; shift
@@ -392,26 +279,6 @@ pushd ../readline-%{rl_vers}%{rextend}
       set +o noclobber
   }
   LARGEFILE="$(getconf LFS_CFLAGS)"
-  (cat > dyn.map)<<-'EOF'
-	{
-	    *;
-	    !rl_*stream;
-	};
-	EOF
-  (cat > rl.map)<<-'EOF'
-	READLINE_6.3 {
-	    rl_change_environment;
-	    rl_clear_history;
-	    rl_executing_key;
-	    rl_executing_keyseq;
-	    rl_filename_stat_hook;
-	    rl_history_substr_search_backward;
-	    rl_history_substr_search_forward;
-	    rl_input_available_hook;
-	    rl_print_last_kbd_macro;
-	    rl_signal_event_hook;
-	};
-	EOF
   CFLAGS="$RPM_OPT_FLAGS $LARGEFILE -D_GNU_SOURCE -DRECYCLES_PIDS -Wall -g"
   LDFLAGS=""
   #
@@ -431,39 +298,9 @@ pushd ../readline-%{rl_vers}%{rextend}
   cflags -Wl,--as-needed         LDFLAGS
   cflags -Wl,-O2                 LDFLAGS
   cflags -Wl,-rpath,%{_ldldir}		      LDFLAGS
-  cflags -Wl,--version-script=${PWD}/rl.map   LDFLAGS
-  cflags -Wl,--dynamic-list=${PWD}/dyn.map    LDFLAGS
-  CC=gcc
-  CC_FOR_BUILD="$CC"
-  CFLAGS_FOR_BUILD="$CFLAGS"
-  LDFLAGS_FOR_BUILD="$LDFLAGS"
-  export CC_FOR_BUILD CFLAGS_FOR_BUILD LDFLAGS_FOR_BUILD CFLAGS LDFLAGS CC
-  ./configure --build=%{_target_cpu}-suse-linux	\
-	--enable-static			\
-	--enable-shared			\
-	--enable-multibyte		\
-	--prefix=%{_prefix}		\
-	--with-curses			\
-	--mandir=%{_mandir}		\
-	--infodir=%{_infodir}		\
-	--docdir=%{_defaultdocdir}/readline	\
-	--libdir=%{_libdir}
-  make
-  make documentation
-  ln -sf shlib/libreadline.so.%{rl_vers} libreadline.so
-  ln -sf shlib/libreadline.so.%{rl_vers} libreadline.so.%{rl_major}
-  ln -sf shlib/libhistory.so.%{rl_vers} libhistory.so
-  ln -sf shlib/libhistory.so.%{rl_vers} libhistory.so.%{rl_major}
-  LDFLAGS=${LDFLAGS/-Wl,--version-script=*rl.map/}
-  LDFLAGS=${LDFLAGS/-Wl,--dynamic-list=*dyn.map/}
-  LDFLAGS_FOR_BUILD="$LDFLAGS"
-popd
   # /proc is required for correct configuration
   test -d /dev/fd || { echo "/proc is not mounted!" >&2; exit 1; }
-  ln -sf ../readline-%{rl_vers} readline
-  LD_RUN_PATH=$PWD/../readline-%{rl_vers}
-  export LD_RUN_PATH
-  CC="gcc -I$PWD -L$PWD/../readline-%{rl_vers}"
+  CC=gcc
 %if %_minsh
   cflags -Os CFLAGS
 # cflags -U_FORTIFY_SOURCE CFLAGS
@@ -529,7 +366,7 @@ popd
 	--mandir=%{_mandir}		\
 	--infodir=%{_infodir}		\
 	--libdir=%{_libdir}		\
-	--docdir=%{_defaultdocdir}/bash	\
+	--docdir=%{_docdir}		\
 	--with-curses			\
 	--with-afs			\
 	$SYSMALLOC			\
@@ -575,24 +412,6 @@ popd
   make documentation
 
 %install
-pushd ../readline-%{rl_vers}%{rextend}
-  %make_install htmldir=%{_defaultdocdir}/readline \
-	       installdir=%{_defaultdocdir}/readline/examples
-  %make_install install libdir=/%{_lib} linkagedir=%{_libdir}
-  rm -rf %{buildroot}%{_defaultdocdir}/bash
-  mkdir -p %{buildroot}%{_defaultdocdir}/bash
-  chmod 0755 %{buildroot}/%{_lib}/libhistory.so.%{rl_vers}
-  chmod 0755 %{buildroot}/%{_lib}/libreadline.so.%{rl_vers}
-  rm -vf %{buildroot}/%{_lib}/libhistory.so.%{rl_vers}*old
-  rm -vf %{buildroot}/%{_lib}/libreadline.so.%{rl_vers}*old
-  rm -vf %{buildroot}/%{_lib}/libhistory.so
-  rm -vf %{buildroot}/%{_lib}/libreadline.so
-  ln -sf /%{_lib}/libhistory.so.%{rl_vers}  %{buildroot}/%{_libdir}/libhistory.so
-  ln -sf /%{_lib}/libreadline.so.%{rl_vers} %{buildroot}/%{_libdir}/libreadline.so
-  mv -vf %{buildroot}/%{_lib}/libhistory.a  %{buildroot}/%{_libdir}/libhistory.a
-  mv -vf %{buildroot}/%{_lib}/libreadline.a %{buildroot}/%{_libdir}/libreadline.a 
-  rm -vrf %{buildroot}%{_datadir}/readline/
-popd
   %make_install
   make -C examples/loadables/ install-supported DESTDIR=%{buildroot} libdir=/%{_lib}
   rm -rf %{buildroot}%{_libdir}/bash
@@ -608,16 +427,16 @@ popd
   ln -sf ../../bin/bash %{buildroot}%{_bindir}/sh
 %endif
   ln -sf ../../bin/bash %{buildroot}%{_bindir}/rbash
-  install -m 644 COMPAT NEWS    %{buildroot}%{_defaultdocdir}/bash/
-  install -m 644 COPYING        %{buildroot}%{_defaultdocdir}/bash/
-  install -m 644 doc/FAQ        %{buildroot}%{_defaultdocdir}/bash/
-  install -m 644 doc/INTRO      %{buildroot}%{_defaultdocdir}/bash/
-  install -m 644 doc/*.html     %{buildroot}%{_defaultdocdir}/bash/
+  install -m 644 COMPAT NEWS    %{buildroot}%{_docdir}/
+  install -m 644 COPYING        %{buildroot}%{_docdir}/
+  install -m 644 doc/FAQ        %{buildroot}%{_docdir}/
+  install -m 644 doc/INTRO      %{buildroot}%{_docdir}/
+  install -m 644 doc/*.html     %{buildroot}%{_docdir}/
   install -m 644 doc/builtins.1 %{buildroot}%{_mandir}/man1/bashbuiltins.1
   install -m 644 doc/rbash.1    %{buildroot}%{_mandir}/man1/rbash.1
   gzip -9f %{buildroot}%{_infodir}/*.inf*[^z] || true
   mkdir -p %{buildroot}%{_sysconfdir}/bash_completion.d
-  sed 's/^|//' > %{buildroot}%{_defaultdocdir}/bash/BUGS <<\EOF
+  sed 's/^|//' > %{buildroot}%{_docdir}/BUGS <<\EOF
 Known problems
 --------------
 |
@@ -626,9 +445,9 @@ that is e.g. wide character support for UTF-8.  This causes
 problems in geting the current cursor position within the
 readline runtime library:
 |
-bash-%{bash_vers}> LANG=ja_JP
-bash-%{bash_vers}> echo -n "Hello"
-bash-%{bash_vers}>
+bash-%{version}> LANG=ja_JP
+bash-%{version}> echo -n "Hello"
+bash-%{version}>
 |
 In other words the prompt overwrites the output of the
 echo comand.  The boolean variable byte-oriented
@@ -636,9 +455,6 @@ set in %{_sysconfdir}/inputrc or $HOME/.inputrc avoids this
 but disables multi byte handling.
 EOF
   # remove unpackaged files
-  rm -fv %{buildroot}%{_libdir}/libhistory.so.*
-  rm -fv %{buildroot}%{_libdir}/libreadline.so.*
-  rm -fv %{buildroot}%{_defaultdocdir}/readline/INSTALL
   mkdir -p %{buildroot}%{_sysconfdir}/skel
   install -m 644 %{S:5}    %{buildroot}%{_sysconfdir}/skel/.bashrc
   install -m 644 %{S:6}    %{buildroot}%{_sysconfdir}/skel/.profile
@@ -647,30 +463,15 @@ EOF
   %find_lang bash
   %fdupes -s %{buildroot}%{_datadir}/bash/helpfiles
 
-%post -n bash-doc
+%post doc
 %install_info --info-dir=%{_infodir} %{_infodir}/bash.info.gz
 
-%preun -n bash-doc
+%preun doc
 %install_info_delete --info-dir=%{_infodir} %{_infodir}/bash.info.gz
-
-%post -n libreadline7 -p /sbin/ldconfig
-
-%postun -n libreadline7 -p /sbin/ldconfig
-
-%post -n readline-doc
-%install_info --info-dir=%{_infodir} %{_infodir}/history.info.gz
-%install_info --info-dir=%{_infodir} %{_infodir}/readline.info.gz
-%install_info --info-dir=%{_infodir} %{_infodir}/rluserman.info.gz
-
-%preun -n readline-doc
-%install_info_delete --info-dir=%{_infodir} %{_infodir}/history.info.gz
-%install_info_delete --info-dir=%{_infodir} %{_infodir}/readline.info.gz
-%install_info_delete --info-dir=%{_infodir} %{_infodir}/rluserman.info.gz
 
 %clean
 LD_LIBRARY_PATH=%{buildroot}/%{_lib} \
 ldd -u -r %{buildroot}/bin/bash || true
-ldd -u -r %{buildroot}/%{_lib}/libreadline.so.* || true
 %{?buildroot: %{__rm} -rf %{buildroot}}
 
 %files
@@ -689,20 +490,20 @@ ldd -u -r %{buildroot}/%{_lib}/libreadline.so.* || true
 %dir %{_datadir}/bash/helpfiles
 %{_datadir}/bash/helpfiles/*
 
-%files -n bash-lang -f bash.lang
+%files lang -f bash.lang
 %defattr(-,root,root)
 
-%files -n bash-doc
+%files doc
 %defattr(-,root,root)
 %doc %{_infodir}/bash.info*
 %doc %{_mandir}/man1/bash.1*
 %doc %{_mandir}/man1/bashbuiltins.1*
 %doc %{_mandir}/man1/bashbug.1*
 %doc %{_mandir}/man1/rbash.1*
-%doc %{_defaultdocdir}/bash/
+%doc %{_docdir}/
 
 %if 0%suse_version >= 1020
-%files -n bash-devel
+%files devel
 %defattr(-,root,root)
 %dir /%{_includedir}/bash/
 %dir /%{_includedir}/bash/
@@ -714,38 +515,8 @@ ldd -u -r %{buildroot}/%{_lib}/libreadline.so.* || true
 %{_libdir}/pkgconfig/bash.pc
 %endif
 
-%files -n bash-loadables
+%files loadables
 %defattr(-,root,root)
-%dir %{_ldldir}/
-%dir %{_ldldir}/
-%{_ldldir}/*
-
-%files -n libreadline7
-%defattr(-,root,root)
-%license COPYING
-/%{_lib}/libhistory.so.%{rl_major}
-/%{_lib}/libhistory.so.%{rl_vers}
-/%{_lib}/libreadline.so.%{rl_major}
-/%{_lib}/libreadline.so.%{rl_vers}
-
-%files -n readline-devel
-%defattr(-,root,root)
-%{_incdir}/readline/
-%{_libdir}/libhistory.so
-%{_libdir}/libreadline.so
-
-%files -n readline-devel-static
-%defattr(-,root,root)
-%{_libdir}/libhistory.a
-%{_libdir}/libreadline.a
-
-%files -n readline-doc
-%defattr(-,root,root)
-%doc %{_infodir}/history.info*
-%doc %{_infodir}/readline.info*
-%doc %{_infodir}/rluserman.info*
-%doc %{_mandir}/man3/history.3*
-%doc %{_mandir}/man3/readline.3*
-%doc %{_defaultdocdir}/readline/
+%{_ldldir}
 
 %changelog
