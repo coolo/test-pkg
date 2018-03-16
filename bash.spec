@@ -366,7 +366,7 @@ done
 	--mandir=%{_mandir}		\
 	--infodir=%{_infodir}		\
 	--libdir=%{_libdir}		\
-	--docdir=%{_docdir}		\
+	--docdir=%{_docdir}/%{name}	\
 	--with-curses			\
 	--with-afs			\
 	$SYSMALLOC			\
@@ -427,16 +427,16 @@ done
   ln -sf ../../bin/bash %{buildroot}%{_bindir}/sh
 %endif
   ln -sf ../../bin/bash %{buildroot}%{_bindir}/rbash
-  install -m 644 COMPAT NEWS    %{buildroot}%{_docdir}/
-  install -m 644 COPYING        %{buildroot}%{_docdir}/
-  install -m 644 doc/FAQ        %{buildroot}%{_docdir}/
-  install -m 644 doc/INTRO      %{buildroot}%{_docdir}/
-  install -m 644 doc/*.html     %{buildroot}%{_docdir}/
+  install -m 644 COMPAT NEWS    %{buildroot}%{_docdir}/%{name}
+  install -m 644 COPYING        %{buildroot}%{_docdir}/%{name}
+  install -m 644 doc/FAQ        %{buildroot}%{_docdir}/%{name}
+  install -m 644 doc/INTRO      %{buildroot}%{_docdir}/%{name}
+  install -m 644 doc/*.html     %{buildroot}%{_docdir}/%{name}
   install -m 644 doc/builtins.1 %{buildroot}%{_mandir}/man1/bashbuiltins.1
   install -m 644 doc/rbash.1    %{buildroot}%{_mandir}/man1/rbash.1
   gzip -9f %{buildroot}%{_infodir}/*.inf*[^z] || true
   mkdir -p %{buildroot}%{_sysconfdir}/bash_completion.d
-  sed 's/^|//' > %{buildroot}%{_docdir}/BUGS <<\EOF
+  sed 's/^|//' > %{buildroot}%{_docdir}/%{name}/BUGS <<\EOF
 Known problems
 --------------
 |
@@ -500,7 +500,7 @@ ldd -u -r %{buildroot}/bin/bash || true
 %doc %{_mandir}/man1/bashbuiltins.1*
 %doc %{_mandir}/man1/bashbug.1*
 %doc %{_mandir}/man1/rbash.1*
-%doc %{_docdir}/
+%doc %{_docdir}/%{name}
 
 %if 0%suse_version >= 1020
 %files devel
