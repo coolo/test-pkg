@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Mar 15 15:49:45 UTC 2018 - msrb@suse.com
+
+- u_st-dri-don-t-set-queryDmaBufFormats-queryDmaBufModif.patch
+  * Fixes laggy mouse in Wayland. (fdo#104926)
+
+-------------------------------------------------------------------
 Thu Mar  1 15:47:35 UTC 2018 - sndirsch@suse.com
 
 - replaced u_r600-egd_tables.py-added-support-for-python-3.patch
