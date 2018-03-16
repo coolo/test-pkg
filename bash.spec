@@ -29,7 +29,8 @@ BuildRequires:  makeinfo
 BuildRequires:  ncurses-devel
 BuildRequires:  patchutils
 BuildRequires:  pkg-config
-BuildRequires:  readline7-devel
+# This has to be always the same version as included in the bash its self
+BuildRequires:  readline-devel == 7.0
 BuildRequires:  screen
 BuildRequires:  sed
 %define         bextend	 %nil
@@ -226,6 +227,10 @@ done
 %endif
 %patch49 -p0 -b .pthtmp
 %patch0  -p0 -b .0
+# This has to be always the same version as included in the bash its self
+rl1=($(sed -rn '/RL_READLINE_VERSION/p' lib/readline/readline.h))
+rl2=($(sed -rn '/RL_READLINE_VERSION/p' /usr/include/readline/readline.h))
+test ${rl1[2]} = ${rl2[2]} || exit 1
 
 %build
   LANG=POSIX
