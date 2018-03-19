@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Mar 19 19:58:07 UTC 2018 - sndirsch@suse.com
+
+- no longer try to use non-existing python3-mako as BuildRequires
+  on Leap 42.3
+
+-------------------------------------------------------------------
 Thu Mar 15 15:49:45 UTC 2018 - msrb@suse.com
 
 - u_st-dri-don-t-set-queryDmaBufFormats-queryDmaBufModif.patch

@@ -152,7 +152,9 @@ BuildRequires:  imake
 BuildRequires:  libtool
 BuildRequires:  pkgconfig
 BuildRequires:  python3-base
+%if 0%{?suse_version} > 1320
 BuildRequires:  python3-mako
+%endif
 BuildRequires:  python3-xml
 BuildRequires:  pkgconfig(dri2proto)
 BuildRequires:  pkgconfig(dri3proto)
