@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Wed Mar 21 15:06:52 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.0.0-rc5
+  * The fifth and final release candidate for Mesa 18.0.0. Modulo
+    serious regressions, it is anticipated that it will become
+    Mesa 18.0.0 this Friday (2018-03-23) around 16:00 GMT
+- supersedes u_glsl-linker-error.patch
+
+-------------------------------------------------------------------
 Mon Mar 19 19:58:07 UTC 2018 - sndirsch@suse.com
 
 - no longer try to use non-existing python3-mako as BuildRequires

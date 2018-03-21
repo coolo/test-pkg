@@ -42,7 +42,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 18.0.0-rc4
+%define _version 18.0.0-rc5
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -140,7 +140,6 @@ Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 # Upstream
 Patch43:        u_r600-egd_tables.py-make-the-script-python-2-3-compat.patch
 Patch45:        n_Disable-AMDGPU-GFX9-Vega-on-LLVM-lessthan-6.0.0.patch
-Patch46:        u_glsl-linker-error.patch
 Patch47:        u_st-dri-don-t-set-queryDmaBufFormats-queryDmaBufModif.patch
 
 BuildRequires:  autoconf >= 2.60
@@ -753,7 +752,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 
 %patch43 -p1
 %patch45 -p1
-%patch46 -p1
 %patch47 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
