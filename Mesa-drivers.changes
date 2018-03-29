@@ -1,4 +1,44 @@
 -------------------------------------------------------------------
+Wed Mar 28 09:24:25 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.0.0 final
+  * one-and-only change since 18.0.0-rc5: updated release notes
+- Changes since 17.3  
+  * The top highlights include:
+    + Cannonlake support on i965 and anv
+    + GL 4.3/GLES 3.1 support  on r600/evergreen with hw fp64 support
+    + Meson build system
+  * ANV Extensions:
+    + VK_EXT_external_memory_dma_buf
+  * RADV Extensions:
+    + VK_ANDROID_native_buffer
+    + VK_KHR_external_fence
+    + VK_KHR_external_fence_capabilities
+    + VK_KHR_external_fence_fd
+    + VK_KHR_get_surface_capabilities2
+    + VK_EXT_discard_rectangles
+    + VK_EXT_external_memory_dma_buf
+    + VK_AMD_shader_info
+  * EGL:
+    + Support for RGBA/RGBX 1010102 formats
+    + EGL_EXT_pixel_format_float
+    + Final planned release to ship wayland-egl. Now provided by wayland.
+  * GLX:
+    + Darwin/Apple fixes
+  * Mesa core
+    + Support 1 binary format for GL_ARB_get_program_binary on i965
+    + drirc workarounds:
+      (*) Unreal 4 Editor
+      (*) Observer
+      (*) Steamroll
+      (*) Refunct
+  * drirc mesa_glthread whitelists:
+    + Mount and Blade Warband
+- i965:
+  * Disk shader cache when MESA_GLSL_CACHE_DISABLE is set to "false"
+  * GL_EXT_disjoint_timer_query on gen6+
+
+-------------------------------------------------------------------
 Wed Mar 21 15:06:52 UTC 2018 - sndirsch@suse.com
 
 - Update to 18.0.0-rc5
