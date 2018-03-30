@@ -43,7 +43,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 18.0.0-rc5
+%define _version 18.0.0
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
