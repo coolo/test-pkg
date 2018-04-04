@@ -63,7 +63,7 @@
   %define vdpau_radeon 1
 %endif
 
-%ifarch %ix86 x86_64
+%ifarch %ix86 x86_64 %arm aarch64
   %define with_nine 1
 %endif
 
@@ -460,8 +460,8 @@ applications using the OpenGL|ES 3.x APIs.
 
 %package -n libOSMesa8
 Summary:        Mesa Off-screen rendering extension
-# Wrongly named package shipped .so.8
 Group:          System/Libraries
+# Wrongly named package shipped .so.8
 Obsoletes:      libOSMesa9 < %{version}
 Provides:       libOSMesa9 = %{version}
 
@@ -595,8 +595,8 @@ implementation of Mesa.
 
 %package -n Mesa-libd3d
 Summary:        Mesa Direct3D9 state tracker
-# Manually provide d3d library (bnc#918294)
 Group:          System/Libraries
+# Manually provide d3d library (bnc#918294)
 %ifarch x86_64 s390x ppc64le aarch64 riscv64
 Provides:       d3dadapter9.so.1()(64bit)
 %else
