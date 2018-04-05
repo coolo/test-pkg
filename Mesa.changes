@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Thu Apr  5 08:37:03 UTC 2018 - msrb@suse.com
+
+- Remove n_Disable-AMDGPU-GFX9-Vega-on-LLVM-lessthan-6.0.0.patch.
+  * Not needed since we build Mesa against LLVM 6. (bnc#1082298)
+- Remove u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch.
+  * It was disabled for long time and does not seem to be needed.
+    (bnc#1082306)
+
+-------------------------------------------------------------------
 Tue Apr  3 08:24:39 UTC 2018 - schwab@suse.de
 
 - Enable nine on arm/aarch64
