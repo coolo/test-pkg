@@ -63,7 +63,7 @@
   %define vdpau_radeon 1
 %endif
 
-%ifarch %ix86 x86_64
+%ifarch %ix86 x86_64 %arm aarch64
   %define with_nine 1
 %endif
 
@@ -130,8 +130,6 @@ Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source6:        %{name}-rpmlintrc
 Source7:        Mesa.keyring
-# to be upstreamed
-Patch11:        u_Fix-crash-in-swrast-when-setting-a-texture-for-a-pix.patch
 # never to be upstreamed
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # currently needed for libglvnd support
@@ -139,7 +137,6 @@ Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 # Upstream
 Patch43:        u_r600-egd_tables.py-make-the-script-python-2-3-compat.patch
-Patch45:        n_Disable-AMDGPU-GFX9-Vega-on-LLVM-lessthan-6.0.0.patch
 Patch47:        u_st-dri-don-t-set-queryDmaBufFormats-queryDmaBufModif.patch
 
 BuildRequires:  autoconf >= 2.60
@@ -739,10 +736,6 @@ programs against the XA state tracker.
 %setup -q -n %{_name_archive}-%{_version} -b4
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
-### disabled, but not dropped yet; these still need investigation in
-### order to figure out whether the issue is still reproducable and
-### hence a fix is required
-#%patch11 -p1
 %patch18 -p1
 
 %if 0%{?libglvnd}
@@ -751,7 +744,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %endif
 
 %patch43 -p1
-%patch45 -p1
 %patch47 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
