@@ -75,8 +75,8 @@ at home, and extra features drawn from tcsh (another `custom' shell).
 Zsh is well known for its command line completion.
 
 %package htmldoc
-Summary:        Zsh shell manual in html format
-Group:          System/Shells
+Summary:        Zsh shell manual in HTML format
+Group:          Documentation/HTML
 Provides:       %{name}-html = %{version}
 Obsoletes:      %{name}-html < %{version}
 
@@ -88,7 +88,7 @@ command line editing, built-in spelling correction, programmable
 command completion, shell functions (with autoloading), a history
 mechanism, and more.
 
-This package contains the Zsh manual in html format.
+This package contains the Zsh manual in HTML format.
 
 %prep
 %setup -q
