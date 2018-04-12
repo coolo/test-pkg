@@ -16,8 +16,16 @@
 #
 
 
+%if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
+%if 0%{?rhel_version} >= 700 || 0%{?centos_version} >= 700
+%global __requires_exclude ^/bin/zsh$
+%endif
+BuildRequires:  libtermcap-devel
+BuildRequires:  texi2html
+BuildRequires:  texinfo
+%endif
 Name:           zsh
-Version:        5.4.2
+Version:        5.5
 Release:        0%{?dist}
 Summary:        Shell with comprehensive completion
 License:        MIT
@@ -29,6 +37,13 @@ Source2:        %{name}.keyring
 Source3:        zshrc
 Source4:        zshenv
 Source5:        zprofile
+Patch1:         trim-unneeded-completions.patch
+# PATCH-FIX-OPENSUSE zsh-osc-completion.patch -- Fix openSUSE versions in osc completion
+Patch2:         zsh-osc-completion.patch
+BuildRequires:  groff
+BuildRequires:  libcap-devel
+BuildRequires:  ncurses-devel
+BuildRequires:  pcre-devel
 %if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
 Source11:       zlogin.rhs
 Source12:       zlogout.rhs
@@ -37,15 +52,10 @@ Source14:       zshrc.rhs
 Source15:       zshenv.rhs
 Source16:       dotzshrc.rh
 %endif
-Patch1:         trim-unneeded-completions.patch
-# PATCH-FIX-OPENSUSE zsh-osc-completion.patch -- Fix openSUSE versions in osc completion
-Patch2:         zsh-osc-completion.patch
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-BuildRequires:  groff
 %if 0%{?suse_version}
-Requires(pre):  %{install_info_prereq}
 BuildRequires:  fdupes
 BuildRequires:  yodl
+Requires(pre):  %{install_info_prereq}
 %if 0%{?suse_version} >= 1210
 BuildRequires:  makeinfo
 BuildRequires:  texi2html
@@ -54,18 +64,6 @@ BuildRequires:  texi2html
 Requires(pre):  /sbin/install-info
 Requires(pre):  fileutils
 Requires(pre):  grep
-%endif
-
-BuildRequires:  libcap-devel
-BuildRequires:  ncurses-devel
-BuildRequires:  pcre-devel
-%if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
-%if 0%{?rhel_version} >= 700 || 0%{?centos_version} >= 700
-%global __requires_exclude ^/bin/zsh$
-%endif
-BuildRequires:  libtermcap-devel
-BuildRequires:  texi2html
-BuildRequires:  texinfo
 %endif
 
 %description
@@ -77,7 +75,6 @@ at home, and extra features drawn from tcsh (another `custom' shell).
 Zsh is well known for its command line completion.
 
 %package htmldoc
-
 Summary:        Zsh shell manual in html format
 Group:          System/Shells
 Provides:       %{name}-html = %{version}
@@ -94,7 +91,7 @@ mechanism, and more.
 This package contains the Zsh manual in html format.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q
 %if 0%{?suse_version}
 %patch1 -p1
 %endif
@@ -104,7 +101,7 @@ This package contains the Zsh manual in html format.
 chmod 0644 Etc/changelog2html.pl
 
 # Fix bindir path in some files
-perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
+perl -p -i -e 's|%{_prefix}/local/bin|%{_bindir}|' \
     Doc/intro.ms Misc/globtests.ksh Misc/globtests \
     Misc/lete2ctl Util/check_exports Util/helpfiles \
     Util/reporter
@@ -132,7 +129,7 @@ perl -p -i -e 's|/usr/local/bin|%{_bindir}|' \
 cp Completion/Redhat/Command/_rpm Completion/openSUSE/Command/_rpm
 %endif
 
-make all info html
+make %{?_smp_mflags} all info html
 
 # generate intro.ps
 groff -Tps -ms Doc/intro.ms > intro.ps
@@ -146,11 +143,10 @@ rm -f Etc/Makefile* Etc/*.yo
 
 %install
 %if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
-    rm -rf %{buildroot}
 %endif
 
 %if 0%{?suse_version}
-%makeinstall install.info
+%make_install install.info
 %else
   make DESTDIR=%{buildroot} install install.info
 %endif
@@ -185,7 +181,7 @@ ln -sf %{_bindir}/zsh %{buildroot}/bin/zsh
 # Remove versioned zsh binary
 rm -f %{buildroot}%{_bindir}/zsh-*
 %if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
-rm -f %{buildroot}/%{_datadir}/info/dir
+rm -f %{buildroot}/%{_infodir}/dir
 %endif
 
 %if 0%{?suse_version} >= 1110
@@ -195,7 +191,7 @@ rm -f %{buildroot}/%{_datadir}/info/dir
 %check
 %if ! 0%{?qemu_user_space_build}
 %if 0%{?suse_version}
-make check
+make %{?_smp_mflags} check
 %else
 # FixMe: sometimes failing Test
 #+ fn:echo:2: write error: broken pipe
@@ -209,6 +205,7 @@ mv Test/E01options.ztst Test/E01options.ztst.mvd
   ZTST_verbose=0 make test
 %endif
 %endif
+
 %preun
 %if 0%{?suse_version}
   :
@@ -249,7 +246,6 @@ fi
 %endif
 
 %files
-%defattr(-,root,root)
 %doc ChangeLog FEATURES LICENCE MACHINES META-FAQ NEWS README
 %doc Etc/* intro.ps Misc/compctl-examples
 %config(noreplace) %{_sysconfdir}/zshrc
@@ -271,11 +267,10 @@ fi
 %endif
 %{_libdir}/zsh/
 %{_datadir}/zsh/
-%{_infodir}/zsh.info*.gz
-%{_mandir}/man1/zsh*.1.gz
+%{_infodir}/zsh.info*%{ext_info}
+%{_mandir}/man1/zsh*.1%{ext_man}
 
 %files htmldoc
-%defattr(-,root,root)
 %doc Doc/htmldoc/*
 
 %changelog

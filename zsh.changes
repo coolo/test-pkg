@@ -1,4 +1,25 @@
 -------------------------------------------------------------------
+Wed Apr 11 07:45:35 UTC 2018 - kbabioch@suse.com
+
+- Update to 5.5
+  * The effect of the NO_INTERACTIVE_COMMENTS option extends into $(...)
+    and `...` command substitutions when used on the command line.
+  * Dropped patches, which are included upstream now:
+    - zsh-CVE-2018-1071.patch
+    - zsh-CVE-2018-1083.patch
+  * Fixes a buffer overflow in utils.c:checkmailpath() that can lead to
+    local arbitrary code execution (CVE-2018-1100 bnc#1089030)
+
+-------------------------------------------------------------------
+Tue Mar 27 09:34:00 UTC 2018 - kbabioch@suse.com
+
+- Added zsh-CVE-2018-1071.patch: Fixed a stack-based buffer overflow
+  in exec.c:hashcmd() (CVE-2018-1071 bnc#1084656)
+- Added zsh-CVE-2018-1083.patch: Fixed a stack-based buffer overflow
+  in gen_matches_files() at compctl.c (CVE-2018-1083 bnc#1087026)
+- Cleaned up spec file with spec-cleaner
+
+-------------------------------------------------------------------
 Tue Feb 27 12:21:43 UTC 2018 - kbabioch@suse.com
 
 - Updated to 5.4.2
