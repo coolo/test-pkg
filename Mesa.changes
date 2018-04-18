@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Apr 18 09:07:57 UTC 2018 - sndirsch@suse.com
+
+- enabled opencl and that way also Mesa-gallium on 42.3 since we
+  now build against llvm 6; this also fixes the requirements from
+  Mesa-32bit to Mesa-gallium-32bit in baselibs.conf (reported by
+  community)
+
+-------------------------------------------------------------------
 Thu Apr  5 08:37:03 UTC 2018 - msrb@suse.com
 
 - Remove n_Disable-AMDGPU-GFX9-Vega-on-LLVM-lessthan-6.0.0.patch.
