@@ -42,7 +42,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 18.0.0
+%define _version 18.0.1
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -67,8 +67,7 @@
   %define with_nine 1
 %endif
 
-%if 0%{gallium_loader} && 0%{?suse_version} >= 1330
-# llvm >= 3.9 not provided for <= 1330
+%if 0%{gallium_loader}
   %ifnarch ppc
     %define with_opencl 1
   %endif
@@ -113,7 +112,7 @@
 %endif
 
 Name:           Mesa
-Version:        18.0.0
+Version:        18.0.1
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT

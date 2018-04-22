@@ -1,4 +1,46 @@
 -------------------------------------------------------------------
+Thu Apr 19 09:55:13 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.0.1
+  * In this release we have:
+  * On the build system to highlight Meson is get improved thorugh several patches
+    that fix issues around it.
+  * On the drivers part, RADV get several fixes: one for multisample regressions on
+   Vega, another around GFX9 buffer views, and a couple of them more to related
+   with avoiding emitting unneeded vertex state.
+  * St/Nine get fixes around face register, lighting constants, math check for
+    inversible matrix, implicit conversions and bad tracking of vertex textures.
+  * Freedreno/a5xx get fixes around missaligned heigh for PIPE_BUFFER, and around
+    page faults.
+  * Several fixes are also enqueued for Intel driver: set right channel_sizes for
+   MOV_INDIRECT sources, set right config registration for uploading to kernel,
+   return the fourcc stored in __DRIimage when possible, fix negative sign in
+   64-bit return values, fix null destination register in assembly instructions
+   with 3 source operands, a fix for failed TCS/TES shader compilation
+  * Queue also contains a couple of fixes around Gallium drivers, one to fix a typo
+    in code that was causing wrong return value, and another one to fix an
+    unitialized modifier for DRI2.
+  * Mesa core gets a couple of patches to fix issues around overriding OpenGL/ES
+    supported version through environment variables, and a patch to fix an issue
+    with texture samples found in "The Witness" through Wine.
+  * A couple of bugs around unrolling loops have also been fixed, these patches were
+    applied for NIR and GLSL.
+  * On top of above, NIR gets more fixes in a couple of lowering functions used:
+    coalesce in lower_vec_to_movs if vec had a SSA destination, and interp_var_at
+    intrinsic support in lower_indirect_derefs. It also gets a fix around
+    vars_to_ssa function.
+  * Finally, there are other fixes affecting Radeonsi, AC, EGL/Wayland and SPIR-V
+    compiler.
+
+-------------------------------------------------------------------
+Wed Apr 18 09:07:57 UTC 2018 - sndirsch@suse.com
+
+- enabled opencl and that way also Mesa-gallium on 42.3 since we
+  now build against llvm 6; this also fixes the requirements from
+  Mesa-32bit to Mesa-gallium-32bit in baselibs.conf (reported by
+  community)
+
+-------------------------------------------------------------------
 Thu Apr  5 08:37:03 UTC 2018 - msrb@suse.com
 
 - Remove n_Disable-AMDGPU-GFX9-Vega-on-LLVM-lessthan-6.0.0.patch.
