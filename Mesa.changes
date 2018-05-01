@@ -1,4 +1,21 @@
 -------------------------------------------------------------------
+Mon Apr 30 10:04:10 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.0.2
+  * A couple of fixes for Meson that solves some problems regarding
+    building tests and installation.
+  * A couple of fixes in state tracker / DRI that was causing crashes
+    in QtCreator and Firefox, among other problems.
+  * A couple of fixes for GFX9, that solves a hang in the driver, and
+    a problem with buffer views.
+  * SVGA gets also a patch to fix incorrect advertizing of
+    EGL_KHR_gl_colorspace extension.
+  * Etnaviv gets a fix for swizzled texture formats.
+  * Intel drivers get also several patches.
+  * RADV gets a patch to solve a problem of lot of games complaining
+    about not having enough memory.
+
+-------------------------------------------------------------------
 Thu Apr 19 09:55:13 UTC 2018 - sndirsch@suse.com
 
 - Update to 18.0.1
