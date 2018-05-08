@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Tue May  8 12:14:26 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.0.3
+  * The is a fairly small release consisting of patches to fix leaks
+    in RADV and Winsys, fix deadlock in internal queue, fix issues
+    with ANV allocator, fix blit setup for YUV LoadImage, and some
+    other patches.
+
+-------------------------------------------------------------------
 Mon Apr 30 10:04:10 UTC 2018 - sndirsch@suse.com
 
 - Update to 18.0.2
