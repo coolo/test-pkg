@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Fri May 11 13:25:20 UTC 2018 - kbabioch@suse.com
+
+- Update to 5.5.1
+  * fix for a configuration problem finding singal names from (some) recent
+    versions of glibc
+  * minor changes
+
+-------------------------------------------------------------------
 Thu Apr 12 11:38:08 UTC 2018 - jengelh@inai.de
 
 - Update RPM groups.
