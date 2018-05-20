@@ -1,4 +1,25 @@
 -------------------------------------------------------------------
+Sat May 19 14:56:38 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.0.4
+  * r600 driver gets a fix for constant buffer boounds, which
+    fixes rendering bugs in Trine and Witcher 1.
+  * Several fixes for RADV driver: fixes around alpha channel
+    in Pre-Vega, fix in multisample image copies, and fixes
+    around multilayer images in compute path.
+  * For the case of ANV/i965 drivers, also a couple of fixes, 
+    all of them around ISP. On top, there are a couple of fixes
+    relative to code emission around 16-bit integers, and a a
+    fix for a leak in blorp for Gen4 and Gen5.
+  * Speaking of leaks, there are also fixes for 
+    winsys/radeon/amdgpu and pipe-loader.gets a couple of patches
+    to fix a couple of leaks.
+  * SPIR-V part gets a patch to apply OriginUpperLeft to FragCoord.
+  * Mesa core gets a couple of patches to fix error handling in
+    get_framebuffer_parameteriv, and to add missing support for
+    glFogiv(GL_FOG_DISTANCE_MODE_NV).
+
+-------------------------------------------------------------------
 Tue May  8 12:14:26 UTC 2018 - sndirsch@suse.com
 
 - Update to 18.0.3
