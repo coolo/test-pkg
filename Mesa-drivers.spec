@@ -124,7 +124,8 @@ Url:            http://www.mesa3d.org
 # Source:         ftp://ftp.freedesktop.org/pub/mesa/%%{version}/%%{_name_archive}-%%{_version}.tar.xz
 Source:         ftp://ftp.freedesktop.org/pub/mesa/%{_name_archive}-%{_version}.tar.xz
 # Source1:        ftp://ftp.freedesktop.org/pub/mesa/%%{version}/%%{_name_archive}-%%{_version}.tar.xz.sig
-Source1:        ftp://ftp.freedesktop.org/pub/mesa/%{_name_archive}-%{_version}.tar.xz.sig
+# Source1:        ftp://ftp.freedesktop.org/pub/mesa/%{_name_archive}-%{_version}.tar.xz.sig
+Source1:        %{_name_archive}-%{_version}.tar.xz.sha1sum
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
@@ -150,6 +151,8 @@ BuildRequires:  pkgconfig
 BuildRequires:  python3-base
 %if 0%{?suse_version} > 1320
 BuildRequires:  python3-mako
+%else
+BuildRequires:  python3-Mako
 %endif
 BuildRequires:  python3-xml
 BuildRequires:  pkgconfig(dri2proto)
