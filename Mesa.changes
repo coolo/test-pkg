@@ -1,4 +1,52 @@
 -------------------------------------------------------------------
+Tue May 22 16:08:15 UTC 2018 - tobias.johannes.klausmann@mni.thm.de
+
+- Add patch U_dri3-Stricter-SBC-wraparound-handling.patch
+  This fixes an error with timestamps, avoiding near infinite client
+  hangs with the new X server 1.20 release and some clients, the most 
+  prominent being plasmashell & steam
+  Bugentry: FDO#106351
+
+-------------------------------------------------------------------
+Tue May 22 08:44:11 UTC 2018 - msrb@suse.com
+
+- Fix python3-Mako dependency on <= Leap 42.3.
+- Temporarily replace mesa-18.1.0.tar.xz.sig with
+  mesa-18.1.0.tar.xz.sha1sum. The sig file uses EDDSA which is not
+  supported by gpg in OBS at the moment.
+
+-------------------------------------------------------------------
+Sat May 19 17:45:35 UTC 2018 - mimi.vx@gmail.com
+
+- Update to 18.1.0
+- refreshed archlinux_0001-Fix-linkage-against-shared-glapi.patch
+- add u_intel_anv-make-scripts-python-2-3-compat.patch for build ANV
+    with python
+  * Vulkan 1.1 support for the ANV and RADV drivers.
+  * RadeonSI and RADV have "Vega M" GPU support for Kabylake G processors
+  * A simple Gallium3D HUD option as an alternative to the advanced
+      heads-up display
+  * There is also now Vega 12 support too. 
+  * For new hardware support on the Intel side are the initial
+      bits for Intel Icelake. 
+  * The Intel driver stack has meanwhile landed more SPIR-V
+      bits towards OpenGL 4.6.
+  * The Intel ANV driver has received new extensions too as well as
+      enabling features like MSAA fast clears.
+  * VP9 VA-API support for VCN and HEVC Main for VCN - Raven Ridge CPUs.
+  * DRI3 1.1/1.2 support for going with the soon-to-be-out X.Org Server 1.20.
+  * Etnaviv performance counter support when paired with the latest Etnaviv 
+      DRM in the mainline kernel.
+  * The last-year-GSoC'ed OpenMAX Tizonia H.264 encoder/decoder.
+  * UVD-based HEVC video encoding.
+  * OpenGL 3.1 ARB_compatibility support for the major Gallium3D drivers.
+  * RadeonSI 32-bit pointers support.
+  * The Intel GLSL shader cache is enabled by default.
+  * Nouveau NVC0 meanwhile finally has ARB_bindless_texture support.
+  * On the old hardware front, R600g is now effectively at OpenGL 4.4
+      for the Radeon HD 5800/6900 series.
+
+-------------------------------------------------------------------
 Sat May 19 14:56:38 UTC 2018 - sndirsch@suse.com
 
 - Update to 18.0.4
