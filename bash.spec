@@ -23,9 +23,7 @@ BuildRequires:  audit-devel
 BuildRequires:  autoconf
 BuildRequires:  bison
 BuildRequires:  fdupes
-%if %suse_version > 1220
 BuildRequires:  makeinfo
-%endif
 BuildRequires:  ncurses-devel
 BuildRequires:  patchutils
 BuildRequires:  pkg-config
