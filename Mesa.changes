@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Sat Jun  2 15:44:36 UTC 2018 - mimi.vx@gmail.com
+
+- Update to 18.1.1
+- drop U_dri3-Stricter-SBC-wraparound-handling.patch
+ * Radv fixed one extension and several features on a per-generation basis.
+ * Vulkan got fixes for a potential free of uninitialized memory
+ * Tegra got modifier fixes.
+ * nv30 fixed displayable formats.
+ * i965 now works correctly for GLK 2x6 systems.
+
+-------------------------------------------------------------------
 Tue May 22 16:08:15 UTC 2018 - tobias.johannes.klausmann@mni.thm.de
 
 - Add patch U_dri3-Stricter-SBC-wraparound-handling.patch
