@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Sun Jun 17 11:11:53 UTC 2018 - mimi.vx@gmail.com
+
+- update to 18.1.2
+ * Fixes for libatomic checks on non-arm and non-x86 platforms
+ * porting of additional libatomic checks to meson from autotools
+ * numerous radv fixes
+ * numerous intel fixes
+ * A few fixes each for radeonsi, r300, ac, glx, and vulkan
+
+-------------------------------------------------------------------
 Sat Jun  2 15:44:36 UTC 2018 - mimi.vx@gmail.com
 
 - Update to 18.1.1
