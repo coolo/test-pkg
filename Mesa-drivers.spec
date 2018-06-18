@@ -139,6 +139,7 @@ Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 Patch43:        u_r600-egd_tables.py-make-the-script-python-2-3-compat.patch
 Patch44:        u_intel_anv-make-scripts-python-2-3-compat.patch
 Patch47:        u_st-dri-don-t-set-queryDmaBufFormats-queryDmaBufModif.patch
+Patch48:        mako_4_radv.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -748,6 +749,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch43 -p1
 %patch44 -p1
 %patch47 -p1
+%patch48 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
