@@ -1,5 +1,5 @@
 #
-# spec file for package Mesa
+# spec file for package Mesa-drivers
 #
 # Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
 #
@@ -32,7 +32,8 @@
 # Note that if you actually need to render something, you need the packages
 # from Mesa-driver.
 
-%define drivers 0
+##### WARNING: please do not edit this auto generated spec file. Use the Mesa.spec! #####
+%define drivers 1
 
 %define libglvnd 0
 
@@ -108,7 +109,7 @@
   %define with_vulkan 0
 %endif
 
-Name:           Mesa
+Name:           Mesa-drivers
 Version:        18.0.2
 Release:        0
 Summary:        System for rendering 3-D graphics
