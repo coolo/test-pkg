@@ -201,6 +201,10 @@ BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.75
 %else
 %if 0%{with_opencl}
 BuildRequires:  libelf-devel
+%else
+%ifarch aarch64 ppc64le
+BuildRequires:  libelf-devel
+%endif
 %endif
 %endif
 # Requirements for wayland bumped up from 17.0
