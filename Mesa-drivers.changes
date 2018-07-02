@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Sat Jun 30 08:46:32 UTC 2018 - mimi.vx@gmail.com
+
+- update to 18.1.3
+ * numerous fixes for radv
+ * some fixes for common radeon code
+ * fixes for both the nir and glsl compilers
+ * An i965 fix for some gpu hangs on SNB
+
+-------------------------------------------------------------------
 Sun Jun 17 17:57:44 UTC 2018 - mimi.vx@gmail.com
 
 - add mako_4_radv.patch - fixes Mako detection for RADV/intel 
