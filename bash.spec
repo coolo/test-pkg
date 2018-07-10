@@ -23,9 +23,7 @@ BuildRequires:  audit-devel
 BuildRequires:  autoconf
 BuildRequires:  bison
 BuildRequires:  fdupes
-%if %suse_version > 1220
 BuildRequires:  makeinfo
-%endif
 BuildRequires:  ncurses-devel
 BuildRequires:  patchutils
 BuildRequires:  pkg-config
@@ -85,8 +83,7 @@ Patch47:        bash-4.3-perl522.patch
 Patch48:        bash-4.3-extra-import-func.patch
 # PATCH-EXTEND-SUSE Allow root to clean file system if filled up
 Patch49:        bash-4.3-pathtemp.patch
-# PATCH-FIX-UPSTREAM bnc#1086247
-Patch50:        bash-4.4-wait-sigint-handler.patch
+Patch50:        bash-memmove.patch
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
 %global         _ldldir     /%{_lib}/bash
@@ -228,8 +225,8 @@ done
 %patch48 -b .eif
 %endif
 %patch49 -p0 -b .pthtmp
-%patch50 -p0 -b .trap
 %patch0  -p0 -b .0
+%patch50 -p1
 # This has to be always the same version as included in the bash its self
 rl1=($(sed -rn '/RL_READLINE_VERSION/p' lib/readline/readline.h))
 rl2=($(sed -rn '/RL_READLINE_VERSION/p' /usr/include/readline/readline.h))
