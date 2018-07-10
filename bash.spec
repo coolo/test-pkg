@@ -225,8 +225,8 @@ done
 %patch48 -b .eif
 %endif
 %patch49 -p0 -b .pthtmp
+%patch50 -p1 -b .mmv
 %patch0  -p0 -b .0
-%patch50 -p1
 # This has to be always the same version as included in the bash its self
 rl1=($(sed -rn '/RL_READLINE_VERSION/p' lib/readline/readline.h))
 rl2=($(sed -rn '/RL_READLINE_VERSION/p' /usr/include/readline/readline.h))
