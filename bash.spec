@@ -83,6 +83,7 @@ Patch47:        bash-4.3-perl522.patch
 Patch48:        bash-4.3-extra-import-func.patch
 # PATCH-EXTEND-SUSE Allow root to clean file system if filled up
 Patch49:        bash-4.3-pathtemp.patch
+Patch50:        bash-memmove.patch
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
 %global         _ldldir     /%{_lib}/bash
@@ -225,6 +226,7 @@ done
 %endif
 %patch49 -p0 -b .pthtmp
 %patch0  -p0 -b .0
+%patch50 -p1
 # This has to be always the same version as included in the bash its self
 rl1=($(sed -rn '/RL_READLINE_VERSION/p' lib/readline/readline.h))
 rl2=($(sed -rn '/RL_READLINE_VERSION/p' /usr/include/readline/readline.h))
