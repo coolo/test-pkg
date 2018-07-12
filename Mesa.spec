@@ -841,7 +841,7 @@ export PYTHON2=%{_bindir}/python3
            --with-gallium-drivers= \
 %endif
         CFLAGS="%{optflags} -DNDEBUG"
-make %{?_smp_mflags}
+make %{?_smp_mflags} V=1
 
 %install
 %make_install
@@ -887,7 +887,7 @@ ln -s %{_libdir}/libGLX_mesa.so.0 %{buildroot}%{_libdir}/libGLX_indirect.so.0
 for dir in ../xc/doc/man/{GL/gl,GL/glx}; do
  pushd $dir
    xmkmf -a
-   make %{?_smp_mflags}
+   make %{?_smp_mflags} V=1
    make install.man DESTDIR=%{buildroot} MANPATH=%{_mandir} LIBMANSUFFIX=3gl
  popd
 done
