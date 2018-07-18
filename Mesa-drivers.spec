@@ -42,7 +42,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 18.1.3
+%define _version 18.1.4
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -112,7 +112,7 @@
 %endif
 
 Name:           Mesa-drivers
-Version:        18.1.3
+Version:        18.1.4
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -842,7 +842,7 @@ export PYTHON2=%{_bindir}/python3
            --with-gallium-drivers= \
 %endif
         CFLAGS="%{optflags} -DNDEBUG"
-make %{?_smp_mflags}
+make %{?_smp_mflags} V=1
 
 %install
 %make_install
@@ -888,7 +888,7 @@ ln -s %{_libdir}/libGLX_mesa.so.0 %{buildroot}%{_libdir}/libGLX_indirect.so.0
 for dir in ../xc/doc/man/{GL/gl,GL/glx}; do
  pushd $dir
    xmkmf -a
-   make %{?_smp_mflags}
+   make %{?_smp_mflags} V=1
    make install.man DESTDIR=%{buildroot} MANPATH=%{_mandir} LIBMANSUFFIX=3gl
  popd
 done

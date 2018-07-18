@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Mon Jul 16 10:21:54 UTC 2018 - sndirsch@suse.com
+
+- update to 18.1.4
+  * Several fixes for i965
+  * Several fixes for anv
+  * A few fixes each for radeonsi, glx, the glsl compiler, the
+    autotools build, nir, st/dri, and r600
+
+-------------------------------------------------------------------
+Wed Jul 11 07:47:35 UTC 2018 - mliska@suse.cz
+
+- Make build verbose as outlined in openSUSE:Specfile guidelines
+  https://en.opensuse.org/openSUSE:Specfile_guidelines#Verbose_mode
+
+-------------------------------------------------------------------
 Sat Jun 30 08:46:32 UTC 2018 - mimi.vx@gmail.com
 
 - update to 18.1.3
