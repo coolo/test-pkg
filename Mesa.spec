@@ -825,7 +825,7 @@ export PYTHON2=%{_bindir}/python3
   %ifarch %{arm} aarch64
            --enable-xa \
            --with-dri-drivers=nouveau \
-           --with-gallium-drivers=r300,r600,nouveau,swrast,freedreno,vc4 \
+           --with-gallium-drivers=r300,r600,nouveau,swrast,virgl,freedreno,vc4 \
   %endif
   %ifarch ppc64 ppc64le
            --enable-xa \
