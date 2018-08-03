@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Aug  2 20:13:36 UTC 2018 - mimi.vx@gmail.com
+
+- update to 18.1.5
+  * several fixes for radv
+  * A few fixes for virgil, spirv, radeonsi, nir, disk cache and build
+     systems
+
+-------------------------------------------------------------------
 Thu Jul 26 10:30:26 UTC 2018 - guillaume.gardet@opensuse.org
 
 - Enable virgl on ARM
