@@ -274,7 +274,7 @@ Provides:       s2tc-devel = %{version}
 Obsoletes:      s2tc-devel < %{version}
 Provides:       libtxc_dxtn-devel = %{version}
 Obsoletes:      libtxc_dxtn-devel < %{version}
-%if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
+%if 0%{?suse_version} < 1550 && (0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse}))
 Requires:       libwayland-egl-devel
 %endif
 
@@ -765,7 +765,7 @@ grep -v -i vulkan "%{_sourcedir}/baselibs.conf" >"%{_sourcedir}/temp" && \
 %endif
 
 %build
-%if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
+%if 0%{?suse_version} < 1550 && (0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse}))
 egl_platforms=x11,drm,wayland
 %else
 egl_platforms=x11,drm
@@ -861,8 +861,8 @@ rm -rf %{buildroot}/%{_includedir}/GL
 rm %{buildroot}/%{_libdir}/libglapi.so*
 
 # in libwayland-egl1
-rm %{buildroot}/%{_libdir}/libwayland-egl.so*
-rm %{buildroot}/%{_libdir}/pkgconfig/wayland-egl.pc
+rm -f %{buildroot}/%{_libdir}/libwayland-egl.so*
+rm -f %{buildroot}/%{_libdir}/pkgconfig/wayland-egl.pc
 
 # in Mesa-dri-devel
 rm %{buildroot}/%{_libdir}/pkgconfig/dri.pc
@@ -1024,7 +1024,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_libdir}/libOSMesa.so
 %{_libdir}/pkgconfig/osmesa.pc
 
-%if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
+%if 0%{?suse_version} < 1550 && (0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse}))
 %files -n libwayland-egl1
 %{_libdir}/libwayland-egl.so.1*
 
