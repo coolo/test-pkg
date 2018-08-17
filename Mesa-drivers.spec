@@ -42,7 +42,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 18.1.5
+%define _version 18.1.6
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -112,7 +112,7 @@
 %endif
 
 Name:           Mesa-drivers
-Version:        18.1.5
+Version:        18.1.6
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -134,7 +134,6 @@ Source7:        Mesa.keyring
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # currently needed for libglvnd support
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
-Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 # Upstream
 Patch43:        u_r600-egd_tables.py-make-the-script-python-2-3-compat.patch
 Patch44:        u_intel_anv-make-scripts-python-2-3-compat.patch
@@ -743,7 +742,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 
 %if 0%{?libglvnd}
 %patch31 -p1
-%patch32 -p1
 %endif
 
 %patch43 -p1
