@@ -41,7 +41,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 18.1.5
+%define _version 18.1.6
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -111,7 +111,7 @@
 %endif
 
 Name:           Mesa
-Version:        18.1.5
+Version:        18.1.6
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -133,7 +133,6 @@ Source7:        Mesa.keyring
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # currently needed for libglvnd support
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
-Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 # Upstream
 Patch43:        u_r600-egd_tables.py-make-the-script-python-2-3-compat.patch
 Patch44:        u_intel_anv-make-scripts-python-2-3-compat.patch
@@ -274,7 +273,7 @@ Provides:       s2tc-devel = %{version}
 Obsoletes:      s2tc-devel < %{version}
 Provides:       libtxc_dxtn-devel = %{version}
 Obsoletes:      libtxc_dxtn-devel < %{version}
-%if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
+%if 0%{?suse_version} < 1550 && (0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse}))
 Requires:       libwayland-egl-devel
 %endif
 
@@ -742,7 +741,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 
 %if 0%{?libglvnd}
 %patch31 -p1
-%patch32 -p1
 %endif
 
 %patch43 -p1
@@ -765,7 +763,7 @@ grep -v -i vulkan "%{_sourcedir}/baselibs.conf" >"%{_sourcedir}/temp" && \
 %endif
 
 %build
-%if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
+%if 0%{?suse_version} < 1550 && (0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse}))
 egl_platforms=x11,drm,wayland
 %else
 egl_platforms=x11,drm
@@ -861,8 +859,8 @@ rm -rf %{buildroot}/%{_includedir}/GL
 rm %{buildroot}/%{_libdir}/libglapi.so*
 
 # in libwayland-egl1
-rm %{buildroot}/%{_libdir}/libwayland-egl.so*
-rm %{buildroot}/%{_libdir}/pkgconfig/wayland-egl.pc
+rm -f %{buildroot}/%{_libdir}/libwayland-egl.so*
+rm -f %{buildroot}/%{_libdir}/pkgconfig/wayland-egl.pc
 
 # in Mesa-dri-devel
 rm %{buildroot}/%{_libdir}/pkgconfig/dri.pc
@@ -1024,7 +1022,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_libdir}/libOSMesa.so
 %{_libdir}/pkgconfig/osmesa.pc
 
-%if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
+%if 0%{?suse_version} < 1550 && (0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse}))
 %files -n libwayland-egl1
 %{_libdir}/libwayland-egl.so.1*
 

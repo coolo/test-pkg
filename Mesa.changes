@@ -1,4 +1,25 @@
 -------------------------------------------------------------------
+Fri Aug 17 11:53:08 UTC 2018 - sndirsch@suse.com
+
+- update to 18.1.6
+  * autotools fixes for libglvnd, libgl naming, and pkgconfig
+  * meson fixed its handling of stale symlinks wrt megadrivers
+  * windows relaged fixes
+  * some bug fixes for clover
+  * plenty of egl, wayland, glx, and dri3 fixes
+  * a couple of nir fixes
+  * and on the driver side, radv, intel, vc4, etnaviv, swr, r600, amd, and
+    nouveau all had a few fixes
+- supersedes archlinux_glvnd-fix-gl-dot-pc.patch
+
+-------------------------------------------------------------------
+Mon Aug 13 14:51:24 UTC 2018 - sndirsch@suse.com
+
+- disabled build of libwayland-egl for factory/sle16/Leap 16 now
+  being provided by Wayland itself and probably be removed from
+  Mesa soon; see also https://build.opensuse.org/request/show/613048
+
+-------------------------------------------------------------------
 Thu Aug  2 20:13:36 UTC 2018 - mimi.vx@gmail.com
 
 - update to 18.1.5
