@@ -764,7 +764,7 @@ grep -v -i vulkan "%{_sourcedir}/baselibs.conf" >"%{_sourcedir}/temp" && \
 %endif
 
 %build
-%if 0%{?suse_version} < 1550 && (0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse}))
+%if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
 egl_platforms=x11,drm,wayland
 %else
 egl_platforms=x11,drm
@@ -845,6 +845,12 @@ make %{?_smp_mflags} V=1
 %install
 %make_install
 find %{buildroot} -type f -name "*.la" -delete -print
+
+%if !(0%{?suse_version} < 1550 && (0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})))
+# libwayland-egl is provided by wayland itself
+rm -f %{buildroot}/%{_libdir}/libwayland-egl.so*
+rm -f %{buildroot}/%{_libdir}/pkgconfig/wayland-egl.pc
+%endif
 
 %if %{drivers}
 # Delete things that we do not package in the Mesa-drivers variant, but can
