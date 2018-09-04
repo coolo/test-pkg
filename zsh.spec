@@ -25,15 +25,16 @@ BuildRequires:  texi2html
 BuildRequires:  texinfo
 %endif
 Name:           zsh
-Version:        5.5.1
+Version:        5.6
 Release:        0%{?dist}
 Summary:        Shell with comprehensive completion
 License:        MIT
 Group:          System/Shells
 Url:            http://www.zsh.org
-Source0:        http://www.zsh.org/pub/zsh-%{version}.tar.gz
-Source1:        http://www.zsh.org/pub/zsh-%{version}.tar.gz.asc
-Source2:        %{name}.keyring
+Source0:        http://www.zsh.org/pub/zsh-%{version}.tar.xz
+#Source1:        http://www.zsh.org/pub/zsh-%{version}.tar.xz.asc
+#Signing key is not available atm.
+#Source2:        %{name}.keyring
 Source3:        zshrc
 Source4:        zshenv
 Source5:        zprofile
@@ -168,10 +169,6 @@ for i in zlogin zlogout zprofile zshrc zshenv; do
 done
 install -D -m 0644 %{SOURCE16} %{buildroot}%{_sysconfdir}/skel/.zshrc
 %endif
-
-# install help files
-install -m 0755 -Dd    %{buildroot}%{_datadir}/%{name}/%{version}/help
-install -m 0644 Doc/help/* %{buildroot}%{_datadir}/%{name}/%{version}/help/
 
 # link zsh binary
 %if 0%{?suse_version} || 0%{?rhel} <= 6

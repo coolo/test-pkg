@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Sep  4 15:51:31 UTC 2018 - Ismail Dönmez <idonmez@suse.com>
+
+- Update to version 5.6
+  * Fixes CVE-2018-0502 and CVE-2018-13259
+  * See included NEWS file for complete changes.
+
+-------------------------------------------------------------------
 Fri May 11 13:25:20 UTC 2018 - kbabioch@suse.com
 
 - Update to 5.5.1
