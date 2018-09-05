@@ -100,6 +100,10 @@ This package contains the Zsh manual in HTML format.
 # Remove executable bit
 chmod 0644 Etc/changelog2html.pl
 
+# Fix for missing help
+# http://www.zsh.org/mla/workers/2018/msg01180.html
+rm Doc/help.txt
+
 # Fix bindir path in some files
 perl -p -i -e 's|%{_prefix}/local/bin|%{_bindir}|' \
     Doc/intro.ms Misc/globtests.ksh Misc/globtests \
@@ -111,7 +115,7 @@ perl -p -i -e 's|%{_prefix}/local/bin|%{_bindir}|' \
 %configure \
 %if 0%{?suse_version}
     --with-term-lib="ncursesw" \
-    --enable-cflags="%{optflags} -fPIE -fstack-protector %(ncursesw6-config --cflags)" \
+    --enable-cflags="%{optflags} -fPIE -fstack-protector-strong %(ncursesw6-config --cflags)" \
     --enable-ldflags="%(ncursesw6-config --libs) -pie -Wl,-z,relro" \
 %endif
     --enable-fndir=%{_datadir}/%{name}/${version}/functions \
