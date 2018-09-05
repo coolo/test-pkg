@@ -32,9 +32,8 @@ License:        MIT
 Group:          System/Shells
 Url:            http://www.zsh.org
 Source0:        http://www.zsh.org/pub/zsh-%{version}.tar.xz
-#Source1:        http://www.zsh.org/pub/zsh-%{version}.tar.xz.asc
-#Signing key is not available atm.
-#Source2:        %{name}.keyring
+Source1:        http://www.zsh.org/pub/zsh-%{version}.tar.xz.asc
+Source2:        %{name}.keyring
 Source3:        zshrc
 Source4:        zshenv
 Source5:        zprofile
