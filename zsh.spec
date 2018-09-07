@@ -25,14 +25,14 @@ BuildRequires:  texi2html
 BuildRequires:  texinfo
 %endif
 Name:           zsh
-Version:        5.5.1
+Version:        5.6
 Release:        0%{?dist}
 Summary:        Shell with comprehensive completion
 License:        MIT
 Group:          System/Shells
 Url:            http://www.zsh.org
-Source0:        http://www.zsh.org/pub/zsh-%{version}.tar.gz
-Source1:        http://www.zsh.org/pub/zsh-%{version}.tar.gz.asc
+Source0:        http://www.zsh.org/pub/zsh-%{version}.tar.xz
+Source1:        http://www.zsh.org/pub/zsh-%{version}.tar.xz.asc
 Source2:        %{name}.keyring
 Source3:        zshrc
 Source4:        zshenv
@@ -100,6 +100,10 @@ This package contains the Zsh manual in HTML format.
 # Remove executable bit
 chmod 0644 Etc/changelog2html.pl
 
+# Fix for missing help
+# http://www.zsh.org/mla/workers/2018/msg01180.html
+rm Doc/help.txt
+
 # Fix bindir path in some files
 perl -p -i -e 's|%{_prefix}/local/bin|%{_bindir}|' \
     Doc/intro.ms Misc/globtests.ksh Misc/globtests \
@@ -111,7 +115,7 @@ perl -p -i -e 's|%{_prefix}/local/bin|%{_bindir}|' \
 %configure \
 %if 0%{?suse_version}
     --with-term-lib="ncursesw" \
-    --enable-cflags="%{optflags} -fPIE -fstack-protector %(ncursesw6-config --cflags)" \
+    --enable-cflags="%{optflags} -fPIE -fstack-protector-strong %(ncursesw6-config --cflags)" \
     --enable-ldflags="%(ncursesw6-config --libs) -pie -Wl,-z,relro" \
 %endif
     --enable-fndir=%{_datadir}/%{name}/${version}/functions \
@@ -168,10 +172,6 @@ for i in zlogin zlogout zprofile zshrc zshenv; do
 done
 install -D -m 0644 %{SOURCE16} %{buildroot}%{_sysconfdir}/skel/.zshrc
 %endif
-
-# install help files
-install -m 0755 -Dd    %{buildroot}%{_datadir}/%{name}/%{version}/help
-install -m 0644 Doc/help/* %{buildroot}%{_datadir}/%{name}/%{version}/help/
 
 # link zsh binary
 %if 0%{?suse_version} || 0%{?rhel} <= 6
