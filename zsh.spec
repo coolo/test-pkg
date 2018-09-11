@@ -100,10 +100,6 @@ This package contains the Zsh manual in HTML format.
 # Remove executable bit
 chmod 0644 Etc/changelog2html.pl
 
-# Fix for missing help
-# http://www.zsh.org/mla/workers/2018/msg01180.html
-rm Doc/help.txt
-
 # Fix bindir path in some files
 perl -p -i -e 's|%{_prefix}/local/bin|%{_bindir}|' \
     Doc/intro.ms Misc/globtests.ksh Misc/globtests \
