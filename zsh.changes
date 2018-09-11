@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Sep 11 06:54:09 UTC 2018 - Karol Babioch <kbabioch@suse.com>
+
+- Update to version 5.6.1
+  * Fix packaging issue that broke runhelp
+  * Fix a regression with pipelines getting backgrounded and emitting SIGTTOU
+
+-------------------------------------------------------------------
 Tue Sep  4 15:51:31 UTC 2018 - Ismail Dönmez <idonmez@suse.com>
 
 - Update to version 5.6
