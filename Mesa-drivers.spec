@@ -42,7 +42,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 18.1.7
+%define _version 18.2.0
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -112,7 +112,7 @@
 %endif
 
 Name:           Mesa-drivers
-Version:        18.1.7
+Version:        18.2.0
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -135,10 +135,13 @@ Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # currently needed for libglvnd support
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 # Upstream
-Patch43:        u_r600-egd_tables.py-make-the-script-python-2-3-compat.patch
-Patch44:        u_intel_anv-make-scripts-python-2-3-compat.patch
 Patch47:        u_st-dri-don-t-set-queryDmaBufFormats-queryDmaBufModif.patch
 Patch48:        mako_4_radv.patch
+
+Patch50:        U_intel-decoder-mark-total_length-as-MAYBE_UNUSED-in-g.patch
+Patch51:        U_intel-aubinator-mark-ftruncate_res-as-MAYBE_UNUSED-i.patch
+Patch52:        U_python-Fix-rich-comparisons.patch
+Patch53:        U_python-Use-key-functions-when-sorting-containers.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -178,6 +181,7 @@ BuildRequires:  pkgconfig(xcb-present)
 BuildRequires:  pkgconfig(xdamage)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xfixes)
+BuildRequires:  pkgconfig(xrandr)
 BuildRequires:  pkgconfig(xshmfence)
 BuildRequires:  pkgconfig(xvmc)
 BuildRequires:  pkgconfig(xxf86vm)
@@ -274,9 +278,6 @@ Provides:       s2tc-devel = %{version}
 Obsoletes:      s2tc-devel < %{version}
 Provides:       libtxc_dxtn-devel = %{version}
 Obsoletes:      libtxc_dxtn-devel < %{version}
-%if 0%{?suse_version} < 1550 && (0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse}))
-Requires:       libwayland-egl-devel
-%endif
 
 %description devel
 Mesa is a 3-D graphics library with an API which is very similar to
@@ -574,24 +575,6 @@ openwfd.
 This package provides the development environment for compiling
 programs against the GBM library.
 
-%package -n libwayland-egl1
-Summary:        Additional egl functions for wayland
-Group:          System/Libraries
-
-%description -n libwayland-egl1
-This package provides additional functions for egl-using programs
-that run within the wayland framework. This allows for applications
-that need not run full-screen and cooperate with a compositor.
-
-%package -n libwayland-egl-devel
-Summary:        Development files for libwayland-egl1
-Group:          Development/Libraries/C and C++
-Requires:       libwayland-egl1 = %{version}
-
-%description -n libwayland-egl-devel
-This package is required to link wayland client applications to the EGL
-implementation of Mesa.
-
 %package -n Mesa-libd3d
 Summary:        Mesa Direct3D9 state tracker
 # Manually provide d3d library (bnc#918294)
@@ -744,10 +727,12 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch31 -p1
 %endif
 
-%patch43 -p1
-%patch44 -p1
 %patch47 -p1
 %patch48 -p1
+%patch50 -p1
+%patch51 -p1
+%patch52 -p1
+%patch53 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
@@ -846,11 +831,9 @@ make %{?_smp_mflags} V=1
 %make_install
 find %{buildroot} -type f -name "*.la" -delete -print
 
-%if !(0%{?suse_version} < 1550 && (0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})))
 # libwayland-egl is provided by wayland itself
 rm -f %{buildroot}/%{_libdir}/libwayland-egl.so*
 rm -f %{buildroot}/%{_libdir}/pkgconfig/wayland-egl.pc
-%endif
 
 %if %{drivers}
 # Delete things that we do not package in the Mesa-drivers variant, but can
@@ -941,10 +924,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %postun libglapi0 -p /sbin/ldconfig
 
-%post   -n libwayland-egl1 -p /sbin/ldconfig
-
-%postun -n libwayland-egl1 -p /sbin/ldconfig
-
 %post -n Mesa-libd3d -p /sbin/ldconfig
 
 %postun -n Mesa-libd3d -p /sbin/ldconfig
@@ -1028,15 +1007,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_includedir}/GL/osmesa.h
 %{_libdir}/libOSMesa.so
 %{_libdir}/pkgconfig/osmesa.pc
-
-%if 0%{?suse_version} < 1550 && (0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse}))
-%files -n libwayland-egl1
-%{_libdir}/libwayland-egl.so.1*
-
-%files -n libwayland-egl-devel
-%{_libdir}/libwayland-egl.so
-%{_libdir}/pkgconfig/wayland-egl.pc
-%endif
 
 %files -n libgbm1
 %{_libdir}/libgbm.so.1*
