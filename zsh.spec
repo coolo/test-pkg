@@ -25,7 +25,7 @@ BuildRequires:  texi2html
 BuildRequires:  texinfo
 %endif
 Name:           zsh
-Version:        5.6.1
+Version:        5.6.2
 Release:        0%{?dist}
 Summary:        Shell with comprehensive completion
 License:        MIT
