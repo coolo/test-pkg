@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Sep 21 09:29:03 UTC 2018 - Ismail Dönmez <idonmez@suse.com>
+
+- Unbreak Leap 42.3 compilation 
+
+-------------------------------------------------------------------
 Sun Sep 16 20:13:34 UTC 2018 - Karol Babioch <kbabioch@suse.com>
 
 - Update to version 5.6.2
