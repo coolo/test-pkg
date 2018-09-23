@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Sep 21 20:38:47 UTC 2018 - Ondřej Súkup <mimi.vx@gmail.com>
+
+- update to 18.2.1
+  * Lot of fixes for Vulkan drivers.
+
+-------------------------------------------------------------------
 Tue Sep 11 13:28:26 UTC 2018 - sndirsch@suse.com
 
 - get rid of libwayland-egl1/libwayland-egl-devel completely; also
