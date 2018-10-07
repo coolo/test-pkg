@@ -42,7 +42,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 18.2.1
+%define _version 18.2.2
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -112,7 +112,7 @@
 %endif
 
 Name:           Mesa-drivers
-Version:        18.2.1
+Version:        18.2.2
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -123,8 +123,8 @@ URL:            http://www.mesa3d.org
 # Source:         ftp://ftp.freedesktop.org/pub/mesa/%%{version}/%%{_name_archive}-%%{_version}.tar.xz
 Source:         ftp://ftp.freedesktop.org/pub/mesa/%{_name_archive}-%{_version}.tar.xz
 # Source1:        ftp://ftp.freedesktop.org/pub/mesa/%%{version}/%%{_name_archive}-%%{_version}.tar.xz.sig
-# Source1:        ftp://ftp.freedesktop.org/pub/mesa/%{_name_archive}-%{_version}.tar.xz.sig
-Source1:        %{_name_archive}-%{_version}.tar.xz.sha1sum
+Source1:        ftp://ftp.freedesktop.org/pub/mesa/%{_name_archive}-%{_version}.tar.xz.sig
+# Source1:        %%{_name_archive}-%%{_version}.tar.xz.sha1sum
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
@@ -135,7 +135,6 @@ Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # currently needed for libglvnd support
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 # Upstream
-Patch47:        u_st-dri-don-t-set-queryDmaBufFormats-queryDmaBufModif.patch
 Patch48:        mako_4_radv.patch
 
 Patch50:        U_intel-decoder-mark-total_length-as-MAYBE_UNUSED-in-g.patch
@@ -727,7 +726,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch31 -p1
 %endif
 
-%patch47 -p1
 %patch48 -p1
 %patch50 -p1
 %patch51 -p1
@@ -996,8 +994,8 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %files libGLESv3-devel
 %{_includedir}/GLES3
-#%_libdir/libGLESv3.so
-#%_libdir/pkgconfig/glesv3.pc
+#%%_libdir/libGLESv3.so
+#%%_libdir/pkgconfig/glesv3.pc
 
 %files -n libOSMesa8
 %{_libdir}/libOSMesa.so.8.0.0

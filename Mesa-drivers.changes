@@ -1,4 +1,22 @@
 -------------------------------------------------------------------
+Fri Oct  5 19:04:01 UTC 2018 - bjorn.lie@gmail.com
+
+- Update to 18.2.2
+  * Different patches for the DirectX9 and DRI state trackers.
+  * A patch to implement vkAcquireNextImage2 in the Intel and AMD
+    vulkan drivers, as well as a patch for adding support for
+    protected memory properties in GetPhysicalDeviceProperties2()
+    for the former driver.
+  * RADV also gets a patch to fix some issues with reflections in
+    GTA V, and a patch to fix a GPU hang in SteamVR with Vega.
+  * Finally, there are more fixes for Radeonsi, nvc0, vc4, and
+    vulkan code.
+- Drop usage of sha1sum, use sig and keyring verification instead.
+  Following this, add key from Juan A. Suarez to keyring.
+- Drop u_st-dri-don-t-set-queryDmaBufFormats-queryDmaBufModif.patch
+  Fixed upstream.
+
+-------------------------------------------------------------------
 Fri Sep 21 20:38:47 UTC 2018 - Ondřej Súkup <mimi.vx@gmail.com>
 
 - update to 18.2.1
