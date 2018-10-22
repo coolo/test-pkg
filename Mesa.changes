@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Mon Oct 22 13:24:59 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.2.3
+  * Different patches for the DirectX9 and DRI state trackers.
+  * Several fixes and workarounds for different games, inlcuding 
+    RAGE, Yakuza and The Evil Within, Wolfenstein The Old Blood
+    ARMA 3, or No Mans Sky.
+  * A bunch of fixes for different drivers, including r600,
+    nouveau, radeonsi, anv, radv, virgl, i965, nvc0 or nv50.
+    Worth to mention a fix for GPU hangs in Radeonsi.
+  * State Trackers also get different fixes and corrections.
+  * Finally, fixes for GLSL and NIR are also in this queue.
+
+-------------------------------------------------------------------
 Fri Oct  5 19:04:01 UTC 2018 - bjorn.lie@gmail.com
 
 - Update to 18.2.2
