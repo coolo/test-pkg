@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Fri Oct 19 11:09:03 UTC 2018 - msrb@suse.com
+
+- u_swr-rast-Fix-addPassesToEmitFile-usage-with-llvm-7.0.patch,
+  u_clover-Fix-build-after-llvm-r325155-and-r325160.patch,
+  u_clover-Fix-build-after-llvm-r332881.patch,
+  n_fix-build-with-llvm7.patch
+  * Fix build with llvm7.
+
+-------------------------------------------------------------------
 Mon Apr 30 10:04:10 UTC 2018 - sndirsch@suse.com
 
 - Update to 18.0.2
