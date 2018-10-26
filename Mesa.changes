@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Oct 25 14:29:20 UTC 2018 - msrb@suse.com
+
+- n_drirc-disable-rgb10-for-chromium-on-amd.patch
+  * Disallow rgb10 configs for chromium with radeonsi to prevent
+    broken colors in video. (boo#1113211)
+
+-------------------------------------------------------------------
 Mon Oct 22 13:24:59 UTC 2018 - sndirsch@suse.com
 
 - Update to 18.2.3
