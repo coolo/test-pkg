@@ -42,7 +42,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 18.2.4
+%define _version 18.3.0-rc2
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -112,7 +112,7 @@
 %endif
 
 Name:           Mesa-drivers
-Version:        18.2.4
+Version:        18.3.0
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -134,14 +134,9 @@ Source7:        Mesa.keyring
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # currently needed for libglvnd support
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
-# Upstream
-Patch48:        mako_4_radv.patch
 
-Patch50:        U_intel-decoder-mark-total_length-as-MAYBE_UNUSED-in-g.patch
-Patch51:        U_intel-aubinator-mark-ftruncate_res-as-MAYBE_UNUSED-i.patch
-Patch52:        U_python-Fix-rich-comparisons.patch
-Patch53:        U_python-Use-key-functions-when-sorting-containers.patch
 Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
+Patch55:        n_drisw-Do-not-use-drisw_put_image_shm.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -727,12 +722,8 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch31 -p1
 %endif
 
-%patch48 -p1
-%patch50 -p1
-%patch51 -p1
-%patch52 -p1
-%patch53 -p1
 %patch54 -p1
+%patch55 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
@@ -840,7 +831,7 @@ rm -f %{buildroot}/%{_libdir}/pkgconfig/wayland-egl.pc
 # not disable from buildling and installing.
 
 # in Mesa
-rm %{buildroot}/%{_sysconfdir}/drirc
+rm -rf %{buildroot}/usr/share/drirc.d
 
 # in Mesa-libGL-devel
 rm -rf %{buildroot}/%{_includedir}/GL
@@ -859,6 +850,9 @@ rm %{buildroot}/%{_libdir}/pkgconfig/dri.pc
 rm %{buildroot}/%{_includedir}/gbm.h
 rm %{buildroot}/%{_libdir}/libgbm.so*
 rm %{buildroot}/%{_libdir}/pkgconfig/gbm.pc
+
+# in libEGL-devel
+rm -rf %{buildroot}/%{_includedir}/KHR
 
 %else
 %if 0%{?libglvnd} == 0
@@ -932,7 +926,8 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %files
 %license docs/license.html
 %doc docs/README*
-%config %{_sysconfdir}/drirc
+%dir /usr/share/drirc.d
+/usr/share/drirc.d/*
 
 %files libEGL1
 %if 0%{?libglvnd}
@@ -1167,7 +1162,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %files -n Mesa-libVulkan-devel
 %dir %{_includedir}/vulkan
-%{_includedir}/vulkan
+%{_includedir}/vulkan/*
 %endif
 
 %changelog

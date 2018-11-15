@@ -1,4 +1,25 @@
 -------------------------------------------------------------------
+Thu Nov 15 15:19:27 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.3.0-rc2
+  * second release candidate for Mesa 18.3.0
+- supersedes the following patches:
+  * U_intel-aubinator-mark-ftruncate_res-as-MAYBE_UNUSED-i.patch
+  * U_intel-decoder-mark-total_length-as-MAYBE_UNUSED-in-g.patch
+  * U_python-Fix-rich-comparisons.patch
+  * U_python-Use-key-functions-when-sorting-containers.patch
+  * mako_4_radv.patch
+- adjusted n_drirc-disable-rgb10-for-chromium-on-amd.patch
+- /etc/drirc moved to /usr/share/drirc.d/00-mesa-defaults.conf
+
+-------------------------------------------------------------------
+Tue Nov 13 08:50:56 UTC 2018 - msrb@suse.com
+
+- n_drisw-Do-not-use-drisw_put_image_shm.patch
+  * Workaround for applications that create GL context twice with
+    different loaders. (boo#1113533)
+
+-------------------------------------------------------------------
 Thu Nov  1 13:15:49 UTC 2018 - sndirsch@suse.com
 
 - Update to 18.2.4
