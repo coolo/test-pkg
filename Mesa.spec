@@ -141,6 +141,7 @@ Patch51:        U_intel-aubinator-mark-ftruncate_res-as-MAYBE_UNUSED-i.patch
 Patch52:        U_python-Fix-rich-comparisons.patch
 Patch53:        U_python-Use-key-functions-when-sorting-containers.patch
 Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
+Patch55:        n_drisw-Do-not-use-drisw_put_image_shm.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -732,6 +733,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch52 -p1
 %patch53 -p1
 %patch54 -p1
+%patch55 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
