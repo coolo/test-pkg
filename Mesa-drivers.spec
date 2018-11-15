@@ -851,7 +851,7 @@ rm %{buildroot}/%{_includedir}/gbm.h
 rm %{buildroot}/%{_libdir}/libgbm.so*
 rm %{buildroot}/%{_libdir}/pkgconfig/gbm.pc
 
-# in libEGL-devel
+# in libGL-devel
 rm -rf %{buildroot}/%{_includedir}/KHR
 
 %else
@@ -941,7 +941,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %files libEGL-devel
 %{_includedir}/EGL
-%{_includedir}/KHR
 %if !0%{?libglvnd}
 %{_libdir}/libEGL.so
 %endif
@@ -957,6 +956,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %files libGL-devel
 %dir %{_includedir}/GL
+%{_includedir}/KHR
 %{_includedir}/GL/*.h
 %exclude %{_includedir}/GL/osmesa.h
 %if 0%{?libglvnd} == 0

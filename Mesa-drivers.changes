@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Nov 15 16:50:48 UTC 2018 - sndirsch@suse.com
+
+- moved /usr/include/KHR from libEGL-devel to libGL-devel since it's
+  now being referenced by glext.h
+
+-------------------------------------------------------------------
 Thu Nov 15 15:19:27 UTC 2018 - sndirsch@suse.com
 
 - Update to 18.3.0-rc2
