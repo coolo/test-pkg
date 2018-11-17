@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat Nov 17 21:06:24 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.3.0-rc3
+  * third release candidate for Mesa 18.3.0 
+
+-------------------------------------------------------------------
 Thu Nov 15 16:50:48 UTC 2018 - sndirsch@suse.com
 
 - moved /usr/include/KHR from libEGL-devel to libGL-devel since it's
