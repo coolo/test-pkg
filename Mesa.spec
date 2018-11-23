@@ -33,7 +33,6 @@
 # from Mesa-driver.
 
 %define drivers 0
-
 %define libglvnd 0
 
 %if 0%{?suse_version} >= 1330
@@ -42,12 +41,12 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 18.0.2
+%define _version 18.3.0-rc4
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
 
-%ifarch %ix86 x86_64 %arm aarch64 ppc ppc64 ppc64le s390x
+%ifarch %{ix86} x86_64 %{arm} aarch64 ppc ppc64 ppc64le s390x
   %define gallium_loader 1
 %else
   %define gallium_loader 0
@@ -57,13 +56,13 @@
 %define vdpau_nouveau 0
 %define vdpau_radeon 0
 
-%ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le
+%ifarch %{ix86} x86_64 aarch64 %{arm} ppc64 ppc64le
   %define xvmc_support 1
   %define vdpau_nouveau 1
   %define vdpau_radeon 1
 %endif
 
-%ifarch %ix86 x86_64 %arm aarch64
+%ifarch %{ix86} x86_64 %{arm} aarch64
   %define with_nine 1
 %endif
 
@@ -71,12 +70,12 @@
   %ifnarch ppc
     %define with_opencl 1
   %endif
-  %ifarch %ix86 x86_64
+  %ifarch %{ix86} x86_64
     %define with_vulkan 1
   %endif
 %endif
 
-%ifarch aarch64 %arm ppc64 ppc64le s390x %ix86 x86_64
+%ifarch aarch64 %{arm} ppc64 ppc64le s390x %{ix86} x86_64
   %define with_llvm 1
 %endif
 
@@ -112,18 +111,19 @@
 %endif
 
 Name:           Mesa
-Version:        18.0.2
+Version:        18.3.0
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
 Group:          System/Libraries
-Url:            http://www.mesa3d.org
+URL:            http://www.mesa3d.org
 #Git-Clone:     git://anongit.freedesktop.org/mesa/mesa
 # For now directory structure of Mesa's ftp changed
 # Source:         ftp://ftp.freedesktop.org/pub/mesa/%%{version}/%%{_name_archive}-%%{_version}.tar.xz
 Source:         ftp://ftp.freedesktop.org/pub/mesa/%{_name_archive}-%{_version}.tar.xz
 # Source1:        ftp://ftp.freedesktop.org/pub/mesa/%%{version}/%%{_name_archive}-%%{_version}.tar.xz.sig
 Source1:        ftp://ftp.freedesktop.org/pub/mesa/%{_name_archive}-%{_version}.tar.xz.sig
+# Source1:        %%{_name_archive}-%%{_version}.tar.xz.sha1sum
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
@@ -133,14 +133,9 @@ Source7:        Mesa.keyring
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # currently needed for libglvnd support
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
-Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
-# Upstream
-Patch43:        u_r600-egd_tables.py-make-the-script-python-2-3-compat.patch
-Patch47:        u_st-dri-don-t-set-queryDmaBufFormats-queryDmaBufModif.patch
-Patch48:        u_swr-rast-Fix-addPassesToEmitFile-usage-with-llvm-7.0.patch
-Patch49:        u_clover-Fix-build-after-llvm-r325155-and-r325160.patch
-Patch50:        u_clover-Fix-build-after-llvm-r332881.patch
-Patch51:        n_fix-build-with-llvm7.patch
+
+Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
+Patch55:        n_drisw-Do-not-use-drisw_put_image_shm.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -152,6 +147,8 @@ BuildRequires:  pkgconfig
 BuildRequires:  python3-base
 %if 0%{?suse_version} > 1320
 BuildRequires:  python3-mako
+%else
+BuildRequires:  python3-Mako
 %endif
 BuildRequires:  python3-xml
 BuildRequires:  pkgconfig(dri2proto)
@@ -178,6 +175,7 @@ BuildRequires:  pkgconfig(xcb-present)
 BuildRequires:  pkgconfig(xdamage)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xfixes)
+BuildRequires:  pkgconfig(xrandr)
 BuildRequires:  pkgconfig(xshmfence)
 BuildRequires:  pkgconfig(xvmc)
 BuildRequires:  pkgconfig(xxf86vm)
@@ -196,12 +194,11 @@ Provides:       s2tc = %{version}
 Obsoletes:      s2tc < %{version}
 Provides:       libtxc_dxtn = %{version}
 Obsoletes:      libtxc_dxtn < %{version}
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-%ifarch %arm
+%ifarch %{arm}
 BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.74
 BuildRequires:  pkgconfig(libelf)
 %endif
-%ifarch x86_64 %ix86
+%ifarch x86_64 %{ix86}
 BuildRequires:  libelf-devel
 BuildRequires:  pkgconfig(libdrm_intel) >= 2.4.75
 %else
@@ -225,8 +222,8 @@ BuildRequires:  libclc
 %endif
 
 %if 0%{?libglvnd}
-Requires:       Mesa-libEGL1  = %{version}
-Requires:       Mesa-libGL1  = %{version}
+Requires:       Mesa-libEGL1 = %{version}
+Requires:       Mesa-libGL1 = %{version}
 Requires:       libglvnd >= 0.1.0
 %endif
 
@@ -275,9 +272,6 @@ Provides:       s2tc-devel = %{version}
 Obsoletes:      s2tc-devel < %{version}
 Provides:       libtxc_dxtn-devel = %{version}
 Obsoletes:      libtxc_dxtn-devel < %{version}
-%if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
-Requires:       libwayland-egl-devel
-%endif
 
 %description devel
 Mesa is a 3-D graphics library with an API which is very similar to
@@ -385,10 +379,10 @@ OpenGL|ES 1.x provides an API for fixed-function hardware.
 Summary:        Development files for the OpenGL ES 1.x API
 Group:          Development/Libraries/C and C++
 Requires:       Mesa-libGLESv1_CM1 = %{version}
+Requires:       pkgconfig(egl)
 %if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
 %endif
-Requires:       pkgconfig(egl)
 
 %description libGLESv1_CM-devel
 OpenGL|ES is an API for full-function 2D and 3D
@@ -424,10 +418,10 @@ ES 3 entry points.
 Summary:        Development files for the OpenGL ES 2.x API
 Group:          Development/Libraries/C and C++
 Requires:       Mesa-libGLESv2-2 = %{version}
+Requires:       pkgconfig(egl)
 %if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
 %endif
-Requires:       pkgconfig(egl)
 
 %description libGLESv2-devel
 OpenGL|ES is an API for full-function 2D and 3D
@@ -444,10 +438,10 @@ applications using the OpenGL|ES 2.x APIs.
 %package libGLESv3-devel
 Summary:        Development files for the OpenGL ES 3.x API
 Group:          Development/Libraries/C and C++
+Requires:       pkgconfig(egl)
 %if 0%{?libglvnd} == 0
 Requires:       Mesa-libGLESv2-2 = %{version}
 %endif
-Requires:       pkgconfig(egl)
 
 %description libGLESv3-devel
 OpenGL|ES is an API for full-function 2D and 3D
@@ -575,24 +569,6 @@ openwfd.
 This package provides the development environment for compiling
 programs against the GBM library.
 
-%package -n libwayland-egl1
-Summary:        Additional egl functions for wayland
-Group:          System/Libraries
-
-%description -n libwayland-egl1
-This package provides additional functions for egl-using programs
-that run within the wayland framework. This allows for applications
-that need not run full-screen and cooperate with a compositor.
-
-%package -n libwayland-egl-devel
-Summary:        Development files for libwayland-egl1
-Group:          Development/Libraries/C and C++
-Requires:       libwayland-egl1 = %{version}
-
-%description -n libwayland-egl-devel
-This package is required to link wayland client applications to the EGL
-implementation of Mesa.
-
 %package -n Mesa-libd3d
 Summary:        Mesa Direct3D9 state tracker
 # Manually provide d3d library (bnc#918294)
@@ -691,8 +667,8 @@ This package contains the Vulkan parts for Mesa.
 %package -n libvulkan_radeon
 Summary:        Mesa vulkan driver for AMD GPU
 Group:          System/Libraries
-Supplements:    xf86-video-ati
 Supplements:    xf86-video-amdgpu
+Supplements:    xf86-video-ati
 
 %description -n libvulkan_radeon
 This package contains the Vulkan parts for Mesa.
@@ -743,15 +719,10 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 
 %if 0%{?libglvnd}
 %patch31 -p1
-%patch32 -p1
 %endif
 
-%patch43 -p1
-%patch47 -p1
-%patch48 -p1
-%patch49 -p1
-%patch50 -p1
-%patch51 -p1
+%patch54 -p1
+%patch55 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
@@ -775,7 +746,7 @@ egl_platforms=x11,drm
 %endif
 autoreconf -fvi
 
-export PYTHON2=/usr/bin/python3
+export PYTHON2=%{_bindir}/python3
 %configure \
 %if %{drivers}
            --disable-gles1 \
@@ -820,15 +791,15 @@ export PYTHON2=/usr/bin/python3
            --with-vulkan-drivers=intel,radeon \
 %endif
 %if %{drivers}
-  %ifarch %ix86 x86_64
+  %ifarch %{ix86} x86_64
            --enable-xa \
            --with-dri-drivers=i915,i965,nouveau,r200,radeon \
            --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga,virgl \
   %endif
-  %ifarch %arm aarch64
+  %ifarch %{arm} aarch64
            --enable-xa \
            --with-dri-drivers=nouveau \
-           --with-gallium-drivers=r300,r600,nouveau,swrast,freedreno,vc4 \
+           --with-gallium-drivers=r300,r600,nouveau,swrast,virgl,freedreno,vc4 \
   %endif
   %ifarch ppc64 ppc64le
            --enable-xa \
@@ -844,18 +815,22 @@ export PYTHON2=/usr/bin/python3
            --with-gallium-drivers= \
 %endif
         CFLAGS="%{optflags} -DNDEBUG"
-make %{?_smp_mflags}
+make %{?_smp_mflags} V=1
 
 %install
-make DESTDIR=%{buildroot} install %{?_smp_mflags}
+%make_install
 find %{buildroot} -type f -name "*.la" -delete -print
+
+# libwayland-egl is provided by wayland itself
+rm -f %{buildroot}/%{_libdir}/libwayland-egl.so*
+rm -f %{buildroot}/%{_libdir}/pkgconfig/wayland-egl.pc
 
 %if %{drivers}
 # Delete things that we do not package in the Mesa-drivers variant, but can
 # not disable from buildling and installing.
 
 # in Mesa
-rm %{buildroot}/%{_sysconfdir}/drirc
+rm -rf %{buildroot}/usr/share/drirc.d
 
 # in Mesa-libGL-devel
 rm -rf %{buildroot}/%{_includedir}/GL
@@ -864,8 +839,8 @@ rm -rf %{buildroot}/%{_includedir}/GL
 rm %{buildroot}/%{_libdir}/libglapi.so*
 
 # in libwayland-egl1
-rm %{buildroot}/%{_libdir}/libwayland-egl.so*
-rm %{buildroot}/%{_libdir}/pkgconfig/wayland-egl.pc
+rm -f %{buildroot}/%{_libdir}/libwayland-egl.so*
+rm -f %{buildroot}/%{_libdir}/pkgconfig/wayland-egl.pc
 
 # in Mesa-dri-devel
 rm %{buildroot}/%{_libdir}/pkgconfig/dri.pc
@@ -874,6 +849,9 @@ rm %{buildroot}/%{_libdir}/pkgconfig/dri.pc
 rm %{buildroot}/%{_includedir}/gbm.h
 rm %{buildroot}/%{_libdir}/libgbm.so*
 rm %{buildroot}/%{_libdir}/pkgconfig/gbm.pc
+
+# in libGL-devel
+rm -rf %{buildroot}/%{_includedir}/KHR
 
 %else
 %if 0%{?libglvnd} == 0
@@ -890,7 +868,7 @@ ln -s %{_libdir}/libGLX_mesa.so.0 %{buildroot}%{_libdir}/libGLX_indirect.so.0
 for dir in ../xc/doc/man/{GL/gl,GL/glx}; do
  pushd $dir
    xmkmf -a
-   make %{?_smp_mflags}
+   make %{?_smp_mflags} V=1
    make install.man DESTDIR=%{buildroot} MANPATH=%{_mandir} LIBMANSUFFIX=3gl
  popd
 done
@@ -939,22 +917,18 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %postun libglapi0 -p /sbin/ldconfig
 
-%post   -n libwayland-egl1 -p /sbin/ldconfig
-
-%postun -n libwayland-egl1 -p /sbin/ldconfig
-
 %post -n Mesa-libd3d -p /sbin/ldconfig
 
 %postun -n Mesa-libd3d -p /sbin/ldconfig
 
 %if !%{drivers}
 %files
-%defattr(-,root,root)
-%doc docs/README* docs/license.html
-%config %{_sysconfdir}/drirc
+%license docs/license.html
+%doc docs/README*
+%dir /usr/share/drirc.d
+/usr/share/drirc.d/*
 
 %files libEGL1
-%defattr(-,root,root)
 %if 0%{?libglvnd}
 %{_libdir}/libEGL_mesa.so*
 %dir %{_datadir}/glvnd
@@ -965,16 +939,13 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %endif
 
 %files libEGL-devel
-%defattr(-,root,root)
 %{_includedir}/EGL
-%{_includedir}/KHR
 %if !0%{?libglvnd}
 %{_libdir}/libEGL.so
 %endif
 %{_libdir}/pkgconfig/egl.pc
 
 %files libGL1
-%defattr(-,root,root)
 %if 0%{?libglvnd}
 %{_libdir}/libGLX_mesa.so*
 %{_libdir}/libGLX_indirect.so*
@@ -983,8 +954,8 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %endif
 
 %files libGL-devel
-%defattr(-,root,root)
 %dir %{_includedir}/GL
+%{_includedir}/KHR
 %{_includedir}/GL/*.h
 %exclude %{_includedir}/GL/osmesa.h
 %if 0%{?libglvnd} == 0
@@ -994,13 +965,11 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_mandir}/man3/gl[A-Z]*
 
 %files libGLESv1_CM1
-%defattr(-,root,root)
 %if 0%{?libglvnd} == 0
 %{_libdir}/libGLESv1_CM.so.1*
 %endif
 
 %files libGLESv1_CM-devel
-%defattr(-,root,root)
 %{_includedir}/GLES
 %if 0%{?libglvnd} == 0
 %{_libdir}/libGLESv1_CM.so
@@ -1008,13 +977,11 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_libdir}/pkgconfig/glesv1_cm.pc
 
 %files libGLESv2-2
-%defattr(-,root,root)
 %if 0%{?libglvnd} == 0
 %{_libdir}/libGLESv2.so.2*
 %endif
 
 %files libGLESv2-devel
-%defattr(-,root,root)
 %{_includedir}/GLES2
 %if 0%{?libglvnd} == 0
 %{_libdir}/libGLESv2.so
@@ -1022,52 +989,34 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_libdir}/pkgconfig/glesv2.pc
 
 %files libGLESv3-devel
-%defattr(-,root,root)
 %{_includedir}/GLES3
-#%_libdir/libGLESv3.so
-#%_libdir/pkgconfig/glesv3.pc
+#%%_libdir/libGLESv3.so
+#%%_libdir/pkgconfig/glesv3.pc
 
 %files -n libOSMesa8
-%defattr(-,root,root)
 %{_libdir}/libOSMesa.so.8.0.0
 %{_libdir}/libOSMesa.so.8
 
 %files -n libOSMesa-devel
-%defattr(-,root,root)
 %{_includedir}/GL/osmesa.h
 %{_libdir}/libOSMesa.so
 %{_libdir}/pkgconfig/osmesa.pc
 
-%if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
-%files -n libwayland-egl1
-%defattr(-,root,root)
-%{_libdir}/libwayland-egl.so.1*
-
-%files -n libwayland-egl-devel
-%defattr(-,root,root)
-%{_libdir}/libwayland-egl.so
-%{_libdir}/pkgconfig/wayland-egl.pc
-%endif
-
 %files -n libgbm1
-%defattr(-,root,root)
 %{_libdir}/libgbm.so.1*
 
 %files -n libgbm-devel
-%defattr(-,root,root)
 %{_includedir}/gbm.h
 %{_libdir}/libgbm.so
 %{_libdir}/pkgconfig/gbm.pc
 %endif
 
 %if %{drivers}
-%ifarch aarch64 %ix86 x86_64 %arm ppc64 ppc64le
+%ifarch aarch64 %{ix86} x86_64 %{arm} ppc64 ppc64le
 %files -n libxatracker2
-%defattr(-,root,root)
 %{_libdir}/libxatracker.so.2*
 
 %files -n libxatracker-devel
-%defattr(-,root,root)
 %{_includedir}/xa_*.h
 %{_libdir}/libxatracker.so
 %{_libdir}/pkgconfig/xatracker.pc
@@ -1075,14 +1024,12 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %if %{xvmc_support}
 %files -n libXvMC_nouveau
-%defattr(-,root,root)
 %{_libdir}/libXvMCnouveau.so
 %{_libdir}/libXvMCnouveau.so.1
 %{_libdir}/libXvMCnouveau.so.1.0
 %{_libdir}/libXvMCnouveau.so.1.0.0
 
 %files -n libXvMC_r600
-%defattr(-,root,root)
 %{_libdir}/libXvMCr600.so
 %{_libdir}/libXvMCr600.so.1
 %{_libdir}/libXvMCr600.so.1.0
@@ -1091,7 +1038,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %if %{vdpau_nouveau}
 %files -n libvdpau_nouveau
-%defattr(-,root,root)
 %{_libdir}/vdpau/libvdpau_nouveau.so
 %{_libdir}/vdpau/libvdpau_nouveau.so.1
 %{_libdir}/vdpau/libvdpau_nouveau.so.1.0
@@ -1100,23 +1046,20 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %if %{vdpau_radeon}
 %files -n libvdpau_r300
-%defattr(-,root,root)
 %{_libdir}/vdpau/libvdpau_r300.so
 %{_libdir}/vdpau/libvdpau_r300.so.1
 %{_libdir}/vdpau/libvdpau_r300.so.1.0
 %{_libdir}/vdpau/libvdpau_r300.so.1.0.0
 
 %files -n libvdpau_r600
-%defattr(-,root,root)
 %{_libdir}/vdpau/libvdpau_r600.so
 %{_libdir}/vdpau/libvdpau_r600.so.1
 %{_libdir}/vdpau/libvdpau_r600.so.1.0
 %{_libdir}/vdpau/libvdpau_r600.so.1.0.0
 %endif
 
-%ifarch %ix86 x86_64
+%ifarch %{ix86} x86_64
 %files -n libvdpau_radeonsi
-%defattr(-,root,root)
 %{_libdir}/vdpau/libvdpau_radeonsi.so
 %{_libdir}/vdpau/libvdpau_radeonsi.so.1
 %{_libdir}/vdpau/libvdpau_radeonsi.so.1.0
@@ -1126,11 +1069,9 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %if !%{drivers}
 %files libglapi0
-%defattr(-,root,root)
 %{_libdir}/libglapi.so.0*
 
 %files libglapi-devel
-%defattr(-,root,root)
 %{_libdir}/libglapi.so
 %endif
 
@@ -1138,11 +1079,11 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %files -n Mesa-dri
 %dir %{_libdir}/dri
 %{_libdir}/dri/*_dri.so
-%ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le
+%ifarch %{ix86} x86_64 aarch64 %{arm} ppc64 ppc64le
 %exclude %{_libdir}/dri/nouveau_dri.so
 %exclude %{_libdir}/dri/nouveau_vieux_dri.so
 %endif
-%ifarch %arm aarch64
+%ifarch %{arm} aarch64
 %exclude %{_libdir}/dri/vc4_dri.so
 %endif
 
@@ -1153,13 +1094,13 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_libdir}/gallium-pipe/pipe_*.so
 %endif
 
-%ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le
+%ifarch %{ix86} x86_64 aarch64 %{arm} ppc64 ppc64le
 %files -n Mesa-dri-nouveau
 %{_libdir}/dri/nouveau_dri.so
 %{_libdir}/dri/nouveau_vieux_dri.so
 %endif
 
-%ifarch aarch64 %arm
+%ifarch aarch64 %{arm}
 %files -n Mesa-dri-vc4
 %{_libdir}/dri/vc4_dri.so
 %endif
@@ -1169,12 +1110,10 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %if !%{drivers}
 %files dri-devel
-%defattr(-,root,root)
 %{_includedir}/GL/internal
 %{_libdir}/pkgconfig/dri.pc
 
 %files devel
-%defattr(-,root,root)
 %doc docs/*.html
 
 # !drivers
@@ -1182,13 +1121,11 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %if 0%{?with_nine}
 %files -n Mesa-libd3d
-%defattr(-,root,root)
 %dir %{_libdir}/d3d/
 %{_libdir}/d3d/*.so.*
 #%%{_sysconfdir}/OpenCL/vendors/mesa.icd
 
 %files -n Mesa-libd3d-devel
-%defattr(-,root,root)
 %{_libdir}/pkgconfig/d3d.pc
 %{_includedir}/d3dadapter/
 %{_libdir}/d3d/*.so
@@ -1196,7 +1133,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %if 0%{with_opencl}
 %files -n Mesa-libOpenCL
-%defattr(-,root,root)
 %dir %{_sysconfdir}/OpenCL
 %dir %{_sysconfdir}/OpenCL/vendors
 %{_sysconfdir}/OpenCL/vendors/mesa.icd
@@ -1204,32 +1140,28 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %endif
 
 %if %{drivers}
-%ifarch %ix86 x86_64 aarch64 %arm ppc64 ppc64le
+%ifarch %{ix86} x86_64 aarch64 %{arm} ppc64 ppc64le
 %files -n Mesa-libva
-%defattr(-,root,root)
 %{_libdir}/dri/*_drv_video.so
 %endif
 %endif
 
 %if 0%{with_vulkan}
 %files -n libvulkan_intel
-%defattr(-,root,root)
 %dir %{_datadir}/vulkan
 %dir %{_datadir}/vulkan/icd.d
 %{_datadir}/vulkan/icd.d/intel_icd.*.json
 %{_libdir}/libvulkan_intel.so
 
 %files -n libvulkan_radeon
-%defattr(-,root,root)
 %{_libdir}/libvulkan_radeon.so
 %dir %{_datadir}/vulkan
 %dir %{_datadir}/vulkan/icd.d
 %{_datadir}/vulkan/icd.d/radeon_icd.*.json
 
 %files -n Mesa-libVulkan-devel
-%defattr(-,root,root)
-%dir %_includedir/vulkan
-%_includedir/vulkan
+%dir %{_includedir}/vulkan
+%{_includedir}/vulkan/*
 %endif
 
 %changelog

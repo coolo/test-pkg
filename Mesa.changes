@@ -1,11 +1,366 @@
 -------------------------------------------------------------------
-Fri Oct 19 11:09:03 UTC 2018 - msrb@suse.com
+Thu Nov 22 14:12:45 UTC 2018 - sndirsch@suse.com
 
-- u_swr-rast-Fix-addPassesToEmitFile-usage-with-llvm-7.0.patch,
-  u_clover-Fix-build-after-llvm-r325155-and-r325160.patch,
-  u_clover-Fix-build-after-llvm-r332881.patch,
-  n_fix-build-with-llvm7.patch
-  * Fix build with llvm7.
+- Update to 18.3.0-rc4
+  * fourth release candidate for Mesa 18.3.0
+
+-------------------------------------------------------------------
+Sat Nov 17 21:06:24 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.3.0-rc3
+  * third release candidate for Mesa 18.3.0 
+
+-------------------------------------------------------------------
+Thu Nov 15 16:50:48 UTC 2018 - sndirsch@suse.com
+
+- moved /usr/include/KHR from libEGL-devel to libGL-devel since it's
+  now being referenced by glext.h
+
+-------------------------------------------------------------------
+Thu Nov 15 15:19:27 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.3.0-rc2
+  * second release candidate for Mesa 18.3.0
+- supersedes the following patches:
+  * U_intel-aubinator-mark-ftruncate_res-as-MAYBE_UNUSED-i.patch
+  * U_intel-decoder-mark-total_length-as-MAYBE_UNUSED-in-g.patch
+  * U_python-Fix-rich-comparisons.patch
+  * U_python-Use-key-functions-when-sorting-containers.patch
+  * mako_4_radv.patch
+- adjusted n_drirc-disable-rgb10-for-chromium-on-amd.patch
+- /etc/drirc moved to /usr/share/drirc.d/00-mesa-defaults.conf
+
+-------------------------------------------------------------------
+Tue Nov 13 08:50:56 UTC 2018 - msrb@suse.com
+
+- n_drisw-Do-not-use-drisw_put_image_shm.patch
+  * Workaround for applications that create GL context twice with
+    different loaders. (boo#1113533)
+
+-------------------------------------------------------------------
+Thu Nov  1 13:15:49 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.2.4
+  * Different fixes for different drivers: freedreno, radeonsi,
+    swr, anv and radv. Also there are fixes for ac, gallium, 
+    spirv and blorp.
+
+-------------------------------------------------------------------
+Thu Oct 25 14:29:20 UTC 2018 - msrb@suse.com
+
+- n_drirc-disable-rgb10-for-chromium-on-amd.patch
+  * Disallow rgb10 configs for chromium with radeonsi to prevent
+    broken colors in video. (boo#1113211)
+
+-------------------------------------------------------------------
+Mon Oct 22 13:24:59 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.2.3
+  * Different patches for the DirectX9 and DRI state trackers.
+  * Several fixes and workarounds for different games, inlcuding 
+    RAGE, Yakuza and The Evil Within, Wolfenstein The Old Blood
+    ARMA 3, or No Mans Sky.
+  * A bunch of fixes for different drivers, including r600,
+    nouveau, radeonsi, anv, radv, virgl, i965, nvc0 or nv50.
+    Worth to mention a fix for GPU hangs in Radeonsi.
+  * State Trackers also get different fixes and corrections.
+  * Finally, fixes for GLSL and NIR are also in this queue.
+
+-------------------------------------------------------------------
+Fri Oct  5 19:04:01 UTC 2018 - bjorn.lie@gmail.com
+
+- Update to 18.2.2
+  * Different patches for the DirectX9 and DRI state trackers.
+  * A patch to implement vkAcquireNextImage2 in the Intel and AMD
+    vulkan drivers, as well as a patch for adding support for
+    protected memory properties in GetPhysicalDeviceProperties2()
+    for the former driver.
+  * RADV also gets a patch to fix some issues with reflections in
+    GTA V, and a patch to fix a GPU hang in SteamVR with Vega.
+  * Finally, there are more fixes for Radeonsi, nvc0, vc4, and
+    vulkan code.
+- Drop usage of sha1sum, use sig and keyring verification instead.
+  Following this, add key from Juan A. Suarez to keyring.
+- Drop u_st-dri-don-t-set-queryDmaBufFormats-queryDmaBufModif.patch
+  Fixed upstream.
+
+-------------------------------------------------------------------
+Fri Sep 21 20:38:47 UTC 2018 - Ondřej Súkup <mimi.vx@gmail.com>
+
+- update to 18.2.1
+  * Lot of fixes for Vulkan drivers.
+
+-------------------------------------------------------------------
+Tue Sep 11 13:28:26 UTC 2018 - sndirsch@suse.com
+
+- get rid of libwayland-egl1/libwayland-egl-devel completely; also
+  for older Leap versions
+
+-------------------------------------------------------------------
+Mon Sep 10 13:29:24 UTC 2018 - sndirsch@suse.com
+
+- update to 18.2.0
+  * This release consists of nearly 2200 commits from approximately
+    130 developers.
+  * The top highlights include:
+    - OpenGL 4.3 on virgl.
+    - OpenGL 4.4 Compatibility profile on radeonsi.
+    - OpenGL ES 3.2 on radeonsi and virgl.
+    - GL_ARB_ES3_2_compatibility on radeonsi.
+    - GL_ARB_fragment_shader_interlock on i965.
+    - GL_ARB_sample_locations and GL_NV_sample_locations on nvc0 (GM200+).
+    - GL_ANDROID_extension_pack_es31a on radeonsi.
+    - GL_KHR_texture_compression_astc_ldr on radeonsi.
+    - GL_NV_conservative_raster and GL_NV_conservative_raster_dilate on
+      nvc0 (GM200+).
+    - GL_NV_conservative_raster_pre_snap_triangles on nvc0 (GP102+).
+    - multisampled images on nvc0 (GM107+) (now supported on GF100+).
+  * Additional features:
+    - ANV Extensions:
+      - VK_KHR_bind_memory2.
+      - VK_KHR_external_fence.
+      - VK_KHR_external_fence_capabilities.
+      - VK_KHR_external_semaphore.
+      - VK_KHR_external_semaphore_capabilities.
+      - VK_KHR_maintenance2.
+      - VK_KHR_maintenance3.
+      - VK_KHR_multiview.
+      - VK_KHR_relaxed_block_layout.
+      - VK_KHR_sampler_ycbcr_conversion.
+      - VK_KHR_8bit_storage.
+      - VK_KHR_create_renderpass2.
+      - VK_KHR_display.
+      - VK_KHR_display_swapchain.
+      - VK_KHR_external_fence_fd.
+      - VK_KHR_external_semaphore_fd.
+      - VK_KHR_get_display_properties2.
+      - VK_KHR_image_format_list.
+    - RADV Extensions:
+      - VK_KHR_bind_memory2.
+      - VK_KHR_external_fence.
+      - VK_KHR_external_fence_capabilities.
+      - VK_KHR_maintenance2.
+      - VK_KHR_maintenance3.
+      - VK_KHR_multiview.
+      - VK_KHR_relaxed_block_layout.
+      - VK_KHR_create_renderpass2.
+      - VK_KHR_display.
+      - VK_KHR_display_swapchain.
+      - VK_KHR_draw_indirect_count.
+      - VK_KHR_external_fence_fd.
+      - VK_KHR_get_display_properties2.
+      - VK_KHR_get_surface_capabilities2.
+      - VK_KHR_image_format_list.
+    - New GL extensions supported by all drivers:
+      - GL_OES_EGL_image_external.
+      - GL_OES_EGL_image_external_essl3.
+    - freedreno:
+      - GL 3.0's multisample anti-aliasing support on a5xx.
+      - GL_ARB_texture_multisample support on a5xx.
+      - GLES3.1's GS5 Packing/bitfield/conversion functions support on a5xx.
+      - Dynamically uniform UBO array indices.
+      - Packing/bitfield/conversion functions.
+      - Enhanced textureGather.
+      - GL_OES_texture_buffer.
+      - GL_ARB_seamless_cubemap_per_texture.
+    - i965:
+      - GL_OES_texture_view on gen8+.
+      - GL_EXT_texture_norm16.
+    - nouveau:
+      - GL_ARB_post_depth_coverage.
+      - GL_ARB_sample_locations.
+      - GL_EXT_texture_norm16.
+    - r600:
+      - GL_EXT_texture_norm16.
+    - radeonsi:
+      - GL_EXT_texture_norm16.
+    - virgl:
+      - GL_ARB_seamless_cubemap_per_texture.
+      - GL_ARB_shader_stencil_export.
+- supersedes u_r600-egd_tables.py-make-the-script-python-2-3-compat.patch,
+  u_intel_anv-make-scripts-python-2-3-compat.patch
+- U_intel-decoder-mark-total_length-as-MAYBE_UNUSED-in-g.patch,
+  U_intel-aubinator-mark-ftruncate_res-as-MAYBE_UNUSED-i.patch,
+  U_python-Fix-rich-comparisons.patch,
+  U_python-Use-key-functions-when-sorting-containers.patch
+  * buildfixes ...
+
+-------------------------------------------------------------------
+Mon Aug 27 12:07:28 UTC 2018 - sndirsch@suse.com
+
+- update to 18.1.7
+  * Mesa 18.1.7 is now available for general consumption. This
+    release has been rather small compared to the last few
+    release, There's just a handful of fixes in total. Meson,
+    radv, anv, gallium winsys, intel, i965, and r600 were the
+    only recipients of fixs this go around.
+
+-------------------------------------------------------------------
+Sun Aug 26 19:03:01 UTC 2018 - fabian@ritter-vogt.de
+
+- Add wayland to egl_platforms for Leap 15.0+ and TW again (boo#1105798)
+
+-------------------------------------------------------------------
+Fri Aug 17 11:53:08 UTC 2018 - sndirsch@suse.com
+
+- update to 18.1.6
+  * autotools fixes for libglvnd, libgl naming, and pkgconfig
+  * meson fixed its handling of stale symlinks wrt megadrivers
+  * windows relaged fixes
+  * some bug fixes for clover
+  * plenty of egl, wayland, glx, and dri3 fixes
+  * a couple of nir fixes
+  * and on the driver side, radv, intel, vc4, etnaviv, swr, r600, amd, and
+    nouveau all had a few fixes
+- supersedes archlinux_glvnd-fix-gl-dot-pc.patch
+
+-------------------------------------------------------------------
+Mon Aug 13 14:51:24 UTC 2018 - sndirsch@suse.com
+
+- disabled build of libwayland-egl for factory/sle16/Leap 16 now
+  being provided by Wayland itself and probably be removed from
+  Mesa soon; see also https://build.opensuse.org/request/show/613048
+
+-------------------------------------------------------------------
+Thu Aug  2 20:13:36 UTC 2018 - mimi.vx@gmail.com
+
+- update to 18.1.5
+  * several fixes for radv
+  * A few fixes for virgil, spirv, radeonsi, nir, disk cache and build
+     systems
+
+-------------------------------------------------------------------
+Thu Jul 26 10:30:26 UTC 2018 - guillaume.gardet@opensuse.org
+
+- Enable virgl on ARM
+
+-------------------------------------------------------------------
+Mon Jul 16 10:21:54 UTC 2018 - sndirsch@suse.com
+
+- update to 18.1.4
+  * Several fixes for i965
+  * Several fixes for anv
+  * A few fixes each for radeonsi, glx, the glsl compiler, the
+    autotools build, nir, st/dri, and r600
+
+-------------------------------------------------------------------
+Wed Jul 11 07:47:35 UTC 2018 - mliska@suse.cz
+
+- Make build verbose as outlined in openSUSE:Specfile guidelines
+  https://en.opensuse.org/openSUSE:Specfile_guidelines#Verbose_mode
+
+-------------------------------------------------------------------
+Sat Jun 30 08:46:32 UTC 2018 - mimi.vx@gmail.com
+
+- update to 18.1.3
+ * numerous fixes for radv
+ * some fixes for common radeon code
+ * fixes for both the nir and glsl compilers
+ * An i965 fix for some gpu hangs on SNB
+
+-------------------------------------------------------------------
+Sun Jun 17 17:57:44 UTC 2018 - mimi.vx@gmail.com
+
+- add mako_4_radv.patch - fixes Mako detection for RADV/intel
+
+-------------------------------------------------------------------
+Sun Jun 17 11:11:53 UTC 2018 - mimi.vx@gmail.com
+
+- update to 18.1.2
+ * Fixes for libatomic checks on non-arm and non-x86 platforms
+ * porting of additional libatomic checks to meson from autotools
+ * numerous radv fixes
+ * numerous intel fixes
+ * A few fixes each for radeonsi, r300, ac, glx, and vulkan
+
+-------------------------------------------------------------------
+Sat Jun  2 15:44:36 UTC 2018 - mimi.vx@gmail.com
+
+- Update to 18.1.1
+- drop U_dri3-Stricter-SBC-wraparound-handling.patch
+ * Radv fixed one extension and several features on a per-generation basis.
+ * Vulkan got fixes for a potential free of uninitialized memory
+ * Tegra got modifier fixes.
+ * nv30 fixed displayable formats.
+ * i965 now works correctly for GLK 2x6 systems.
+
+-------------------------------------------------------------------
+Tue May 22 16:08:15 UTC 2018 - tobias.johannes.klausmann@mni.thm.de
+
+- Add patch U_dri3-Stricter-SBC-wraparound-handling.patch
+  This fixes an error with timestamps, avoiding near infinite client
+  hangs with the new X server 1.20 release and some clients, the most 
+  prominent being plasmashell & steam
+  Bugentry: FDO#106351
+
+-------------------------------------------------------------------
+Tue May 22 08:44:11 UTC 2018 - msrb@suse.com
+
+- Fix python3-Mako dependency on <= Leap 42.3.
+- Temporarily replace mesa-18.1.0.tar.xz.sig with
+  mesa-18.1.0.tar.xz.sha1sum. The sig file uses EDDSA which is not
+  supported by gpg in OBS at the moment.
+
+-------------------------------------------------------------------
+Sat May 19 17:45:35 UTC 2018 - mimi.vx@gmail.com
+
+- Update to 18.1.0
+- refreshed archlinux_0001-Fix-linkage-against-shared-glapi.patch
+- add u_intel_anv-make-scripts-python-2-3-compat.patch for build ANV
+    with python
+  * Vulkan 1.1 support for the ANV and RADV drivers.
+  * RadeonSI and RADV have "Vega M" GPU support for Kabylake G processors
+  * A simple Gallium3D HUD option as an alternative to the advanced
+      heads-up display
+  * There is also now Vega 12 support too. 
+  * For new hardware support on the Intel side are the initial
+      bits for Intel Icelake. 
+  * The Intel driver stack has meanwhile landed more SPIR-V
+      bits towards OpenGL 4.6.
+  * The Intel ANV driver has received new extensions too as well as
+      enabling features like MSAA fast clears.
+  * VP9 VA-API support for VCN and HEVC Main for VCN - Raven Ridge CPUs.
+  * DRI3 1.1/1.2 support for going with the soon-to-be-out X.Org Server 1.20.
+  * Etnaviv performance counter support when paired with the latest Etnaviv 
+      DRM in the mainline kernel.
+  * The last-year-GSoC'ed OpenMAX Tizonia H.264 encoder/decoder.
+  * UVD-based HEVC video encoding.
+  * OpenGL 3.1 ARB_compatibility support for the major Gallium3D drivers.
+  * RadeonSI 32-bit pointers support.
+  * The Intel GLSL shader cache is enabled by default.
+  * Nouveau NVC0 meanwhile finally has ARB_bindless_texture support.
+  * On the old hardware front, R600g is now effectively at OpenGL 4.4
+      for the Radeon HD 5800/6900 series.
+
+-------------------------------------------------------------------
+Sat May 19 14:56:38 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.0.4
+  * r600 driver gets a fix for constant buffer boounds, which
+    fixes rendering bugs in Trine and Witcher 1.
+  * Several fixes for RADV driver: fixes around alpha channel
+    in Pre-Vega, fix in multisample image copies, and fixes
+    around multilayer images in compute path.
+  * For the case of ANV/i965 drivers, also a couple of fixes, 
+    all of them around ISP. On top, there are a couple of fixes
+    relative to code emission around 16-bit integers, and a a
+    fix for a leak in blorp for Gen4 and Gen5.
+  * Speaking of leaks, there are also fixes for 
+    winsys/radeon/amdgpu and pipe-loader.gets a couple of patches
+    to fix a couple of leaks.
+  * SPIR-V part gets a patch to apply OriginUpperLeft to FragCoord.
+  * Mesa core gets a couple of patches to fix error handling in
+    get_framebuffer_parameteriv, and to add missing support for
+    glFogiv(GL_FOG_DISTANCE_MODE_NV).
+
+-------------------------------------------------------------------
+Tue May  8 12:14:26 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.0.3
+  * The is a fairly small release consisting of patches to fix leaks
+    in RADV and Winsys, fix deadlock in internal queue, fix issues
+    with ANV allocator, fix blit setup for YUV LoadImage, and some
+    other patches.
 
 -------------------------------------------------------------------
 Mon Apr 30 10:04:10 UTC 2018 - sndirsch@suse.com
