@@ -12,7 +12,7 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via http://bugs.opensuse.org/
+# Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
 
 
@@ -831,7 +831,7 @@ rm -f %{buildroot}/%{_libdir}/pkgconfig/wayland-egl.pc
 # not disable from buildling and installing.
 
 # in Mesa
-rm -rf %{buildroot}/usr/share/drirc.d
+rm -rf %{buildroot}/%{_datadir}/drirc.d
 
 # in Mesa-libGL-devel
 rm -rf %{buildroot}/%{_includedir}/GL
@@ -926,8 +926,8 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %files
 %license docs/license.html
 %doc docs/README*
-%dir /usr/share/drirc.d
-/usr/share/drirc.d/*
+%dir %{_datadir}/drirc.d
+%config %{_datadir}/drirc.d/*
 
 %files libEGL1
 %if 0%{?libglvnd}
