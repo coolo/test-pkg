@@ -331,6 +331,7 @@ programs against the EGL library.
 %package KHR-devel
 Summary:        Mesa Khronos development headers
 Group:          Development/Libraries/C and C++
+Provides:       Mesa-libGL-devel:/usr/include/KHR/khrplatform.h
 
 %description KHR-devel
 Mesa Khronos development headers.

@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Nov 27 10:50:17 UTC 2018 - sndirsch@suse.com
+
+- added libGL-Mesa-devel split-off provides to Mesa-KHR-devel
+  package, since /usr/include/KHR/khrplatform.h moved between
+  these two packages (related to bsc#1117365)
+
+-------------------------------------------------------------------
 Tue Nov 27 08:42:43 UTC 2018 - msrb@suse.com
 
 - Place khrplatform.h into new package Mesa-KHR-devel. It is now
