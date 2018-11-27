@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Tue Nov 27 08:42:43 UTC 2018 - msrb@suse.com
+
+- Place khrplatform.h into new package Mesa-KHR-devel. It is now
+  required by all devel packages that need it. (bsc#1117365)
+
+-------------------------------------------------------------------
+Mon Nov 26 15:06:58 UTC 2018 - msrb@suse.com
+
+- Remove n_drisw-Do-not-use-drisw_put_image_shm.patch,
+  add u_constify-struct-drisw_loader_funcs.patch
+  and u_drisw-use-separate-drisw_loader_funcs-for-shm.patch.
+  * Replace workaround with proper fix for crash in VLC and
+    possibly other applications. (boo#1113533)
+
+-------------------------------------------------------------------
 Fri Nov 23 17:21:06 UTC 2018 - Tobias Klausmann <tobias.johannes.klausmann@mni.thm.de>
 
 - Use rpm variables for the drirc.d path
