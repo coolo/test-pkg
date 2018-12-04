@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Dec  4 11:20:05 UTC 2018 - bjorn.lie@gmail.com
+
+- Add u_wayland_egl-Ensure-EGL-surface.patch: wayland/egl: Ensure
+  EGL surface is resized on DRI update_buffers(). Patch is sent
+  upstream already.
+
+-------------------------------------------------------------------
 Thu Nov 29 13:12:15 UTC 2018 - sndirsch@suse.com
 
 - Update to 18.3.0-rc5

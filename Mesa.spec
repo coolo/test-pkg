@@ -12,7 +12,7 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via http://bugs.opensuse.org/
+# Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
 
 
@@ -137,6 +137,7 @@ Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
 Patch55:        u_constify-struct-drisw_loader_funcs.patch
 Patch56:        u_drisw-use-separate-drisw_loader_funcs-for-shm.patch
+Patch57:        u_wayland_egl-Ensure-EGL-surface.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -214,7 +215,7 @@ BuildRequires:  pkgconfig(wayland-protocols) >= 1.8
 BuildRequires:  pkgconfig(wayland-server) >= 1.11
 %endif
 %if 0%{with_llvm}
-BuildRequires:  llvm-devel >= 3.9.0
+BuildRequires:  llvm-devel >= 6.0.0
 %endif
 
 %if 0%{with_opencl}
@@ -737,6 +738,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch54 -p1
 %patch55 -p1
 %patch56 -p1
+%patch57 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
