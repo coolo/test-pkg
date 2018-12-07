@@ -12,7 +12,7 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via https://bugs.opensuse.org/
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
 
@@ -41,7 +41,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 18.3.0-rc5
+%define _version 18.3.0
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -135,8 +135,6 @@ Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 
 Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
-Patch55:        u_constify-struct-drisw_loader_funcs.patch
-Patch56:        u_drisw-use-separate-drisw_loader_funcs-for-shm.patch
 Patch57:        u_wayland_egl-Ensure-EGL-surface.patch
 
 BuildRequires:  autoconf >= 2.60
@@ -736,8 +734,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %endif
 
 %patch54 -p1
-%patch55 -p1
-%patch56 -p1
 %patch57 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
