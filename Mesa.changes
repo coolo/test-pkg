@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Dec 10 15:38:24 UTC 2018 - Ismail Dönmez <idonmez@suse.com>
+
+- Fix baselibs.conf entry for Mesa-KHR-devel (missing "-") 
+
+-------------------------------------------------------------------
 Fri Dec  7 13:57:32 UTC 2018 - sndirsch@suse.com
 
 - Update to 18.3.0 final release
