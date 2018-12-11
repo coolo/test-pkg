@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Tue Dec 11 10:45:49 UTC 2018 - sndirsch@suse.com
+
+- n_Disable-Xshm-for-now-since-it-results-in-render-erro.patch
+  * Xshm results in render errors and missing screen refreshes on GNOME3
+    in a qemu VM (cirrus emulation); see also
+    https://bugzilla.suse.com/show_bug.cgi?id=1118149
+
+-------------------------------------------------------------------
+Mon Dec 10 15:38:24 UTC 2018 - Ismail Dönmez <idonmez@suse.com>
+
+- Fix baselibs.conf entry for Mesa-KHR-devel (missing "-") 
+
+-------------------------------------------------------------------
 Fri Dec  7 13:57:32 UTC 2018 - sndirsch@suse.com
 
 - Update to 18.3.0 final release
