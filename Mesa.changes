@@ -1,4 +1,97 @@
 -------------------------------------------------------------------
+Tue Dec 11 10:45:49 UTC 2018 - sndirsch@suse.com
+
+- n_Disable-Xshm-for-now-since-it-results-in-render-erro.patch
+  * Xshm results in render errors and missing screen refreshes on GNOME3
+    in a qemu VM (cirrus emulation) [bsc#1118149]
+
+-------------------------------------------------------------------
+Mon Dec 10 15:38:24 UTC 2018 - Ismail Dönmez <idonmez@suse.com>
+
+- Fix baselibs.conf entry for Mesa-KHR-devel (missing "-") 
+
+-------------------------------------------------------------------
+Fri Dec  7 13:57:32 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.3.0 final release
+  * The top highlights include:
+    + GL_AMD_depth_clamp_separate on r600, radeonsi.
+    + GL_AMD_framebuffer_multisample_advanced on radeonsi.
+    + GL_AMD_gpu_shader_int64 on i965, nvc0, radeonsi.
+    + GL_AMD_multi_draw_indirect on all GL 4.x drivers.
+    + GL_AMD_query_buffer_object on i965, nvc0, r600, radeonsi.
+    + GL_EXT_disjoint_timer_query on radeonsi and most other Gallium drivers
+      (ES extension)
+    + GL_EXT_texture_compression_s3tc on all drivers (ES extension)
+    + GL_EXT_vertex_attrib_64bit on i965, nvc0, radeonsi.
+    + GL_EXT_window_rectangles on radeonsi.
+    + GL_KHR_texture_compression_astc_sliced_3d on radeonsi.
+    + GL_NV_fragment_shader_interlock on i965.
+    + EGL_EXT_device_base for all drivers.
+    + EGL_EXT_device_drm for all drivers.
+    + EGL_MESA_device_software for all drivers.
+  * Additional features:
+    ANV
+    + VK_EXT_calibrated_timestamps
+    + VK_EXT_pci_bus_info
+    + VK_EXT_sampler_filter_minmax
+    + VK_EXT_vertex_attribute_divisor v3
+    + VK_GOOGLE_decorate_string
+    + VK_GOOGLE_hlsl_functionality1
+    + VK_KHR_driver_properties
+    RADV
+    + VK_EXT_calibrated_timestamps
+    + VK_EXT_conservative_rasterization
+    + VK_EXT_pci_bus_info
+    + VK_EXT_transform_feedback
+    + VK_EXT_vertex_attribute_divisor v3
+    + VK_GOOGLE_decorate_string
+    + VK_GOOGLE_hlsl_functionality1
+    + VK_KHR_driver_properties
+- supersedes u_constify-struct-drisw_loader_funcs.patch,
+  u_drisw-use-separate-drisw_loader_funcs-for-shm.patch
+
+-------------------------------------------------------------------
+Tue Dec  4 11:20:05 UTC 2018 - bjorn.lie@gmail.com
+
+- Add u_wayland_egl-Ensure-EGL-surface.patch: wayland/egl: Ensure
+  EGL surface is resized on DRI update_buffers(). Patch is sent
+  upstream already.
+
+-------------------------------------------------------------------
+Thu Nov 29 13:12:15 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.3.0-rc5
+  * fifth release candidate for Mesa 18.3.0
+
+-------------------------------------------------------------------
+Tue Nov 27 10:50:17 UTC 2018 - sndirsch@suse.com
+
+- added libGL-Mesa-devel split-off provides to Mesa-KHR-devel
+  package, since /usr/include/KHR/khrplatform.h moved between
+  these two packages (related to bsc#1117365)
+
+-------------------------------------------------------------------
+Tue Nov 27 08:42:43 UTC 2018 - msrb@suse.com
+
+- Place khrplatform.h into new package Mesa-KHR-devel. It is now
+  required by all devel packages that need it. (bsc#1117365)
+
+-------------------------------------------------------------------
+Mon Nov 26 15:06:58 UTC 2018 - msrb@suse.com
+
+- Remove n_drisw-Do-not-use-drisw_put_image_shm.patch,
+  add u_constify-struct-drisw_loader_funcs.patch
+  and u_drisw-use-separate-drisw_loader_funcs-for-shm.patch.
+  * Replace workaround with proper fix for crash in VLC and
+    possibly other applications. (boo#1113533)
+
+-------------------------------------------------------------------
+Fri Nov 23 17:21:06 UTC 2018 - Tobias Klausmann <tobias.johannes.klausmann@mni.thm.de>
+
+- Use rpm variables for the drirc.d path
+
+-------------------------------------------------------------------
 Thu Nov 22 14:12:45 UTC 2018 - sndirsch@suse.com
 
 - Update to 18.3.0-rc4

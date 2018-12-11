@@ -42,7 +42,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 18.3.0-rc4
+%define _version 18.3.0
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -136,7 +136,9 @@ Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 
 Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
-Patch55:        n_drisw-Do-not-use-drisw_put_image_shm.patch
+Patch57:        u_wayland_egl-Ensure-EGL-surface.patch
+
+Patch60:        n_Disable-Xshm-for-now-since-it-results-in-render-erro.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -214,7 +216,7 @@ BuildRequires:  pkgconfig(wayland-protocols) >= 1.8
 BuildRequires:  pkgconfig(wayland-server) >= 1.11
 %endif
 %if 0%{with_llvm}
-BuildRequires:  llvm-devel >= 3.9.0
+BuildRequires:  llvm-devel >= 6.0.0
 %endif
 
 %if 0%{with_opencl}
@@ -327,6 +329,14 @@ OpenGL|ES and OpenVG.
 This package provides the development environment for compiling
 programs against the EGL library.
 
+%package KHR-devel
+Summary:        Mesa Khronos development headers
+Group:          Development/Libraries/C and C++
+Provides:       Mesa-libGL-devel:/usr/include/KHR/khrplatform.h
+
+%description KHR-devel
+Mesa Khronos development headers.
+
 %package libGL1
 Summary:        The GL/GLX runtime of the Mesa 3D graphics library
 Group:          System/Libraries
@@ -348,6 +358,7 @@ the X Window System.
 %package libGL-devel
 Summary:        GL/GLX development files of the OpenGL API
 Group:          Development/Libraries/C and C++
+Requires:       Mesa-KHR-devel = %{version}
 Requires:       Mesa-libGL1 = %{version}
 %if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
@@ -379,6 +390,7 @@ OpenGL|ES 1.x provides an API for fixed-function hardware.
 %package libGLESv1_CM-devel
 Summary:        Development files for the OpenGL ES 1.x API
 Group:          Development/Libraries/C and C++
+Requires:       Mesa-KHR-devel = %{version}
 Requires:       Mesa-libGLESv1_CM1 = %{version}
 Requires:       pkgconfig(egl)
 %if 0%{?libglvnd}
@@ -418,6 +430,7 @@ ES 3 entry points.
 %package libGLESv2-devel
 Summary:        Development files for the OpenGL ES 2.x API
 Group:          Development/Libraries/C and C++
+Requires:       Mesa-KHR-devel = %{version}
 Requires:       Mesa-libGLESv2-2 = %{version}
 Requires:       pkgconfig(egl)
 %if 0%{?libglvnd}
@@ -439,6 +452,7 @@ applications using the OpenGL|ES 2.x APIs.
 %package libGLESv3-devel
 Summary:        Development files for the OpenGL ES 3.x API
 Group:          Development/Libraries/C and C++
+Requires:       Mesa-KHR-devel = %{version}
 Requires:       pkgconfig(egl)
 %if 0%{?libglvnd} == 0
 Requires:       Mesa-libGLESv2-2 = %{version}
@@ -723,7 +737,8 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %endif
 
 %patch54 -p1
-%patch55 -p1
+%patch57 -p1
+%patch60 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
@@ -831,7 +846,7 @@ rm -f %{buildroot}/%{_libdir}/pkgconfig/wayland-egl.pc
 # not disable from buildling and installing.
 
 # in Mesa
-rm -rf %{buildroot}/usr/share/drirc.d
+rm -rf %{buildroot}/%{_datadir}/drirc.d
 
 # in Mesa-libGL-devel
 rm -rf %{buildroot}/%{_includedir}/GL
@@ -851,7 +866,7 @@ rm %{buildroot}/%{_includedir}/gbm.h
 rm %{buildroot}/%{_libdir}/libgbm.so*
 rm %{buildroot}/%{_libdir}/pkgconfig/gbm.pc
 
-# in libGL-devel
+# in KHR-devel
 rm -rf %{buildroot}/%{_includedir}/KHR
 
 %else
@@ -926,8 +941,8 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %files
 %license docs/license.html
 %doc docs/README*
-%dir /usr/share/drirc.d
-/usr/share/drirc.d/*
+%dir %{_datadir}/drirc.d
+%config %{_datadir}/drirc.d/*
 
 %files libEGL1
 %if 0%{?libglvnd}
@@ -946,6 +961,10 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %endif
 %{_libdir}/pkgconfig/egl.pc
 
+%files KHR-devel
+%dir %{_includedir}/KHR
+%{_includedir}/KHR
+
 %files libGL1
 %if 0%{?libglvnd}
 %{_libdir}/libGLX_mesa.so*
@@ -956,7 +975,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %files libGL-devel
 %dir %{_includedir}/GL
-%{_includedir}/KHR
 %{_includedir}/GL/*.h
 %exclude %{_includedir}/GL/osmesa.h
 %if 0%{?libglvnd} == 0
