@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Dec 12 11:00:56 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.3.1 
+  * This version disables the VK_EXT_pci_bus_info extension due to
+    last minute issues spotted in the specification.
+
+-------------------------------------------------------------------
 Tue Dec 11 10:45:49 UTC 2018 - sndirsch@suse.com
 
 - n_Disable-Xshm-for-now-since-it-results-in-render-erro.patch
