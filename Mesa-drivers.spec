@@ -168,7 +168,9 @@ BuildRequires:  pkgconfig(libglvnd) >= 0.1.0
 BuildRequires:  pkgconfig(libkms) >= 1.0.0
 BuildRequires:  pkgconfig(libva)
 BuildRequires:  pkgconfig(presentproto)
+%if %{drivers}
 BuildRequires:  pkgconfig(vdpau) >= 1.1
+%endif
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(x11-xcb)
 BuildRequires:  pkgconfig(xcb-dri2)
@@ -800,7 +802,9 @@ export PYTHON2=%{_bindir}/python3
            --enable-llvm \
            --enable-llvm-shared-libs \
 %endif
+%if %{drivers}
            --enable-vdpau \
+%endif
            --enable-va \
            --enable-xvmc \
 %if 0%{with_vulkan}

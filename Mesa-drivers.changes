@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Dec 12 15:29:53 UTC 2018 - Dominique Leuenberger <dimstar@opensuse.org>
+
+- Only BuildRequire pkgconfig(vdpau) and pass --enable-vdpau to
+  configure when building the drivers. Helps us break a build
+  cycle.
+
+-------------------------------------------------------------------
 Wed Dec 12 11:00:56 UTC 2018 - sndirsch@suse.com
 
 - Update to 18.3.1 
