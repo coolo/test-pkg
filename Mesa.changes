@@ -1,4 +1,298 @@
 -------------------------------------------------------------------
+Wed Dec 12 15:29:53 UTC 2018 - Dominique Leuenberger <dimstar@opensuse.org>
+
+- Only BuildRequire pkgconfig(vdpau) and pass --enable-vdpau to
+  configure when building the drivers. Helps us break a build
+  cycle.
+
+-------------------------------------------------------------------
+Wed Dec 12 11:00:56 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.3.1 
+  * This version disables the VK_EXT_pci_bus_info extension due to
+    last minute issues spotted in the specification.
+
+-------------------------------------------------------------------
+Tue Dec 11 10:45:49 UTC 2018 - sndirsch@suse.com
+
+- n_Disable-Xshm-for-now-since-it-results-in-render-erro.patch
+  * Xshm results in render errors and missing screen refreshes on GNOME3
+    in a qemu VM (cirrus emulation) [bsc#1118149]
+
+-------------------------------------------------------------------
+Mon Dec 10 15:38:24 UTC 2018 - Ismail Dönmez <idonmez@suse.com>
+
+- Fix baselibs.conf entry for Mesa-KHR-devel (missing "-") 
+
+-------------------------------------------------------------------
+Fri Dec  7 13:57:32 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.3.0 final release
+  * The top highlights include:
+    + GL_AMD_depth_clamp_separate on r600, radeonsi.
+    + GL_AMD_framebuffer_multisample_advanced on radeonsi.
+    + GL_AMD_gpu_shader_int64 on i965, nvc0, radeonsi.
+    + GL_AMD_multi_draw_indirect on all GL 4.x drivers.
+    + GL_AMD_query_buffer_object on i965, nvc0, r600, radeonsi.
+    + GL_EXT_disjoint_timer_query on radeonsi and most other Gallium drivers
+      (ES extension)
+    + GL_EXT_texture_compression_s3tc on all drivers (ES extension)
+    + GL_EXT_vertex_attrib_64bit on i965, nvc0, radeonsi.
+    + GL_EXT_window_rectangles on radeonsi.
+    + GL_KHR_texture_compression_astc_sliced_3d on radeonsi.
+    + GL_NV_fragment_shader_interlock on i965.
+    + EGL_EXT_device_base for all drivers.
+    + EGL_EXT_device_drm for all drivers.
+    + EGL_MESA_device_software for all drivers.
+  * Additional features:
+    ANV
+    + VK_EXT_calibrated_timestamps
+    + VK_EXT_pci_bus_info
+    + VK_EXT_sampler_filter_minmax
+    + VK_EXT_vertex_attribute_divisor v3
+    + VK_GOOGLE_decorate_string
+    + VK_GOOGLE_hlsl_functionality1
+    + VK_KHR_driver_properties
+    RADV
+    + VK_EXT_calibrated_timestamps
+    + VK_EXT_conservative_rasterization
+    + VK_EXT_pci_bus_info
+    + VK_EXT_transform_feedback
+    + VK_EXT_vertex_attribute_divisor v3
+    + VK_GOOGLE_decorate_string
+    + VK_GOOGLE_hlsl_functionality1
+    + VK_KHR_driver_properties
+- supersedes u_constify-struct-drisw_loader_funcs.patch,
+  u_drisw-use-separate-drisw_loader_funcs-for-shm.patch
+
+-------------------------------------------------------------------
+Tue Dec  4 11:20:05 UTC 2018 - bjorn.lie@gmail.com
+
+- Add u_wayland_egl-Ensure-EGL-surface.patch: wayland/egl: Ensure
+  EGL surface is resized on DRI update_buffers(). Patch is sent
+  upstream already.
+
+-------------------------------------------------------------------
+Thu Nov 29 13:12:15 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.3.0-rc5
+  * fifth release candidate for Mesa 18.3.0
+
+-------------------------------------------------------------------
+Tue Nov 27 10:50:17 UTC 2018 - sndirsch@suse.com
+
+- added libGL-Mesa-devel split-off provides to Mesa-KHR-devel
+  package, since /usr/include/KHR/khrplatform.h moved between
+  these two packages (related to bsc#1117365)
+
+-------------------------------------------------------------------
+Tue Nov 27 08:42:43 UTC 2018 - msrb@suse.com
+
+- Place khrplatform.h into new package Mesa-KHR-devel. It is now
+  required by all devel packages that need it. (bsc#1117365)
+
+-------------------------------------------------------------------
+Mon Nov 26 15:06:58 UTC 2018 - msrb@suse.com
+
+- Remove n_drisw-Do-not-use-drisw_put_image_shm.patch,
+  add u_constify-struct-drisw_loader_funcs.patch
+  and u_drisw-use-separate-drisw_loader_funcs-for-shm.patch.
+  * Replace workaround with proper fix for crash in VLC and
+    possibly other applications. (boo#1113533)
+
+-------------------------------------------------------------------
+Fri Nov 23 17:21:06 UTC 2018 - Tobias Klausmann <tobias.johannes.klausmann@mni.thm.de>
+
+- Use rpm variables for the drirc.d path
+
+-------------------------------------------------------------------
+Thu Nov 22 14:12:45 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.3.0-rc4
+  * fourth release candidate for Mesa 18.3.0
+
+-------------------------------------------------------------------
+Sat Nov 17 21:06:24 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.3.0-rc3
+  * third release candidate for Mesa 18.3.0 
+
+-------------------------------------------------------------------
+Thu Nov 15 16:50:48 UTC 2018 - sndirsch@suse.com
+
+- moved /usr/include/KHR from libEGL-devel to libGL-devel since it's
+  now being referenced by glext.h
+
+-------------------------------------------------------------------
+Thu Nov 15 15:19:27 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.3.0-rc2
+  * second release candidate for Mesa 18.3.0
+- supersedes the following patches:
+  * U_intel-aubinator-mark-ftruncate_res-as-MAYBE_UNUSED-i.patch
+  * U_intel-decoder-mark-total_length-as-MAYBE_UNUSED-in-g.patch
+  * U_python-Fix-rich-comparisons.patch
+  * U_python-Use-key-functions-when-sorting-containers.patch
+  * mako_4_radv.patch
+- adjusted n_drirc-disable-rgb10-for-chromium-on-amd.patch
+- /etc/drirc moved to /usr/share/drirc.d/00-mesa-defaults.conf
+
+-------------------------------------------------------------------
+Tue Nov 13 08:50:56 UTC 2018 - msrb@suse.com
+
+- n_drisw-Do-not-use-drisw_put_image_shm.patch
+  * Workaround for applications that create GL context twice with
+    different loaders. (boo#1113533)
+
+-------------------------------------------------------------------
+Thu Nov  1 13:15:49 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.2.4
+  * Different fixes for different drivers: freedreno, radeonsi,
+    swr, anv and radv. Also there are fixes for ac, gallium, 
+    spirv and blorp.
+
+-------------------------------------------------------------------
+Thu Oct 25 14:29:20 UTC 2018 - msrb@suse.com
+
+- n_drirc-disable-rgb10-for-chromium-on-amd.patch
+  * Disallow rgb10 configs for chromium with radeonsi to prevent
+    broken colors in video. (boo#1113211)
+
+-------------------------------------------------------------------
+Mon Oct 22 13:24:59 UTC 2018 - sndirsch@suse.com
+
+- Update to 18.2.3
+  * Different patches for the DirectX9 and DRI state trackers.
+  * Several fixes and workarounds for different games, inlcuding 
+    RAGE, Yakuza and The Evil Within, Wolfenstein The Old Blood
+    ARMA 3, or No Mans Sky.
+  * A bunch of fixes for different drivers, including r600,
+    nouveau, radeonsi, anv, radv, virgl, i965, nvc0 or nv50.
+    Worth to mention a fix for GPU hangs in Radeonsi.
+  * State Trackers also get different fixes and corrections.
+  * Finally, fixes for GLSL and NIR are also in this queue.
+
+-------------------------------------------------------------------
+Fri Oct  5 19:04:01 UTC 2018 - bjorn.lie@gmail.com
+
+- Update to 18.2.2
+  * Different patches for the DirectX9 and DRI state trackers.
+  * A patch to implement vkAcquireNextImage2 in the Intel and AMD
+    vulkan drivers, as well as a patch for adding support for
+    protected memory properties in GetPhysicalDeviceProperties2()
+    for the former driver.
+  * RADV also gets a patch to fix some issues with reflections in
+    GTA V, and a patch to fix a GPU hang in SteamVR with Vega.
+  * Finally, there are more fixes for Radeonsi, nvc0, vc4, and
+    vulkan code.
+- Drop usage of sha1sum, use sig and keyring verification instead.
+  Following this, add key from Juan A. Suarez to keyring.
+- Drop u_st-dri-don-t-set-queryDmaBufFormats-queryDmaBufModif.patch
+  Fixed upstream.
+
+-------------------------------------------------------------------
+Fri Sep 21 20:38:47 UTC 2018 - Ondřej Súkup <mimi.vx@gmail.com>
+
+- update to 18.2.1
+  * Lot of fixes for Vulkan drivers.
+
+-------------------------------------------------------------------
+Tue Sep 11 13:28:26 UTC 2018 - sndirsch@suse.com
+
+- get rid of libwayland-egl1/libwayland-egl-devel completely; also
+  for older Leap versions
+
+-------------------------------------------------------------------
+Mon Sep 10 13:29:24 UTC 2018 - sndirsch@suse.com
+
+- update to 18.2.0
+  * This release consists of nearly 2200 commits from approximately
+    130 developers.
+  * The top highlights include:
+    - OpenGL 4.3 on virgl.
+    - OpenGL 4.4 Compatibility profile on radeonsi.
+    - OpenGL ES 3.2 on radeonsi and virgl.
+    - GL_ARB_ES3_2_compatibility on radeonsi.
+    - GL_ARB_fragment_shader_interlock on i965.
+    - GL_ARB_sample_locations and GL_NV_sample_locations on nvc0 (GM200+).
+    - GL_ANDROID_extension_pack_es31a on radeonsi.
+    - GL_KHR_texture_compression_astc_ldr on radeonsi.
+    - GL_NV_conservative_raster and GL_NV_conservative_raster_dilate on
+      nvc0 (GM200+).
+    - GL_NV_conservative_raster_pre_snap_triangles on nvc0 (GP102+).
+    - multisampled images on nvc0 (GM107+) (now supported on GF100+).
+  * Additional features:
+    - ANV Extensions:
+      - VK_KHR_bind_memory2.
+      - VK_KHR_external_fence.
+      - VK_KHR_external_fence_capabilities.
+      - VK_KHR_external_semaphore.
+      - VK_KHR_external_semaphore_capabilities.
+      - VK_KHR_maintenance2.
+      - VK_KHR_maintenance3.
+      - VK_KHR_multiview.
+      - VK_KHR_relaxed_block_layout.
+      - VK_KHR_sampler_ycbcr_conversion.
+      - VK_KHR_8bit_storage.
+      - VK_KHR_create_renderpass2.
+      - VK_KHR_display.
+      - VK_KHR_display_swapchain.
+      - VK_KHR_external_fence_fd.
+      - VK_KHR_external_semaphore_fd.
+      - VK_KHR_get_display_properties2.
+      - VK_KHR_image_format_list.
+    - RADV Extensions:
+      - VK_KHR_bind_memory2.
+      - VK_KHR_external_fence.
+      - VK_KHR_external_fence_capabilities.
+      - VK_KHR_maintenance2.
+      - VK_KHR_maintenance3.
+      - VK_KHR_multiview.
+      - VK_KHR_relaxed_block_layout.
+      - VK_KHR_create_renderpass2.
+      - VK_KHR_display.
+      - VK_KHR_display_swapchain.
+      - VK_KHR_draw_indirect_count.
+      - VK_KHR_external_fence_fd.
+      - VK_KHR_get_display_properties2.
+      - VK_KHR_get_surface_capabilities2.
+      - VK_KHR_image_format_list.
+    - New GL extensions supported by all drivers:
+      - GL_OES_EGL_image_external.
+      - GL_OES_EGL_image_external_essl3.
+    - freedreno:
+      - GL 3.0's multisample anti-aliasing support on a5xx.
+      - GL_ARB_texture_multisample support on a5xx.
+      - GLES3.1's GS5 Packing/bitfield/conversion functions support on a5xx.
+      - Dynamically uniform UBO array indices.
+      - Packing/bitfield/conversion functions.
+      - Enhanced textureGather.
+      - GL_OES_texture_buffer.
+      - GL_ARB_seamless_cubemap_per_texture.
+    - i965:
+      - GL_OES_texture_view on gen8+.
+      - GL_EXT_texture_norm16.
+    - nouveau:
+      - GL_ARB_post_depth_coverage.
+      - GL_ARB_sample_locations.
+      - GL_EXT_texture_norm16.
+    - r600:
+      - GL_EXT_texture_norm16.
+    - radeonsi:
+      - GL_EXT_texture_norm16.
+    - virgl:
+      - GL_ARB_seamless_cubemap_per_texture.
+      - GL_ARB_shader_stencil_export.
+- supersedes u_r600-egd_tables.py-make-the-script-python-2-3-compat.patch,
+  u_intel_anv-make-scripts-python-2-3-compat.patch
+- U_intel-decoder-mark-total_length-as-MAYBE_UNUSED-in-g.patch,
+  U_intel-aubinator-mark-ftruncate_res-as-MAYBE_UNUSED-i.patch,
+  U_python-Fix-rich-comparisons.patch,
+  U_python-Use-key-functions-when-sorting-containers.patch
+  * buildfixes ...
+
+-------------------------------------------------------------------
 Mon Aug 27 12:07:28 UTC 2018 - sndirsch@suse.com
 
 - update to 18.1.7

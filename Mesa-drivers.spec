@@ -42,7 +42,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 18.1.7
+%define _version 18.3.1
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -112,7 +112,7 @@
 %endif
 
 Name:           Mesa-drivers
-Version:        18.1.7
+Version:        18.3.1
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -123,8 +123,8 @@ URL:            http://www.mesa3d.org
 # Source:         ftp://ftp.freedesktop.org/pub/mesa/%%{version}/%%{_name_archive}-%%{_version}.tar.xz
 Source:         ftp://ftp.freedesktop.org/pub/mesa/%{_name_archive}-%{_version}.tar.xz
 # Source1:        ftp://ftp.freedesktop.org/pub/mesa/%%{version}/%%{_name_archive}-%%{_version}.tar.xz.sig
-# Source1:        ftp://ftp.freedesktop.org/pub/mesa/%{_name_archive}-%{_version}.tar.xz.sig
-Source1:        %{_name_archive}-%{_version}.tar.xz.sha1sum
+Source1:        ftp://ftp.freedesktop.org/pub/mesa/%{_name_archive}-%{_version}.tar.xz.sig
+# Source1:        %%{_name_archive}-%%{_version}.tar.xz.sha1sum
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
@@ -134,11 +134,11 @@ Source7:        Mesa.keyring
 Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 # currently needed for libglvnd support
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
-# Upstream
-Patch43:        u_r600-egd_tables.py-make-the-script-python-2-3-compat.patch
-Patch44:        u_intel_anv-make-scripts-python-2-3-compat.patch
-Patch47:        u_st-dri-don-t-set-queryDmaBufFormats-queryDmaBufModif.patch
-Patch48:        mako_4_radv.patch
+
+Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
+Patch57:        u_wayland_egl-Ensure-EGL-surface.patch
+
+Patch60:        n_Disable-Xshm-for-now-since-it-results-in-render-erro.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -168,7 +168,9 @@ BuildRequires:  pkgconfig(libglvnd) >= 0.1.0
 BuildRequires:  pkgconfig(libkms) >= 1.0.0
 BuildRequires:  pkgconfig(libva)
 BuildRequires:  pkgconfig(presentproto)
+%if %{drivers}
 BuildRequires:  pkgconfig(vdpau) >= 1.1
+%endif
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(x11-xcb)
 BuildRequires:  pkgconfig(xcb-dri2)
@@ -178,6 +180,7 @@ BuildRequires:  pkgconfig(xcb-present)
 BuildRequires:  pkgconfig(xdamage)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xfixes)
+BuildRequires:  pkgconfig(xrandr)
 BuildRequires:  pkgconfig(xshmfence)
 BuildRequires:  pkgconfig(xvmc)
 BuildRequires:  pkgconfig(xxf86vm)
@@ -215,7 +218,7 @@ BuildRequires:  pkgconfig(wayland-protocols) >= 1.8
 BuildRequires:  pkgconfig(wayland-server) >= 1.11
 %endif
 %if 0%{with_llvm}
-BuildRequires:  llvm-devel >= 3.9.0
+BuildRequires:  llvm-devel >= 6.0.0
 %endif
 
 %if 0%{with_opencl}
@@ -274,9 +277,6 @@ Provides:       s2tc-devel = %{version}
 Obsoletes:      s2tc-devel < %{version}
 Provides:       libtxc_dxtn-devel = %{version}
 Obsoletes:      libtxc_dxtn-devel < %{version}
-%if 0%{?suse_version} < 1550 && (0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse}))
-Requires:       libwayland-egl-devel
-%endif
 
 %description devel
 Mesa is a 3-D graphics library with an API which is very similar to
@@ -331,6 +331,14 @@ OpenGL|ES and OpenVG.
 This package provides the development environment for compiling
 programs against the EGL library.
 
+%package KHR-devel
+Summary:        Mesa Khronos development headers
+Group:          Development/Libraries/C and C++
+Provides:       Mesa-libGL-devel:/usr/include/KHR/khrplatform.h
+
+%description KHR-devel
+Mesa Khronos development headers.
+
 %package libGL1
 Summary:        The GL/GLX runtime of the Mesa 3D graphics library
 Group:          System/Libraries
@@ -352,6 +360,7 @@ the X Window System.
 %package libGL-devel
 Summary:        GL/GLX development files of the OpenGL API
 Group:          Development/Libraries/C and C++
+Requires:       Mesa-KHR-devel = %{version}
 Requires:       Mesa-libGL1 = %{version}
 %if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
@@ -383,6 +392,7 @@ OpenGL|ES 1.x provides an API for fixed-function hardware.
 %package libGLESv1_CM-devel
 Summary:        Development files for the OpenGL ES 1.x API
 Group:          Development/Libraries/C and C++
+Requires:       Mesa-KHR-devel = %{version}
 Requires:       Mesa-libGLESv1_CM1 = %{version}
 Requires:       pkgconfig(egl)
 %if 0%{?libglvnd}
@@ -422,6 +432,7 @@ ES 3 entry points.
 %package libGLESv2-devel
 Summary:        Development files for the OpenGL ES 2.x API
 Group:          Development/Libraries/C and C++
+Requires:       Mesa-KHR-devel = %{version}
 Requires:       Mesa-libGLESv2-2 = %{version}
 Requires:       pkgconfig(egl)
 %if 0%{?libglvnd}
@@ -443,6 +454,7 @@ applications using the OpenGL|ES 2.x APIs.
 %package libGLESv3-devel
 Summary:        Development files for the OpenGL ES 3.x API
 Group:          Development/Libraries/C and C++
+Requires:       Mesa-KHR-devel = %{version}
 Requires:       pkgconfig(egl)
 %if 0%{?libglvnd} == 0
 Requires:       Mesa-libGLESv2-2 = %{version}
@@ -573,24 +585,6 @@ openwfd.
 
 This package provides the development environment for compiling
 programs against the GBM library.
-
-%package -n libwayland-egl1
-Summary:        Additional egl functions for wayland
-Group:          System/Libraries
-
-%description -n libwayland-egl1
-This package provides additional functions for egl-using programs
-that run within the wayland framework. This allows for applications
-that need not run full-screen and cooperate with a compositor.
-
-%package -n libwayland-egl-devel
-Summary:        Development files for libwayland-egl1
-Group:          Development/Libraries/C and C++
-Requires:       libwayland-egl1 = %{version}
-
-%description -n libwayland-egl-devel
-This package is required to link wayland client applications to the EGL
-implementation of Mesa.
 
 %package -n Mesa-libd3d
 Summary:        Mesa Direct3D9 state tracker
@@ -744,10 +738,9 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch31 -p1
 %endif
 
-%patch43 -p1
-%patch44 -p1
-%patch47 -p1
-%patch48 -p1
+%patch54 -p1
+%patch57 -p1
+%patch60 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
@@ -809,7 +802,9 @@ export PYTHON2=%{_bindir}/python3
            --enable-llvm \
            --enable-llvm-shared-libs \
 %endif
+%if %{drivers}
            --enable-vdpau \
+%endif
            --enable-va \
            --enable-xvmc \
 %if 0%{with_vulkan}
@@ -846,18 +841,16 @@ make %{?_smp_mflags} V=1
 %make_install
 find %{buildroot} -type f -name "*.la" -delete -print
 
-%if !(0%{?suse_version} < 1550 && (0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})))
 # libwayland-egl is provided by wayland itself
 rm -f %{buildroot}/%{_libdir}/libwayland-egl.so*
 rm -f %{buildroot}/%{_libdir}/pkgconfig/wayland-egl.pc
-%endif
 
 %if %{drivers}
 # Delete things that we do not package in the Mesa-drivers variant, but can
 # not disable from buildling and installing.
 
 # in Mesa
-rm %{buildroot}/%{_sysconfdir}/drirc
+rm -rf %{buildroot}/%{_datadir}/drirc.d
 
 # in Mesa-libGL-devel
 rm -rf %{buildroot}/%{_includedir}/GL
@@ -876,6 +869,9 @@ rm %{buildroot}/%{_libdir}/pkgconfig/dri.pc
 rm %{buildroot}/%{_includedir}/gbm.h
 rm %{buildroot}/%{_libdir}/libgbm.so*
 rm %{buildroot}/%{_libdir}/pkgconfig/gbm.pc
+
+# in KHR-devel
+rm -rf %{buildroot}/%{_includedir}/KHR
 
 %else
 %if 0%{?libglvnd} == 0
@@ -941,10 +937,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %postun libglapi0 -p /sbin/ldconfig
 
-%post   -n libwayland-egl1 -p /sbin/ldconfig
-
-%postun -n libwayland-egl1 -p /sbin/ldconfig
-
 %post -n Mesa-libd3d -p /sbin/ldconfig
 
 %postun -n Mesa-libd3d -p /sbin/ldconfig
@@ -953,7 +945,8 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %files
 %license docs/license.html
 %doc docs/README*
-%config %{_sysconfdir}/drirc
+%dir %{_datadir}/drirc.d
+%config %{_datadir}/drirc.d/*
 
 %files libEGL1
 %if 0%{?libglvnd}
@@ -967,11 +960,14 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %files libEGL-devel
 %{_includedir}/EGL
-%{_includedir}/KHR
 %if !0%{?libglvnd}
 %{_libdir}/libEGL.so
 %endif
 %{_libdir}/pkgconfig/egl.pc
+
+%files KHR-devel
+%dir %{_includedir}/KHR
+%{_includedir}/KHR
 
 %files libGL1
 %if 0%{?libglvnd}
@@ -1017,8 +1013,8 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %files libGLESv3-devel
 %{_includedir}/GLES3
-#%_libdir/libGLESv3.so
-#%_libdir/pkgconfig/glesv3.pc
+#%%_libdir/libGLESv3.so
+#%%_libdir/pkgconfig/glesv3.pc
 
 %files -n libOSMesa8
 %{_libdir}/libOSMesa.so.8.0.0
@@ -1028,15 +1024,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_includedir}/GL/osmesa.h
 %{_libdir}/libOSMesa.so
 %{_libdir}/pkgconfig/osmesa.pc
-
-%if 0%{?suse_version} < 1550 && (0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse}))
-%files -n libwayland-egl1
-%{_libdir}/libwayland-egl.so.1*
-
-%files -n libwayland-egl-devel
-%{_libdir}/libwayland-egl.so
-%{_libdir}/pkgconfig/wayland-egl.pc
-%endif
 
 %files -n libgbm1
 %{_libdir}/libgbm.so.1*
@@ -1197,7 +1184,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %files -n Mesa-libVulkan-devel
 %dir %{_includedir}/vulkan
-%{_includedir}/vulkan
+%{_includedir}/vulkan/*
 %endif
 
 %changelog
