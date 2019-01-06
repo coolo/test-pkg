@@ -1,7 +1,7 @@
 #
 # spec file for package Mesa
 #
-# Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2019 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -12,7 +12,7 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via http://bugs.opensuse.org/
+# Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
 
 
@@ -757,9 +757,9 @@ grep -v -i vulkan "%{_sourcedir}/baselibs.conf" >"%{_sourcedir}/temp" && \
 
 %build
 %if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
-egl_platforms=x11,drm,wayland
+egl_platforms=x11,drm,surfaceless,wayland
 %else
-egl_platforms=x11,drm
+egl_platforms=x11,drm,surfaceless
 %endif
 autoreconf -fvi
 
