@@ -12,7 +12,7 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via https://bugs.opensuse.org/
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
 
@@ -55,16 +55,11 @@
 %define xvmc_support 0
 %define vdpau_nouveau 0
 %define vdpau_radeon 0
-%define vdpau_tegra 0
 
 %ifarch %{ix86} x86_64 aarch64 %{arm} ppc64 ppc64le
   %define xvmc_support 1
   %define vdpau_nouveau 1
   %define vdpau_radeon 1
-%endif
-
-%ifarch aarch64 %{arm} 
-  %define vdpau_tegra 1
 %endif
 
 %ifarch %{ix86} x86_64 %{arm} aarch64
@@ -107,9 +102,6 @@
 
   # Not built because nouveau driver is not built.
   %define vdpau_nouveau 0
-
-  # Not built because tegra driver is not built.
-  %define vdpau_tegra 0
 
   # Not built. (Why?)
   %define xvmc_support 0
@@ -209,7 +201,6 @@ Obsoletes:      libtxc_dxtn < %{version}
 %ifarch %{arm} aarch64
 BuildRequires:  pkgconfig(libdrm_etnaviv) >= 2.4.89
 BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.74
-BuildRequires:  pkgconfig(libdrm_tegra)
 BuildRequires:  pkgconfig(libelf)
 %endif
 %ifarch x86_64 %{ix86}
@@ -642,14 +633,6 @@ Supplements:    xf86-video-nouveau
 %description -n libvdpau_nouveau
 This package contains the VDPAU state tracker for Nouveau.
 
-%package -n libvdpau_tegra
-Summary:        XVMC state tracker for Tegra
-Group:          System/Libraries
-Supplements:    xf86-video-nouveau
-
-%description -n libvdpau_tegra
-This package contains the VDPAU state tracker for Tegra.
-
 %package -n libvdpau_r300
 Summary:        XVMC state tracker for R300
 Group:          System/Libraries
@@ -836,7 +819,7 @@ export PYTHON2=%{_bindir}/python3
   %ifarch %{arm} aarch64
            --enable-xa \
            --with-dri-drivers=nouveau \
-           --with-gallium-drivers=r300,r600,nouveau,swrast,virgl,freedreno,vc4,etnaviv,imx,tegra \
+           --with-gallium-drivers=r300,r600,nouveau,swrast,virgl,freedreno,vc4,etnaviv,imx \
   %endif
   %ifarch ppc64 ppc64le
            --enable-xa \
@@ -1082,14 +1065,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_libdir}/vdpau/libvdpau_nouveau.so.1
 %{_libdir}/vdpau/libvdpau_nouveau.so.1.0
 %{_libdir}/vdpau/libvdpau_nouveau.so.1.0.0
-%endif
-
-%if %{vdpau_tegra}
-%files -n libvdpau_tegra
-%{_libdir}/vdpau/libvdpau_tegra.so
-%{_libdir}/vdpau/libvdpau_tegra.so.1
-%{_libdir}/vdpau/libvdpau_tegra.so.1.0
-%{_libdir}/vdpau/libvdpau_tegra.so.1.0.0
 %endif
 
 %if %{vdpau_radeon}
