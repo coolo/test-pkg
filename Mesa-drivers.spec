@@ -112,7 +112,7 @@
 %endif
 
 Name:           Mesa-drivers
-Version:        18.3.1
+Version:        18.3.2
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
