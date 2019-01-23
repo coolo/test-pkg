@@ -1,4 +1,40 @@
 -------------------------------------------------------------------
+Fri Jan 18 18:32:13 UTC 2019 - sndirsch@suse.com
+
+- Update to 18.3.2
+  * In this release candidate we have added more PCI IDs for AMD
+    Vega devices and a number of fixes for the RADV Vulkan drivers.
+  * On the Intel side we have a selection ranging from quad swizzles
+    support for ICL to compiler fixes.
+  * The nine state tracker has also seen some love as do the
+    Broadcom drivers.
+  * To top it all up, we have a healthy mount of build system fixes.
+
+-------------------------------------------------------------------
+Wed Jan  9 10:49:24 UTC 2019 - sndirsch@suse.com
+
+- redisabled support for tegra, since it just got disabled upstream
+  in git master ...
+
+-------------------------------------------------------------------
+Sat Jan  5 23:31:00 UTC 2019 - Fabian Vogt <fabian@ritter-vogt.de>
+
+- Enable the surfaceless platform, which is needed by KDE CI 
+  environment for testing (https://phabricator.kde.org/T10245)
+
+-------------------------------------------------------------------
+Wed Dec 19 15:01:41 UTC 2018 - Guillaume GARDET <guillaume.gardet@opensuse.org>
+
+- Add etnaviv, imx and tegra supports for %arm and arch64
+
+-------------------------------------------------------------------
+Wed Dec 12 15:29:53 UTC 2018 - Dominique Leuenberger <dimstar@opensuse.org>
+
+- Only BuildRequire pkgconfig(vdpau) and pass --enable-vdpau to
+  configure when building the drivers. Helps us break a build
+  cycle.
+
+-------------------------------------------------------------------
 Wed Dec 12 11:00:56 UTC 2018 - sndirsch@suse.com
 
 - Update to 18.3.1 

@@ -1,7 +1,7 @@
 #
 # spec file for package Mesa-drivers
 #
-# Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2019 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -42,7 +42,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 18.3.1
+%define _version 18.3.2
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -112,7 +112,7 @@
 %endif
 
 Name:           Mesa-drivers
-Version:        18.3.1
+Version:        18.3.2
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -159,7 +159,7 @@ BuildRequires:  pkgconfig(dri3proto)
 BuildRequires:  pkgconfig(expat)
 BuildRequires:  pkgconfig(glproto)
 BuildRequires:  pkgconfig(libdrm) >= 2.4.75
-BuildRequires:  pkgconfig(libdrm_amdgpu) >= 2.4.79
+BuildRequires:  pkgconfig(libdrm_amdgpu) >= 2.4.95
 BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.66
 BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.71
 %if 0%{?libglvnd}
@@ -168,7 +168,9 @@ BuildRequires:  pkgconfig(libglvnd) >= 0.1.0
 BuildRequires:  pkgconfig(libkms) >= 1.0.0
 BuildRequires:  pkgconfig(libva)
 BuildRequires:  pkgconfig(presentproto)
+%if %{drivers}
 BuildRequires:  pkgconfig(vdpau) >= 1.1
+%endif
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(x11-xcb)
 BuildRequires:  pkgconfig(xcb-dri2)
@@ -197,7 +199,8 @@ Provides:       s2tc = %{version}
 Obsoletes:      s2tc < %{version}
 Provides:       libtxc_dxtn = %{version}
 Obsoletes:      libtxc_dxtn < %{version}
-%ifarch %{arm}
+%ifarch %{arm} aarch64
+BuildRequires:  pkgconfig(libdrm_etnaviv) >= 2.4.89
 BuildRequires:  pkgconfig(libdrm_freedreno) >= 2.4.74
 BuildRequires:  pkgconfig(libelf)
 %endif
@@ -756,9 +759,9 @@ grep -v -i vulkan "%{_sourcedir}/baselibs.conf" >"%{_sourcedir}/temp" && \
 
 %build
 %if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
-egl_platforms=x11,drm,wayland
+egl_platforms=x11,drm,surfaceless,wayland
 %else
-egl_platforms=x11,drm
+egl_platforms=x11,drm,surfaceless
 %endif
 autoreconf -fvi
 
@@ -800,7 +803,9 @@ export PYTHON2=%{_bindir}/python3
            --enable-llvm \
            --enable-llvm-shared-libs \
 %endif
+%if %{drivers}
            --enable-vdpau \
+%endif
            --enable-va \
            --enable-xvmc \
 %if 0%{with_vulkan}
@@ -815,7 +820,7 @@ export PYTHON2=%{_bindir}/python3
   %ifarch %{arm} aarch64
            --enable-xa \
            --with-dri-drivers=nouveau \
-           --with-gallium-drivers=r300,r600,nouveau,swrast,virgl,freedreno,vc4 \
+           --with-gallium-drivers=r300,r600,nouveau,swrast,virgl,freedreno,vc4,etnaviv,imx \
   %endif
   %ifarch ppc64 ppc64le
            --enable-xa \
