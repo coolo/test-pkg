@@ -1,7 +1,7 @@
 #
 # spec file for package zsh
 #
-# Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2019 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -25,14 +25,14 @@ BuildRequires:  texi2html
 BuildRequires:  texinfo
 %endif
 Name:           zsh
-Version:        5.6.2
+Version:        5.7.1
 Release:        0%{?dist}
 Summary:        Shell with comprehensive completion
 License:        MIT
 Group:          System/Shells
 Url:            http://www.zsh.org
-Source0:        http://www.zsh.org/pub/zsh-%{version}.tar.xz
-Source1:        http://www.zsh.org/pub/zsh-%{version}.tar.xz.asc
+Source0:        https://downloads.sourceforge.net/project/zsh/zsh/%{version}/zsh-%{version}.tar.xz
+Source1:        https://downloads.sourceforge.net/project/zsh/zsh/%{version}/zsh-%{version}.tar.xz.asc
 Source2:        %{name}.keyring
 Source3:        zshrc
 Source4:        zshenv
