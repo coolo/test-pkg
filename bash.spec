@@ -1,7 +1,7 @@
 #
 # spec file for package bash
 #
-# Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2019 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,6 +17,7 @@
 
 
 %bcond_with     import_function
+%bcond_with     sjis
 
 Name:           bash
 BuildRequires:  audit-devel
@@ -28,11 +29,11 @@ BuildRequires:  ncurses-devel
 BuildRequires:  patchutils
 BuildRequires:  pkg-config
 # This has to be always the same version as included in the bash its self
-BuildRequires:  readline-devel == 7.0
+BuildRequires:  readline-devel == 8.0
 BuildRequires:  screen
 BuildRequires:  sed
 %define         bextend	 %nil
-Version:        4.4
+Version:        5.0
 Release:        0
 Summary:        The GNU Bourne-Again Shell
 License:        GPL-3.0-or-later
@@ -63,8 +64,6 @@ Patch2:         bash-4.0-security.patch
 Patch3:         bash-4.3-2.4.4.patch
 Patch4:         bash-3.0-evalexp.patch
 Patch5:         bash-3.0-warn-locale.patch
-# Disabled
-Patch6:         bash-4.2-endpw.dif
 Patch7:         bash-4.3-decl.patch
 Patch9:         bash-4.3-include-unistd.dif
 Patch10:        bash-3.2-printf.patch
@@ -77,13 +76,14 @@ Patch16:        bash-4.0-setlocale.dif
 # PATCH-EXTEND-SUSE bnc#828877 -- xterm resizing does not pass to all sub clients
 Patch18:        bash-4.3-winch.dif
 Patch40:        bash-4.1-bash.bashrc.dif
+# PATCH-FIX-SUSE For bsc#1065158 add support for broken Japanese locale Shift JIS
+Patch42:        bash-4.3-SJIS.patch
 Patch46:        man2html-no-timestamp.patch
 Patch47:        bash-4.3-perl522.patch
 # PATCH-FIX-SUSE
 Patch48:        bash-4.3-extra-import-func.patch
 # PATCH-EXTEND-SUSE Allow root to clean file system if filled up
 Patch49:        bash-4.3-pathtemp.patch
-Patch50:        bash-memmove.patch
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
 %global         _ldldir     /%{_lib}/bash
@@ -188,6 +188,11 @@ whoami	      Print out username of current user.
 
 
 %prep
+%if %{with sjis}
+echo -e '\033[1m\033[31mWarning: Shift JIS support is enabled\033[m'
+%else
+echo -e '\033[1m\032[31mShift JIS support disabled\033[m'
+%endif
 %setup -q -n bash-%{version}%{bextend} -b1
 typeset -i level
 for patch in ../bash-%{version}-patches/*; do
@@ -208,7 +213,6 @@ done
 %patch3  -p0 -b .2.4.4
 %patch4  -p0 -b .evalexp
 %patch5  -p0 -b .warnlc
-#%patch6  -p0 -b .endpw
 %patch7  -p0 -b .decl
 %patch9  -p0 -b .unistd
 %patch10 -p0 -b .printf
@@ -217,16 +221,19 @@ done
 %patch13 -p0 -b .nscdunmap
 %patch14 -p0 -b .sigrestart
 %patch16 -p0 -b .setlocale
-%patch18 -p0 -b .winch
+#%patch18 -p0 -b .winch
 %patch40 -p0 -b .bashrc
+%if %{with sjis}
+%patch42 -p0 -b .sjis
+%endif
 %patch46 -p0 -b .notimestamp
 %patch47 -p0 -b .perl522
 %if %{with import_function}
 %patch48 -b .eif
 %endif
 %patch49 -p0 -b .pthtmp
-%patch50 -p1 -b .mmv
 %patch0  -p0 -b .0
+
 # This has to be always the same version as included in the bash its self
 rl1=($(sed -rn '/RL_READLINE_VERSION/p' lib/readline/readline.h))
 rl2=($(sed -rn '/RL_READLINE_VERSION/p' /usr/include/readline/readline.h))
@@ -327,6 +334,7 @@ test ${rl1[2]} = ${rl2[2]} || exit 1
   SYSMALLOC="
 	--without-gnu-malloc
 	--without-bash-malloc
+	--enable-mem-scramble
   "
   #
   # System readline library (comment out it not to be used)
@@ -343,6 +351,7 @@ test ${rl1[2]} = ${rl2[2]} || exit 1
 	--libdir=%{_libdir}		\
 	--with-curses			\
 	--with-afs			\
+	--with-gnu-ld			\
 	$SYSMALLOC			\
 	--enable-minimal-config		\
 	--enable-arith-for-command	\
@@ -360,6 +369,7 @@ test ${rl1[2]} = ${rl2[2]} || exit 1
 	--enable-job-control		\
 	--enable-net-redirections	\
 	--enable-process-substitution	\
+	--enable-glob-asciiranges-default \
 	--disable-strict-posix-default	\
 	--enable-separate-helpfiles=%{_datadir}/bash/helpfiles \
 	$READLINE
@@ -374,6 +384,7 @@ test ${rl1[2]} = ${rl2[2]} || exit 1
 	--docdir=%{_docdir}/%{name}	\
 	--with-curses			\
 	--with-afs			\
+	--with-gnu-ld			\
 	$SYSMALLOC			\
 	--enable-job-control		\
 	--enable-net-redirections	\
@@ -386,14 +397,17 @@ test ${rl1[2]} = ${rl2[2]} || exit 1
 	--enable-prompt-string-decoding	\
 	--enable-select			\
 	--enable-help-builtin		\
+	--enable-separate-helpfiles	\
 	--enable-array-variables	\
 	--enable-brace-expansion	\
 	--enable-command-timing		\
 	--enable-disabled-builtins	\
+	--enable-glob-asciiranges-default \
 	--disable-strict-posix-default	\
 	--enable-multibyte		\
 	--enable-separate-helpfiles=%{_datadir}/bash/helpfiles \
 	$READLINE
+  sed -rn '/Configuration feature settings controllable by autoconf/,/End of configuration settings controllable by autoconf/p' <  config.h
   profilecflags=CFLAGS="$CFLAGS"
 %if 0%{?do_profiling}
   profilecflags=CFLAGS="$CFLAGS %cflags_profile_generate"
