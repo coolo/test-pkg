@@ -1,4 +1,22 @@
 -------------------------------------------------------------------
+Tue Feb 19 08:34:39 UTC 2019 - sndirsch@suse.com
+
+- Update to 18.3.4
+  * A fix in the XvMC state-tracker, which was causing some video attributes to
+    not take affect. On the video front the VAAPI state tracker has seen
+    improvements with VP9 streams while the amdgpu driver advertises all available
+    profiles.
+  * On Intel side we have compiler fixes and extra PCI IDs for Coffee Lake and
+    Ice Lake parts. In the Broadcom drivers a couple of memory leaks were
+    addressed and the NEON assembly should compile properly on armhf.
+  * Other drivers such as radeonsi, nouveau and freedreno have also seen some
+    love. The RADV driver has seen addressed to compile correctly with GCC9
+    amongst other changes.
+  * The Xlib based libGL have been addressed to work with X servers, which lacks
+    the MIT-SHM extension such as XMing.
+  * To top it up we have a few fixes to the meson build system.
+
+-------------------------------------------------------------------
 Mon Feb  4 17:49:03 UTC 2019 - sndirsch@suse.com
 
 - Update to 18.3.3
