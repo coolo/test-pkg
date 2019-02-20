@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Wed Feb 20 15:40:14 UTC 2019 - sndirsch@suse.com
+
+- remove n_Disable-Xshm-for-now-since-it-results-in-render-erro.patch;
+  keeping that one reintroduced render errors and missing screen
+  refreshes on GNOME3 in a qemu VM (cirrus emulation); the issue has
+  been fixed in a different and better way since 18.3.3; this is
+  related to bsc#1118149
+
+-------------------------------------------------------------------
 Tue Feb 19 08:34:39 UTC 2019 - sndirsch@suse.com
 
 - Update to 18.3.4

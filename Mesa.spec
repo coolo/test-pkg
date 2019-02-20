@@ -136,7 +136,6 @@ Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 
 Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
 Patch57:        u_wayland_egl-Ensure-EGL-surface.patch
-Patch60:        n_Disable-Xshm-for-now-since-it-results-in-render-erro.patch
 
 BuildRequires:  bison
 BuildRequires:  fdupes
@@ -740,7 +739,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 
 %patch54 -p1
 %patch57 -p1
-%patch60 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
