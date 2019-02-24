@@ -42,7 +42,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 18.3.2
+%define _version 18.3.4
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -112,7 +112,7 @@
 %endif
 
 Name:           Mesa-drivers
-Version:        18.3.2
+Version:        18.3.4
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -138,14 +138,13 @@ Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
 Patch57:        u_wayland_egl-Ensure-EGL-surface.patch
 
-Patch60:        n_Disable-Xshm-for-now-since-it-results-in-render-erro.patch
-
-BuildRequires:  autoconf >= 2.60
-BuildRequires:  automake
+BuildRequires:  bison
 BuildRequires:  fdupes
+BuildRequires:  flex
 BuildRequires:  gcc-c++
 BuildRequires:  imake
 BuildRequires:  libtool
+BuildRequires:  meson
 BuildRequires:  pkgconfig
 BuildRequires:  python3-base
 %if 0%{?suse_version} > 1320
@@ -741,7 +740,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 
 %patch54 -p1
 %patch57 -p1
-%patch60 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
@@ -763,83 +761,83 @@ egl_platforms=x11,drm,surfaceless,wayland
 %else
 egl_platforms=x11,drm,surfaceless
 %endif
-autoreconf -fvi
 
-export PYTHON2=%{_bindir}/python3
-%configure \
+%meson \
+            --auto-features=disabled \
 %if %{drivers}
-           --disable-gles1 \
-           --disable-gles2 \
-           --disable-egl \
-           --disable-glx \
-           --disable-osmesa \
+            -Dgles1=false \
+            -Dgles2=false \
+            -Degl=true \
+            -Dglx=disabled \
+            -Dosmesa=none \
 %else
 %if 0%{?libglvnd}
-           --enable-libglvnd \
+            -Dglvnd=true \
 %endif
-           --enable-gles1 \
-           --enable-gles2 \
-           --enable-egl \
-           --enable-osmesa \
+            -Dgles1=true \
+            -Dgles2=true \
+            -Degl=true \
+            -Dosmesa=classic \
+            -Dglx=auto \
+            -Dllvm=false \
+            -Dvulkan-drivers= \
 %endif
-           --with-platforms=$egl_platforms \
-           --enable-dri \
-           --enable-texture-float \
-           --enable-dri3 \
-           --enable-shared-glapi \
+            -Dplatforms=$egl_platforms \
+            -Ddri3=true \
+            -Dshared-glapi=true \
 %if 0%{?with_nine}
-           --enable-nine \
+            -Dgallium-nine=true \
 %endif
 %if %{glamor}
-           --enable-gbm \
-           --enable-glx-tls \
+            -Dgbm=true \
 %endif
 %if 0%{with_opencl}
-           --enable-opencl \
-           --enable-opencl-icd \
+            -Dgallium-opencl=icd \
 %endif
-           --with-dri-searchpath=%{_libdir}/dri \
+            -Ddri-search-path=%{_libdir}/dri \
 %if 0%{with_llvm}
-           --enable-llvm \
-           --enable-llvm-shared-libs \
+            -Dllvm=true \
+            -Dshared-llvm=true \
 %endif
 %if %{drivers}
-           --enable-vdpau \
-%endif
-           --enable-va \
-           --enable-xvmc \
+            -Dgallium-vdpau=true \
+            -Dgallium-xvmc=true \
+            -Dgallium-va=true \
 %if 0%{with_vulkan}
-           --with-vulkan-drivers=intel,radeon \
+            -Dvulkan-drivers=intel,amd \
+%endif
 %endif
 %if %{drivers}
   %ifarch %{ix86} x86_64
-           --enable-xa \
-           --with-dri-drivers=i915,i965,nouveau,r200,radeon \
-           --with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga,virgl \
+            -Dgallium-xa=true \
+            -Ddri-drivers=i915,i965,nouveau,r100,r200 \
+            -Dgallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga,virgl \
   %endif
   %ifarch %{arm} aarch64
-           --enable-xa \
-           --with-dri-drivers=nouveau \
-           --with-gallium-drivers=r300,r600,nouveau,swrast,virgl,freedreno,vc4,etnaviv,imx \
+            -Dgallium-xa=true \
+            -Ddri-drivers=nouveau \
+            -Dgallium-drivers=r300,r600,nouveau,swrast,virgl,freedreno,vc4,etnaviv,imx \
   %endif
   %ifarch ppc64 ppc64le
-           --enable-xa \
-           --with-dri-drivers=nouveau \
-           --with-gallium-drivers=r300,r600,nouveau,swrast \
+            -Dgallium-xa=true \
+            -Ddri-drivers=nouveau \
+            -Dgallium-drivers=r300,r600,nouveau,swrast \
   %endif
   %ifarch ia64 ppc hppa s390 s390x riscv64
-           --with-dri-drivers=swrast \
-           --with-gallium-drivers=swrast \
+            -Ddri-drivers=swrast \
+            -Dgallium-drivers=swrast \
   %endif
 %else
-           --with-dri-drivers= \
-           --with-gallium-drivers= \
+            -Ddri-drivers=swrast \
+            -Dgallium-drivers= \
 %endif
-        CFLAGS="%{optflags} -DNDEBUG"
-make %{?_smp_mflags} V=1
+            -Db_ndebug=true \
+            -Dc_args="%{optflags}"
+
+%meson_build
 
 %install
-%make_install
+%meson_install
 find %{buildroot} -type f -name "*.la" -delete -print
 
 # libwayland-egl is provided by wayland itself
@@ -852,6 +850,15 @@ rm -f %{buildroot}/%{_libdir}/pkgconfig/wayland-egl.pc
 
 # in Mesa
 rm -rf %{buildroot}/%{_datadir}/drirc.d
+
+rm -f %{buildroot}/%{_libdir}/libEGL.so*
+# in Mesa-libEGL-devel
+rm %{buildroot}/%{_includedir}/EGL/egl.h
+rm %{buildroot}/%{_includedir}/EGL/eglext.h
+rm %{buildroot}/%{_includedir}/EGL/eglextchromium.h
+rm %{buildroot}/%{_includedir}/EGL/eglmesaext.h
+rm %{buildroot}/%{_includedir}/EGL/eglplatform.h
+rm %{buildroot}/%{_libdir}/pkgconfig/egl.pc
 
 # in Mesa-libGL-devel
 rm -rf %{buildroot}/%{_includedir}/GL
@@ -875,6 +882,9 @@ rm %{buildroot}/%{_libdir}/pkgconfig/gbm.pc
 rm -rf %{buildroot}/%{_includedir}/KHR
 
 %else
+
+rm -rf %{buildroot}/%{_libdir}/dri/swrast_dri.so
+
 %if 0%{?libglvnd} == 0
 # Make a symlink to libGL.so.1.2 for compatibility (bnc#809359, bnc#831306)
 test -f %{buildroot}%{_libdir}/libGL.so.1.2 || \
@@ -1049,15 +1059,15 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %if %{xvmc_support}
 %files -n libXvMC_nouveau
 %{_libdir}/libXvMCnouveau.so
-%{_libdir}/libXvMCnouveau.so.1
-%{_libdir}/libXvMCnouveau.so.1.0
-%{_libdir}/libXvMCnouveau.so.1.0.0
+#%{_libdir}/libXvMCnouveau.so.1
+#%{_libdir}/libXvMCnouveau.so.1.0
+#%{_libdir}/libXvMCnouveau.so.1.0.0
 
 %files -n libXvMC_r600
 %{_libdir}/libXvMCr600.so
-%{_libdir}/libXvMCr600.so.1
-%{_libdir}/libXvMCr600.so.1.0
-%{_libdir}/libXvMCr600.so.1.0.0
+#%{_libdir}/libXvMCr600.so.1
+#%{_libdir}/libXvMCr600.so.1.0
+#%{_libdir}/libXvMCr600.so.1.0.0
 %endif
 
 %if %{vdpau_nouveau}

@@ -1,4 +1,60 @@
 -------------------------------------------------------------------
+Wed Feb 20 15:40:14 UTC 2019 - sndirsch@suse.com
+
+- remove n_Disable-Xshm-for-now-since-it-results-in-render-erro.patch;
+  keeping that one reintroduced render errors and missing screen
+  refreshes on GNOME3 in a qemu VM (cirrus emulation); the issue has
+  been fixed in a different and better way since 18.3.3; this is
+  related to bsc#1118149
+
+-------------------------------------------------------------------
+Tue Feb 19 08:34:39 UTC 2019 - sndirsch@suse.com
+
+- Update to 18.3.4
+  * A fix in the XvMC state-tracker, which was causing some video attributes to
+    not take affect. On the video front the VAAPI state tracker has seen
+    improvements with VP9 streams while the amdgpu driver advertises all available
+    profiles.
+  * On Intel side we have compiler fixes and extra PCI IDs for Coffee Lake and
+    Ice Lake parts. In the Broadcom drivers a couple of memory leaks were
+    addressed and the NEON assembly should compile properly on armhf.
+  * Other drivers such as radeonsi, nouveau and freedreno have also seen some
+    love. The RADV driver has seen addressed to compile correctly with GCC9
+    amongst other changes.
+  * The Xlib based libGL have been addressed to work with X servers, which lacks
+    the MIT-SHM extension such as XMing.
+  * To top it up we have a few fixes to the meson build system.
+
+-------------------------------------------------------------------
+Mon Feb  4 17:49:03 UTC 2019 - sndirsch@suse.com
+
+- Update to 18.3.3
+  * In this release we have:
+    A memory leak fix in the etnaviv driver, better NEON assembly code in vc4 and
+    couple of stability improvements to the radeonsi driver. Another memory leak
+    affecting all gallium drivers have also been addressed.
+  * The time required to compile GLSL shaders with large amount of uniforms, such
+    as Godot, has been improved.
+  * GLX and swrast have also seen some improvements.
+  * On the Vulkan side, the ANV driver adjusted the number of images supported
+    for gen8 and earlier to 8, while for newer hardware it remains the same 64.
+    The RADV driver has seens a collection of stability improvements and fix for
+    the Vulkan version advertised in some corner cases.
+  * To top it all up, the meson build system has seen a steady amount of fixes:
+    the DSO version for the VDPAU drivers is now included, ICC compatibility
+    patches, opencl handling and relaxed handling when building osmesa.
+- adjusted n_Disable-Xshm-for-now-since-it-results-in-render-erro.patch
+
+-------------------------------------------------------------------
+Mon Jan 21 18:29:27 UTC 2019 - Tobias Klausmann <tobias.johannes.klausmann@mni.thm.de>
+
+- Build Mesa with meson instead of automake
+  + Build classic swrast with Mesa, as its a dependency for osmesa - delete it
+    while installing
+  + Build egl with Mesa-drivers as it demands one windowing-system - 
+    delete it while installing
+
+-------------------------------------------------------------------
 Fri Jan 18 18:32:13 UTC 2019 - sndirsch@suse.com
 
 - Update to 18.3.2
