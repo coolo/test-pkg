@@ -12,7 +12,7 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via https://bugs.opensuse.org/
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
 
@@ -85,6 +85,8 @@ BuildRequires:  readline-devel == 8.0
 BuildRequires:  screen
 BuildRequires:  sed
 BuildRequires:  update-alternatives
+Requires(post): update-alternatives
+Requires(postun): update-alternatives
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
 %global         _ldldir     /%{_lib}/bash
@@ -438,10 +440,19 @@ test ${rl1[2]} = ${rl2[2]} || exit 1
   rm -rf %{buildroot}/%{_lib}/pkgconfig
   sed -ri '/CC = gcc/s@(CC = gcc).*@\1@' %{buildroot}%{_libdir}/pkgconfig/bash.pc
   mkdir -p %{buildroot}/bin
-  ln -sf bash %{buildroot}/%{_bindir}/rbash
-  ln -s %{_bindir}/bash %{buildroot}/bin/bash
-  ln -sf bash %{buildroot}/%{_bindir}/sh
-  ln -s %{_bindir}/sh %{buildroot}/bin/sh
+  mkdir -p %{buildroot}%{_sysconfdir}/alternatives
+#
+# It should be noted that the move of /bin/bash to /usr/bin/bash
+# had NOT done by me at 2019/02/08. Now only a symbolic link
+# remains here :(
+# The same had happen for the system POSIX shell /bin/sh
+#
+  touch %{buildroot}%{_sysconfdir}/alternatives/sh \
+	%{buildroot}%{_sysconfdir}/alternatives/_bin_sh
+  ln -sf %{_bindir}/bash %{buildroot}/bin/bash
+  ln -sf bash            %{buildroot}%{_bindir}/rbash
+  ln -sf %{_sysconfdir}/alternatives/sh      %{buildroot}%{_bindir}/sh
+  ln -sf %{_sysconfdir}/alternatives/_bin_sh %{buildroot}/bin/sh
   install -m 644 COMPAT NEWS    %{buildroot}%{_docdir}/%{name}
   install -m 644 COPYING        %{buildroot}%{_docdir}/%{name}
   install -m 644 doc/FAQ        %{buildroot}%{_docdir}/%{name}
@@ -480,7 +491,7 @@ EOF
 
 %post
 update-alternatives --force \
-	--install "%{_bindir}/sh" sh "%{_bindir}/bash" 100 \
+	--install "%{_bindir}/sh" sh "%{_bindir}/bash" 10100 \
 	--slave "/bin/sh" _bin_sh "%{_bindir}/sh"
 
 %postun
@@ -497,7 +508,7 @@ fi
 %clean
 LD_LIBRARY_PATH=%{buildroot}/%{_lib} \
 ldd -u -r %{buildroot}/bin/bash || true
-%{?buildroot: rm -rf %{buildroot}}
+%{?buildroot: %__rm -rf %{buildroot}}
 
 %files
 %defattr(-,root,root)
@@ -505,6 +516,8 @@ ldd -u -r %{buildroot}/bin/bash || true
 %config %attr(600,root,root) %{_sysconfdir}/skel/.bash_history
 %config %attr(644,root,root) %{_sysconfdir}/skel/.bashrc
 %config %attr(644,root,root) %{_sysconfdir}/skel/.profile
+%ghost %{_sysconfdir}/alternatives/sh
+%ghost %{_sysconfdir}/alternatives/_bin_sh
 /bin/bash
 /bin/sh
 %dir %{_sysconfdir}/bash_completion.d
