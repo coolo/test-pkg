@@ -451,8 +451,8 @@ test ${rl1[2]} = ${rl2[2]} || exit 1
 	%{buildroot}%{_sysconfdir}/alternatives/_bin_sh
   ln -sf %{_bindir}/bash %{buildroot}/bin/bash
   ln -sf bash            %{buildroot}%{_bindir}/rbash
+  ln -sf bash            %{buildroot}/bin/sh
   ln -sf %{_sysconfdir}/alternatives/sh      %{buildroot}%{_bindir}/sh
-  ln -sf %{_sysconfdir}/alternatives/_bin_sh %{buildroot}/bin/sh
   install -m 644 COMPAT NEWS    %{buildroot}%{_docdir}/%{name}
   install -m 644 COPYING        %{buildroot}%{_docdir}/%{name}
   install -m 644 doc/FAQ        %{buildroot}%{_docdir}/%{name}
