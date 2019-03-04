@@ -129,8 +129,8 @@ Group:          Development/Languages/C and C++
 
 %description devel
 This package contains the C header files for writing loadable new
-builtins for the interpreter Bash. Use -I /usr/include/bash/<version>
-on the compilers command line.
+builtins for the interpreter Bash. Use the output of the command
+`pkg-config bash --cflags' on the compilers command line.
 
 %package loadables
 Summary:        Loadable bash builtins
@@ -436,6 +436,8 @@ test ${rl1[2]} = ${rl2[2]} || exit 1
 %install
   %make_install
   make -C examples/loadables/ install-supported DESTDIR=%{buildroot} libdir=/%{_lib}
+  mv -vf %{buildroot}%{_ldldir}/*.h   %{buildroot}%{_includedir}/bash/
+  mv -vf %{buildroot}%{_ldldir}/*.inc %{buildroot}%{_datadir}/bash
   rm -rf %{buildroot}%{_libdir}/bash
   rm -rf %{buildroot}/%{_lib}/pkgconfig
   sed -ri '/CC = gcc/s@(CC = gcc).*@\1@' %{buildroot}%{_libdir}/pkgconfig/bash.pc
@@ -447,8 +449,8 @@ test ${rl1[2]} = ${rl2[2]} || exit 1
 # remains here :(
 # The same had happen for the system POSIX shell /bin/sh
 #
-  touch %{buildroot}%{_sysconfdir}/alternatives/sh \
-	%{buildroot}%{_sysconfdir}/alternatives/_bin_sh
+  ln -sf %{_bindir}/bash %{buildroot}%{_sysconfdir}/alternatives/sh
+  ln -sf %{_bindir}/sh   %{buildroot}%{_sysconfdir}/alternatives/_bin_sh
   ln -sf %{_bindir}/bash %{buildroot}/bin/bash
   ln -sf bash            %{buildroot}%{_bindir}/rbash
   ln -sf bash            %{buildroot}%{_bindir}/sh
@@ -489,14 +491,14 @@ EOF
   %find_lang bash
   %fdupes -s %{buildroot}%{_datadir}/bash/helpfiles
 
-%post
-update-alternatives --force \
-	--install "%{_bindir}/sh" sh "%{_bindir}/bash" 10100 \
-	--slave "/bin/sh" _bin_sh "%{_bindir}/sh"
+%post -p /bin/bash
+%{_sbindir}/update-alternatives --quiet --force \
+	--install %{_bindir}/sh      sh %{_bindir}/bash 10100 \
+	--slave         /bin/sh _bin_sh %{_bindir}/sh
 
-%postun
+%preun -p /bin/bash
 if test "$1" = 0; then
-        update-alternatives --remove sh "%{_bindir}/bash"
+        %{_sbindir}/update-alternatives --quiet --remove sh %{_bindir}/bash
 fi
 
 %post doc
@@ -516,15 +518,15 @@ ldd -u -r %{buildroot}/bin/bash || true
 %config %attr(600,root,root) %{_sysconfdir}/skel/.bash_history
 %config %attr(644,root,root) %{_sysconfdir}/skel/.bashrc
 %config %attr(644,root,root) %{_sysconfdir}/skel/.profile
-%ghost %{_sysconfdir}/alternatives/sh
-%ghost %{_sysconfdir}/alternatives/_bin_sh
+%ghost %config %{_sysconfdir}/alternatives/sh
+%ghost %config %{_sysconfdir}/alternatives/_bin_sh
 /bin/bash
-/bin/sh
+%verify(not link mtime) /bin/sh
 %dir %{_sysconfdir}/bash_completion.d
 %{_bindir}/bash
 %{_bindir}/bashbug
 %{_bindir}/rbash
-%{_bindir}/sh
+%verify(not link mtime) %{_bindir}/sh
 %dir %{_datadir}/bash
 %dir %{_datadir}/bash/helpfiles
 %{_datadir}/bash/helpfiles/*
@@ -541,18 +543,17 @@ ldd -u -r %{buildroot}/bin/bash || true
 %doc %{_mandir}/man1/rbash.1*
 %doc %{_docdir}/%{name}
 
-%if 0%suse_version >= 1020
 %files devel
 %defattr(-,root,root)
-%dir /%{_includedir}/bash/
-%dir /%{_includedir}/bash/
-%dir /%{_includedir}/bash/builtins/
-%dir /%{_includedir}/bash/include/
-/%{_incdir}/bash/*.h
-/%{_incdir}/bash/builtins/*.h
-/%{_incdir}/bash/include/*.h
+%dir %{_includedir}/bash/
+%dir %{_includedir}/bash/
+%dir %{_includedir}/bash/builtins/
+%dir %{_includedir}/bash/include/
+%{_incdir}/bash/*.h
+%{_incdir}/bash/builtins/*.h
+%{_incdir}/bash/include/*.h
 %{_libdir}/pkgconfig/bash.pc
-%endif
+%{_datadir}/bash/*.inc
 
 %files loadables
 %defattr(-,root,root)
