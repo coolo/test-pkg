@@ -805,6 +805,8 @@ egl_platforms=x11,drm,surfaceless
             -Dgallium-va=true \
 %if 0%{with_vulkan}
             -Dvulkan-drivers=intel,amd \
+%else
+            -Dvulkan-drivers= \
 %endif
 %endif
 %if %{drivers}
