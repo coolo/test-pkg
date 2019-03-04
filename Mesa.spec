@@ -12,7 +12,7 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via http://bugs.opensuse.org/
+# Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
 
 
@@ -46,7 +46,7 @@
 %define with_vulkan 0
 %define with_llvm 0
 
-%ifarch %{ix86} x86_64 %{arm} aarch64 ppc ppc64 ppc64le s390x
+%ifarch %{ix86} x86_64 %{arm} aarch64 ppc64 ppc64le
   %define gallium_loader 1
 %else
   %define gallium_loader 0
@@ -67,9 +67,7 @@
 %endif
 
 %if 0%{gallium_loader}
-  %ifnarch ppc
-    %define with_opencl 1
-  %endif
+  %define with_opencl 1
   %ifarch %{ix86} x86_64
     %define with_vulkan 1
   %endif
@@ -136,6 +134,7 @@ Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 
 Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
 Patch57:        u_wayland_egl-Ensure-EGL-surface.patch
+Patch58:        u_dep_xcb.patch
 
 BuildRequires:  bison
 BuildRequires:  fdupes
@@ -470,8 +469,8 @@ applications using the OpenGL|ES 3.x APIs.
 
 %package -n libOSMesa8
 Summary:        Mesa Off-screen rendering extension
-# Wrongly named package shipped .so.8
 Group:          System/Libraries
+# Wrongly named package shipped .so.8
 Obsoletes:      libOSMesa9 < %{version}
 Provides:       libOSMesa9 = %{version}
 
@@ -587,8 +586,8 @@ programs against the GBM library.
 
 %package -n Mesa-libd3d
 Summary:        Mesa Direct3D9 state tracker
-# Manually provide d3d library (bnc#918294)
 Group:          System/Libraries
+# Manually provide d3d library (bnc#918294)
 %ifarch x86_64 s390x ppc64le aarch64 riscv64
 Provides:       d3dadapter9.so.1()(64bit)
 %else
@@ -739,6 +738,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 
 %patch54 -p1
 %patch57 -p1
+%patch58 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
@@ -799,34 +799,33 @@ egl_platforms=x11,drm,surfaceless
             -Dshared-llvm=true \
 %endif
 %if %{drivers}
+%if %{gallium_loader}
             -Dgallium-vdpau=true \
             -Dgallium-xvmc=true \
             -Dgallium-va=true \
+            -Dgallium-xa=true \
+%endif
 %if 0%{with_vulkan}
             -Dvulkan-drivers=intel,amd \
 %else
             -Dvulkan-drivers= \
 %endif
-%endif
-%if %{drivers}
   %ifarch %{ix86} x86_64
-            -Dgallium-xa=true \
             -Ddri-drivers=i915,i965,nouveau,r100,r200 \
             -Dgallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga,virgl \
-  %endif
+  %else
   %ifarch %{arm} aarch64
-            -Dgallium-xa=true \
             -Ddri-drivers=nouveau \
             -Dgallium-drivers=r300,r600,nouveau,swrast,virgl,freedreno,vc4,etnaviv,imx \
-  %endif
+  %else
   %ifarch ppc64 ppc64le
-            -Dgallium-xa=true \
             -Ddri-drivers=nouveau \
             -Dgallium-drivers=r300,r600,nouveau,swrast \
-  %endif
-  %ifarch ia64 ppc hppa s390 s390x riscv64
+  %else
             -Ddri-drivers=swrast \
-            -Dgallium-drivers=swrast \
+            -Dgallium-drivers= \
+  %endif
+  %endif
   %endif
 %else
             -Ddri-drivers=swrast \

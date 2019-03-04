@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Mar  4 15:48:51 UTC 2019 - Andreas Schwab <schwab@suse.de>
+
+- Don't enable gallium_loader on ppc and s390x
+- Fix configuration on non-gallium archs
+- u_dep_xcb.patch: fix missing xcb dependencies
+
+-------------------------------------------------------------------
 Mon Mar  4 10:25:40 UTC 2019 - normand@linux.vnet.ibm.com
 
 - avoid Mesa-drivers build failure for ppc64le reported by
