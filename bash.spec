@@ -450,11 +450,10 @@ test ${rl1[2]} = ${rl2[2]} || exit 1
 # The same had happen for the system POSIX shell /bin/sh
 #
   ln -sf %{_bindir}/bash %{buildroot}%{_sysconfdir}/alternatives/sh
-  ln -sf %{_bindir}/sh   %{buildroot}%{_sysconfdir}/alternatives/_bin_sh
   ln -sf %{_bindir}/bash %{buildroot}/bin/bash
+  ln -sf %{_bindir}/sh   %{buildroot}/bin/sh
   ln -sf bash            %{buildroot}%{_bindir}/rbash
   ln -sf bash            %{buildroot}%{_bindir}/sh
-  ln -sf %{_bindir}/sh   %{buildroot}/bin/sh
   install -m 644 COMPAT NEWS    %{buildroot}%{_docdir}/%{name}
   install -m 644 COPYING        %{buildroot}%{_docdir}/%{name}
   install -m 644 doc/FAQ        %{buildroot}%{_docdir}/%{name}
@@ -493,8 +492,7 @@ EOF
 
 %post -p /bin/bash
 %{_sbindir}/update-alternatives --quiet --force \
-	--install %{_bindir}/sh      sh %{_bindir}/bash 10100 \
-	--slave         /bin/sh _bin_sh %{_bindir}/sh
+	--install %{_bindir}/sh sh %{_bindir}/bash 10100
 
 %preun -p /bin/bash
 if test "$1" = 0; then
@@ -519,10 +517,9 @@ ldd -u -r %{buildroot}/bin/bash || true
 %config %attr(644,root,root) %{_sysconfdir}/skel/.bashrc
 %config %attr(644,root,root) %{_sysconfdir}/skel/.profile
 %ghost %config %{_sysconfdir}/alternatives/sh
-%ghost %config %{_sysconfdir}/alternatives/_bin_sh
-/bin/bash
-%verify(not link mtime) /bin/sh
 %dir %{_sysconfdir}/bash_completion.d
+/bin/bash
+/bin/sh
 %{_bindir}/bash
 %{_bindir}/bashbug
 %{_bindir}/rbash
