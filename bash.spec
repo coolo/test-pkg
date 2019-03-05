@@ -497,6 +497,7 @@ EOF
 %preun -p /bin/bash
 if test "$1" = 0; then
         %{_sbindir}/update-alternatives --quiet --remove sh %{_bindir}/bash
+ln -sf %{_bindir}/sh /bin/sh
 fi
 
 %post doc
