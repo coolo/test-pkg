@@ -493,11 +493,11 @@ EOF
 %post -p /bin/bash
 %{_sbindir}/update-alternatives --quiet --force \
 	--install %{_bindir}/sh sh %{_bindir}/bash 10100
+ln -sf %{_bindir}/sh /bin/sh
 
 %preun -p /bin/bash
 if test "$1" = 0; then
         %{_sbindir}/update-alternatives --quiet --remove sh %{_bindir}/bash
-ln -sf %{_bindir}/sh /bin/sh
 fi
 
 %post doc
