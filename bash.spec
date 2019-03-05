@@ -493,7 +493,6 @@ EOF
 %post -p /bin/bash
 %{_sbindir}/update-alternatives --quiet --force \
 	--install %{_bindir}/sh sh %{_bindir}/bash 10100
-ln -sf %{_bindir}/sh /bin/sh
 
 %preun -p /bin/bash
 if test "$1" = 0; then
@@ -543,7 +542,6 @@ ldd -u -r %{buildroot}/bin/bash || true
 
 %files devel
 %defattr(-,root,root)
-%dir %{_includedir}/bash/
 %dir %{_includedir}/bash/
 %dir %{_includedir}/bash/builtins/
 %dir %{_includedir}/bash/include/
