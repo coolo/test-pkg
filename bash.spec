@@ -86,7 +86,7 @@ BuildRequires:  screen
 BuildRequires:  sed
 BuildRequires:  update-alternatives
 Requires(post): update-alternatives
-Requires(postun): update-alternatives
+Requires(preun): update-alternatives
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
 %global         _ldldir     /%{_lib}/bash
