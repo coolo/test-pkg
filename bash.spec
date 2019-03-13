@@ -20,18 +20,6 @@
 %bcond_with     sjis
 
 Name:           bash
-BuildRequires:  audit-devel
-BuildRequires:  autoconf
-BuildRequires:  bison
-BuildRequires:  fdupes
-BuildRequires:  makeinfo
-BuildRequires:  ncurses-devel
-BuildRequires:  patchutils
-BuildRequires:  pkg-config
-# This has to be always the same version as included in the bash its self
-BuildRequires:  readline-devel == 8.0
-BuildRequires:  screen
-BuildRequires:  sed
 %define         bextend	 %nil
 Version:        5.0
 Release:        0
@@ -84,6 +72,21 @@ Patch47:        bash-4.3-perl522.patch
 Patch48:        bash-4.3-extra-import-func.patch
 # PATCH-EXTEND-SUSE Allow root to clean file system if filled up
 Patch49:        bash-4.3-pathtemp.patch
+BuildRequires:  audit-devel
+BuildRequires:  autoconf
+BuildRequires:  bison
+BuildRequires:  fdupes
+BuildRequires:  makeinfo
+BuildRequires:  ncurses-devel
+BuildRequires:  patchutils
+BuildRequires:  pkg-config
+# This has to be always the same version as included in the bash its self
+BuildRequires:  readline-devel == 8.0
+BuildRequires:  screen
+BuildRequires:  sed
+BuildRequires:  update-alternatives
+Requires(post): update-alternatives
+Requires(preun): update-alternatives
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
 %global         _ldldir     /%{_lib}/bash
@@ -126,8 +129,8 @@ Group:          Development/Languages/C and C++
 
 %description devel
 This package contains the C header files for writing loadable new
-builtins for the interpreter Bash. Use -I /usr/include/bash/<version>
-on the compilers command line.
+builtins for the interpreter Bash. Use the output of the command
+`pkg-config bash --cflags' on the compilers command line.
 
 %package loadables
 Summary:        Loadable bash builtins
@@ -433,19 +436,24 @@ test ${rl1[2]} = ${rl2[2]} || exit 1
 %install
   %make_install
   make -C examples/loadables/ install-supported DESTDIR=%{buildroot} libdir=/%{_lib}
+  mv -vf %{buildroot}%{_ldldir}/*.h   %{buildroot}%{_includedir}/bash/
+  mv -vf %{buildroot}%{_ldldir}/*.inc %{buildroot}%{_datadir}/bash
   rm -rf %{buildroot}%{_libdir}/bash
   rm -rf %{buildroot}/%{_lib}/pkgconfig
   sed -ri '/CC = gcc/s@(CC = gcc).*@\1@' %{buildroot}%{_libdir}/pkgconfig/bash.pc
   mkdir -p %{buildroot}/bin
-  mv %{buildroot}%{_bindir}/bash %{buildroot}/bin/
-%if %_minsh
-  install sh  %{buildroot}/bin/sh
-  ln -sf ../../bin/sh   %{buildroot}%{_bindir}/sh
-%else
-  ln -sf bash %{buildroot}/bin/sh
-  ln -sf ../../bin/bash %{buildroot}%{_bindir}/sh
-%endif
-  ln -sf ../../bin/bash %{buildroot}%{_bindir}/rbash
+  mkdir -p %{buildroot}%{_sysconfdir}/alternatives
+#
+# It should be noted that the move of /bin/bash to /usr/bin/bash
+# had NOT done by me at 2019/02/08. Now only a symbolic link
+# remains here :(
+# The same had happen for the system POSIX shell /bin/sh
+#
+  ln -sf %{_bindir}/bash %{buildroot}%{_sysconfdir}/alternatives/sh
+  ln -sf %{_bindir}/bash %{buildroot}/bin/bash
+  ln -sf %{_bindir}/sh   %{buildroot}/bin/sh
+  ln -sf bash            %{buildroot}%{_bindir}/rbash
+  ln -sf bash            %{buildroot}%{_bindir}/sh
   install -m 644 COMPAT NEWS    %{buildroot}%{_docdir}/%{name}
   install -m 644 COPYING        %{buildroot}%{_docdir}/%{name}
   install -m 644 doc/FAQ        %{buildroot}%{_docdir}/%{name}
@@ -482,6 +490,15 @@ EOF
   %find_lang bash
   %fdupes -s %{buildroot}%{_datadir}/bash/helpfiles
 
+%post -p /bin/bash
+%{_sbindir}/update-alternatives --quiet --force \
+	--install %{_bindir}/sh sh %{_bindir}/bash 10100
+
+%preun -p /bin/bash
+if test "$1" = 0; then
+        %{_sbindir}/update-alternatives --quiet --remove sh %{_bindir}/bash
+fi
+
 %post doc
 %install_info --info-dir=%{_infodir} %{_infodir}/bash.info.gz
 
@@ -491,7 +508,7 @@ EOF
 %clean
 LD_LIBRARY_PATH=%{buildroot}/%{_lib} \
 ldd -u -r %{buildroot}/bin/bash || true
-%{?buildroot: %{__rm} -rf %{buildroot}}
+%{?buildroot: %__rm -rf %{buildroot}}
 
 %files
 %defattr(-,root,root)
@@ -499,12 +516,14 @@ ldd -u -r %{buildroot}/bin/bash || true
 %config %attr(600,root,root) %{_sysconfdir}/skel/.bash_history
 %config %attr(644,root,root) %{_sysconfdir}/skel/.bashrc
 %config %attr(644,root,root) %{_sysconfdir}/skel/.profile
+%ghost %config %{_sysconfdir}/alternatives/sh
+%dir %{_sysconfdir}/bash_completion.d
 /bin/bash
 /bin/sh
-%dir %{_sysconfdir}/bash_completion.d
+%{_bindir}/bash
 %{_bindir}/bashbug
 %{_bindir}/rbash
-%{_bindir}/sh
+%verify(not link mtime) %{_bindir}/sh
 %dir %{_datadir}/bash
 %dir %{_datadir}/bash/helpfiles
 %{_datadir}/bash/helpfiles/*
@@ -521,18 +540,16 @@ ldd -u -r %{buildroot}/bin/bash || true
 %doc %{_mandir}/man1/rbash.1*
 %doc %{_docdir}/%{name}
 
-%if 0%suse_version >= 1020
 %files devel
 %defattr(-,root,root)
-%dir /%{_includedir}/bash/
-%dir /%{_includedir}/bash/
-%dir /%{_includedir}/bash/builtins/
-%dir /%{_includedir}/bash/include/
-/%{_incdir}/bash/*.h
-/%{_incdir}/bash/builtins/*.h
-/%{_incdir}/bash/include/*.h
+%dir %{_includedir}/bash/
+%dir %{_includedir}/bash/builtins/
+%dir %{_includedir}/bash/include/
+%{_incdir}/bash/*.h
+%{_incdir}/bash/builtins/*.h
+%{_incdir}/bash/include/*.h
 %{_libdir}/pkgconfig/bash.pc
-%endif
+%{_datadir}/bash/*.inc
 
 %files loadables
 %defattr(-,root,root)
