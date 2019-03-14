@@ -12,7 +12,7 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via https://bugs.opensuse.org/
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
 
@@ -42,7 +42,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 18.3.4
+%define _version 19.0.0
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -110,7 +110,7 @@
 %endif
 
 Name:           Mesa-drivers
-Version:        18.3.4
+Version:        19.0.0
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -134,7 +134,6 @@ Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 
 Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
-Patch57:        u_wayland_egl-Ensure-EGL-surface.patch
 Patch58:        u_dep_xcb.patch
 
 BuildRequires:  bison
@@ -470,8 +469,8 @@ applications using the OpenGL|ES 3.x APIs.
 
 %package -n libOSMesa8
 Summary:        Mesa Off-screen rendering extension
-Group:          System/Libraries
 # Wrongly named package shipped .so.8
+Group:          System/Libraries
 Obsoletes:      libOSMesa9 < %{version}
 Provides:       libOSMesa9 = %{version}
 
@@ -587,8 +586,8 @@ programs against the GBM library.
 
 %package -n Mesa-libd3d
 Summary:        Mesa Direct3D9 state tracker
-Group:          System/Libraries
 # Manually provide d3d library (bnc#918294)
+Group:          System/Libraries
 %ifarch x86_64 s390x ppc64le aarch64 riscv64
 Provides:       d3dadapter9.so.1()(64bit)
 %else
@@ -738,7 +737,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %endif
 
 %patch54 -p1
-%patch57 -p1
 %patch58 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
