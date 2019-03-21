@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Mar 20 14:44:10 UTC 2019 - Guillaume GARDET <guillaume.gardet@opensuse.org>
+
+- Remove imx from ARM drivers (dropped upstream)
+
+-------------------------------------------------------------------
 Thu Mar 14 15:02:46 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
 
 - Update to 19.0.0
