@@ -312,6 +312,7 @@ support.
 %package libEGL-devel
 Summary:        Development files for the EGL API
 Group:          Development/Libraries/C and C++
+Requires:       Mesa-KHR-devel = %{version}
 Requires:       Mesa-libEGL1 = %{version}
 %if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
