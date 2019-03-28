@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Mar 28 10:24:11 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to 19.0.1
+  * "This is the first bug fix release of the 19.0 branch. It's
+    been a pretty calm cycle, and there's not too much here. I
+    think things are looking pretty good overall."
+
+-------------------------------------------------------------------
 Fri Mar 22 10:14:33 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
 
 - baselibs.conf: Mesa-libEGL-devel needs Mesa-KHR-devel (bsc#1117365) 
