@@ -72,8 +72,6 @@ Patch47:        bash-4.3-perl522.patch
 Patch48:        bash-4.3-extra-import-func.patch
 # PATCH-EXTEND-SUSE Allow root to clean file system if filled up
 Patch49:        bash-4.3-pathtemp.patch
-# PATCH-EXTEND-UPSTREAM bash-5.0: problem with variable scoping in posix-mode
-Patch100:       assignment-preceding-builtin.patch
 BuildRequires:  audit-devel
 BuildRequires:  autoconf
 BuildRequires:  bison
@@ -237,7 +235,6 @@ done
 %patch48 -b .eif
 %endif
 %patch49 -p0 -b .pthtmp
-%patch100 -p0 -b .posix
 %patch0  -p0 -b .0
 
 # This has to be always the same version as included in the bash its self
