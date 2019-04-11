@@ -41,7 +41,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 19.0.1
+%define _version 19.0.2
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -109,7 +109,7 @@
 %endif
 
 Name:           Mesa
-Version:        19.0.1
+Version:        19.0.2
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -879,6 +879,9 @@ rm %{buildroot}/%{_libdir}/pkgconfig/gbm.pc
 
 # in KHR-devel
 rm -rf %{buildroot}/%{_includedir}/KHR
+
+# workaround needed since Mesa 19.0.2
+rm -f %{buildroot}/%{_libdir}/vdpau/libvdpau_gallium.so
 
 %else
 

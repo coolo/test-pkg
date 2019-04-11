@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Apr 11 09:50:31 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to 19.0.2
+  * Just a few fixes for radeon, a few for nir, a couple for radv,
+    a couple for v3d, and a few other patches here and there.
+
+-------------------------------------------------------------------
 Thu Mar 28 10:24:11 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
 
 - Update to 19.0.1
