@@ -1,4 +1,24 @@
 -------------------------------------------------------------------
+Wed Apr 17 16:10:26 UTC 2019 - Tobias Klausmann <tobias.johannes.klausmann@mni.thm.de>
+
+- Drop patches n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
+  and archlinux_0001-Fix-linkage-against-shared-glapi.patch:
+  These patches only work when building mesa with autotools. As we use meson
+  instead now, these patches do nothing.
+
+-------------------------------------------------------------------
+Wed Apr 17 16:08:20 UTC 2019 - Tobias Klausmann <tobias.johannes.klausmann@mni.thm.de>
+
+- Drop version 19.0.1 tarballs
+
+-------------------------------------------------------------------
+Thu Apr 11 09:50:31 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to 19.0.2
+  * Just a few fixes for radeon, a few for nir, a couple for radv,
+    a couple for v3d, and a few other patches here and there.
+
+-------------------------------------------------------------------
 Thu Mar 28 10:24:11 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
 
 - Update to 19.0.1

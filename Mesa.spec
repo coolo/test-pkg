@@ -12,7 +12,7 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via http://bugs.opensuse.org/
+# Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
 
 
@@ -41,7 +41,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 19.0.1
+%define _version 19.0.2
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -109,7 +109,7 @@
 %endif
 
 Name:           Mesa
-Version:        19.0.1
+Version:        19.0.2
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -128,10 +128,6 @@ Source4:        manual-pages.tar.bz2
 Source6:        %{name}-rpmlintrc
 Source7:        Mesa.keyring
 # never to be upstreamed
-Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
-# currently needed for libglvnd support
-Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
-
 Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
 Patch58:        u_dep_xcb.patch
 
@@ -730,11 +726,6 @@ programs against the XA state tracker.
 %setup -q -n %{_name_archive}-%{_version} -b4
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
-%patch18 -p1
-
-%if 0%{?libglvnd}
-%patch31 -p1
-%endif
 
 %patch54 -p1
 %patch58 -p1
@@ -879,6 +870,9 @@ rm %{buildroot}/%{_libdir}/pkgconfig/gbm.pc
 
 # in KHR-devel
 rm -rf %{buildroot}/%{_includedir}/KHR
+
+# workaround needed since Mesa 19.0.2
+rm -f %{buildroot}/%{_libdir}/vdpau/libvdpau_gallium.so
 
 %else
 
