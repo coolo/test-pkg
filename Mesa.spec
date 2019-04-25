@@ -745,6 +745,7 @@ grep -v -i vulkan "%{_sourcedir}/baselibs.conf" >"%{_sourcedir}/temp" && \
 %endif
 
 %build
+%define _lto_cflags %{nil}
 %if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
 egl_platforms=x11,drm,surfaceless,wayland
 %else
