@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Fri Apr 26 10:03:02 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to 19.0.3
+  * quiet release with just 19 patches (excluding release churn)
+    since 19.0.2
+  * no sub component was touched too much
+  * virgl, glsl, nir, intel, radeonsi, radv, ac, and gallivm 
+    received a few patches
+
+-------------------------------------------------------------------
+Wed Apr 24 17:24:16 UTC 2019 - Martin Liška <mliska@suse.cz>
+
+- Disable LTO (boo#1133265).
+
+-------------------------------------------------------------------
 Wed Apr 17 16:10:26 UTC 2019 - Tobias Klausmann <tobias.johannes.klausmann@mni.thm.de>
 
 - Drop patches n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
