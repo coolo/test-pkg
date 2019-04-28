@@ -12,7 +12,7 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via https://bugs.opensuse.org/
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
 
@@ -492,7 +492,6 @@ EOF
   chmod 600                %{buildroot}%{_sysconfdir}/skel/.bash_history
   %find_lang bash
   %fdupes -s %{buildroot}%{_datadir}/bash/helpfiles
-  sed -ri '1{ s@/bin/sh@/bin/bash@ }' %{buildroot}%{_bindir}/bashbug
 
 %post -p /bin/bash
 %{_sbindir}/update-alternatives --quiet --force \
