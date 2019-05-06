@@ -1,4 +1,52 @@
 -------------------------------------------------------------------
+Fri May  3 09:30:33 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to 18.3.2; the version we also use on sle15-sp1 and which
+  is also needed for Cometlake-U and Amberlake-Y support
+  (jira #SLE-4983 #SLE-4989)
+- Changes since 18.0.2
+  * superseded patches
+    + archlinux_glvnd-fix-gl-dot-pc.patch
+    + u_r600-egd_tables.py-make-the-script-python-2-3-compat.patch
+    + u_st-dri-don-t-set-queryDmaBufFormats-queryDmaBufModif.patch
+  * refreshed patches
+    + archlinux_0001-Fix-linkage-against-shared-glapi.patch
+    + n_drirc-disable-rgb10-for-chromium-on-amd.patch
+    + n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
+  * new patches
+    + u_wayland_egl-Ensure-EGL-surface.patch: wayland/egl
+      Ensure EGL surface is resized on DRI update_buffers()
+    + n_Disable-Xshm-for-now-since-it-results-in-render-erro.patch
+      Xshm results in render errors and missing screen refreshes on GNOME3
+      in a qemu VM (cirrus emulation) [bsc#1118149]
+  * Make build verbose as outlined in openSUSE:Specfile guidelines
+    https://en.opensuse.org/openSUSE:Specfile_guidelines#Verbose_mode
+  * Enable virgl on ARM
+  * /etc/drirc moved to /usr/share/drirc.d/00-mesa-defaults.conf
+  * Use rpm variables for the drirc.d path
+  * Place khrplatform.h into new package Mesa-KHR-devel. It is now
+    required by all devel packages that need it. (bsc#1117365)
+  * added libGL-Mesa-devel split-off provides to Mesa-KHR-devel
+    package, since /usr/include/KHR/khrplatform.h moved between
+    these two packages (related to bsc#1117365)
+  * Only BuildRequire pkgconfig(vdpau) and pass --enable-vdpau to
+    configure when building the drivers. Helps us break a build
+    cycle.
+  * Add etnaviv and imx support for %arm and arch64
+  * Enable the surfaceless platform, which is needed by KDE CI
+    environment for testing (https://phabricator.kde.org/T10245)
+    in git master ...
+- things different to sle15-sp1
+  * disabled build of opencl due to missing libclc on sle12-sp4
+  * remove Mesa-gallium-32bit requires/supplements from baselibs.conf,
+    since we don't build opencl on sle12-sp4
+  * baselibs.conf: 32bit devel packages need to require 
+    Mesa-KHR-devel instead of the -32bit variant, since it only
+    contains include files (filelist of Mesa-KHR-devel-32bit is
+    empty, since it doesn't contain any libs; therefore there is
+    no such package generated)
+
+-------------------------------------------------------------------
 Thu Jun 28 09:28:38 UTC 2018 - sndirsch@suse.com
 
 - Add build dependency on libelf on aarch64, ppc64le (bsc#1099433)
