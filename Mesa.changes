@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Fri May 10 12:45:00 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to 19.0.4
+  * It's been a pretty active release, especially for how late in
+    the cyle we are. Radv was the busiest component, but there
+    were also a few changes for intel, radeonsi, some core vulkan
+    work, and a little bit of other stuff here and there.
+
+-------------------------------------------------------------------
 Fri Apr 26 10:03:02 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
 
 - Update to 19.0.3
