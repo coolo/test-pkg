@@ -12,7 +12,7 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via http://bugs.opensuse.org/
+# Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
 
 
@@ -84,6 +84,11 @@ BuildRequires:  patchutils
 BuildRequires:  pkg-config
 # This has to be always the same version as included in the bash its self
 BuildRequires:  readline-devel == 8.0
+%if 0%{?sle_version} > 0
+%if 0%{?suse_version} == 1500
+BuildRequires:  readline-devel-static == 8.0
+%endif
+%endif
 BuildRequires:  screen
 BuildRequires:  sed
 BuildRequires:  update-alternatives
@@ -347,6 +352,11 @@ test ${rl1[2]} = ${rl2[2]} || exit 1
   #
   READLINE="
 	--with-installed-readline
+%if 0%{?sle_version} > 0
+%if 0%{?suse_version} == 1500
+	--enable-static-link
+%endif
+%endif
   "
   bash support/mkconffiles -v
 %if %_minsh
@@ -492,6 +502,7 @@ EOF
   chmod 600                %{buildroot}%{_sysconfdir}/skel/.bash_history
   %find_lang bash
   %fdupes -s %{buildroot}%{_datadir}/bash/helpfiles
+  sed -ri '1{ s@/bin/sh@/bin/bash@ }' %{buildroot}%{_bindir}/bashbug
 
 %post -p /bin/bash
 %{_sbindir}/update-alternatives --quiet --force \
