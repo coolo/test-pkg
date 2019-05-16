@@ -84,11 +84,6 @@ BuildRequires:  patchutils
 BuildRequires:  pkg-config
 # This has to be always the same version as included in the bash its self
 BuildRequires:  readline-devel == 8.0
-%if 0%{?sle_version} > 0
-%if 0%{?suse_version} == 1500
-BuildRequires:  readline-devel-static == 8.0
-%endif
-%endif
 BuildRequires:  screen
 BuildRequires:  sed
 BuildRequires:  update-alternatives
@@ -304,11 +299,6 @@ test ${rl1[2]} = ${rl2[2]} || exit 1
   LARGEFILE="$(getconf LFS_CFLAGS)"
   CFLAGS="$RPM_OPT_FLAGS $LARGEFILE -D_GNU_SOURCE -DRECYCLES_PIDS -Wall -g"
   LDFLAGS=""
-%if 0%{?sle_version} > 0
-%if 0%{?suse_version} == 1500
-  LDFLAGS="-Wl,-Bstatic -lreadline -Wl,-Bdynamic"
-%endif
-%endif
   #
   # Never ever put -DMUST_UNBLOCK_CHLD herein as this breaks bash
   #
