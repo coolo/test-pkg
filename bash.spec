@@ -304,6 +304,11 @@ test ${rl1[2]} = ${rl2[2]} || exit 1
   LARGEFILE="$(getconf LFS_CFLAGS)"
   CFLAGS="$RPM_OPT_FLAGS $LARGEFILE -D_GNU_SOURCE -DRECYCLES_PIDS -Wall -g"
   LDFLAGS=""
+%if 0%{?sle_version} > 0
+%if 0%{?suse_version} == 1500
+  LDFLAGS="-Wl,-Bstatic -lreadline -Wl,-Bdynamic"
+%endif
+%endif
   #
   # Never ever put -DMUST_UNBLOCK_CHLD herein as this breaks bash
   #
@@ -352,11 +357,6 @@ test ${rl1[2]} = ${rl2[2]} || exit 1
   #
   READLINE="
 	--with-installed-readline
-%if 0%{?sle_version} > 0
-%if 0%{?suse_version} == 1500
-	--enable-static-link
-%endif
-%endif
   "
   bash support/mkconffiles -v
 %if %_minsh
