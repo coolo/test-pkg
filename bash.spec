@@ -84,6 +84,11 @@ BuildRequires:  patchutils
 BuildRequires:  pkg-config
 # This has to be always the same version as included in the bash its self
 BuildRequires:  readline-devel == 8.0
+%if 0%{?sle_version} > 0
+%if 0%{?suse_version} == 1500
+BuildRequires:  readline-devel-static == 8.0
+%endif
+%endif
 BuildRequires:  screen
 BuildRequires:  sed
 BuildRequires:  update-alternatives
@@ -347,6 +352,11 @@ test ${rl1[2]} = ${rl2[2]} || exit 1
   #
   READLINE="
 	--with-installed-readline
+%if 0%{?sle_version} > 0
+%if 0%{?suse_version} == 1500
+	--enable-static-link
+%endif
+%endif
   "
   bash support/mkconffiles -v
 %if %_minsh
