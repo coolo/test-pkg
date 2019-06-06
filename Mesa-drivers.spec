@@ -12,7 +12,7 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via http://bugs.opensuse.org/
+# Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
 
 
@@ -137,6 +137,7 @@ Patch57:        u_wayland_egl-Ensure-EGL-surface.patch
 
 Patch60:        n_Disable-Xshm-for-now-since-it-results-in-render-erro.patch
 
+Patch61:        U_intel-Add-support-for-Comet-Lake.patch
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
 BuildRequires:  fdupes
@@ -756,6 +757,8 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch54 -p1
 %patch57 -p1
 %patch60 -p1
+
+%patch61 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
