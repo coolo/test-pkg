@@ -1,4 +1,29 @@
 -------------------------------------------------------------------
+Tue Jun 11 20:06:36 UTC 2019 - Bjørn Lie <bjorn.lie@gmail.com>
+
+- Update to 19.1.0:
+  * Mesa 19.1.0 implements the OpenGL 4.5 API, but the version
+    reported by glGetString(GL_VERSION) or
+    glGetIntegerv(GL_MAJOR_VERSION) /
+    glGetIntegerv(GL_MINOR_VERSION) depends on the particular
+    driver being used. Some drivers don't support all the features
+    required in OpenGL 4.5. OpenGL 4.5 is only available if
+    requested at context creation. Compatibility contexts may
+    report a lower version depending on each driver.
+  * The top highlights include:
+    - GL_ARB_parallel_shader_compile for all drivers.
+    - GL_EXT_gpu_shader4 on all GL 3.1 drivers.
+    - GL_EXT_shader_image_load_formatted on radeonsi.
+    - GL_EXT_texture_buffer_object on all GL 3.1 drivers.
+    - GL_EXT_texture_compression_s3tc_srgb on Gallium and i965
+      drivers (ES extension).
+    - GL_NV_compute_shader_derivatives on Iris and i965 drivers.
+    - GL_KHR_parallel_shader_compile on all drivers.
+    - GL_INTEL_conservative_rasterization on Iris.
+- Refresh patches with quilt.
+- Clean-up spec files for .pc and other files no longer built.
+
+-------------------------------------------------------------------
 Wed May 22 10:21:16 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
 
 - Update to 19.0.5

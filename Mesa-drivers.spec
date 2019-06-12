@@ -12,7 +12,7 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via http://bugs.opensuse.org/
+# Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
 
 
@@ -42,7 +42,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 19.0.5
+%define _version 19.1.0
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -110,7 +110,7 @@
 %endif
 
 Name:           Mesa-drivers
-Version:        19.0.5
+Version:        19.1.0
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -1003,7 +1003,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %if 0%{?libglvnd} == 0
 %{_libdir}/libGLESv1_CM.so
 %endif
-%{_libdir}/pkgconfig/glesv1_cm.pc
 
 %files libGLESv2-2
 %if 0%{?libglvnd} == 0
@@ -1015,12 +1014,9 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %if 0%{?libglvnd} == 0
 %{_libdir}/libGLESv2.so
 %endif
-%{_libdir}/pkgconfig/glesv2.pc
 
 %files libGLESv3-devel
 %{_includedir}/GLES3
-#%%_libdir/libGLESv3.so
-#%%_libdir/pkgconfig/glesv3.pc
 
 %files -n libOSMesa8
 %{_libdir}/libOSMesa.so.8.0.0
@@ -1054,15 +1050,9 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %if %{xvmc_support}
 %files -n libXvMC_nouveau
 %{_libdir}/libXvMCnouveau.so
-#%{_libdir}/libXvMCnouveau.so.1
-#%{_libdir}/libXvMCnouveau.so.1.0
-#%{_libdir}/libXvMCnouveau.so.1.0.0
 
 %files -n libXvMC_r600
 %{_libdir}/libXvMCr600.so
-#%{_libdir}/libXvMCr600.so.1
-#%{_libdir}/libXvMCr600.so.1.0
-#%{_libdir}/libXvMCr600.so.1.0.0
 %endif
 
 %if %{vdpau_nouveau}
@@ -1152,7 +1142,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %files -n Mesa-libd3d
 %dir %{_libdir}/d3d/
 %{_libdir}/d3d/*.so.*
-#%%{_sysconfdir}/OpenCL/vendors/mesa.icd
 
 %files -n Mesa-libd3d-devel
 %{_libdir}/pkgconfig/d3d.pc
