@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Jun 12 03:51:43 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- reenable LTO with Mesa 19.1 (boo#1133265, comment#5) 
+- enabled new gallium drivers
+  * iris (newer Intel GPUs) 
+  * lima, panfrost on ARM64
+
+-------------------------------------------------------------------
 Tue Jun 11 20:06:36 UTC 2019 - Bjørn Lie <bjorn.lie@gmail.com>
 
 - Update to 19.1.0:

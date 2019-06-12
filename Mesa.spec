@@ -745,7 +745,6 @@ grep -v -i vulkan "%{_sourcedir}/baselibs.conf" >"%{_sourcedir}/temp" && \
 %endif
 
 %build
-%define _lto_cflags %{nil}
 %if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
 egl_platforms=x11,drm,surfaceless,wayland
 %else
@@ -803,11 +802,11 @@ egl_platforms=x11,drm,surfaceless
 %endif
   %ifarch %{ix86} x86_64
             -Ddri-drivers=i915,i965,nouveau,r100,r200 \
-            -Dgallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga,virgl \
+            -Dgallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga,virgl,iris \
   %else
   %ifarch %{arm} aarch64
             -Ddri-drivers=nouveau \
-            -Dgallium-drivers=r300,r600,nouveau,swrast,virgl,freedreno,vc4,etnaviv \
+            -Dgallium-drivers=r300,r600,nouveau,swrast,virgl,freedreno,vc4,etnaviv,lima,panfrost \
   %else
   %ifarch ppc64 ppc64le
             -Ddri-drivers=nouveau \
