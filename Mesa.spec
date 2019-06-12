@@ -392,6 +392,7 @@ Requires:       pkgconfig(egl)
 %if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
 %endif
+Provides:       pkgconfig(glesv1_cm)
 
 %description libGLESv1_CM-devel
 OpenGL|ES is an API for full-function 2D and 3D
@@ -432,6 +433,7 @@ Requires:       pkgconfig(egl)
 %if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
 %endif
+Provides:       pkgconfig(glesv2)
 
 %description libGLESv2-devel
 OpenGL|ES is an API for full-function 2D and 3D
