@@ -5,6 +5,11 @@ Wed Jun 12 03:51:43 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
 - enabled new gallium drivers
   * iris (newer Intel GPUs) 
   * lima, panfrost on ARM64
+- virtually provide
+  * pkgconfig(glesv1_cm)
+  * pkgconfig(glesv2)
+  in libGLESv1_CM-devel/libGLESv2-devel packages, since these files
+  have been removed from Mesa via git commit #1587586
 
 -------------------------------------------------------------------
 Tue Jun 11 20:06:36 UTC 2019 - Bjørn Lie <bjorn.lie@gmail.com>
