@@ -131,6 +131,7 @@ Source7:        Mesa.keyring
 # never to be upstreamed
 Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
 Patch58:        u_dep_xcb.patch
+Patch60:        n_glesv1_cm-glesv2.patch
 
 BuildRequires:  bison
 BuildRequires:  fdupes
@@ -393,7 +394,6 @@ Requires:       pkgconfig(egl)
 %if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
 %endif
-Provides:       pkgconfig(glesv1_cm)
 
 %description libGLESv1_CM-devel
 OpenGL|ES is an API for full-function 2D and 3D
@@ -434,7 +434,6 @@ Requires:       pkgconfig(egl)
 %if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
 %endif
-Provides:       pkgconfig(glesv2)
 
 %description libGLESv2-devel
 OpenGL|ES is an API for full-function 2D and 3D
@@ -732,6 +731,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 
 %patch54 -p1
 %patch58 -p1
+%patch60 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
@@ -1004,6 +1004,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %if 0%{?libglvnd} == 0
 %{_libdir}/libGLESv1_CM.so
 %endif
+%{_libdir}/pkgconfig/glesv1_cm.pc
 
 %files libGLESv2-2
 %if 0%{?libglvnd} == 0
@@ -1015,6 +1016,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %if 0%{?libglvnd} == 0
 %{_libdir}/libGLESv2.so
 %endif
+%{_libdir}/pkgconfig/glesv2.pc
 
 %files libGLESv3-devel
 %{_includedir}/GLES3

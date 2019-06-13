@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Thu Jun 13 09:34:13 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- n_glesv1_cm-glesv2.patch
+  * reenables build of GLESv1_CM and GLESv2 ...
+- readded pkgconfig files for GLESv1_CM and GLESv2 to filelists
+- removed again virtual provides for 
+  * pkgconfig(glesv1_cm)
+  * pkgconfig(glesv2)
+
+-------------------------------------------------------------------
 Wed Jun 12 03:51:43 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
 
 - reenable LTO with Mesa 19.1 (boo#1133265, comment#5) 
