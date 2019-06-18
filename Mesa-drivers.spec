@@ -213,7 +213,11 @@ BuildRequires:  pkgconfig(wayland-protocols) >= 1.8
 BuildRequires:  pkgconfig(wayland-server) >= 1.11
 %endif
 %if 0%{with_llvm}
+%if 0%{?suse_version} >= 1550
+BuildRequires:  llvm-devel >= 8.0.0
+%else
 BuildRequires:  llvm-devel >= 7.0.0
+%endif
 %endif
 
 %if 0%{with_opencl}
