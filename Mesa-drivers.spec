@@ -12,7 +12,7 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via http://bugs.opensuse.org/
+# Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
 
 
@@ -42,7 +42,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 19.0.5
+%define _version 19.1.0
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -110,7 +110,7 @@
 %endif
 
 Name:           Mesa-drivers
-Version:        19.0.5
+Version:        19.1.0
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -131,6 +131,7 @@ Source7:        Mesa.keyring
 # never to be upstreamed
 Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
 Patch58:        u_dep_xcb.patch
+Patch60:        n_glesv1_cm-glesv2.patch
 
 BuildRequires:  bison
 BuildRequires:  fdupes
@@ -730,6 +731,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 
 %patch54 -p1
 %patch58 -p1
+%patch60 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
@@ -746,7 +748,6 @@ grep -v -i vulkan "%{_sourcedir}/baselibs.conf" >"%{_sourcedir}/temp" && \
 %endif
 
 %build
-%define _lto_cflags %{nil}
 %if 0%{?suse_version} > 1320 || (0%{?sle_version} >= 120300 && 0%{?is_opensuse})
 egl_platforms=x11,drm,surfaceless,wayland
 %else
@@ -804,11 +805,11 @@ egl_platforms=x11,drm,surfaceless
 %endif
   %ifarch %{ix86} x86_64
             -Ddri-drivers=i915,i965,nouveau,r100,r200 \
-            -Dgallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga,virgl \
+            -Dgallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga,virgl,iris \
   %else
   %ifarch %{arm} aarch64
             -Ddri-drivers=nouveau \
-            -Dgallium-drivers=r300,r600,nouveau,swrast,virgl,freedreno,vc4,etnaviv \
+            -Dgallium-drivers=r300,r600,nouveau,swrast,virgl,freedreno,vc4,etnaviv,lima,panfrost \
   %else
   %ifarch ppc64 ppc64le
             -Ddri-drivers=nouveau \
@@ -1019,8 +1020,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %files libGLESv3-devel
 %{_includedir}/GLES3
-#%%_libdir/libGLESv3.so
-#%%_libdir/pkgconfig/glesv3.pc
 
 %files -n libOSMesa8
 %{_libdir}/libOSMesa.so.8.0.0
@@ -1054,15 +1053,9 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %if %{xvmc_support}
 %files -n libXvMC_nouveau
 %{_libdir}/libXvMCnouveau.so
-#%{_libdir}/libXvMCnouveau.so.1
-#%{_libdir}/libXvMCnouveau.so.1.0
-#%{_libdir}/libXvMCnouveau.so.1.0.0
 
 %files -n libXvMC_r600
 %{_libdir}/libXvMCr600.so
-#%{_libdir}/libXvMCr600.so.1
-#%{_libdir}/libXvMCr600.so.1.0
-#%{_libdir}/libXvMCr600.so.1.0.0
 %endif
 
 %if %{vdpau_nouveau}
@@ -1152,7 +1145,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %files -n Mesa-libd3d
 %dir %{_libdir}/d3d/
 %{_libdir}/d3d/*.so.*
-#%%{_sysconfdir}/OpenCL/vendors/mesa.icd
 
 %files -n Mesa-libd3d-devel
 %{_libdir}/pkgconfig/d3d.pc
