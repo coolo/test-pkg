@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Thu Jun 27 20:18:07 UTC 2019 - Bjørn Lie <bjorn.lie@gmail.com>
+
+- Update to version 19.1.1:
+  * Mostly in fixes for different drivers (RADV, ANV, Nouveau,
+    Virgl, V3D, R300g, ...).
+  * Also different fixes for different parts (Meson build, GLX,
+    etc).
+
+-------------------------------------------------------------------
 Wed Jun 19 09:17:51 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
 
 - reverted latest change in specfile; it's not needed; llvm8 is
