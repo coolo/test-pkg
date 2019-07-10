@@ -41,7 +41,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 19.1.1
+%define _version 19.1.2
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -109,19 +109,15 @@
 %endif
 
 Name:           Mesa
-Version:        19.1.1
+Version:        19.1.2
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
 Group:          System/Libraries
 URL:            http://www.mesa3d.org
 #Git-Clone:     git://anongit.freedesktop.org/mesa/mesa
-# For now directory structure of Mesa's ftp changed
-# Source:         ftp://ftp.freedesktop.org/pub/mesa/%%{version}/%%{_name_archive}-%%{_version}.tar.xz
-Source:         ftp://ftp.freedesktop.org/pub/mesa/%{_name_archive}-%{_version}.tar.xz
-# Source1:        ftp://ftp.freedesktop.org/pub/mesa/%%{version}/%%{_name_archive}-%%{_version}.tar.xz.sig
-Source1:        ftp://ftp.freedesktop.org/pub/mesa/%{_name_archive}-%{_version}.tar.xz.sig
-# Source1:        %%{_name_archive}-%%{_version}.tar.xz.sha1sum
+Source:         https://mesa.freedesktop.org/archive/%{_name_archive}-%{_version}.tar.xz
+Source1:        https://mesa.freedesktop.org/archive/%{_name_archive}-%{_version}.tar.xz.sig
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
