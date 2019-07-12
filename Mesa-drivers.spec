@@ -807,7 +807,7 @@ egl_platforms=x11,drm,surfaceless
   %else
   %ifarch %{arm} aarch64
             -Ddri-drivers=nouveau \
-            -Dgallium-drivers=r300,r600,nouveau,swrast,virgl,freedreno,vc4,etnaviv,lima,panfrost,kmsro \
+            -Dgallium-drivers=r300,r600,nouveau,swrast,virgl,freedreno,vc4,etnaviv,lima,panfrost,kmsro,v3d \
   %else
   %ifarch ppc64 ppc64le
             -Ddri-drivers=nouveau \
