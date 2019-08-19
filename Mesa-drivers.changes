@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Aug 14 18:51:18 UTC 2019 - Jonathan Brielmaier <jbrielmaier@suse.de>
+
+- Build radeonsi and libvdpau_radeonsi on ppc64le 
+
+-------------------------------------------------------------------
 Mon Aug 12 08:42:27 UTC 2019 - Bjørn Lie <bjorn.lie@gmail.com>
 
 - Update to version 19.1.4:

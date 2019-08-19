@@ -811,7 +811,7 @@ egl_platforms=x11,drm,surfaceless
   %else
   %ifarch ppc64 ppc64le
             -Ddri-drivers=nouveau \
-            -Dgallium-drivers=r300,r600,nouveau,swrast \
+            -Dgallium-drivers=r300,r600,radeonsi,nouveau,swrast \
   %else
             -Ddri-drivers=swrast \
             -Dgallium-drivers= \
@@ -1078,7 +1078,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_libdir}/vdpau/libvdpau_r600.so.1.0.0
 %endif
 
-%ifarch %{ix86} x86_64
+%ifarch %{ix86} x86_64 ppc64le
 %files -n libvdpau_radeonsi
 %{_libdir}/vdpau/libvdpau_radeonsi.so
 %{_libdir}/vdpau/libvdpau_radeonsi.so.1
