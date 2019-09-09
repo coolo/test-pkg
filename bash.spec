@@ -33,7 +33,7 @@ Recommends:     bash-lang = %version
 # bugs which will hit at most this package
 #Recommends:	bash-completion
 Suggests:       command-not-found
-Recommends:     bash-doc = %version
+Suggests:       bash-doc = %version
 Url:            http://www.gnu.org/software/bash/bash.html
 # Git:          http://git.savannah.gnu.org/cgit/bash.git
 Source0:        ftp://ftp.gnu.org/gnu/bash/bash-%{bversion}%{bextend}.tar.gz
@@ -105,6 +105,7 @@ specification (IEEE Working Group 1003.2).
 Summary:        Documentation how to Use the GNU Bourne-Again Shell
 Group:          Documentation/Man
 Provides:       bash:%{_infodir}/bash.info.gz
+Supplements:    packageand(bash:patterns-base-documentation)
 PreReq:         %install_info_prereq
 BuildArch:      noarch
 
