@@ -582,7 +582,7 @@ programs against the GBM library.
 Summary:        Mesa Direct3D9 state tracker
 # Manually provide d3d library (bnc#918294)
 Group:          System/Libraries
-%ifarch x86_64 s390x ppc64le aarch64 riscv64
+%ifarch x86_64 s390x ppc64 ppc64le aarch64 riscv64
 Provides:       d3dadapter9.so.1()(64bit)
 %else
 Provides:       d3dadapter9.so.1
@@ -1077,7 +1077,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_libdir}/vdpau/libvdpau_r600.so.1.0.0
 %endif
 
-%ifarch %{ix86} x86_64 ppc64le
+%ifarch %{ix86} x86_64 ppc64 ppc64le
 %files -n libvdpau_radeonsi
 %{_libdir}/vdpau/libvdpau_radeonsi.so
 %{_libdir}/vdpau/libvdpau_radeonsi.so.1
