@@ -120,6 +120,7 @@ interpreter Bash.
 Summary:        Languages for package bash
 Group:          System/Localization
 Requires:       bash = %{version}
+Supplements:    bash
 
 %description lang
 Provides translations to the package bash
