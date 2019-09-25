@@ -217,6 +217,10 @@ BuildRequires:  clang-devel
 BuildRequires:  libclc
 %endif
 
+%if %{xvmc_support}
+BuildRequires:  pkgconfig(xv)
+%endif
+
 %if 0%{?libglvnd}
 Requires:       Mesa-libEGL1 = %{version}
 Requires:       Mesa-libGL1 = %{version}
