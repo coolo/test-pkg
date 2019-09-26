@@ -257,10 +257,10 @@ Summary:        Libraries, includes and more to develop Mesa applications
 Group:          Development/Libraries/X11
 Requires:       Mesa = %{version}
 Requires:       Mesa-dri-devel = %{version}
-Requires:       Mesa-libEGL-devel = %{version}
-Requires:       Mesa-libGL-devel = %{version}
-Requires:       Mesa-libGLESv1_CM-devel = %{version}
-Requires:       Mesa-libGLESv2-devel = %{version}
+#Requires:       Mesa-libEGL-devel = %{version}
+#Requires:       Mesa-libGL-devel = %{version}
+#Requires:       Mesa-libGLESv1_CM-devel = %{version}
+#Requires:       Mesa-libGLESv2-devel = %{version}
 Requires:       Mesa-libglapi-devel = %{version}
 Requires:       libOSMesa-devel = %{version}
 Requires:       libgbm-devel
