@@ -36,7 +36,7 @@
 %define libglvnd 0
 
 %if 0%{?suse_version} >= 1330
-  %define libglvnd 1
+  %define libglvnd 120
 %endif
 
 %define glamor 1
@@ -259,6 +259,7 @@ Requires:       Mesa-dri-devel = %{version}
 Requires:       Mesa-libglapi-devel = %{version}
 Requires:       libOSMesa-devel = %{version}
 Requires:       libgbm-devel
+Requires:       libglvnd-devel >= 1.2.0
 Provides:       Mesa-devel-static = %{version}
 Provides:       xorg-x11-Mesa-devel = %{version}
 Obsoletes:      Mesa-devel-static < %{version}
@@ -968,6 +969,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_libdir}/libEGL.so.1*
 %endif
 
+%if 0%{?libglvnd} < 120
 %files libEGL-devel
 %{_includedir}/EGL
 %if !0%{?libglvnd}
@@ -978,6 +980,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %files KHR-devel
 %dir %{_includedir}/KHR
 %{_includedir}/KHR
+%endif
 
 %files libGL1
 %if 0%{?libglvnd}
@@ -987,6 +990,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_libdir}/libGL.so.1*
 %endif
 
+%if 0%{?libglvnd} < 120
 %files libGL-devel
 %dir %{_includedir}/GL
 %{_includedir}/GL/*.h
@@ -996,30 +1000,35 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %endif
 %{_libdir}/pkgconfig/gl.pc
 %{_mandir}/man3/gl[A-Z]*
+%endif
 
 %files libGLESv1_CM1
 %if 0%{?libglvnd} == 0
 %{_libdir}/libGLESv1_CM.so.1*
 %endif
 
+%if 0%{?libglvnd} < 120
 %files libGLESv1_CM-devel
 %{_includedir}/GLES
 %if 0%{?libglvnd} == 0
 %{_libdir}/libGLESv1_CM.so
 %endif
 %{_libdir}/pkgconfig/glesv1_cm.pc
+%endif
 
 %files libGLESv2-2
 %if 0%{?libglvnd} == 0
 %{_libdir}/libGLESv2.so.2*
 %endif
 
+%if 0%{?libglvnd} < 120
 %files libGLESv2-devel
 %{_includedir}/GLES2
 %if 0%{?libglvnd} == 0
 %{_libdir}/libGLESv2.so
 %endif
 %{_libdir}/pkgconfig/glesv2.pc
+%endif
 
 %files libGLESv3-devel
 %{_includedir}/GLES3
