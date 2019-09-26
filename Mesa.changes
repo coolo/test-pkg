@@ -6,9 +6,10 @@ Thu Sep 26 15:41:07 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
   * Mesa-libEGL-devel
   * Mesa-libGLESv1_CM-devel
   * Mesa-libGLESv2-devel
+  * Mesa-libGLESv3-devel
   Instead of requiring these let Mesa-devel package require 
   libglvnd-devel >= 1.2.0, which provides the contents of these
-  packages now
+  packages now. Adjusted baselibs.conf accordingly.
 
 -------------------------------------------------------------------
 Thu Sep 26 14:03:05 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>

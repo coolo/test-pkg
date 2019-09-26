@@ -1055,10 +1055,10 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_libdir}/libGLESv2.so
 %endif
 %{_libdir}/pkgconfig/glesv2.pc
-%endif
 
 %files libGLESv3-devel
 %{_includedir}/GLES3
+%endif
 
 %files -n libOSMesa8
 %{_libdir}/libOSMesa.so.8.0.0
