@@ -257,10 +257,6 @@ Summary:        Libraries, includes and more to develop Mesa applications
 Group:          Development/Libraries/X11
 Requires:       Mesa = %{version}
 Requires:       Mesa-dri-devel = %{version}
-#Requires:       Mesa-libEGL-devel = %{version}
-#Requires:       Mesa-libGL-devel = %{version}
-#Requires:       Mesa-libGLESv1_CM-devel = %{version}
-#Requires:       Mesa-libGLESv2-devel = %{version}
 Requires:       Mesa-libglapi-devel = %{version}
 Requires:       libOSMesa-devel = %{version}
 Requires:       libgbm-devel
@@ -733,9 +729,9 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 
 %patch0 -p1
 %if 0%{with_llvm}
-%if %{_llvm_sonum} >= 9
+if test $(llvm-config --version | cut -d "." -f1) -ge 9; then 
 %patch1 -p1
-%endif
+fi
 %endif
 %patch54 -p1
 %patch58 -p1

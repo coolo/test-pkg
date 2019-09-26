@@ -8,6 +8,9 @@ Thu Sep 26 14:03:05 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
   * Mesa-libGLESv2-devel
   since the header files for OpenGL, GLES, EGL, and GLX are now
   included by libglvnd-devel
+- modified check for llvm version in a way so it works also with
+  older llvm packages (by making use of "llvm-config -version"), 
+  where there is %{_llvm_sonum} macro defined yet
 
 -------------------------------------------------------------------
 Wed Sep 25 18:34:34 UTC 2019 - Aaron Puchert <aaronpuchert@alice-dsl.net>
