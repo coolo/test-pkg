@@ -978,6 +978,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %exclude /usr/include/GLES2/gl2.h
 %exclude /usr/include/GLES2/gl2ext.h
 %exclude /usr/include/GLES2/gl2platform.h
+%exclude /usr/include/GLES3/
 %exclude /usr/include/KHR/khrplatform.h
 %exclude %{_libdir}/pkgconfig/egl.pc
 %exclude %{_libdir}/pkgconfig/gl.pc

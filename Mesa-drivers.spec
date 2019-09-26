@@ -959,6 +959,34 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %doc docs/README*
 %dir %{_datadir}/drirc.d
 %config %{_datadir}/drirc.d/*
+%if 0%{?libglvnd} >= 120
+%exclude /usr/include/EGL/egl.h
+%exclude /usr/include/EGL/eglext.h
+%exclude /usr/include/EGL/eglextchromium.h
+%exclude /usr/include/EGL/eglmesaext.h
+%exclude /usr/include/EGL/eglplatform.h
+%exclude /usr/include/GL/gl.h
+%exclude /usr/include/GL/gl_mangle.h
+%exclude /usr/include/GL/glcorearb.h
+%exclude /usr/include/GL/glext.h
+%exclude /usr/include/GL/glx.h
+%exclude /usr/include/GL/glx_mangle.h
+%exclude /usr/include/GL/glxext.h
+%exclude /usr/include/GLES/egl.h
+%exclude /usr/include/GLES/gl.h
+%exclude /usr/include/GLES/glext.h
+%exclude /usr/include/GLES/glplatform.h
+%exclude /usr/include/GLES2/gl2.h
+%exclude /usr/include/GLES2/gl2ext.h
+%exclude /usr/include/GLES2/gl2platform.h
+%exclude /usr/include/GLES3/
+%exclude /usr/include/KHR/khrplatform.h
+%exclude %{_libdir}/pkgconfig/egl.pc
+%exclude %{_libdir}/pkgconfig/gl.pc
+%exclude %{_libdir}/pkgconfig/glesv1_cm.pc
+%exclude %{_libdir}/pkgconfig/glesv2.pc
+%exclude /usr/share/man/man3/*
+%endif
 
 %files libEGL1
 %if 0%{?libglvnd}
@@ -1029,10 +1057,10 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_libdir}/libGLESv2.so
 %endif
 %{_libdir}/pkgconfig/glesv2.pc
-%endif
 
 %files libGLESv3-devel
 %{_includedir}/GLES3
+%endif
 
 %files -n libOSMesa8
 %{_libdir}/libOSMesa.so.8.0.0
