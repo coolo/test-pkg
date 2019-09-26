@@ -125,6 +125,7 @@ Source4:        manual-pages.tar.bz2
 Source6:        %{name}-rpmlintrc
 Source7:        Mesa.keyring
 Patch0:         U_llvmpipe-Don-t-use-u_ringbuffer-for-lp_scene_queue.patch
+Patch1:         n_opencl_dep_libclang.patch
 # never to be upstreamed
 Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
 Patch58:        u_dep_xcb.patch
@@ -731,6 +732,11 @@ programs against the XA state tracker.
 rm -rf docs/README.{VMS,WIN32,OS2}
 
 %patch0 -p1
+%if 0%{with_llvm}
+%if %{_llvm_sonum} >= 9
+%patch1 -p1
+%endif
+%endif
 %patch54 -p1
 %patch58 -p1
 %patch60 -p1
