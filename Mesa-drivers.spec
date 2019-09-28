@@ -981,7 +981,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %exclude %{_libdir}/pkgconfig/gl.pc
 %exclude %{_libdir}/pkgconfig/glesv1_cm.pc
 %exclude %{_libdir}/pkgconfig/glesv2.pc
-%exclude /usr/share/man/man3/*
 %endif
 
 %files libEGL1
@@ -1174,6 +1173,9 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %files devel
 %doc docs/*.html
+%if 0%{?libglvnd} >= 120
+/usr/share/man/man3/*
+%endif
 
 # !drivers
 %endif
