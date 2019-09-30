@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Mon Sep 30 09:02:03 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to version 19.2.0 including changes to
+  * release-infastructure
+  * the build
+  * drivers: turnip, radv, android, intel and amd common code
+  * new features: check Phoronix
+    https://www.phoronix.com/scan.php?page=news_item&px=Mesa-19.2-Released
+- supersedes U_llvmpipe-Don-t-use-u_ringbuffer-for-lp_scene_queue.patch
+- adjusted n_drirc-disable-rgb10-for-chromium-on-amd.patch
+- supersedes n_glesv1_cm-glesv2.patch
+
+-------------------------------------------------------------------
 Sat Sep 28 13:42:30 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
 
 - no longer build 
