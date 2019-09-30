@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Sep 30 11:42:12 UTC 2019 - Aaron Puchert <aaronpuchert@alice-dsl.net>
+
+- Rebase n_opencl_dep_libclang.patch after update.
+
+-------------------------------------------------------------------
 Mon Sep 30 09:02:03 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
 
 - Update to version 19.2.0 including changes to
