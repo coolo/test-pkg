@@ -970,7 +970,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %if !0%{?libglvnd}
 %{_libdir}/libEGL.so
 %endif
-%{_libdir}/pkgconfig/egl.pc
+%exclude %{_libdir}/pkgconfig/egl.pc
 
 %files KHR-devel
 %dir %{_includedir}/KHR
@@ -991,7 +991,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %if 0%{?libglvnd} == 0
 %{_libdir}/libGL.so
 %endif
-%{_libdir}/pkgconfig/gl.pc
+%exclude %{_libdir}/pkgconfig/gl.pc
 %{_mandir}/man3/gl[A-Z]*
 
 %files libGLESv1_CM1
