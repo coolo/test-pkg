@@ -36,7 +36,7 @@
 %define libglvnd 0
 
 %if 0%{?suse_version} >= 1330
-  %define libglvnd 120
+  %define libglvnd 1
 %endif
 
 %define glamor 1
@@ -250,12 +250,16 @@ Summary:        Libraries, includes and more to develop Mesa applications
 Group:          Development/Libraries/X11
 Requires:       Mesa = %{version}
 Requires:       Mesa-dri-devel = %{version}
+Requires:       Mesa-libEGL-devel = %{version}
+Requires:       Mesa-libGL-devel = %{version}
+Requires:       Mesa-libGLESv1_CM-devel = %{version}
+Requires:       Mesa-libGLESv2-devel = %{version}
 Requires:       Mesa-libglapi-devel = %{version}
 Requires:       libOSMesa-devel = %{version}
 Requires:       libgbm-devel
-Requires:       libglvnd-devel >= 1.2.0
 Provides:       Mesa-devel-static = %{version}
 Provides:       xorg-x11-Mesa-devel = %{version}
+Requires:       libglvnd-devel >= 1.2.0
 Obsoletes:      Mesa-devel-static < %{version}
 Obsoletes:      xorg-x11-Mesa-devel < %{version}
 Provides:       Mesa-libIndirectGL-devel = %{version}
@@ -950,33 +954,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %doc docs/README*
 %dir %{_datadir}/drirc.d
 %config %{_datadir}/drirc.d/*
-%if 0%{?libglvnd} >= 120
-%exclude /usr/include/EGL/egl.h
-%exclude /usr/include/EGL/eglext.h
-%exclude /usr/include/EGL/eglextchromium.h
-%exclude /usr/include/EGL/eglmesaext.h
-%exclude /usr/include/EGL/eglplatform.h
-%exclude /usr/include/GL/gl.h
-%exclude /usr/include/GL/gl_mangle.h
-%exclude /usr/include/GL/glcorearb.h
-%exclude /usr/include/GL/glext.h
-%exclude /usr/include/GL/glx.h
-%exclude /usr/include/GL/glx_mangle.h
-%exclude /usr/include/GL/glxext.h
-%exclude /usr/include/GLES/egl.h
-%exclude /usr/include/GLES/gl.h
-%exclude /usr/include/GLES/glext.h
-%exclude /usr/include/GLES/glplatform.h
-%exclude /usr/include/GLES2/gl2.h
-%exclude /usr/include/GLES2/gl2ext.h
-%exclude /usr/include/GLES2/gl2platform.h
-%exclude /usr/include/GLES3/
-%exclude /usr/include/KHR/khrplatform.h
-%exclude %{_libdir}/pkgconfig/egl.pc
-%exclude %{_libdir}/pkgconfig/gl.pc
-%exclude %{_libdir}/pkgconfig/glesv1_cm.pc
-%exclude %{_libdir}/pkgconfig/glesv2.pc
-%endif
 
 %files libEGL1
 %if 0%{?libglvnd}
@@ -988,7 +965,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_libdir}/libEGL.so.1*
 %endif
 
-%if 0%{?libglvnd} < 120
 %files libEGL-devel
 %{_includedir}/EGL
 %if !0%{?libglvnd}
@@ -999,7 +975,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %files KHR-devel
 %dir %{_includedir}/KHR
 %{_includedir}/KHR
-%endif
 
 %files libGL1
 %if 0%{?libglvnd}
@@ -1009,7 +984,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_libdir}/libGL.so.1*
 %endif
 
-%if 0%{?libglvnd} < 120
 %files libGL-devel
 %dir %{_includedir}/GL
 %{_includedir}/GL/*.h
@@ -1019,38 +993,33 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %endif
 %{_libdir}/pkgconfig/gl.pc
 %{_mandir}/man3/gl[A-Z]*
-%endif
 
 %files libGLESv1_CM1
 %if 0%{?libglvnd} == 0
 %{_libdir}/libGLESv1_CM.so.1*
 %endif
 
-%if 0%{?libglvnd} < 120
 %files libGLESv1_CM-devel
 %{_includedir}/GLES
 %if 0%{?libglvnd} == 0
 %{_libdir}/libGLESv1_CM.so
 %endif
-%{_libdir}/pkgconfig/glesv1_cm.pc
-%endif
+%exclude %{_libdir}/pkgconfig/glesv1_cm.pc
 
 %files libGLESv2-2
 %if 0%{?libglvnd} == 0
 %{_libdir}/libGLESv2.so.2*
 %endif
 
-%if 0%{?libglvnd} < 120
 %files libGLESv2-devel
 %{_includedir}/GLES2
 %if 0%{?libglvnd} == 0
 %{_libdir}/libGLESv2.so
 %endif
-%{_libdir}/pkgconfig/glesv2.pc
+%exclude %{_libdir}/pkgconfig/glesv2.pc
 
 %files libGLESv3-devel
 %{_includedir}/GLES3
-%endif
 
 %files -n libOSMesa8
 %{_libdir}/libOSMesa.so.8.0.0
