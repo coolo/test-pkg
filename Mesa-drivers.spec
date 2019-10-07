@@ -893,6 +893,11 @@ rm -f %{buildroot}%{_libdir}/libGLES*
 ln -s %{_libdir}/libGLX_mesa.so.0 %{buildroot}%{_libdir}/libGLX_indirect.so.0
 %endif
 
+# pickup pkgconfig files from libglvnd build
+rm -f %{buildroot}/%{_libdir}/pkgconfig/{gl,egl,glesv1_cm,glesv2}.pc
+install -m 0644 /usr/share/doc/packages/libglvnd/pkgconfig/{gl,egl,glesv1_cm,glesv2}.pc \
+   %{buildroot}/%{_libdir}/pkgconfig/
+
 for dir in ../xc/doc/man/{GL/gl,GL/glx}; do
  pushd $dir
    xmkmf -a
@@ -1005,7 +1010,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %if 0%{?libglvnd} == 0
 %{_libdir}/libGLESv1_CM.so
 %endif
-%exclude %{_libdir}/pkgconfig/glesv1_cm.pc
+%{_libdir}/pkgconfig/glesv1_cm.pc
 
 %files libGLESv2-2
 %if 0%{?libglvnd} == 0
@@ -1017,7 +1022,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %if 0%{?libglvnd} == 0
 %{_libdir}/libGLESv2.so
 %endif
-%exclude %{_libdir}/pkgconfig/glesv2.pc
+%{_libdir}/pkgconfig/glesv2.pc
 
 %files libGLESv3-devel
 %{_includedir}/GLES3
