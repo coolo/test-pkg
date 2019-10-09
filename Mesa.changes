@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Oct  9 22:16:18 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to version 19.2.1
+  * fixes all over the tree: intel, amd, nine, nir, egl, gallium,
+    scons, meson, glsl, haiku, android, and nouveau all got fixes.
+
+-------------------------------------------------------------------
 Mon Oct  7 21:50:32 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
 
 - pickup gl, egl, glesv1_cm and glesv2 pkgconfig files from 
