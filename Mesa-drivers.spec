@@ -114,7 +114,6 @@ Version:        19.2.1
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
-Group:          System/Libraries
 URL:            http://www.mesa3d.org
 #Git-Clone:     git://anongit.freedesktop.org/mesa/mesa
 Source:         https://mesa.freedesktop.org/archive/%{_name_archive}-%{_version}.tar.xz
@@ -248,7 +247,6 @@ just Mesa or The Mesa 3-D graphics library.
 
 %package devel
 Summary:        Libraries, includes and more to develop Mesa applications
-Group:          Development/Libraries/X11
 Requires:       Mesa = %{version}
 Requires:       Mesa-dri-devel = %{version}
 Requires:       Mesa-libEGL-devel = %{version}
@@ -288,7 +286,6 @@ just Mesa or The Mesa 3-D graphics library.
 %package libEGL1
 # Kudos to Debian for the descriptions
 Summary:        EGL API implementation
-Group:          System/Libraries
 %if 0%{?libglvnd}
 Requires:       libglvnd >= 0.1.0
 %endif
@@ -306,7 +303,6 @@ support.
 
 %package libEGL-devel
 Summary:        Development files for the EGL API
-Group:          Development/Libraries/C and C++
 Requires:       Mesa-KHR-devel = %{version}
 Requires:       Mesa-libEGL1 = %{version}
 Requires:       pkgconfig(x11)
@@ -327,7 +323,6 @@ programs against the EGL library.
 
 %package KHR-devel
 Summary:        Mesa Khronos development headers
-Group:          Development/Libraries/C and C++
 Provides:       Mesa-libGL-devel:/usr/include/KHR/khrplatform.h
 
 %description KHR-devel
@@ -335,7 +330,6 @@ Mesa Khronos development headers.
 
 %package libGL1
 Summary:        The GL/GLX runtime of the Mesa 3D graphics library
-Group:          System/Libraries
 Requires:       Mesa = %{version}
 %if 0%{?libglvnd}
 Requires:       libglvnd >= 0.1.0
@@ -353,7 +347,6 @@ the X Window System.
 
 %package libGL-devel
 Summary:        GL/GLX development files of the OpenGL API
-Group:          Development/Libraries/C and C++
 Requires:       Mesa-KHR-devel = %{version}
 Requires:       Mesa-libGL1 = %{version}
 %if 0%{?libglvnd}
@@ -370,7 +363,6 @@ programs with Mesa.
 
 %package libGLESv1_CM1
 Summary:        OpenGL|ES 1.x Common Profile API implementation
-Group:          System/Libraries
 %if 0%{?libglvnd}
 Requires:       libglvnd >= 0.1.0
 %endif
@@ -385,7 +377,6 @@ OpenGL|ES 1.x provides an API for fixed-function hardware.
 
 %package libGLESv1_CM-devel
 Summary:        Development files for the OpenGL ES 1.x API
-Group:          Development/Libraries/C and C++
 Requires:       Mesa-KHR-devel = %{version}
 Requires:       Mesa-libGLESv1_CM1 = %{version}
 Requires:       pkgconfig(egl)
@@ -406,7 +397,6 @@ using the OpenGL|ES 1.x APIs.
 
 %package libGLESv2-2
 Summary:        OpenGL|ES 2.x API implementation
-Group:          System/Libraries
 %if 0%{?libglvnd}
 Requires:       libglvnd >= 0.1.0
 %endif
@@ -425,7 +415,6 @@ ES 3 entry points.
 
 %package libGLESv2-devel
 Summary:        Development files for the OpenGL ES 2.x API
-Group:          Development/Libraries/C and C++
 Requires:       Mesa-KHR-devel = %{version}
 Requires:       Mesa-libGLESv2-2 = %{version}
 Requires:       pkgconfig(egl)
@@ -447,7 +436,6 @@ applications using the OpenGL|ES 2.x APIs.
 
 %package libGLESv3-devel
 Summary:        Development files for the OpenGL ES 3.x API
-Group:          Development/Libraries/C and C++
 Requires:       Mesa-KHR-devel = %{version}
 Requires:       pkgconfig(egl)
 %if 0%{?libglvnd} == 0
@@ -466,7 +454,6 @@ applications using the OpenGL|ES 3.x APIs.
 %package -n libOSMesa8
 Summary:        Mesa Off-screen rendering extension
 # Wrongly named package shipped .so.8
-Group:          System/Libraries
 Obsoletes:      libOSMesa9 < %{version}
 Provides:       libOSMesa9 = %{version}
 
@@ -477,7 +464,6 @@ rendering context on an X Server. It uses a pure software renderer.
 
 %package -n libOSMesa-devel
 Summary:        Development files for the Mesa Offscreen Rendering extension
-Group:          Development/Libraries/C and C++
 Requires:       libOSMesa8 = %{version}
 
 %description -n libOSMesa-devel
@@ -487,7 +473,6 @@ rendering context on an X Server. It uses a pure software renderer.
 
 %package libglapi0
 Summary:        Free implementation of the GL API
-Group:          System/Libraries
 
 %description libglapi0
 The Mesa GL API module is responsible for dispatching all the gl*
@@ -496,7 +481,6 @@ packages.
 
 %package libglapi-devel
 Summary:        Development files for the Mesa GL API implementation
-Group:          Development/Libraries/C and C++
 Requires:       Mesa-libglapi0 = %{version}
 
 %description libglapi-devel
@@ -506,7 +490,6 @@ the Mesa-libGLES* packages.
 
 %package -n Mesa-dri
 Summary:        DRI plug-ins for 3D acceleration
-Group:          System/Libraries
 Requires:       Mesa = %{version}
 Supplements:    Mesa
 
@@ -515,7 +498,6 @@ This package contains Mesa DRI drivers for 3D acceleration.
 
 %package dri-devel
 Summary:        Development files for the DRI API
-Group:          Development/Libraries/C and C++
 Requires:       Mesa = %{version}
 
 %description dri-devel
@@ -524,7 +506,6 @@ compiling programs and libraries using the DRI API.
 
 %package -n Mesa-dri-nouveau
 Summary:        Mesa DRI plug-in for 3D acceleration via Nouveau
-Group:          System/Libraries
 Requires:       Mesa = %{version}
 Supplements:    xf86-video-nouveau
 
@@ -535,7 +516,6 @@ since it is still experimental.
 
 %package -n Mesa-dri-vc4
 Summary:        Mesa DRI plug-in for 3D acceleration on Raspberry Pi
-Group:          System/Libraries
 Requires:       Mesa = %{version}
 
 %description -n Mesa-dri-vc4
@@ -545,7 +525,6 @@ since it is still experimental.
 
 %package -n Mesa-gallium
 Summary:        Mesa Gallium GPU drivers
-Group:          System/Libraries
 Requires:       Mesa = %{version}
 Supplements:    Mesa
 
@@ -554,7 +533,6 @@ This package contains Mesa Gallium drivers for 3D acceleration.
 
 %package -n libgbm1
 Summary:        Generic buffer management API
-Group:          System/Libraries
 
 %description -n libgbm1
 This package contains the GBM buffer management library. It provides
@@ -566,7 +544,6 @@ openwfd.
 
 %package -n libgbm-devel
 Summary:        Development files for the EGL API
-Group:          Development/Libraries/C and C++
 Requires:       libgbm1 = %{version}
 
 %description -n libgbm-devel
@@ -583,7 +560,6 @@ programs against the GBM library.
 %package -n Mesa-libd3d
 Summary:        Mesa Direct3D9 state tracker
 # Manually provide d3d library (bnc#918294)
-Group:          System/Libraries
 %ifarch x86_64 s390x ppc64 ppc64le aarch64 riscv64
 Provides:       d3dadapter9.so.1()(64bit)
 %else
@@ -595,7 +571,6 @@ Mesa Direct3D9 state tracker
 
 %package -n Mesa-libd3d-devel
 Summary:        Mesa Direct3D9 state tracker development package
-Group:          Development/Libraries/C and C++
 Requires:       Mesa-libd3d = %{version}
 
 %description -n Mesa-libd3d-devel
@@ -603,7 +578,6 @@ Mesa Direct3D9 state tracker development package
 
 %package -n libXvMC_nouveau
 Summary:        XVMC state tracker for Nouveau
-Group:          System/Libraries
 
 %description -n libXvMC_nouveau
 This package contains the XvMC state tracker for Nouveau. This is
@@ -612,7 +586,6 @@ videos and artefacts all over.
 
 %package -n libXvMC_r600
 Summary:        XVMC state tracker for R600
-Group:          System/Libraries
 
 %description -n libXvMC_r600
 This package contains the XvMC state tracker for R600. This is
@@ -621,7 +594,6 @@ videos and artefacts all over.
 
 %package -n libvdpau_nouveau
 Summary:        XVMC state tracker for Nouveau
-Group:          System/Libraries
 Supplements:    xf86-video-nouveau
 
 %description -n libvdpau_nouveau
@@ -629,7 +601,6 @@ This package contains the VDPAU state tracker for Nouveau.
 
 %package -n libvdpau_r300
 Summary:        XVMC state tracker for R300
-Group:          System/Libraries
 Supplements:    xf86-video-ati
 
 %description -n libvdpau_r300
@@ -637,7 +608,6 @@ This package contains the VDPAU state tracker for R300.
 
 %package -n libvdpau_r600
 Summary:        XVMC state tracker for R600
-Group:          System/Libraries
 Supplements:    xf86-video-ati
 
 %description -n libvdpau_r600
@@ -645,7 +615,6 @@ This package contains the VDPAU state tracker for R600.
 
 %package -n libvdpau_radeonsi
 Summary:        XVMC state tracker for radeonsi
-Group:          System/Libraries
 Supplements:    xf86-video-ati
 
 %description -n libvdpau_radeonsi
@@ -653,7 +622,6 @@ This package contains the VDPAU state tracker for radeonsi.
 
 %package -n Mesa-libOpenCL
 Summary:        Mesa OpenCL implementation
-Group:          System/Libraries
 Requires:       libclc
 
 %description -n Mesa-libOpenCL
@@ -661,7 +629,6 @@ This package contains the Mesa OpenCL implementation or GalliumCompute.
 
 %package -n Mesa-libva
 Summary:        Mesa VA-API implementation
-Group:          System/Libraries
 Supplements:    Mesa
 
 %description -n Mesa-libva
@@ -669,7 +636,6 @@ This package contains the Mesa VA-API implementation provided through gallium.
 
 %package -n libvulkan_intel
 Summary:        Mesa vulkan driver for Intel GPU
-Group:          System/Libraries
 Supplements:    xf86-video-intel
 
 %description -n libvulkan_intel
@@ -677,7 +643,6 @@ This package contains the Vulkan parts for Mesa.
 
 %package -n libvulkan_radeon
 Summary:        Mesa vulkan driver for AMD GPU
-Group:          System/Libraries
 Supplements:    xf86-video-amdgpu
 Supplements:    xf86-video-ati
 
@@ -686,7 +651,6 @@ This package contains the Vulkan parts for Mesa.
 
 %package -n Mesa-libVulkan-devel
 Summary:        Mesa's Vulkan development files
-Group:          Development/Libraries/C and C++
 Requires:       libvulkan_intel = %{version}
 Requires:       libvulkan_radeon = %{version}
 Conflicts:      vulkan-devel
@@ -698,7 +662,6 @@ This package contains the development files for Mesa's Vulkan implementation.
 Version:        1.0.0
 Release:        0
 Summary:        XA state tracker
-Group:          System/Libraries
 
 %description -n libxatracker2
 This package contains the XA state tracker for gallium3D driver.
@@ -710,7 +673,6 @@ video driver.
 Version:        1.0.0
 Release:        0
 Summary:        Development files for the XA API
-Group:          Development/Libraries/C and C++
 Requires:       libxatracker2 = %{version}
 
 %description -n libxatracker-devel
