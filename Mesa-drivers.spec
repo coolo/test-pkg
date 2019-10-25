@@ -42,7 +42,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 19.2.1
+%define _version 19.2.2
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -110,7 +110,7 @@
 %endif
 
 Name:           Mesa-drivers
-Version:        19.2.1
+Version:        19.2.2
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -125,6 +125,7 @@ Source4:        manual-pages.tar.bz2
 Source6:        %{name}-rpmlintrc
 Source7:        Mesa.keyring
 Patch1:         n_opencl_dep_libclang.patch
+Patch2:         n_add-Mesa-headers-again.patch
 # never to be upstreamed
 Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
 Patch58:        u_dep_xcb.patch
@@ -732,6 +733,7 @@ if test $(llvm-config --version | cut -d "." -f1) -ge 9; then
 %patch1 -p1
 fi
 %endif
+%patch2 -p1
 %patch54 -p1
 %patch58 -p1
 
