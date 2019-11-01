@@ -728,9 +728,9 @@ programs against the XA state tracker.
 rm -rf docs/README.{VMS,WIN32,OS2}
 
 %if 0%{with_llvm}
-if test $(llvm-config --version | cut -d "." -f1) -ge 9; then 
+%if %{pkg_vcmp llvm-devel >= 9.0}
 %patch1 -p1
-fi
+%endif
 %endif
 %patch2 -p1
 %patch54 -p1
