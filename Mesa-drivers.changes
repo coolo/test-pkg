@@ -1,13 +1,414 @@
 -------------------------------------------------------------------
-Thu Sep 19 12:02:59 UTC 2019 - Michael Gorse <mgorse@suse.com>
+Thu Nov  7 11:20:41 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to version 19.2.3
+  In this release: iris, meson, radv, anv, turnip, 965, svga,
+  utils, core mesa, glsl, etanviv, and gallium/rbug
+- This Mesa release includes support for latest GPUs including Intel 
+  (jsc#SLE-7962, jsc#SLE-8024, jsc#SLE-8022, jsc#SLE-10182, jsc#SLE-4983, 
+   bsc#1137515) and fixes for boo#1127672, bsc#1117365
+
+-------------------------------------------------------------------
+Tue Nov  5 07:45:37 UTC 2019 - Martin Pluskal <mpluskal@suse.com>
+
+- Dont conflict with vulkan-devel anymore as there is no file
+  conflict
+
+-------------------------------------------------------------------
+Fri Nov  1 17:07:44 UTC 2019 - Aaron Puchert <aaronpuchert@alice-dsl.net>
+
+- Use %pkg_vcmp macro instead of llvm-config to detect LLVM 9.
+
+-------------------------------------------------------------------
+Fri Oct 25 19:35:23 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to version 19.2.2
+  * assortment of fixes in this release, notably a bunch of work
+    to get Solaris and illumos working with mesa, as well as more
+    work fixing issues in the migration of package-config and
+    headers being handled by libglvnd instead of mesa when mesa
+    is built with support for glvnd.
+    There's  bunch of other changes here, with radv and intel
+    leading the pack, otherwise just a few things here and there.
+- n_add-Mesa-headers-again.patch
+  * add Mesa headers again despite of building it against libglvnd;
+    those headers turned out not to be usable; in addition packaging
+    headers with libglvnd make dependancies problematic ...
+
+-------------------------------------------------------------------
+Mon Oct 14 10:23:51 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- let Mesa-libEGL-devel require libX11 devel via "pkgconfig(x11)"
+  since EGL/eglplatform.h includes X11/Xlib.h
+
+-------------------------------------------------------------------
+Wed Oct  9 22:16:18 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to version 19.2.1
+  * fixes all over the tree: intel, amd, nine, nir, egl, gallium,
+    scons, meson, glsl, haiku, android, and nouveau all got fixes.
+
+-------------------------------------------------------------------
+Mon Oct  7 21:50:32 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- pickup gl, egl, glesv1_cm and glesv2 pkgconfig files from 
+  libglvnd build and add them to the appropriate devel subpackages
+
+-------------------------------------------------------------------
+Mon Oct  7 16:20:49 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- reintroduce GL, EGL, GLES* devel subpackages since corresponding
+  header and pkgconfig files from libglvnd didn't work out ... 
+
+-------------------------------------------------------------------
+Mon Sep 30 11:42:12 UTC 2019 - Aaron Puchert <aaronpuchert@alice-dsl.net>
+
+- Rebase n_opencl_dep_libclang.patch after update.
+
+-------------------------------------------------------------------
+Mon Sep 30 09:02:03 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to version 19.2.0 including changes to
+  * release-infastructure
+  * the build
+  * drivers: turnip, radv, android, intel and amd common code
+  * new features: check Phoronix
+    https://www.phoronix.com/scan.php?page=news_item&px=Mesa-19.2-Released
+- supersedes U_llvmpipe-Don-t-use-u_ringbuffer-for-lp_scene_queue.patch
+- adjusted n_drirc-disable-rgb10-for-chromium-on-amd.patch
+- supersedes n_glesv1_cm-glesv2.patch
+
+-------------------------------------------------------------------
+Sat Sep 28 13:42:30 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- no longer build 
+  * Mesa-libGL-devel
+  * Mesa-libEGL-devel
+  * Mesa-libGLESv1_CM-devel
+  * Mesa-libGLESv2-devel
+  * Mesa-libGLESv3-devel
+  Instead of requiring these let Mesa-devel package require 
+  libglvnd-devel >= 1.2.0, which provides the contents of these
+  packages now (header files for OpenGL, GLES, EGL, and GLX). 
+  Adjusted baselibs.conf accordingly.
+- modified check for llvm version in a way so it works also with
+  older llvm packages (by making use of "llvm-config -version"), 
+  where there is %{_llvm_sonum} macro defined yet
+- moved manual pages to Mesa-devel package
+
+-------------------------------------------------------------------
+Wed Sep 25 18:34:34 UTC 2019 - Aaron Puchert <aaronpuchert@alice-dsl.net>
+
+- n_opencl_dep_libclang.patch
+  * Link OpenCL library with libclang-cpp.so instead of the
+    component libraries for LLVM >= 9.
+
+-------------------------------------------------------------------
+Wed Sep 18 06:59:29 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to version 19.1.7
+  * another bugfix release ....
+
+-------------------------------------------------------------------
+Mon Sep  9 10:51:49 UTC 2019 - Michel Normand <normand@linux.vnet.ibm.com>
+
+- Add ppc64 for radeonsi to avoid build error
+
+-------------------------------------------------------------------
+Wed Sep  4 09:08:57 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to version 19.1.6
+  * bugfix release 
+
+-------------------------------------------------------------------
+Mon Aug 26 08:12:29 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to version 19.1.5
+  * bugfix release 
+
+-------------------------------------------------------------------
+Wed Aug 14 18:51:18 UTC 2019 - Jonathan Brielmaier <jbrielmaier@suse.de>
+
+- Build radeonsi and libvdpau_radeonsi on ppc64le 
+
+-------------------------------------------------------------------
+Mon Aug 12 08:42:27 UTC 2019 - Bjørn Lie <bjorn.lie@gmail.com>
+
+- Update to version 19.1.4:
+  * Mostly, as usual, in fixes for different drivers (anv, radv,
+    radeon, nv50, nvc0) as well as in backend parts (egl, spirv,
+    nir, ...).
+  * Of those fixes, we could highlight several ones:
+    - Vulkan 24/48 bit formats are now not supported on Ivybridge.
+    - R8G8B8_UNORM_SRGB is not supported on Haswell.
+    - A fix for hair artifacts in Max Payne 3 on AMD/RADV.
+    - Vulkan transform feedback extension is disabled on Intel
+      gen7.
+
+-------------------------------------------------------------------
+Tue Jul 23 19:50:48 UTC 2019 - Bjørn Lie <bjorn.lie@gmail.com>
+
+- Update to version 19.1.3:
+  * Mostly fixes for ANV and RADV drivers, as well as NIR backend
+    fixes.
+  * Several of those patches fix crashes with the drivers, and a
+    couple of them fix memory leaks.
+
+-------------------------------------------------------------------
+Mon Jul 22 09:42:33 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- n_drirc-disable-rgb10-for-chromium-on-amd.patch
+  * added totem as another affected application (boo#1142270) 
+
+-------------------------------------------------------------------
+Fri Jul 12 10:16:59 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Add v3d support (VC5/V6 driver) for %arm and aarch64 
+
+-------------------------------------------------------------------
+Fri Jul 12 08:46:16 UTC 2019 - Guillaume GARDET <guillaume.gardet@opensuse.org>
+
+- Add kmsro for %arm and aarch64
+
+-------------------------------------------------------------------
+Thu Jul 11 15:02:37 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- U_llvmpipe-Don-t-use-u_ringbuffer-for-lp_scene_queue.patch 
+  * may fix crashes in llvmpipe on SMP systems with LTO enabled
+    builds (boo#1133265)
+
+-------------------------------------------------------------------
+Tue Jul  9 16:20:07 UTC 2019 - Bjørn Lie <bjorn.lie@gmail.com>
+
+- Update to version 19.1.2:
+  * Different fixes for the Intel and AMD Vulkan drivers,
+    Freedreno, the Meson build system, and some other fixes for
+    other parts and/or drivers.
+  * Worth to mention a fix for a crash in Wolfenstein II with the
+    RADV driver, and another fix relevant for DXVK on Intel gen7
+    drivers.
+- Update Source urls from ftp to https.
+
+-------------------------------------------------------------------
+Thu Jun 27 20:18:07 UTC 2019 - Bjørn Lie <bjorn.lie@gmail.com>
+
+- Update to version 19.1.1:
+  * Mostly in fixes for different drivers (RADV, ANV, Nouveau,
+    Virgl, V3D, R300g, ...).
+  * Also different fixes for different parts (Meson build, GLX,
+    etc).
+
+-------------------------------------------------------------------
+Wed Jun 19 09:17:51 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- reverted latest change in specfile; it's not needed; llvm8 is
+  already been chosen on factory/TW by default ...
+
+-------------------------------------------------------------------
+Tue Jun 18 09:29:26 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- use llvm8 on factory/TW 
+
+-------------------------------------------------------------------
+Thu Jun 13 09:34:13 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- n_glesv1_cm-glesv2.patch
+  * reenables build of GLESv1_CM and GLESv2 ...
+- readded pkgconfig files for GLESv1_CM and GLESv2 to filelists
+- removed again virtual provides for 
+  * pkgconfig(glesv1_cm)
+  * pkgconfig(glesv2)
+
+-------------------------------------------------------------------
+Wed Jun 12 03:51:43 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- reenable LTO with Mesa 19.1 (boo#1133265, comment#5) 
+- enabled new gallium drivers
+  * iris (newer Intel GPUs) 
+  * lima, panfrost on ARM64
+- virtually provide
+  * pkgconfig(glesv1_cm)
+  * pkgconfig(glesv2)
+  in libGLESv1_CM-devel/libGLESv2-devel packages, since these files
+  have been removed from Mesa via git commit #1587586
+
+-------------------------------------------------------------------
+Tue Jun 11 20:06:36 UTC 2019 - Bjørn Lie <bjorn.lie@gmail.com>
+
+- Update to 19.1.0:
+  * Mesa 19.1.0 implements the OpenGL 4.5 API, but the version
+    reported by glGetString(GL_VERSION) or
+    glGetIntegerv(GL_MAJOR_VERSION) /
+    glGetIntegerv(GL_MINOR_VERSION) depends on the particular
+    driver being used. Some drivers don't support all the features
+    required in OpenGL 4.5. OpenGL 4.5 is only available if
+    requested at context creation. Compatibility contexts may
+    report a lower version depending on each driver.
+  * The top highlights include:
+    - GL_ARB_parallel_shader_compile for all drivers.
+    - GL_EXT_gpu_shader4 on all GL 3.1 drivers.
+    - GL_EXT_shader_image_load_formatted on radeonsi.
+    - GL_EXT_texture_buffer_object on all GL 3.1 drivers.
+    - GL_EXT_texture_compression_s3tc_srgb on Gallium and i965
+      drivers (ES extension).
+    - GL_NV_compute_shader_derivatives on Iris and i965 drivers.
+    - GL_KHR_parallel_shader_compile on all drivers.
+    - GL_INTEL_conservative_rasterization on Iris.
+- Refresh patches with quilt.
+- Clean-up spec files for .pc and other files no longer built.
+
+-------------------------------------------------------------------
+Wed May 22 10:21:16 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to 19.0.5
+  * Things have slowed back down from the last release, which is
+    good for this late in the series. No one area has received too
+    much work, with a little bit sprinkled in here and there in
+    both core code and drivers.
+
+-------------------------------------------------------------------
+Fri May 10 12:45:00 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to 19.0.4
+  * It's been a pretty active release, especially for how late in
+    the cyle we are. Radv was the busiest component, but there
+    were also a few changes for intel, radeonsi, some core vulkan
+    work, and a little bit of other stuff here and there.
+
+-------------------------------------------------------------------
+Fri Apr 26 10:03:02 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to 19.0.3
+  * quiet release with just 19 patches (excluding release churn)
+    since 19.0.2
+  * no sub component was touched too much
+  * virgl, glsl, nir, intel, radeonsi, radv, ac, and gallivm 
+    received a few patches
+
+-------------------------------------------------------------------
+Wed Apr 24 17:24:16 UTC 2019 - Martin Liška <mliska@suse.cz>
+
+- Disable LTO (boo#1133265).
+
+-------------------------------------------------------------------
+Wed Apr 17 16:10:26 UTC 2019 - Tobias Klausmann <tobias.johannes.klausmann@mni.thm.de>
+
+- Drop patches n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
+  and archlinux_0001-Fix-linkage-against-shared-glapi.patch:
+  These patches only work when building mesa with autotools. As we use meson
+  instead now, these patches do nothing.
+
+-------------------------------------------------------------------
+Wed Apr 17 16:08:20 UTC 2019 - Tobias Klausmann <tobias.johannes.klausmann@mni.thm.de>
+
+- Drop version 19.0.1 tarballs
+
+-------------------------------------------------------------------
+Thu Apr 11 09:50:31 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to 19.0.2
+  * Just a few fixes for radeon, a few for nir, a couple for radv,
+    a couple for v3d, and a few other patches here and there.
+
+-------------------------------------------------------------------
+Thu Mar 28 10:24:11 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to 19.0.1
+  * "This is the first bug fix release of the 19.0 branch. It's
+    been a pretty calm cycle, and there's not too much here. I
+    think things are looking pretty good overall."
+
+-------------------------------------------------------------------
+Fri Mar 22 10:14:33 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- baselibs.conf: Mesa-libEGL-devel needs Mesa-KHR-devel (bsc#1117365) 
+
+-------------------------------------------------------------------
+Fri Mar 22 06:58:08 UTC 2019 - olaf@aepfle.de
 
 - Mesa-libEGL-devel needs Mesa-KHR-devel (bsc#1117365)
 
 -------------------------------------------------------------------
-Tue Jun  4 10:03:25 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+Wed Mar 20 14:44:10 UTC 2019 - Guillaume GARDET <guillaume.gardet@opensuse.org>
 
-- U_intel-Add-support-for-Comet-Lake.patch
-  * adds support for Cometlake (jira #SLE-4983, bsc#1137515)
+- Remove imx from ARM drivers (dropped upstream)
+
+-------------------------------------------------------------------
+Thu Mar 14 15:02:46 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to 19.0.0
+  * bug fixes and performance improvements
+- adjusted n_drirc-disable-rgb10-for-chromium-on-amd.patch
+- supersedes u_wayland_egl-Ensure-EGL-surface.patch
+
+-------------------------------------------------------------------
+Mon Mar  4 15:48:51 UTC 2019 - Andreas Schwab <schwab@suse.de>
+
+- Don't enable gallium_loader on ppc and s390x
+- Fix configuration on non-gallium archs
+- u_dep_xcb.patch: fix missing xcb dependencies
+
+-------------------------------------------------------------------
+Mon Mar  4 10:25:40 UTC 2019 - normand@linux.vnet.ibm.com
+
+- avoid Mesa-drivers build failure for ppc64le reported by
+  (boo#1127672)
+
+-------------------------------------------------------------------
+Wed Feb 20 15:40:14 UTC 2019 - sndirsch@suse.com
+
+- remove n_Disable-Xshm-for-now-since-it-results-in-render-erro.patch;
+  keeping that one reintroduced render errors and missing screen
+  refreshes on GNOME3 in a qemu VM (cirrus emulation); the issue has
+  been fixed in a different and better way since 18.3.3; this is
+  related to bsc#1118149
+
+-------------------------------------------------------------------
+Tue Feb 19 08:34:39 UTC 2019 - sndirsch@suse.com
+
+- Update to 18.3.4
+  * A fix in the XvMC state-tracker, which was causing some video attributes to
+    not take affect. On the video front the VAAPI state tracker has seen
+    improvements with VP9 streams while the amdgpu driver advertises all available
+    profiles.
+  * On Intel side we have compiler fixes and extra PCI IDs for Coffee Lake and
+    Ice Lake parts. In the Broadcom drivers a couple of memory leaks were
+    addressed and the NEON assembly should compile properly on armhf.
+  * Other drivers such as radeonsi, nouveau and freedreno have also seen some
+    love. The RADV driver has seen addressed to compile correctly with GCC9
+    amongst other changes.
+  * The Xlib based libGL have been addressed to work with X servers, which lacks
+    the MIT-SHM extension such as XMing.
+  * To top it up we have a few fixes to the meson build system.
+
+-------------------------------------------------------------------
+Mon Feb  4 17:49:03 UTC 2019 - sndirsch@suse.com
+
+- Update to 18.3.3
+  * In this release we have:
+    A memory leak fix in the etnaviv driver, better NEON assembly code in vc4 and
+    couple of stability improvements to the radeonsi driver. Another memory leak
+    affecting all gallium drivers have also been addressed.
+  * The time required to compile GLSL shaders with large amount of uniforms, such
+    as Godot, has been improved.
+  * GLX and swrast have also seen some improvements.
+  * On the Vulkan side, the ANV driver adjusted the number of images supported
+    for gen8 and earlier to 8, while for newer hardware it remains the same 64.
+    The RADV driver has seens a collection of stability improvements and fix for
+    the Vulkan version advertised in some corner cases.
+  * To top it all up, the meson build system has seen a steady amount of fixes:
+    the DSO version for the VDPAU drivers is now included, ICC compatibility
+    patches, opencl handling and relaxed handling when building osmesa.
+- adjusted n_Disable-Xshm-for-now-since-it-results-in-render-erro.patch
+
+-------------------------------------------------------------------
+Mon Jan 21 18:29:27 UTC 2019 - Tobias Klausmann <tobias.johannes.klausmann@mni.thm.de>
+
+- Build Mesa with meson instead of automake
+  + Build classic swrast with Mesa, as its a dependency for osmesa - delete it
+    while installing
+  + Build egl with Mesa-drivers as it demands one windowing-system - 
+    delete it while installing
 
 -------------------------------------------------------------------
 Fri Jan 18 18:32:13 UTC 2019 - sndirsch@suse.com
