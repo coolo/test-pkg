@@ -1,7 +1,7 @@
 #
 # spec file for package Mesa
 #
-# Copyright (c) 2016 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2019 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -12,7 +12,7 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via http://bugs.opensuse.org/
+# Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
 
 
@@ -133,6 +133,8 @@ Patch30:        u_glxcmds-glXGetFBConfigs-fix-screen-bounds.patch
 Patch31:        u_add_llvm_codegen_dependencies.patch
 Patch32:        U_r300g-Set-R300_VAP_CNTL-on-RSxxx-to-avoid-triangle-flickering.patch
 Patch33:        U_cso-don-t-release-sampler-states-that-are-bound.patch
+
+Patch1156015:   u_call-shmget-with-permission-0600-instead-of-0777.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -317,8 +319,8 @@ applications using the OpenGL|ES 2.x APIs.
 
 %package -n Mesa-libGLESv3-devel
 Summary:        Development files for the OpenGL ES 3.x API
-Group:          Development/Libraries/C and C++
 #Requires:       Mesa-libGLESv3-3 = %version
+Group:          Development/Libraries/C and C++
 Requires:       pkgconfig(egl)
 
 %description -n Mesa-libGLESv3-devel
@@ -511,6 +513,8 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch31 -p1
 %patch32 -p1
 %patch33 -p1
+
+%patch1156015 -p1
 
 %build
 rm -f src/mesa/depend
