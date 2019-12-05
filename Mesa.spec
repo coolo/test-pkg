@@ -1,7 +1,7 @@
 #
 # spec file for package Mesa
 #
-# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2019 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -12,7 +12,7 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via http://bugs.opensuse.org/
+# Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
 
 
@@ -93,6 +93,8 @@ Patch35:        fedora_0001-glxglvnddispatch-Add-missing-dispatch-for-GetDriverC
 Patch40:        u_gallivm-correct-channel-shift-logic-on-big-endian.patch
 Patch41:        u_llvmpipe-lp_build_gather_elem_vec-BE-fix-for-3x16-lo.patch
 Patch42:        u_r600-Add-support-for-B5G5R5A1.patch
+
+Patch1156015:   u_call-shmget-with-permission-0600-instead-of-0777.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -670,6 +672,8 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch40 -p1
 %patch41 -p1
 %patch42 -p1
+
+%patch1156015 -p1
 
 # Remove requires to libglvnd0/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
