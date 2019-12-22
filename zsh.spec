@@ -17,7 +17,7 @@
 
 
 # Only for -test builds
-%define _version 5.7.1-test-1
+%define _version 5.7.1-test-2
 
 %if 0%{?rhel_version} || 0%{?centos_version} || 0%{?fedora_version}
 %if 0%{?rhel_version} >= 700 || 0%{?centos_version} >= 700
@@ -28,7 +28,7 @@ BuildRequires:  texi2html
 BuildRequires:  texinfo
 %endif
 Name:           zsh
-Version:        5.8~pre1
+Version:        5.8~pre2
 Release:        0%{?dist}
 Summary:        Shell with comprehensive completion
 License:        MIT
@@ -43,7 +43,6 @@ Source5:        zprofile
 Patch1:         trim-unneeded-completions.patch
 # PATCH-FIX-OPENSUSE zsh-osc-completion.patch -- Fix openSUSE versions in osc completion
 Patch2:         zsh-osc-completion.patch
-Patch3:         1baf0d1f553631ecb641e98f4bf48bc2a44e5b82.patch
 BuildRequires:  groff
 BuildRequires:  libcap-devel
 BuildRequires:  ncurses-devel
@@ -100,7 +99,6 @@ This package contains the Zsh manual in HTML format.
 %patch1 -p1
 %endif
 %patch2 -p1
-%patch3 -p1
 
 # Remove executable bit
 chmod 0644 Etc/changelog2html.pl
