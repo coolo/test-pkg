@@ -1,7 +1,7 @@
 -------------------------------------------------------------------
 Sun Jan 12 18:09:19 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
-- Update to version 19.3.1
+- Update to version 19.3.2
   * Intel and AMD drivers make up the bulk of the changes, with
     a bit of nir and glsl, plus a sprinkling of other stuff in
     there.
