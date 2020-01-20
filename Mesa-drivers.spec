@@ -1,7 +1,7 @@
 #
 # spec file for package Mesa-drivers
 #
-# Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2019 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -12,7 +12,7 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via http://bugs.opensuse.org/
+# Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
 
 
@@ -139,6 +139,8 @@ Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 Patch43:        u_r600-egd_tables.py-make-the-script-python-2-3-compat.patch
 Patch47:        u_st-dri-don-t-set-queryDmaBufFormats-queryDmaBufModif.patch
 Patch48:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
+
+Patch1156015:   u_call-shmget-with-permission-0600-instead-of-0777.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -747,6 +749,8 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch43 -p1
 %patch47 -p1
 %patch48 -p1
+
+%patch1156015 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
