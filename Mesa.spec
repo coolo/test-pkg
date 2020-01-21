@@ -137,6 +137,7 @@ Patch57:        u_wayland_egl-Ensure-EGL-surface.patch
 Patch60:        n_Disable-Xshm-for-now-since-it-results-in-render-erro.patch
 
 Patch61:        U_intel-Add-support-for-Comet-Lake.patch
+Patch1156015:   u_call-shmget-with-permission-0600-instead-of-0777.patch
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
 BuildRequires:  fdupes
@@ -758,6 +759,8 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch60 -p1
 
 %patch61 -p1
+
+%patch1156015 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
