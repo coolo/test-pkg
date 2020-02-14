@@ -1,7 +1,7 @@
 #
 # spec file for package Mesa
 #
-# Copyright (c) 2020 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2020 SUSE LLC
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -41,7 +41,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 19.2.6
+%define _version 19.3.3
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -73,7 +73,7 @@
   %endif
 %endif
 
-%ifarch aarch64 %{arm} ppc64 ppc64le s390x %{ix86} x86_64
+%ifarch aarch64 %{arm} ppc64 ppc64le riscv64 s390x %{ix86} x86_64
   %define with_llvm 1
 %endif
 
@@ -109,7 +109,7 @@
 %endif
 
 Name:           Mesa
-Version:        19.2.6
+Version:        19.3.3
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -125,10 +125,15 @@ Source6:        %{name}-rpmlintrc
 Source7:        Mesa.keyring
 Patch1:         n_opencl_dep_libclang.patch
 Patch2:         n_add-Mesa-headers-again.patch
+Patch3:         u_Revert_gallium_Fix_big-endian_addressing_of_non-bitmask_array_formats.patch
 # never to be upstreamed
 Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
 Patch58:        u_dep_xcb.patch
-
+Patch61:        U_0001-gallium-Fix-a-couple-of-multiple-definition-warnings.patch
+Patch62:        U_0002-r600-Move-get_pic_param-to-radeon_vce.c.patch
+Patch63:        U_0003-radeon-Move-si_get_pic_param-to-radeon_vce.c.patch
+Patch64:        U_0004-radeon-Fix-multiple-definition-error-with-radeon_deb.patch
+Patch66:        U_0006-nouveau-nvc0-add-extern-keyword-to-nvc0_miptree_vtbl.patch
 BuildRequires:  bison
 BuildRequires:  fdupes
 BuildRequires:  flex
@@ -209,11 +214,15 @@ BuildRequires:  pkgconfig(wayland-protocols) >= 1.8
 BuildRequires:  pkgconfig(wayland-server) >= 1.11
 %endif
 %if 0%{with_llvm}
-BuildRequires:  llvm-devel >= 7.0.0
+%if 0%{?is_opensuse}
+BuildRequires:  llvm-devel >= 9.0.0
+%else
+BuildRequires:  llvm9-devel
+%endif
 %endif
 
 %if 0%{with_opencl}
-BuildRequires:  clang-devel
+BuildRequires:  clang9-devel
 BuildRequires:  libclc
 %endif
 
@@ -727,13 +736,26 @@ programs against the XA state tracker.
 rm -rf docs/README.{VMS,WIN32,OS2}
 
 %if 0%{with_llvm}
+%if 0%{?is_opensuse}
 %if %{pkg_vcmp llvm-devel >= 9.0}
 %patch1 -p1
 %endif
+%else
+%if %{pkg_vcmp llvm9-devel >= 9.0}
+%patch1 -p1
+%endif
+%endif
 %endif
 %patch2 -p1
+# reverse apply since it caused a regression in rendering on s390x (bsc#1162252)
+%patch3 -p1
 %patch54 -p1
 %patch58 -p1
+%patch61 -p1
+%patch62 -p1
+%patch63 -p1
+%patch64 -p1
+%patch66 -p1
 
 # Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
 # disabling libglvnd build; ugly ...
@@ -817,8 +839,8 @@ egl_platforms=x11,drm,surfaceless
             -Ddri-drivers=nouveau \
             -Dgallium-drivers=r300,r600,radeonsi,nouveau,swrast \
   %else
-            -Ddri-drivers=swrast \
-            -Dgallium-drivers= \
+            -Ddri-drivers= \
+            -Dgallium-drivers=swrast \
   %endif
   %endif
   %endif
@@ -827,7 +849,8 @@ egl_platforms=x11,drm,surfaceless
             -Dgallium-drivers= \
 %endif
             -Db_ndebug=true \
-            -Dc_args="%{optflags}"
+            -Dc_args="%{optflags}" \
+            -Dcpp_args="%{optflags}"
 
 %meson_build
 

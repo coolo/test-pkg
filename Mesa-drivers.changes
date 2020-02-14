@@ -1,8 +1,90 @@
 -------------------------------------------------------------------
-Sun Jan  5 20:16:13 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+Thu Feb  6 11:32:05 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
--  n_drirc-disable-rgb10-for-chromium-on-amd.patch
+- u_Revert_gallium_Fix_big-endian_addressing_of_non-bitmask_array_formats.patch
+  * replaces U_gallium-Fix-big-endian-addressing-of-non-bitmask-arr.patch
+    by an official merge request (bsc#1162252, gitlab issue#2472)
+
+-------------------------------------------------------------------
+Mon Feb  3 17:17:44 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- U_gallium-Fix-big-endian-addressing-of-non-bitmask-arr.patch
+  * reverse apply since it caused a regression in rendering on
+    s390x (bsc#1162252)
+
+-------------------------------------------------------------------
+Wed Jan 29 22:56:19 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- require and check for llvm-devel >= 9 instead of llvm9-devel on
+  openSUSE
+
+-------------------------------------------------------------------
+Wed Jan 29 17:15:01 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- enabled build of gallium based llvmpipe driver for s390x
+  (related to jsc#IBM-369, jsc#SLE-7452)
+
+-------------------------------------------------------------------
+Wed Jan 29 14:59:10 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to version 19.3.3
+  * There's plenty of changes here, but intel, docs, radeonsi,
+    and aco are the biggest sets of changes.
+- supersedes U_0005-radv-Remove-syncobj_handle-variable-in-header.patch
+
+-------------------------------------------------------------------
+Wed Jan 29 13:34:34 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- set optflags also for g++ compiler 
+
+-------------------------------------------------------------------
+Mon Jan 27 15:31:52 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- require llvm9 (jsc#IBM-369, jsc#SLE-7452) 
+
+-------------------------------------------------------------------
+Wed Jan 22 13:47:07 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- U_0001-gallium-Fix-a-couple-of-multiple-definition-warnings.patch
+  U_0002-r600-Move-get_pic_param-to-radeon_vce.c.patch
+  U_0003-radeon-Move-si_get_pic_param-to-radeon_vce.c.patch
+  U_0004-radeon-Fix-multiple-definition-error-with-radeon_deb.patch
+  U_0005-radv-Remove-syncobj_handle-variable-in-header.patch
+  U_0006-nouveau-nvc0-add-extern-keyword-to-nvc0_miptree_vtbl.patch
+  * fixes build with gcc10 using -fno-common as default now (boo#1160578)
+
+-------------------------------------------------------------------
+Mon Jan 13 16:11:52 UTC 2020 - Andreas Schwab <schwab@suse.de>
+
+- Enable LLVM support on riscv64
+
+-------------------------------------------------------------------
+Sun Jan 12 18:09:19 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to version 19.3.2
+  * Intel and AMD drivers make up the bulk of the changes, with
+    a bit of nir and glsl, plus a sprinkling of other stuff in
+    there.
+
+-------------------------------------------------------------------
+Sun Jan  5 20:07:47 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- n_drirc-disable-rgb10-for-chromium-on-amd.patch
   * fixes patch (boo#1145188)  
+
+-------------------------------------------------------------------
+Sun Dec 29 09:09:03 UTC 2019 - Stasiek Michalski <hellcp@mailbox.org>
+
+- Update to version 19.3.1
+  * Bugfixes for i965/iris, anv and radv
+
+-------------------------------------------------------------------
+Mon Dec 16 15:42:01 UTC 2019 - Stasiek Michalski <hellcp@mailbox.org>
+
+- Update to version 19.3.0
+  * Mainly changes to the build system, i965, aco, radv and anv
+  * New features, check Phoronix:
+    https://www.phoronix.com/scan.php?page=article&item=mesa-193-features
 
 -------------------------------------------------------------------
 Fri Nov 22 11:06:45 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
