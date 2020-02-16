@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Sun Feb 16 12:00:17 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to version 19.3.4
+  * changes all over the tree, but aco and anv are leading the
+    way in changes
+- supersedes u_Revert_gallium_Fix_big-endian_addressing_of_non-bitmask_array_formats.patch
+
+-------------------------------------------------------------------
 Thu Feb  6 11:32:05 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - u_Revert_gallium_Fix_big-endian_addressing_of_non-bitmask_array_formats.patch
