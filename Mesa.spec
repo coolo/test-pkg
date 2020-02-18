@@ -213,7 +213,7 @@ BuildRequires:  pkgconfig(wayland-protocols) >= 1.8
 BuildRequires:  pkgconfig(wayland-server) >= 1.11
 %endif
 %if 0%{with_llvm}
-%if 0%{?is_opensuse}
+%if 0%{?suse_version} >= 1550
 BuildRequires:  llvm-devel >= 9.0.0
 %else
 BuildRequires:  llvm9-devel
@@ -735,7 +735,7 @@ programs against the XA state tracker.
 rm -rf docs/README.{VMS,WIN32,OS2}
 
 %if 0%{with_llvm}
-%if 0%{?is_opensuse}
+%if 0%{?suse_version} >= 1550
 %if %{pkg_vcmp llvm-devel >= 9.0}
 %patch1 -p1
 %endif

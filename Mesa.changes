@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Feb 18 15:16:13 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- only use 'BuildRequires:llvm-devel >= 9.0.0' for TW/factory; for 
+  older products still use 'BuildRequires: llvm9-devel'; fixed
+  build on openSUSE Leap 15.2
+
+-------------------------------------------------------------------
 Sun Feb 16 12:00:17 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - Update to version 19.3.4
