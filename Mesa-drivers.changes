@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Mar  6 10:31:44 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- cleanup in specfile: get rid of is_opensuse macro, which is no
+  longer needed at all (jira#PM-1623)
+
+-------------------------------------------------------------------
 Fri Feb 21 05:09:10 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - use 7G disk constraints also for x86_64 and i586 (bsc#1164488) 
