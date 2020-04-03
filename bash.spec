@@ -1,7 +1,7 @@
 #
 # spec file for package bash
 #
-# Copyright (c) 2019 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2020 SUSE LLC
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -33,7 +33,7 @@ License:        GPL-3.0-or-later
 Group:          System/Shells
 Suggests:       command-not-found
 Suggests:       bash-doc = %version
-Url:            http://www.gnu.org/software/bash/bash.html
+URL:            http://www.gnu.org/software/bash/bash.html
 # Git:          http://git.savannah.gnu.org/cgit/bash.git
 Source0:        ftp://ftp.gnu.org/gnu/bash/bash-%{bversion}%{bextend}.tar.gz
 Source1:        bash-%{bversion}-patches.tar.bz2
@@ -102,7 +102,7 @@ specification (IEEE Working Group 1003.2).
 
 %package doc
 Summary:        Documentation how to Use the GNU Bourne-Again Shell
-Group:          Documentation/Man
+Group:          Documentation/HTML
 Provides:       bash:%{_infodir}/bash.info.gz
 Supplements:    packageand(bash:patterns-base-documentation)
 PreReq:         %install_info_prereq
@@ -531,6 +531,10 @@ ldd -u -r %{buildroot}/bin/bash || true
 %dir %{_datadir}/bash
 %dir %{_datadir}/bash/helpfiles
 %{_datadir}/bash/helpfiles/*
+%{_mandir}/man1/bash.1*
+%{_mandir}/man1/bashbuiltins.1*
+%{_mandir}/man1/bashbug.1*
+%{_mandir}/man1/rbash.1*
 
 %files lang -f bash.lang
 %defattr(-,root,root)
@@ -538,10 +542,6 @@ ldd -u -r %{buildroot}/bin/bash || true
 %files doc
 %defattr(-,root,root)
 %doc %{_infodir}/bash.info*
-%doc %{_mandir}/man1/bash.1*
-%doc %{_mandir}/man1/bashbuiltins.1*
-%doc %{_mandir}/man1/bashbug.1*
-%doc %{_mandir}/man1/rbash.1*
 %doc %{_docdir}/%{name}
 
 %files devel
