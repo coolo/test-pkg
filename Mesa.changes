@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Apr  3 08:38:51 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- U_Revert-spirv-Implement-OpCopyObject-and-OpCopyLogica.patch
+  * revert severe spirv regression; emergency release will be
+    available soon ...
+
+-------------------------------------------------------------------
 Thu Apr  2 09:27:46 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - update to Mesa 20.0.2
