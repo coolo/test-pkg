@@ -8,7 +8,7 @@ Fri Apr  3 08:38:51 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 -------------------------------------------------------------------
 Thu Apr  2 09:27:46 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
-- update to Mesa 20.0.2
+- update to Mesa 20.0.3
   * bugfix release:  fixes all over the tree; mostly AMD (radv, 
     aco), NIR and Intel (isl, anv) 
 
