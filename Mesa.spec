@@ -32,6 +32,10 @@
 # Note that if you actually need to render something, you need the packages
 # from Mesa-driver.
 
+%ifarch armv6l armv6hl
+%define _lto_cflags %{nil}
+%endif
+
 %define drivers 0
 %define libglvnd 0
 
