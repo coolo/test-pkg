@@ -1,7 +1,7 @@
 -------------------------------------------------------------------
 Tue May  5 04:41:08 UTC 2020 - Ismail Dönmez <idonmez@suse.com>
 
-- Add back LS_COLORS and LS_OPTIONS 
+- Add back LS_COLORS, LS_OPTIONS and GPG_TTY
 
 -------------------------------------------------------------------
 Wed Apr 15 09:02:14 UTC 2020 - Ismail Dönmez <idonmez@suse.com>
