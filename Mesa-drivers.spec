@@ -32,8 +32,9 @@
 # Note that if you actually need to render something, you need the packages
 # from Mesa-driver.
 
-# Disable LTO for now boo#1171855
+%ifarch armv6l armv6hl
 %define _lto_cflags %{nil}
+%endif
 
 ##### WARNING: please do not edit this auto generated spec file. Use the Mesa.spec! #####
 %define drivers 1
@@ -128,6 +129,7 @@ Source4:        manual-pages.tar.bz2
 Source6:        %{name}-rpmlintrc
 Source7:        Mesa.keyring
 Patch2:         n_add-Mesa-headers-again.patch
+Patch3:         add-lifetime-dse-fix.patch
 # never to be upstreamed
 Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
 Patch58:        u_dep_xcb.patch
@@ -735,6 +737,7 @@ programs against the XA state tracker.
 rm -rf docs/README.{VMS,WIN32,OS2}
 
 %patch2 -p1
+%patch3 -p1
 %patch54 -p1
 %patch58 -p1
 
