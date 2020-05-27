@@ -129,7 +129,7 @@ Source4:        manual-pages.tar.bz2
 Source6:        %{name}-rpmlintrc
 Source7:        Mesa.keyring
 Patch2:         n_add-Mesa-headers-again.patch
-Patch3:         add-lifetime-dse-fix.patch
+Patch3:         U_add-lifetime-dse-fix.patch
 # never to be upstreamed
 Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
 Patch58:        u_dep_xcb.patch
