@@ -122,7 +122,7 @@ Group:          System/Libraries
 URL:            http://www.mesa3d.org
 #Git-Clone:     git://anongit.freedesktop.org/mesa/mesa
 Source:         https://mesa.freedesktop.org/archive/%{_name_archive}-%{_version}.tar.xz
-Source1:        https://mesa.freedesktop.org/archive/%{_name_archive}-%{_version}.tar.xz.asc
+Source1:        https://mesa.freedesktop.org/archive/%{_name_archive}-%{_version}.tar.xz.sig
 Source2:        baselibs.conf
 Source3:        README.updates
 Source4:        manual-pages.tar.bz2
