@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Wed Jun  3 10:43:06 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 20.1.0
+  * first release for the 20.1 branch
+  * One already known issue is that Unreal Engine 4 has a bug in
+    its usage of glDrawRangeElements() causing it to be called
+    with a number of vertices in place of the `end` parameter,
+    that was recently revealed. This is an annoying bug that we 
+    haven't worked around yet. For more details:
+    https://gitlab.freedesktop.org/mesa/mesa/-/issues/2917
+- supersedes U_add-lifetime-dse-fix.patch
+
+-------------------------------------------------------------------
 Wed Jun  3 10:28:03 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - baselibs.conf: added pkgconfig files to 32bit devel packages
