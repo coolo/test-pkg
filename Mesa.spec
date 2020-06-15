@@ -45,7 +45,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 20.1.0
+%define _version 20.1.1
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -113,7 +113,7 @@
 %endif
 
 Name:           Mesa
-Version:        20.1.0
+Version:        20.1.1
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -919,8 +919,6 @@ done
 %if !%{drivers}
 # Use dummy README file that can be included in both Mesa and Mesa-32bit. This way Mesa-32bit will be build (otherwise it would be skipped as empty) and it can be used by the other *-32bit packages.
 echo "The \"Mesa\" package does not have the ability to render, but is supplemented by \"Mesa-dri\" and \"Mesa-gallium\" which contain the drivers for rendering" > docs/README.package.%{_arch}
-echo "The -32bit version of Mesa-libGLESv2-2 on x86-64 is just a dummy package, so it can be required by other packages" > docs/README.Mesa-libGLESv2-2
-echo "The -32bit version of Mesa-KHR-devel on x86-64 is just a dummy package, so it can be required by other packages" > docs/README.Mesa-KHR-devel
 %endif
 
 %post   -p /sbin/ldconfig

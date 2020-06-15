@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Jun 15 12:31:13 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 20.1.1
+  * first bugfix release for the 20.1 branch
+  * fixes issue affecting Unreal Engine 4 games on i965 
+
+-------------------------------------------------------------------
 Wed Jun  3 10:43:06 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - update to 20.1.0
