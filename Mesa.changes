@@ -12,12 +12,6 @@ Wed Jun  3 10:43:06 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 - supersedes U_add-lifetime-dse-fix.patch
 
 -------------------------------------------------------------------
-Wed Jun  3 10:28:03 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
-
-- baselibs.conf: added pkgconfig files to 32bit devel packages
-  (boo#1172302) 
-
--------------------------------------------------------------------
 Tue May 19 19:22:02 UTC 2020 - Martin Liška <mliska@suse.cz>
 
 - Add U_add-lifetime-dse-fix.patch as a proper fix for boo#1171855.
