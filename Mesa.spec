@@ -83,6 +83,9 @@
 
 %if 0%{with_opencl}
 %define have_gallium 1
+%if 0%{?suse_version} < 1550
+  %define _distconfdir /etc
+%endif
 %else
 %define have_gallium 0
 %endif
