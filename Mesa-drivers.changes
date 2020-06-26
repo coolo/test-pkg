@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Jun 26 01:20:27 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- enable valgrind support (boo#1173355)
+
+-------------------------------------------------------------------
 Tue Jun 23 18:02:26 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - move mesa.icd from /usr/etc/OpenCL/vendors to 

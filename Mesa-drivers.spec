@@ -158,6 +158,7 @@ BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.71
 %if 0%{?libglvnd}
 BuildRequires:  pkgconfig(libglvnd) >= 0.1.0
 %endif
+BuildRequires:  valgrind-devel
 BuildRequires:  pkgconfig(libkms) >= 1.0.0
 BuildRequires:  pkgconfig(libva)
 BuildRequires:  pkgconfig(presentproto)
@@ -833,6 +834,7 @@ egl_platforms=x11,drm,surfaceless,wayland
             -Ddri-drivers=swrast \
             -Dgallium-drivers= \
 %endif
+            -Dvalgrind=true \
             -Db_ndebug=true \
             -Dc_args="%{optflags}" \
             -Dcpp_args="%{optflags}"
