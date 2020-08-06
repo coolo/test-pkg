@@ -22,7 +22,7 @@
 Name:           bash
 %define         bextend	 %nil
 %define         bversion 5.0
-%define         bpatchlvl 11
+%define         bpatchlvl 18
 Version:        %{bversion}.%{bpatchlvl}
 Release:        0
 Summary:        The GNU Bourne-Again Shell
@@ -201,6 +201,7 @@ echo -e '\033[1m\032[31mShift JIS support disabled\033[m'
 %endif
 %setup -q -n bash-%{bversion}%{bextend} -b1
 typeset -i level
+set +x
 for patch in ../bash-%{bversion}-patches/*; do
     test -e $patch || break
     let level=0 || true
@@ -214,6 +215,7 @@ for patch in ../bash-%{bversion}-patches/*; do
     echo Patch $patch
     patch -s -p$level < $patch
 done
+set -x
 %patch1  -p0 -b .manual
 %patch2  -p0 -b .security
 %patch3  -p0 -b .2.4.4
