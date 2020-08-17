@@ -22,7 +22,7 @@
 Name:           bash
 %define         bextend	 %nil
 %define         bversion 5.0
-%define         bpatchlvl 18
+%define         bpatchlvl 11
 Version:        %{bversion}.%{bpatchlvl}
 Release:        0
 Summary:        The GNU Bourne-Again Shell
