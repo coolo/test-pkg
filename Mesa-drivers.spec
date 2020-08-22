@@ -38,6 +38,7 @@
 
 ##### WARNING: please do not edit this auto generated spec file. Use the Mesa.spec! #####
 %define drivers 1
+# when changing libglvnd to 1, ensure to enable the dependencies in baselibs.conf
 %define libglvnd 0
 
 %if 0%{?suse_version} >= 1330
