@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Aug 23 18:08:13 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 20.1.6
+  * sixth bugfix release for the 20.1 branch 
+
+-------------------------------------------------------------------
 Thu Aug  6 11:51:25 UTC 2020 - Dominique Leuenberger <dimstar@opensuse.org>
 
 - baselibs.conf:
