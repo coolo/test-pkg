@@ -131,6 +131,7 @@ BuildRequires:  bison
 BuildRequires:  fdupes
 BuildRequires:  flex
 BuildRequires:  gcc-c++
+BuildRequires:  glslang-devel
 BuildRequires:  imake
 BuildRequires:  libtool
 BuildRequires:  meson
@@ -645,6 +646,24 @@ Requires:       libvulkan_radeon = %{version}
 %description -n Mesa-libVulkan-devel
 This package contains the development files for Mesa's Vulkan implementation.
 
+%package -n Mesa-vulkan-device-select
+Summary:        Vulkan layer to select Vulkan devices provided by Mesa
+Group:          System/Libraries
+Requires:       libvulkan_intel = %{version}
+Requires:       libvulkan_radeon = %{version}
+
+%description -n Mesa-vulkan-device-select
+This package contains the VK_MESA_device_select Vulkan layer
+
+%package -n Mesa-vulkan-overlay
+Summary:        Mesa Vulkan Overlay layer
+Group:          System/Libraries
+Requires:       libvulkan_intel = %{version}
+Requires:       libvulkan_radeon = %{version}
+
+%description -n Mesa-vulkan-overlay
+This package contains the VK_MESA_Overlay Vulkan layer
+
 %package -n libxatracker2
 Version:        1.0.0
 Release:        0
@@ -743,6 +762,8 @@ egl_platforms=x11,drm,surfaceless,wayland
 %endif
 %if 0%{with_vulkan}
             -Dvulkan-drivers=intel,amd \
+            -Dvulkan-device-select-layer=true \
+            -Dvulkan-overlay-layer=true \
 %else
             -Dvulkan-drivers= \
 %endif
@@ -1091,6 +1112,19 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %files -n Mesa-libVulkan-devel
 %dir %{_includedir}/vulkan
 %{_includedir}/vulkan/*
+
+%files -n Mesa-vulkan-device-select
+%{_libdir}/libVkLayer_MESA_device_select.so
+%dir %{_datadir}/vulkan
+%dir %{_datadir}/vulkan/implicit_layer.d
+%{_datadir}/vulkan/implicit_layer.d/VkLayer_MESA_device_select.json
+
+%files -n Mesa-vulkan-overlay
+%{_bindir}/mesa-overlay-control.py
+%{_libdir}/libVkLayer_MESA_overlay.so
+%dir %{_datadir}/vulkan
+%dir %{_datadir}/vulkan/explicit_layer.d
+%{_datadir}/vulkan/explicit_layer.d/VkLayer_MESA_overlay.json
 %endif
 
 %changelog
