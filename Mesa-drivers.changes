@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Aug 25 05:30:39 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- specfile/baselibs.conf cleanup
+  * no longer support Mesa build without libglvnd
+  * removed empty packages Mesa-libGLESv1_CM1 and Mesa-libGLESv2-2
+
+-------------------------------------------------------------------
 Sun Aug 23 18:08:13 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - update to 20.1.6
