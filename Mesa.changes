@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jul 29 10:26:15 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- U_glx-fix-shared-memory-leak-in-X11.patch 
+  * fixes memory leaks (bsc#1172468)
+
+-------------------------------------------------------------------
 Wed Nov 27 11:44:32 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
 
 - u_call-shmget-with-permission-0600-instead-of-0777.patch

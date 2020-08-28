@@ -1,7 +1,7 @@
 #
 # spec file for package Mesa
 #
-# Copyright (c) 2019 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2020 SUSE LLC
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -137,6 +137,7 @@ Patch57:        u_wayland_egl-Ensure-EGL-surface.patch
 Patch60:        n_Disable-Xshm-for-now-since-it-results-in-render-erro.patch
 
 Patch61:        U_intel-Add-support-for-Comet-Lake.patch
+Patch70:        U_glx-fix-shared-memory-leak-in-X11.patch
 Patch1156015:   u_call-shmget-with-permission-0600-instead-of-0777.patch
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -759,6 +760,8 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch60 -p1
 
 %patch61 -p1
+
+%patch70 -p1
 
 %patch1156015 -p1
 
