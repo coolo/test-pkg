@@ -746,7 +746,9 @@ egl_platforms=x11,drm,surfaceless,wayland
 %endif
 %if 0%{with_opencl}
             -Dgallium-opencl=icd \
+%if 0%{?suse_version} >= 1550
             --sysconfdir=%{_datadir} \
+%endif
 %endif
             -Ddri-search-path=%{_libdir}/dri \
 %if 0%{with_llvm}
@@ -1083,9 +1085,15 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %if 0%{with_opencl}
 %files -n Mesa-libOpenCL
+%if 0%{?suse_version} >= 1550
 %dir %{_datadir}/OpenCL
 %dir %{_datadir}/OpenCL/vendors
 %{_datadir}/OpenCL/vendors/mesa.icd
+%else
+%dir %{_sysconfdir}/OpenCL
+%dir %{_sysconfdir}/OpenCL/vendors
+%{_sysconfdir}/OpenCL/vendors/mesa.icd
+%endif
 %{_libdir}/libMesaOpenCL.so*
 %endif
 
