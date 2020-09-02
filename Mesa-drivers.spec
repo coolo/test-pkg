@@ -210,7 +210,7 @@ BuildRequires:  pkgconfig(wayland-server) >= 1.11
 %if 0%{?suse_version} >= 1550
 BuildRequires:  llvm-devel >= 10.0.0
 %else
-BuildRequires:  llvm10-devel
+BuildRequires:  llvm9-devel
 %endif
 %endif
 
@@ -218,7 +218,7 @@ BuildRequires:  llvm10-devel
 %if 0%{?suse_version} >= 1550
 BuildRequires:  clang-devel >= 10.0.0
 %else
-BuildRequires:  clang10-devel
+BuildRequires:  clang9-devel
 %endif
 BuildRequires:  libclc
 %endif

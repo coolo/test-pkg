@@ -1,7 +1,13 @@
 -------------------------------------------------------------------
+Wed Sep  2 10:14:00 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- switched to llvm9 usage for Leap/SLE15 since llvm10 is not (yet)
+  in Leap/SLE15
+
+-------------------------------------------------------------------
 Mon Aug 31 19:36:31 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
-- version 2.4.102 needed for jira#SLE/SLE-12880, jira#SLE/SLE-12882 
+- version 20.1.6 needed for jira#SLE/SLE-12880, jira#SLE/SLE-12882 
 
 -------------------------------------------------------------------
 Mon Aug 31 19:12:50 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
