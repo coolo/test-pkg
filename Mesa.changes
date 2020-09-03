@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Sep  3 09:24:31 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 20.1.7
+  * seventh bugfix release for the 20.1 branch
+
+-------------------------------------------------------------------
 Wed Sep  2 10:14:00 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - switched to llvm9 usage for Leap/SLE15 since llvm10 is not (yet)
