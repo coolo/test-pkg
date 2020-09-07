@@ -1,8 +1,242 @@
 -------------------------------------------------------------------
-Fri Mar  6 10:31:44 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+Thu Sep  3 09:24:31 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 20.1.7
+  * seventh bugfix release for the 20.1 branch
+
+-------------------------------------------------------------------
+Wed Sep  2 10:14:00 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- switched to llvm9 usage for Leap/SLE15 since llvm10 is not (yet)
+  in Leap/SLE15
+
+-------------------------------------------------------------------
+Mon Aug 31 19:36:31 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- version 20.1.6 needed for jira#SLE/SLE-12880, jira#SLE/SLE-12882 
+
+-------------------------------------------------------------------
+Mon Aug 31 19:12:50 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- use again /etc/OpenCL/vendors for openSUSE Leap, i.e. use
+  /usr/etc/OpenCL/vendors only for Tumbleweed
+
+-------------------------------------------------------------------
+Wed Aug 26 10:37:17 UTC 2020 - Callum Farmer <callumjfarmer13@gmail.com>
+
+- Add vulkan device selection layer and vulkan overlay layer to
+  baselibs for 32bit versions on 64bit architectures.
+
+-------------------------------------------------------------------
+Tue Aug 25 06:32:03 UTC 2020 - Aaron Dominick <aaron.zakhrov@gmail.com>
+
+- Add vulkan device selection layer and vulkan overlay layer
+
+-------------------------------------------------------------------
+Tue Aug 25 05:30:39 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- specfile/baselibs.conf cleanup
+  * no longer support Mesa build without libglvnd
+  * removed empty packages Mesa-libGLESv1_CM1 and Mesa-libGLESv2-2
+
+-------------------------------------------------------------------
+Sun Aug 23 18:08:13 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 20.1.6
+  * sixth bugfix release for the 20.1 branch 
+
+-------------------------------------------------------------------
+Thu Aug  6 11:51:25 UTC 2020 - Dominique Leuenberger <dimstar@opensuse.org>
+
+- baselibs.conf:
+  + Require Mesa-KHR-devel instead of Mesa-KHR-devel-<targettype>:
+    KHR-devel consists only of header files there is thus no
+    -<targettype> flavor being generated.
+  + Do not require Mesa-libGLESv1_CM1 and Mesa-libGLESv2-2 from
+    their respective -32bit devel packages: with libglvnd defined
+    to 0, the native packages are being generated, but are empty.
+    For baselibs, this trick does not work and empty packages are
+    being skipped. So we drop the dependency (with a note in the
+    .spec to enable the deps when changing the defines).
+
+-------------------------------------------------------------------
+Thu Jul 23 12:24:37 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 20.1.4
+  * fourth bugfix release for the 20.1 branch
+  * just a few fixes here and there, nothing major
+
+-------------------------------------------------------------------
+Fri Jul 10 08:43:49 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 20.1.3
+  * third bugfix release for the 20.1 branch
+  * lots of updates to our testing infrastructure
+
+-------------------------------------------------------------------
+Wed Jul  1 12:46:33 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- force valgrind support only on officially supported platforms
+  (boo#1173355)
+
+-------------------------------------------------------------------
+Fri Jun 26 11:43:50 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 20.1.2
+  * second bugfix release for the 20.1 branch
+  * most of the fixes here are to the AMD drivers, and the rest
+    is scattered over the tree.
+
+-------------------------------------------------------------------
+Fri Jun 26 01:20:27 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- enable valgrind support (boo#1173355)
+
+-------------------------------------------------------------------
+Tue Jun 23 18:02:26 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- move mesa.icd from /usr/etc/OpenCL/vendors to 
+  /usr/share/OpenCL/vendors (boo#1173005)
+
+-------------------------------------------------------------------
+Thu Jun 18 11:02:23 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- switch to /usr/etc/OpenCL/vendors for mesa.icd OpenCL file
+  location (boo#1173005) 
+
+-------------------------------------------------------------------
+Mon Jun 15 12:31:13 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 20.1.1
+  * first bugfix release for the 20.1 branch
+  * fixes issue affecting Unreal Engine 4 games on i965 
+
+-------------------------------------------------------------------
+Wed Jun  3 10:43:06 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 20.1.0
+  * first release for the 20.1 branch
+  * One already known issue is that Unreal Engine 4 has a bug in
+    its usage of glDrawRangeElements() causing it to be called
+    with a number of vertices in place of the `end` parameter,
+    that was recently revealed. This is an annoying bug that we 
+    haven't worked around yet. For more details:
+    https://gitlab.freedesktop.org/mesa/mesa/-/issues/2917
+- supersedes U_add-lifetime-dse-fix.patch
+
+-------------------------------------------------------------------
+Tue May 19 19:22:02 UTC 2020 - Martin Liška <mliska@suse.cz>
+
+- Add U_add-lifetime-dse-fix.patch as a proper fix for boo#1171855.
+
+-------------------------------------------------------------------
+Tue May 19 05:52:31 UTC 2020 - Martin Liška <mliska@suse.cz>
+
+- Disable LTO for now as there's a known upstream bug
+  that hasn't been resolved with GCC 10:
+  boo#1171855.
+
+-------------------------------------------------------------------
+Fri May 15 09:52:07 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to Mesa 20.0.7
+  * most fixes in Radv, but there are fixes all over the tree
+
+-------------------------------------------------------------------
+Mon May  4 13:47:59 UTC 2020 - Michel Normand <normand@linux.vnet.ibm.com>
+
+- avoid build error PowerPC, using gnu++14 (not gnu++11)
+  https://bugzilla.opensuse.org/show_bug.cgi?id=1171045
+
+-------------------------------------------------------------------
+Thu Apr 30 14:46:25 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to Mesa 20.0.6
+  * fairly small release (a little bit of everything in here)
+
+-------------------------------------------------------------------
+Sat Apr 25 10:36:23 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- require llvm/clang 10 
+
+-------------------------------------------------------------------
+Fri Apr 24 09:21:28 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to Mesa 20.0.5
+  *  pretty big release with AMD and Intel drivers receiving the 
+     majority of the work.
+- supersedes U_EGL-Add-eglSetDamageRegionKHR-to-GLVND-dispatch-list.patch
+- supersedes n_opencl_dep_libclang.patch
+
+-------------------------------------------------------------------
+Thu Apr 23 14:23:59 UTC 2020 - Guillaume GARDET <guillaume.gardet@opensuse.org>
+
+- Disable LTO on armv6 to fix build
+
+-------------------------------------------------------------------
+Sun Apr  5 12:27:35 UTC 2020 - Torsten Duwe <duwe@suse.com>
+
+- U_EGL-Add-eglSetDamageRegionKHR-to-GLVND-dispatch-list.patch
+  * Fix Weston launch on tumbleweed by backporting commit bfb9c08e
+
+-------------------------------------------------------------------
+Fri Apr  3 15:25:42 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to Mesa 20.0.4
+  * emergency release, which reverts a serious SPIR-V regression
+    in the 20.0.3 release.
+- supersedes U_Revert-spirv-Implement-OpCopyObject-and-OpCopyLogica.patch
+
+-------------------------------------------------------------------
+Fri Apr  3 08:38:51 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- U_Revert-spirv-Implement-OpCopyObject-and-OpCopyLogica.patch
+  * revert severe spirv regression; emergency release will be
+    available soon ...
+
+-------------------------------------------------------------------
+Thu Apr  2 09:27:46 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to Mesa 20.0.3
+  * bugfix release:  fixes all over the tree; mostly AMD (radv, 
+    aco), NIR and Intel (isl, anv) 
+
+-------------------------------------------------------------------
+Thu Mar 19 10:08:18 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to Mesa 20.0.2
+  * bugfix release: fixes all over the code base
+
+-------------------------------------------------------------------
+Mon Mar  9 15:15:52 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to Mesa 20.0.1
+  * bugfix release 
+
+-------------------------------------------------------------------
+Fri Mar  6 10:27:21 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - cleanup in specfile: get rid of is_opensuse macro, which is no
   longer needed at all (jira#PM-1623)
+
+-------------------------------------------------------------------
+Fri Feb 28 15:25:41 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- Loosen dependencies to allow building with newer versions of
+  clang-devel, similar to llvm-devel.
+
+-------------------------------------------------------------------
+Fri Feb 21 13:18:18 UTC 2020 - Philipp Seiler <p.seiler@linuxmail.org>
+
+- update to mesa 20.0.0
+ * changelog https://mesa3d.org/relnotes/20.0.0.html
+- supersedes U_0001-gallium-Fix-a-couple-of-multiple-definition-warnings.patch
+- supersedes U_0002-r600-Move-get_pic_param-to-radeon_vce.c.patch
+- supersedes U_0003-radeon-Move-si_get_pic_param-to-radeon_vce.c.patch
+- supersedes U_0004-radeon-Fix-multiple-definition-error-with-radeon_deb.patch
+- supersedes U_0006-nouveau-nvc0-add-extern-keyword-to-nvc0_miptree_vtbl.patch 
+- update to patch n_add-Mesa-headers-again.patch to fit v20.0.0 sources
+- update to patch n_drirc-disable-rgb10-for-chromium-on-amd.patch to fit v20.0.0 sources
 
 -------------------------------------------------------------------
 Fri Feb 21 05:09:10 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>

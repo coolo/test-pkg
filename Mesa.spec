@@ -32,16 +32,15 @@
 # Note that if you actually need to render something, you need the packages
 # from Mesa-driver.
 
-%define drivers 0
-%define libglvnd 0
-
-%if 0%{?suse_version} >= 1330
-  %define libglvnd 1
+%ifarch armv6l armv6hl
+%define _lto_cflags %{nil}
 %endif
+
+%define drivers 0
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 19.3.4
+%define _version 20.1.7
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -109,7 +108,7 @@
 %endif
 
 Name:           Mesa
-Version:        19.3.4
+Version:        20.1.7
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -123,20 +122,15 @@ Source3:        README.updates
 Source4:        manual-pages.tar.bz2
 Source6:        %{name}-rpmlintrc
 Source7:        Mesa.keyring
-Patch1:         n_opencl_dep_libclang.patch
 Patch2:         n_add-Mesa-headers-again.patch
 # never to be upstreamed
 Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
 Patch58:        u_dep_xcb.patch
-Patch61:        U_0001-gallium-Fix-a-couple-of-multiple-definition-warnings.patch
-Patch62:        U_0002-r600-Move-get_pic_param-to-radeon_vce.c.patch
-Patch63:        U_0003-radeon-Move-si_get_pic_param-to-radeon_vce.c.patch
-Patch64:        U_0004-radeon-Fix-multiple-definition-error-with-radeon_deb.patch
-Patch66:        U_0006-nouveau-nvc0-add-extern-keyword-to-nvc0_miptree_vtbl.patch
 BuildRequires:  bison
 BuildRequires:  fdupes
 BuildRequires:  flex
 BuildRequires:  gcc-c++
+BuildRequires:  glslang-devel
 BuildRequires:  imake
 BuildRequires:  libtool
 BuildRequires:  meson
@@ -156,8 +150,9 @@ BuildRequires:  pkgconfig(libdrm) >= 2.4.75
 BuildRequires:  pkgconfig(libdrm_amdgpu) >= 2.4.95
 BuildRequires:  pkgconfig(libdrm_nouveau) >= 2.4.66
 BuildRequires:  pkgconfig(libdrm_radeon) >= 2.4.71
-%if 0%{?libglvnd}
 BuildRequires:  pkgconfig(libglvnd) >= 0.1.0
+%ifarch aarch64 %{ix86} x86_64 ppc64le s390x
+BuildRequires:  pkgconfig(valgrind)
 %endif
 BuildRequires:  pkgconfig(libkms) >= 1.0.0
 BuildRequires:  pkgconfig(libva)
@@ -212,22 +207,24 @@ BuildRequires:  pkgconfig(wayland-protocols) >= 1.8
 BuildRequires:  pkgconfig(wayland-server) >= 1.11
 %if 0%{with_llvm}
 %if 0%{?suse_version} >= 1550
-BuildRequires:  llvm-devel >= 9.0.0
+BuildRequires:  llvm-devel >= 10.0.0
 %else
 BuildRequires:  llvm9-devel
 %endif
 %endif
 
 %if 0%{with_opencl}
+%if 0%{?suse_version} >= 1550
+BuildRequires:  clang-devel >= 10.0.0
+%else
 BuildRequires:  clang9-devel
+%endif
 BuildRequires:  libclc
 %endif
 
-%if 0%{?libglvnd}
 Requires:       Mesa-libEGL1 = %{version}
 Requires:       Mesa-libGL1 = %{version}
 Requires:       libglvnd >= 0.1.0
-%endif
 
 # This dependency on Mesa-dri and Mesa-gallium is here to make sure users that
 # do not install recommends on their system still get working Mesa. It is
@@ -295,9 +292,7 @@ just Mesa or The Mesa 3-D graphics library.
 # Kudos to Debian for the descriptions
 Summary:        EGL API implementation
 Group:          System/Libraries
-%if 0%{?libglvnd}
 Requires:       libglvnd >= 0.1.0
-%endif
 
 %description libEGL1
 This package contains the EGL native platform graphics interface
@@ -315,10 +310,8 @@ Summary:        Development files for the EGL API
 Group:          Development/Libraries/C and C++
 Requires:       Mesa-KHR-devel = %{version}
 Requires:       Mesa-libEGL1 = %{version}
-Requires:       pkgconfig(x11)
-%if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
-%endif
+Requires:       pkgconfig(x11)
 # Other requires taken care of by pkgconfig already
 
 %description libEGL-devel
@@ -343,9 +336,7 @@ Mesa Khronos development headers.
 Summary:        The GL/GLX runtime of the Mesa 3D graphics library
 Group:          System/Libraries
 Requires:       Mesa = %{version}
-%if 0%{?libglvnd}
 Requires:       libglvnd >= 0.1.0
-%endif
 
 %description libGL1
 Mesa is a software library for 3D computer graphics that provides a
@@ -362,9 +353,7 @@ Summary:        GL/GLX development files of the OpenGL API
 Group:          Development/Libraries/C and C++
 Requires:       Mesa-KHR-devel = %{version}
 Requires:       Mesa-libGL1 = %{version}
-%if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
-%endif
 
 %description libGL-devel
 Mesa is a software library for 3D computer graphics that provides a
@@ -374,30 +363,12 @@ graphics.
 This package includes headers and static libraries for compiling
 programs with Mesa.
 
-%package libGLESv1_CM1
-Summary:        OpenGL|ES 1.x Common Profile API implementation
-Group:          System/Libraries
-%if 0%{?libglvnd}
-Requires:       libglvnd >= 0.1.0
-%endif
-
-%description libGLESv1_CM1
-OpenGL|ES is an API for full-function 2D and 3D
-graphics on embedded systems - including consoles, phones, appliances
-and vehicles. It contains a subset of OpenGL plus a number of
-extensions for the special needs of embedded systems.
-
-OpenGL|ES 1.x provides an API for fixed-function hardware.
-
 %package libGLESv1_CM-devel
 Summary:        Development files for the OpenGL ES 1.x API
 Group:          Development/Libraries/C and C++
 Requires:       Mesa-KHR-devel = %{version}
-Requires:       Mesa-libGLESv1_CM1 = %{version}
-Requires:       pkgconfig(egl)
-%if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
-%endif
+Requires:       pkgconfig(egl)
 
 %description libGLESv1_CM-devel
 OpenGL|ES is an API for full-function 2D and 3D
@@ -410,34 +381,12 @@ OpenGL|ES 1.x provides an API for fixed-function hardware.
 This package provides a development environment for building programs
 using the OpenGL|ES 1.x APIs.
 
-%package libGLESv2-2
-Summary:        OpenGL|ES 2.x API implementation
-Group:          System/Libraries
-%if 0%{?libglvnd}
-Requires:       libglvnd >= 0.1.0
-%endif
-
-%description libGLESv2-2
-OpenGL|ES is an API for full-function 2D and 3D
-graphics on embedded systems - including consoles, phones, appliances
-and vehicles. It contains a subset of OpenGL plus a number of
-extensions for the special needs of embedded systems.
-
-OpenGL|ES 2.x provides an API for programmable hardware including
-vertex and fragment shaders.
-
-The libGLESv2.so.2 library provides symbols for all OpenGL ES 2 and
-ES 3 entry points.
-
 %package libGLESv2-devel
 Summary:        Development files for the OpenGL ES 2.x API
 Group:          Development/Libraries/C and C++
 Requires:       Mesa-KHR-devel = %{version}
-Requires:       Mesa-libGLESv2-2 = %{version}
-Requires:       pkgconfig(egl)
-%if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
-%endif
+Requires:       pkgconfig(egl)
 
 %description libGLESv2-devel
 OpenGL|ES is an API for full-function 2D and 3D
@@ -456,9 +405,6 @@ Summary:        Development files for the OpenGL ES 3.x API
 Group:          Development/Libraries/C and C++
 Requires:       Mesa-KHR-devel = %{version}
 Requires:       pkgconfig(egl)
-%if 0%{?libglvnd} == 0
-Requires:       Mesa-libGLESv2-2 = %{version}
-%endif
 
 %description libGLESv3-devel
 OpenGL|ES is an API for full-function 2D and 3D
@@ -699,6 +645,24 @@ Requires:       libvulkan_radeon = %{version}
 %description -n Mesa-libVulkan-devel
 This package contains the development files for Mesa's Vulkan implementation.
 
+%package -n Mesa-vulkan-device-select
+Summary:        Vulkan layer to select Vulkan devices provided by Mesa
+Group:          System/Libraries
+Requires:       libvulkan_intel = %{version}
+Requires:       libvulkan_radeon = %{version}
+
+%description -n Mesa-vulkan-device-select
+This package contains the VK_MESA_device_select Vulkan layer
+
+%package -n Mesa-vulkan-overlay
+Summary:        Mesa Vulkan Overlay layer
+Group:          System/Libraries
+Requires:       libvulkan_intel = %{version}
+Requires:       libvulkan_radeon = %{version}
+
+%description -n Mesa-vulkan-overlay
+This package contains the VK_MESA_Overlay Vulkan layer
+
 %package -n libxatracker2
 Version:        1.0.0
 Release:        0
@@ -732,38 +696,21 @@ programs against the XA state tracker.
 # remove some docs
 rm -rf docs/README.{VMS,WIN32,OS2}
 
-%if 0%{with_llvm}
-%if 0%{?suse_version} >= 1550
-%if %{pkg_vcmp llvm-devel >= 9.0}
-%patch1 -p1
-%endif
-%else
-%if %{pkg_vcmp llvm9-devel >= 9.0}
-%patch1 -p1
-%endif
-%endif
-%endif
 %patch2 -p1
 %patch54 -p1
 %patch58 -p1
-%patch61 -p1
-%patch62 -p1
-%patch63 -p1
-%patch64 -p1
-%patch66 -p1
-
-# Remove requires to libglvnd/libglvnd-devel from baselibs.conf when
-# disabling libglvnd build; ugly ...
-%if 0%{?libglvnd} == 0
-grep -v libglvnd "%{_sourcedir}/baselibs.conf" >"%{_sourcedir}/temp" && \
-  mv "%{_sourcedir}/temp" "%{_sourcedir}/baselibs.conf"
-%endif
 
 # Remove requires to vulkan libs from baselibs.conf on platforms
 # where vulkan build is disabled; ugly ...
 %if 0%{?with_vulkan} == 0
 grep -v -i vulkan "%{_sourcedir}/baselibs.conf" >"%{_sourcedir}/temp" && \
   mv "%{_sourcedir}/temp" "%{_sourcedir}/baselibs.conf"
+%endif
+
+# Avoid build error for PowerPC
+# https://bugzilla.opensuse.org/show_bug.cgi?id=1171045
+%ifarch ppc64 ppc64le
+sed -i -e s/cpp_std=gnu++11/cpp_std=gnu++14/g meson.build
 %endif
 
 %build
@@ -778,9 +725,7 @@ egl_platforms=x11,drm,surfaceless,wayland
             -Dglx=disabled \
             -Dosmesa=none \
 %else
-%if 0%{?libglvnd}
             -Dglvnd=true \
-%endif
             -Dgles1=true \
             -Dgles2=true \
             -Degl=true \
@@ -800,6 +745,9 @@ egl_platforms=x11,drm,surfaceless,wayland
 %endif
 %if 0%{with_opencl}
             -Dgallium-opencl=icd \
+%if 0%{?suse_version} >= 1550
+            --sysconfdir=%{_datadir} \
+%endif
 %endif
             -Ddri-search-path=%{_libdir}/dri \
 %if 0%{with_llvm}
@@ -815,6 +763,8 @@ egl_platforms=x11,drm,surfaceless,wayland
 %endif
 %if 0%{with_vulkan}
             -Dvulkan-drivers=intel,amd \
+            -Dvulkan-device-select-layer=true \
+            -Dvulkan-overlay-layer=true \
 %else
             -Dvulkan-drivers= \
 %endif
@@ -838,6 +788,9 @@ egl_platforms=x11,drm,surfaceless,wayland
 %else
             -Ddri-drivers=swrast \
             -Dgallium-drivers= \
+%endif
+%ifarch aarch64 %{ix86} x86_64 ppc64le s390x
+            -Dvalgrind=true \
 %endif
             -Db_ndebug=true \
             -Dc_args="%{optflags}" \
@@ -897,16 +850,10 @@ rm -f %{buildroot}/%{_libdir}/vdpau/libvdpau_gallium.so
 
 rm -rf %{buildroot}/%{_libdir}/dri/swrast_dri.so
 
-%if 0%{?libglvnd} == 0
-# Make a symlink to libGL.so.1.2 for compatibility (bnc#809359, bnc#831306)
-test -f %{buildroot}%{_libdir}/libGL.so.1.2 || \
-  ln -s `readlink %{buildroot}%{_libdir}/libGL.so.1` %{buildroot}%{_libdir}/libGL.so.1.2
-%else
 rm -f %{buildroot}%{_libdir}/libGLES*
 # glvnd needs a default provider for indirect rendering where it cannot
 # determine the vendor
 ln -s %{_libdir}/libGLX_mesa.so.0 %{buildroot}%{_libdir}/libGLX_indirect.so.0
-%endif
 
 # pickup pkgconfig files from libglvnd build
 rm -f %{buildroot}/%{_libdir}/pkgconfig/{gl,egl,glesv1_cm,glesv2}.pc
@@ -941,14 +888,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %postun libGL1 -p /sbin/ldconfig
 
-%post   libGLESv1_CM1 -p /sbin/ldconfig
-
-%postun libGLESv1_CM1 -p /sbin/ldconfig
-
-%post   libGLESv2-2 -p /sbin/ldconfig
-
-%postun libGLESv2-2 -p /sbin/ldconfig
-
 %post   -n libOSMesa8 -p /sbin/ldconfig
 
 %postun -n libOSMesa8 -p /sbin/ldconfig
@@ -977,20 +916,13 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %config %{_datadir}/drirc.d/*
 
 %files libEGL1
-%if 0%{?libglvnd}
 %{_libdir}/libEGL_mesa.so*
 %dir %{_datadir}/glvnd
 %dir %{_datadir}/glvnd/egl_vendor.d
 %{_datadir}/glvnd/egl_vendor.d/50_mesa.json
-%else
-%{_libdir}/libEGL.so.1*
-%endif
 
 %files libEGL-devel
 %{_includedir}/EGL
-%if !0%{?libglvnd}
-%{_libdir}/libEGL.so
-%endif
 %{_libdir}/pkgconfig/egl.pc
 
 %files KHR-devel
@@ -998,45 +930,22 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_includedir}/KHR
 
 %files libGL1
-%if 0%{?libglvnd}
 %{_libdir}/libGLX_mesa.so*
 %{_libdir}/libGLX_indirect.so*
-%else
-%{_libdir}/libGL.so.1*
-%endif
 
 %files libGL-devel
 %dir %{_includedir}/GL
 %{_includedir}/GL/*.h
 %exclude %{_includedir}/GL/osmesa.h
-%if 0%{?libglvnd} == 0
-%{_libdir}/libGL.so
-%endif
 %{_libdir}/pkgconfig/gl.pc
 %{_mandir}/man3/gl[A-Z]*
 
-%files libGLESv1_CM1
-%if 0%{?libglvnd} == 0
-%{_libdir}/libGLESv1_CM.so.1*
-%endif
-
 %files libGLESv1_CM-devel
 %{_includedir}/GLES
-%if 0%{?libglvnd} == 0
-%{_libdir}/libGLESv1_CM.so
-%endif
 %{_libdir}/pkgconfig/glesv1_cm.pc
-
-%files libGLESv2-2
-%if 0%{?libglvnd} == 0
-%{_libdir}/libGLESv2.so.2*
-%endif
 
 %files libGLESv2-devel
 %{_includedir}/GLES2
-%if 0%{?libglvnd} == 0
-%{_libdir}/libGLESv2.so
-%endif
 %{_libdir}/pkgconfig/glesv2.pc
 
 %files libGLESv3-devel
@@ -1073,10 +982,10 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %if %{xvmc_support}
 %files -n libXvMC_nouveau
-%{_libdir}/libXvMCnouveau.so
+%{_libdir}/libXvMCnouveau.so*
 
 %files -n libXvMC_r600
-%{_libdir}/libXvMCr600.so
+%{_libdir}/libXvMCr600.so*
 %endif
 
 %if %{vdpau_nouveau}
@@ -1158,9 +1067,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %files devel
 %doc docs/*.html
-%if 0%{?libglvnd} >= 120
-/usr/share/man/man3/*
-%endif
 
 # !drivers
 %endif
@@ -1178,9 +1084,15 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %if 0%{with_opencl}
 %files -n Mesa-libOpenCL
+%if 0%{?suse_version} >= 1550
+%dir %{_datadir}/OpenCL
+%dir %{_datadir}/OpenCL/vendors
+%{_datadir}/OpenCL/vendors/mesa.icd
+%else
 %dir %{_sysconfdir}/OpenCL
 %dir %{_sysconfdir}/OpenCL/vendors
 %{_sysconfdir}/OpenCL/vendors/mesa.icd
+%endif
 %{_libdir}/libMesaOpenCL.so*
 %endif
 
@@ -1207,6 +1119,19 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %files -n Mesa-libVulkan-devel
 %dir %{_includedir}/vulkan
 %{_includedir}/vulkan/*
+
+%files -n Mesa-vulkan-device-select
+%{_libdir}/libVkLayer_MESA_device_select.so
+%dir %{_datadir}/vulkan
+%dir %{_datadir}/vulkan/implicit_layer.d
+%{_datadir}/vulkan/implicit_layer.d/VkLayer_MESA_device_select.json
+
+%files -n Mesa-vulkan-overlay
+%{_bindir}/mesa-overlay-control.py
+%{_libdir}/libVkLayer_MESA_overlay.so
+%dir %{_datadir}/vulkan
+%dir %{_datadir}/vulkan/explicit_layer.d
+%{_datadir}/vulkan/explicit_layer.d/VkLayer_MESA_overlay.json
 %endif
 
 %changelog
