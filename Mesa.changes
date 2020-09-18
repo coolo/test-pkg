@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Sep 18 11:11:14 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- buildfix-ppc64le.patch
+  * buildfix for ppc64le (boo#1176562)
+
+-------------------------------------------------------------------
 Thu Sep 17 17:51:17 UTC 2020 - Dirk Mueller <dmueller@suse.com>
 
 - update to 20.1.8:
