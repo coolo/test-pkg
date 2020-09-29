@@ -41,7 +41,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 20.1.8
+%define _version 20.2.0
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -109,7 +109,7 @@
 %endif
 
 Name:           Mesa-drivers
-Version:        20.1.8
+Version:        20.2.0
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -917,7 +917,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %if !%{drivers}
 %files
-%license docs/license.html
+%license docs/license.rst
 %doc docs/README*
 %dir %{_datadir}/drirc.d
 %config %{_datadir}/drirc.d/*
@@ -1073,7 +1073,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_libdir}/pkgconfig/dri.pc
 
 %files devel
-%doc docs/*.html
+%doc docs/*.rst
 
 # !drivers
 %endif
