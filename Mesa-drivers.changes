@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Sep 30 09:17:14 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- U_fix-mpeg1_2-decode-mesa-20.2.patch
+  * additional patch currently needed for Mesa 20.2 (boo1173185) 
+
+-------------------------------------------------------------------
 Tue Sep 29 09:21:57 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - update to 20.2.0
