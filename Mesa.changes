@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Oct 15 09:59:46 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- reenabled U_fix-mpeg1_2-decode-mesa-20.2.patch due to regression
+  reported in boo#1173185 
+
+-------------------------------------------------------------------
 Wed Oct 14 20:26:56 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - update to 20.2.1

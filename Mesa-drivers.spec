@@ -705,7 +705,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %ifarch ppc64le
 %patch60 -p1
 %endif
-#%patch100 -p1
+%patch100 -p1
 
 # Remove requires to vulkan libs from baselibs.conf on platforms
 # where vulkan build is disabled; ugly ...
