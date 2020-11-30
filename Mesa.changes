@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Nov 30 13:56:08 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- use llvm11 on factory/TW and sle15-sp3/Leap 15.3 
+
+-------------------------------------------------------------------
 Sun Nov 29 12:35:33 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - enabled build of radeonsi DRI and VDPAU driver on aarch64
