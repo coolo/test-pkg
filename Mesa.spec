@@ -126,7 +126,6 @@ Patch2:         n_add-Mesa-headers-again.patch
 # never to be upstreamed
 Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
 Patch58:        u_dep_xcb.patch
-Patch60:        buildfix-ppc64le.patch
 Patch100:       U_fix-mpeg1_2-decode-mesa-20.2.patch
 BuildRequires:  bison
 BuildRequires:  fdupes
@@ -709,9 +708,6 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch2 -p1
 %patch54 -p1
 %patch58 -p1
-%ifarch ppc64le
-%patch60 -p1
-%endif
 %patch100 -p1
 
 # Remove requires to vulkan libs from baselibs.conf on platforms
