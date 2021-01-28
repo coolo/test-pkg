@@ -1,7 +1,7 @@
 #
 # spec file for package Mesa-drivers
 #
-# Copyright (c) 2021 SUSE LLC
+# Copyright (c) 2020 SUSE LLC
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -41,7 +41,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 20.3.3
+%define _version 20.2.4
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -109,7 +109,7 @@
 %endif
 
 Name:           Mesa-drivers
-Version:        20.3.3
+Version:        20.2.4
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -127,6 +127,7 @@ Patch2:         n_add-Mesa-headers-again.patch
 # never to be upstreamed
 Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
 Patch58:        u_dep_xcb.patch
+Patch60:        buildfix-ppc64le.patch
 Patch100:       U_fix-mpeg1_2-decode-mesa-20.2.patch
 BuildRequires:  bison
 BuildRequires:  fdupes
@@ -709,6 +710,9 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch2 -p1
 %patch54 -p1
 %patch58 -p1
+%ifarch ppc64le
+%patch60 -p1
+%endif
 %patch100 -p1
 
 # Remove requires to vulkan libs from baselibs.conf on platforms
@@ -725,7 +729,7 @@ sed -i -e s/cpp_std=gnu++11/cpp_std=gnu++14/g meson.build
 %endif
 
 %build
-egl_platforms=x11,wayland
+egl_platforms=x11,drm,surfaceless,wayland
 
 %meson \
             --auto-features=disabled \
