@@ -1,8 +1,36 @@
 -------------------------------------------------------------------
+Wed Feb 24 22:58:43 UTC 2021 - Dirk Müller <dmueller@suse.com>
+
+- add U_use-correct-include-definitions.patch (bsc#1182719) 
+
+-------------------------------------------------------------------
 Wed Nov 27 11:20:43 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
 
 - u_call-shmget-with-permission-0600-instead-of-0777.patch
   * CVE-2019-5068 (bsc#1156015)
+
+-------------------------------------------------------------------
+Thu Sep 19 12:02:59 UTC 2019 - Michael Gorse <mgorse@suse.com>
+
+- Mesa-libEGL-devel needs Mesa-KHR-devel (bsc#1117365)
+
+-------------------------------------------------------------------
+Mon Dec 10 15:38:24 UTC 2018 - Ismail Dönmez <idonmez@suse.com>
+
+- Fix baselibs.conf entry for Mesa-KHR-devel (missing "-") 
+
+-------------------------------------------------------------------
+Tue Nov 27 10:50:17 UTC 2018 - sndirsch@suse.com
+
+- added libGL-Mesa-devel split-off provides to Mesa-KHR-devel
+  package, since /usr/include/KHR/khrplatform.h moved between
+  these two packages (related to bsc#1117365)
+
+-------------------------------------------------------------------
+Tue Nov 27 08:42:43 UTC 2018 - msrb@suse.com
+
+- Place khrplatform.h into new package Mesa-KHR-devel. It is now
+  required by all devel packages that need it. (bsc#1117365)
 
 -------------------------------------------------------------------
 Fri Oct 26 11:21:04 UTC 2018 - msrb@suse.com

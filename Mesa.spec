@@ -135,6 +135,7 @@ Patch18:        n_VDPAU-XVMC-libs-Replace-hardlinks-with-copies.patch
 Patch31:        archlinux_0001-Fix-linkage-against-shared-glapi.patch
 Patch32:        archlinux_glvnd-fix-gl-dot-pc.patch
 # Upstream
+Patch42:        U_use-correct-include-definitions.patch
 Patch43:        u_r600-egd_tables.py-make-the-script-python-2-3-compat.patch
 Patch47:        u_st-dri-don-t-set-queryDmaBufFormats-queryDmaBufModif.patch
 Patch48:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
@@ -315,6 +316,7 @@ support.
 %package libEGL-devel
 Summary:        Development files for the EGL API
 Group:          Development/Libraries/C and C++
+Requires:       Mesa-KHR-devel = %{version}
 Requires:       Mesa-libEGL1 = %{version}
 %if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
@@ -330,6 +332,14 @@ OpenGL|ES and OpenVG.
 
 This package provides the development environment for compiling
 programs against the EGL library.
+
+%package KHR-devel
+Summary:        Mesa Khronos development headers
+Group:          Development/Libraries/C and C++
+Provides:       Mesa-libGL-devel:/usr/include/KHR/khrplatform.h
+
+%description KHR-devel
+Mesa Khronos development headers.
 
 %package libGL1
 Summary:        The GL/GLX runtime of the Mesa 3D graphics library
@@ -352,6 +362,7 @@ the X Window System.
 %package libGL-devel
 Summary:        GL/GLX development files of the OpenGL API
 Group:          Development/Libraries/C and C++
+Requires:       Mesa-KHR-devel = %{version}
 Requires:       Mesa-libGL1 = %{version}
 %if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
@@ -384,6 +395,7 @@ OpenGL|ES 1.x provides an API for fixed-function hardware.
 Summary:        Development files for the OpenGL ES 1.x API
 Group:          Development/Libraries/C and C++
 Requires:       Mesa-libGLESv1_CM1 = %{version}
+Requires:       Mesa-KHR-devel = %{version}
 %if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
 %endif
@@ -422,6 +434,7 @@ ES 3 entry points.
 %package libGLESv2-devel
 Summary:        Development files for the OpenGL ES 2.x API
 Group:          Development/Libraries/C and C++
+Requires:       Mesa-KHR-devel = %{version}
 Requires:       Mesa-libGLESv2-2 = %{version}
 %if 0%{?libglvnd}
 Requires:       libglvnd-devel >= 0.1.0
@@ -443,6 +456,7 @@ applications using the OpenGL|ES 2.x APIs.
 %package libGLESv3-devel
 Summary:        Development files for the OpenGL ES 3.x API
 Group:          Development/Libraries/C and C++
+Requires:       Mesa-KHR-devel = %{version}
 %if 0%{?libglvnd} == 0
 Requires:       Mesa-libGLESv2-2 = %{version}
 %endif
@@ -745,6 +759,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch32 -p1
 %endif
 
+%patch42 -p1
 %patch43 -p1
 %patch47 -p1
 %patch48 -p1
@@ -873,6 +888,9 @@ rm %{buildroot}/%{_includedir}/gbm.h
 rm %{buildroot}/%{_libdir}/libgbm.so*
 rm %{buildroot}/%{_libdir}/pkgconfig/gbm.pc
 
+# in KHR-devel
+rm -rf %{buildroot}/%{_includedir}/KHR
+
 %else
 %if 0%{?libglvnd} == 0
 # Make a symlink to libGL.so.1.2 for compatibility (bnc#809359, bnc#831306)
@@ -965,11 +983,14 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %files libEGL-devel
 %defattr(-,root,root)
 %{_includedir}/EGL
-%{_includedir}/KHR
 %if !0%{?libglvnd}
 %{_libdir}/libEGL.so
 %endif
 %{_libdir}/pkgconfig/egl.pc
+
+%files KHR-devel
+%dir %{_includedir}/KHR
+%{_includedir}/KHR
 
 %files libGL1
 %defattr(-,root,root)
