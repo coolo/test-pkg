@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Sat Apr 17 16:41:33 UTC 2021 - Aaron Puchert <aaronpuchert@alice-dsl.net>
+
+- Move osmesa build back to Mesa, which we can now do after
+  choosing another dummy driver there.
+- Use LLVM-versioned libclc runtime dependency to ensure
+  bitcode compatibility. We have that in Tumbleweed and soon Leap.
+- U_clover-Fix-build-with-llvm-12.patch
+  * Fixes build with LLVM 12.
+- U_clover-Add-missing-include-for-llvm-12-build-fix.patch
+  * Fixes a missing header in the previous patch.
+
+-------------------------------------------------------------------
 Sat Apr 17 14:39:04 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
 
 - Mesa-devel: no longer require libOSMesa-devel, since it's now

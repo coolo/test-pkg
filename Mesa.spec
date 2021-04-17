@@ -127,6 +127,8 @@ Patch2:         n_add-Mesa-headers-again.patch
 Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
 Patch58:        u_dep_xcb.patch
 Patch100:       U_fix-mpeg1_2-decode-mesa-20.2.patch
+Patch101:       U_clover-Fix-build-with-llvm-12.patch
+Patch102:       U_clover-Add-missing-include-for-llvm-12-build-fix.patch
 BuildRequires:  bison
 BuildRequires:  fdupes
 BuildRequires:  flex
@@ -268,6 +270,7 @@ Requires:       Mesa-libGL-devel = %{version}
 Requires:       Mesa-libGLESv1_CM-devel = %{version}
 Requires:       Mesa-libGLESv2-devel = %{version}
 Requires:       Mesa-libglapi-devel = %{version}
+Requires:       libOSMesa-devel = %{version}
 Requires:       libgbm-devel
 Provides:       Mesa-devel-static = %{version}
 Provides:       xorg-x11-Mesa-devel = %{version}
@@ -614,7 +617,11 @@ This package contains the VDPAU state tracker for radeonsi.
 %package -n Mesa-libOpenCL
 Summary:        Mesa OpenCL implementation
 Group:          System/Libraries
+%if 0%{?suse_version} >= 1550 || 0%{?sle_version} >= 150300
+Requires:       libclc(llvm%{_llvm_sonum})
+%else
 Requires:       libclc
+%endif
 
 %description -n Mesa-libOpenCL
 This package contains the Mesa OpenCL implementation or GalliumCompute.
@@ -708,6 +715,8 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch54 -p1
 %patch58 -p1
 %patch100 -p1
+%patch101 -p1
+%patch102 -p1
 
 # Remove requires to vulkan libs from baselibs.conf on platforms
 # where vulkan build is disabled; ugly ...
@@ -732,13 +741,13 @@ egl_platforms=x11,wayland
             -Dgles2=false \
             -Degl=true \
             -Dglx=disabled \
-            -Dosmesa=true \
+            -Dosmesa=false \
 %else
             -Dglvnd=true \
             -Dgles1=true \
             -Dgles2=true \
             -Degl=true \
-            -Dosmesa=false \
+            -Dosmesa=true \
             -Dglx=auto \
             -Dllvm=false \
             -Dvulkan-drivers= \
@@ -855,11 +864,6 @@ rm -rf %{buildroot}/%{_includedir}/KHR
 # workaround needed since Mesa 19.0.2
 rm -f %{buildroot}/%{_libdir}/vdpau/libvdpau_gallium.so
 
-# for some reason osmesa.h is missing after installation
-mkdir -p -m 755 %{buildroot}/%{_includedir}/GL
-install -m 644 include/GL/osmesa.h \
-               %{buildroot}/%{_includedir}/GL/osmesa.h
-
 %else
 
 rm -f %{buildroot}/%{_libdir}/dri/*_dri.so
@@ -949,6 +953,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %files libGL-devel
 %dir %{_includedir}/GL
 %{_includedir}/GL/*.h
+%exclude %{_includedir}/GL/osmesa.h
 %{_libdir}/pkgconfig/gl.pc
 %{_mandir}/man3/gl[A-Z]*
 
@@ -963,6 +968,15 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %files libGLESv3-devel
 %{_includedir}/GLES3
 
+%files -n libOSMesa8
+%{_libdir}/libOSMesa.so.8.0.0
+%{_libdir}/libOSMesa.so.8
+
+%files -n libOSMesa-devel
+%{_includedir}/GL/osmesa.h
+%{_libdir}/libOSMesa.so
+%{_libdir}/pkgconfig/osmesa.pc
+
 %files -n libgbm1
 %{_libdir}/libgbm.so.1*
 
@@ -973,15 +987,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %endif
 
 %if %{drivers}
-%files -n libOSMesa8
-%{_libdir}/libOSMesa.so.8.0.0
-%{_libdir}/libOSMesa.so.8
-
-%files -n libOSMesa-devel
-%{_includedir}/GL/osmesa.h
-%{_libdir}/libOSMesa.so
-%{_libdir}/pkgconfig/osmesa.pc
-
 %ifarch aarch64 %{ix86} x86_64 %{arm} ppc64 ppc64le riscv64
 %files -n libxatracker2
 %{_libdir}/libxatracker.so.2*
