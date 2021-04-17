@@ -40,7 +40,7 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 20.3.5
+%define _version 21.0.2
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -108,7 +108,7 @@
 %endif
 
 Name:           Mesa
-Version:        20.3.5
+Version:        21.0.2
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -733,13 +733,13 @@ egl_platforms=x11,wayland
             -Dgles2=false \
             -Degl=true \
             -Dglx=disabled \
-            -Dosmesa=none \
+            -Dosmesa=true \
 %else
             -Dglvnd=true \
             -Dgles1=true \
             -Dgles2=true \
             -Degl=true \
-            -Dosmesa=classic \
+            -Dosmesa=false \
             -Dglx=auto \
             -Dllvm=false \
             -Dvulkan-drivers= \
@@ -796,7 +796,7 @@ egl_platforms=x11,wayland
   %endif
   %endif
 %else
-            -Ddri-drivers=swrast \
+            -Ddri-drivers=auto \
             -Dgallium-drivers= \
 %endif
 %ifarch aarch64 %{ix86} x86_64 ppc64le s390x
@@ -856,9 +856,14 @@ rm -rf %{buildroot}/%{_includedir}/KHR
 # workaround needed since Mesa 19.0.2
 rm -f %{buildroot}/%{_libdir}/vdpau/libvdpau_gallium.so
 
+# for some reason osmesa.h is missing after installation
+mkdir -p -m 755 %{buildroot}/%{_includedir}/GL
+install -m 644 include/GL/osmesa.h \
+               %{buildroot}/%{_includedir}/GL/osmesa.h
+
 %else
 
-rm -rf %{buildroot}/%{_libdir}/dri/swrast_dri.so
+rm -f %{buildroot}/%{_libdir}/dri/*_dri.so
 
 rm -f %{buildroot}%{_libdir}/libGLES*
 # glvnd needs a default provider for indirect rendering where it cannot
@@ -936,7 +941,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_libdir}/pkgconfig/egl.pc
 
 %files KHR-devel
-%dir %{_includedir}/KHR
 %{_includedir}/KHR
 
 %files libGL1
@@ -946,7 +950,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %files libGL-devel
 %dir %{_includedir}/GL
 %{_includedir}/GL/*.h
-%exclude %{_includedir}/GL/osmesa.h
+#%exclude %{_includedir}/GL/osmesa.h
 %{_libdir}/pkgconfig/gl.pc
 %{_mandir}/man3/gl[A-Z]*
 
@@ -961,15 +965,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %files libGLESv3-devel
 %{_includedir}/GLES3
 
-%files -n libOSMesa8
-%{_libdir}/libOSMesa.so.8.0.0
-%{_libdir}/libOSMesa.so.8
-
-%files -n libOSMesa-devel
-%{_includedir}/GL/osmesa.h
-%{_libdir}/libOSMesa.so
-%{_libdir}/pkgconfig/osmesa.pc
-
 %files -n libgbm1
 %{_libdir}/libgbm.so.1*
 
@@ -980,6 +975,15 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %endif
 
 %if %{drivers}
+%files -n libOSMesa8
+%{_libdir}/libOSMesa.so.8.0.0
+%{_libdir}/libOSMesa.so.8
+
+%files -n libOSMesa-devel
+%{_includedir}/GL/osmesa.h
+%{_libdir}/libOSMesa.so
+%{_libdir}/pkgconfig/osmesa.pc
+
 %ifarch aarch64 %{ix86} x86_64 %{arm} ppc64 ppc64le riscv64
 %files -n libxatracker2
 %{_libdir}/libxatracker.so.2*
