@@ -269,7 +269,6 @@ Requires:       Mesa-libGL-devel = %{version}
 Requires:       Mesa-libGLESv1_CM-devel = %{version}
 Requires:       Mesa-libGLESv2-devel = %{version}
 Requires:       Mesa-libglapi-devel = %{version}
-Requires:       libOSMesa-devel = %{version}
 Requires:       libgbm-devel
 Provides:       Mesa-devel-static = %{version}
 Provides:       xorg-x11-Mesa-devel = %{version}
@@ -951,7 +950,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %files libGL-devel
 %dir %{_includedir}/GL
 %{_includedir}/GL/*.h
-#%exclude %{_includedir}/GL/osmesa.h
 %{_libdir}/pkgconfig/gl.pc
 %{_mandir}/man3/gl[A-Z]*
 

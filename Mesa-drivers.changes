@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sat Apr 17 14:39:04 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- Mesa-devel: no longer require libOSMesa-devel, since it's now
+  built in Mesa-drivers; packages should require it directly now,
+  preferrably via pkconfig(osmesa) ...
+
+-------------------------------------------------------------------
 Sat Apr 17 12:45:17 UTC 2021 - Tobias Klausmann <tobias.klausmann@freenet.de>
 
 - Switch dummy driver for mesa package from "auto" xorg driver (i965) to
