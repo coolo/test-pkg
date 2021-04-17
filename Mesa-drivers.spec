@@ -797,8 +797,8 @@ egl_platforms=x11,wayland
   %endif
   %endif
 %else
-            -Ddri-drivers=auto \
-            -Dgallium-drivers= \
+            -Ddri-drivers= \
+            -Dgallium-drivers=swrast \
 %endif
 %ifarch aarch64 %{ix86} x86_64 ppc64le s390x
             -Dvalgrind=true \

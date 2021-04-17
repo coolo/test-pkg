@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sat Apr 17 12:45:17 UTC 2021 - Tobias Klausmann <tobias.klausmann@freenet.de>
+
+- Switch dummy driver for mesa package from "auto" xorg driver (i965) to
+  gallium swrast driver
+
+-------------------------------------------------------------------
 Sat Apr 17 10:11:09 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
 
 - update to 21.0.2
