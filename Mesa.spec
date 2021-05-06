@@ -860,9 +860,10 @@ rm -rf %{buildroot}/%{_includedir}/KHR
 # workaround needed since Mesa 19.0.2
 rm -f %{buildroot}/%{_libdir}/vdpau/libvdpau_gallium.so
 
-# /usr/include/vulkan/vulkan_intel.h dropped with Mesa 21.1.0, but
-# let's keep the package containing an empty directory
+# dropped with Mesa 21.1.0
 mkdir -p -m 755 %{buildroot}/%{_includedir}/vulkan
+mkdir -p -m 755 %{buildroot}/%{_datadir}/vulkan/implicit_layer.d
+mkdir -p -m 755 %{buildroot}/%{_datadir}/vulkan/explicit_layer.d
 
 %else
 
@@ -1135,20 +1136,14 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 
 %files -n Mesa-libVulkan-devel
 %dir %{_includedir}/vulkan
-#%{_includedir}/vulkan/*
 
 %files -n Mesa-vulkan-device-select
-%{_libdir}/libVkLayer_MESA_device_select.so
 %dir %{_datadir}/vulkan
 %dir %{_datadir}/vulkan/implicit_layer.d
-%{_datadir}/vulkan/implicit_layer.d/VkLayer_MESA_device_select.json
 
 %files -n Mesa-vulkan-overlay
-%{_bindir}/mesa-overlay-control.py
-%{_libdir}/libVkLayer_MESA_overlay.so
 %dir %{_datadir}/vulkan
 %dir %{_datadir}/vulkan/explicit_layer.d
-%{_datadir}/vulkan/explicit_layer.d/VkLayer_MESA_overlay.json
 %endif
 
 %changelog

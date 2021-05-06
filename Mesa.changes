@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu May  6 19:00:36 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- adjusted filelist to removed vulkan files in Mesa 21.1.0 
+  (packages Mesa-libVulkan-devel, Mesa-vulkan-device-select,
+   Mesa-vulkan-overlay)
+
+-------------------------------------------------------------------
 Thu May  6 14:24:29 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
 
 - /usr/include/vulkan/vulkan_intel.h dropped with Mesa 21.1.0, but
