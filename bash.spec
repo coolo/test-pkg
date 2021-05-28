@@ -86,7 +86,7 @@ BuildRequires:  screen
 BuildRequires:  sed
 BuildRequires:  update-alternatives
 Requires(post): update-alternatives
-Requires(preun): update-alternatives
+Requires(preun):update-alternatives
 Provides:       /bin/bash
 Provides:       /bin/sh
 %global         _sysconfdir /etc
@@ -430,7 +430,8 @@ test ${rl1[2]} = ${rl2[2]} || exit 1
 %if 0%{?do_profiling}
   profilecflags=CFLAGS="$CFLAGS %cflags_profile_generate"
 %endif
-  make "$profilecflags" \
+  makeopts="Machine=%{_target_cpu} OS=linux VENDOR=suse MACHTYPE=%{_target_cpu}-suse-linux"
+  make $makeopts "$profilecflags" \
 	all printenv recho zecho xcase
   TMPDIR=$(mktemp -d /tmp/bash.XXXXXXXXXX) || exit 1
   > $SCREENLOG
@@ -444,9 +445,9 @@ test ${rl1[2]} = ${rl2[2]} || exit 1
   profilecflags=CFLAGS="$CFLAGS %cflags_profile_feedback -fprofile-correction"
   clean=clean
 %endif
-  make "$profilecflags" $clean all
-  make -C examples/loadables/
-  make documentation
+  make $makeopts "$profilecflags" $clean all
+  make $makeopts -C examples/loadables/
+  make $makeopts documentation
 
 %install
   %make_install
