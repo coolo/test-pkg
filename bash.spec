@@ -91,7 +91,7 @@ Provides:       /bin/bash
 Provides:       /bin/sh
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
-%global         _ldldir     /%{_libdir}/bash
+%global         _ldldir     %{_libdir}/bash
 %global         _minsh      0
 
 %description
