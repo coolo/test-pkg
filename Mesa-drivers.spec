@@ -760,7 +760,10 @@ programs against the XA state tracker.
 rm -rf docs/README.{VMS,WIN32,OS2}
 
 %patch2 -p1
+# no longer needed since gstreamer-plugins-vaapi 1.18.4
+%if 0%{?suse_version} < 1550
 %patch54 -p1
+%endif
 %patch58 -p1
 %patch100 -p1
 
