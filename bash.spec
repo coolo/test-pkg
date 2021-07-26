@@ -18,7 +18,7 @@
 
 %define         bextend %{nil}
 %define         bversion 5.1
-%define bpatchlvl %(tar -jtf %{_sourcedir}/bash-%{bversion}-patches.tar.bz2 | tail -n 1 | cut -d '/' -f 2 | cut -d '-' -f 2 | tr -d 0)
+%define         bpatchlvl %(bash %{_sourcedir}/get_version_number.sh %{_sourcedir})
 %global         _incdir     %{_includedir}
 %global         _ldldir     %{_libdir}/bash
 %global         _minsh      0
@@ -37,6 +37,7 @@ URL:            https://www.gnu.org/software/bash/bash.html
 # Git:          http://git.savannah.gnu.org/cgit/bash.git
 Source0:        ftp://ftp.gnu.org/gnu/bash/bash-%{bversion}%{bextend}.tar.gz
 Source1:        bash-%{bversion}-patches.tar.bz2
+Source2:        get_version_number.sh
 Source4:        run-tests
 Source5:        dot.bashrc
 Source6:        dot.profile
