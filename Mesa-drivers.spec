@@ -836,7 +836,7 @@ egl_platforms=x11,wayland
 %endif
   %ifarch %{ix86} x86_64
             -Ddri-drivers=i915,i965,nouveau,r100,r200 \
-            -Dgallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga,virgl,iris \
+            -Dgallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga,virgl,iris,crocus \
   %else
   %ifarch %{arm} aarch64
             -Ddri-drivers=nouveau \
