@@ -859,7 +859,11 @@ egl_platforms=x11,wayland
 %endif
             -Db_ndebug=true \
             -Dc_args="%{optflags}" \
+%ifarch %ix86
+            -Dcpp_args="$(echo %{optflags}|sed 's/-flto=auto//')"
+%else
             -Dcpp_args="%{optflags}"
+%endif
 
 %meson_build
 

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Sun Aug  8 08:52:15 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- fixed build on %ix86 by removing "-flto=auto" from optflags for
+  cpp
+
+-------------------------------------------------------------------
 Thu Aug  5 15:51:18 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
 
 - enabled build of 'crocus' Gallium3D OpenGL driver for i965 "Gen4"
