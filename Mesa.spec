@@ -1,7 +1,7 @@
 #
 # spec file for package Mesa
 #
-# Copyright (c) 2017 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2019 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -12,7 +12,7 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via http://bugs.opensuse.org/
+# Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
 
 
@@ -77,6 +77,8 @@ Patch24:        u_add_llvm_codegen_dependencies.patch
 Patch25:        U_r300g-Set-R300_VAP_CNTL-on-RSxxx-to-avoid-triangle-flickering.patch
 Patch26:        U_cso-don-t-release-sampler-states-that-are-bound.patch
 Patch27:        U_r600-Add-support-for-B5G5R5A1.patch
+
+Patch1156015:   u_call-shmget-with-permission-0600-instead-of-0777.patch
 
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
@@ -441,8 +443,8 @@ implementation of Mesa.
 %if 0%{?with_nine}
 %package libd3d
 Summary:        Mesa Direct3D9 state tracker
-Group:          System/Libraries
 # Manually provide d3d library (bnc#918294)
+Group:          System/Libraries
 %ifarch x86_64 s390x ppc64le aarch64
 Provides:       d3dadapter9.so.1()(64bit)
 %else
@@ -581,6 +583,8 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch25 -p1
 %patch26 -p1
 %patch27 -p1
+
+%patch1156015 -p1
 
 %build
 %if 0%{?suse_version} >= 1320
