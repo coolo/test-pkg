@@ -1,4 +1,231 @@
 -------------------------------------------------------------------
+Thu Sep 30 09:05:54 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 21.2.3
+  * third bugfix release
+
+-------------------------------------------------------------------
+Mon Sep 27 13:35:16 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+ - covers jira#SLE/SLE-18743
+
+-------------------------------------------------------------------
+Tue Sep 21 17:54:25 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 21.2.2
+  * second bugfix release: a ton of work went into panfrost, 
+    getting it closer to being conformant (it is conformant on
+    21.3!); fixes for ir3, croccus, nir, utils, llvmpipe, gallivm,
+    zink, glsl, v3d, vc4, intel, mesa, aco, iris, radv, and even
+    osmesa. 
+
+-------------------------------------------------------------------
+Sat Aug 28 13:36:12 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 21.2.1
+  * first bugfix release
+
+-------------------------------------------------------------------
+Sun Aug  8 08:52:15 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- fixed build on %ix86 by removing "-flto=auto" from optflags for
+  cpp
+
+-------------------------------------------------------------------
+Thu Aug  5 15:51:18 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- enabled build of 'crocus' Gallium3D OpenGL driver for i965 "Gen4"
+  through Haswell "Gen7" graphics (alternative to classic "i965"
+  OpenGL driver); use MESA_LOADER_DRIVER_OVERRIDE=crocus to use it;
+  in case of issues with video hardware acceleration(vaapi driver),
+  set LIBVA_DRIVER_NAME=i965
+
+-------------------------------------------------------------------
+Thu Aug  5 01:25:40 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 21.2.0
+  * new release
+
+-------------------------------------------------------------------
+Thu Jul 29 08:28:31 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 21.1.6
+  * sixth bugfix release
+
+-------------------------------------------------------------------
+Thu Jul 15 08:13:34 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 21.1.5
+  * fith bugfix release
+
+-------------------------------------------------------------------
+Thu Jul  1 09:39:29 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 21.1.4
+  * fourth bugfix release 
+
+-------------------------------------------------------------------
+Tue Jun 22 09:22:30 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- no longer apply n_drirc-disable-rgb10-for-chromium-on-amd.patch
+  on TW; no longer needed with gstreamer-plugins-vaapi 1.18.4; more
+  details on 
+  https://gitlab.freedesktop.org/gstreamer/gstreamer-vaapi/-/merge_requests/410
+
+-------------------------------------------------------------------
+Sat Jun 19 08:02:37 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 21.1.3
+  * third bugfix
+  * mostly AMD fixes
+
+-------------------------------------------------------------------
+Thu Jun  3 03:11:44 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 21.1.2
+  * second bugfix
+  * mostly AMD and Intel changes as usual, but also a decent amount
+    of ARM fixes and more.
+
+-------------------------------------------------------------------
+Wed Jun  2 09:27:33 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- no longer autoselect Mesa-dri-nouveau at all; autoselect 
+  libvdpau_nouveau depending on PCI ID (boo#1186721)
+
+-------------------------------------------------------------------
+Thu May 20 10:25:35 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 21.1.1
+  * bugfix release
+  * mostly AMD and Intel changes as usual, but also a decent amount
+    of ARM fixes and more 
+
+-------------------------------------------------------------------
+Wed May 19 08:29:07 UTC 2021 - Guillaume GARDET <guillaume.gardet@opensuse.org>
+
+- Add swrast to vulkan
+- Enable vulkan on %{arm} and aarch64 with: swrast, amd, 
+  broadcom and freedreno
+
+-------------------------------------------------------------------
+Fri May 14 03:24:24 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- reenabled build of device-select and overlay vulkan layers
+
+-------------------------------------------------------------------
+Thu May  6 19:00:36 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- adjusted filelist to removed vulkan files in Mesa 21.1.0 
+  (packages Mesa-libVulkan-devel, Mesa-vulkan-device-select,
+   Mesa-vulkan-overlay)
+
+-------------------------------------------------------------------
+Thu May  6 14:24:29 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- /usr/include/vulkan/vulkan_intel.h dropped with Mesa 21.1.0, but
+  let's keep the package containing an empty directory
+
+-------------------------------------------------------------------
+Thu May  6 11:45:47 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 21.1.0
+  * bunch of work here, lots of zink and softpipe, but bits and
+    pieces of other things: tgsi, freddreno, nir, panfrost, intel, 
+    spirv, core gallium, radv, aco, r600, and core mesa.
+- supersedes patches U_clover-Fix-build-with-llvm-12.patch,
+  U_clover-Add-missing-include-for-llvm-12-build-fix.patch
+
+-------------------------------------------------------------------
+Wed Apr 21 20:54:43 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 21.0.3
+  * fixes in haiku, core mesa, radeonsi, lavapipe, nir, radv, anv,
+    freedreno and turnip, etniviv, iris, egl, lima, core gallium,
+    spriv, v3d, meson
+
+-------------------------------------------------------------------
+Sat Apr 17 16:41:33 UTC 2021 - Aaron Puchert <aaronpuchert@alice-dsl.net>
+
+- Move osmesa build back to Mesa, which we can now do after
+  choosing another dummy driver there.
+- Use LLVM-versioned libclc runtime dependency to ensure
+  bitcode compatibility. We have that in Tumbleweed and soon Leap.
+- U_clover-Fix-build-with-llvm-12.patch
+  * Fixes build with LLVM 12.
+- U_clover-Add-missing-include-for-llvm-12-build-fix.patch
+  * Fixes a missing header in the previous patch.
+
+-------------------------------------------------------------------
+Sat Apr 17 14:39:04 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- Mesa-devel: no longer require libOSMesa-devel, since it's now
+  built in Mesa-drivers; packages should require it directly now,
+  preferrably via pkconfig(osmesa) ...
+
+-------------------------------------------------------------------
+Sat Apr 17 12:45:17 UTC 2021 - Tobias Klausmann <tobias.klausmann@freenet.de>
+
+- Switch dummy driver for mesa package from "auto" xorg driver (i965) to
+  gallium swrast driver
+
+-------------------------------------------------------------------
+Sat Apr 17 10:11:09 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 21.0.2
+  * many additions especially on the Radeon Vulkan (RADV) driver
+    front where sparse memory support is in place, AMD Smart Access
+    Memory / Resizable BAR optimizations, various RDNA 2
+    improvements, rapid packed math for ACO, and more.
+    Elsewhere in Mesa 21.0 there are continued RadeonSI 
+    optimizations, many Intel ANV and Iris improvements, OpenGL 3.3
+    for Freedreno, DXGI Winsys was added and initial Direct3D 12
+    code for WSL, OpenGL 4.1 for Zink, and more. 
+- moved osmesa build to Mesa-drivers since swrast driver has been
+  removed from Mesa
+
+-------------------------------------------------------------------
+Tue Apr  6 08:38:16 UTC 2021 - Andreas Schwab <schwab@suse.de>
+
+- Enable radeon and nouveau drivers on riscv64
+
+-------------------------------------------------------------------
+Tue Mar 30 19:00:03 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 20.3.5
+  * fith bugfix release for the 20.3 branch
+  * This is a quite large release with a huge number of fixes in it,
+    and is the last planned release for the 20.3.x series. Radv and
+    ACO dominate the changes for this release, but there are some
+    other things mixed in there.
+
+-------------------------------------------------------------------
+Mon Feb  1 10:50:16 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 20.3.4
+  * fourth bugfix release for the 20.3 branch
+
+-------------------------------------------------------------------
+Wed Jan 27 10:13:51 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- removed no longer needed buildfix-ppc64le.patch; build failed on
+  ppc64 due to this patch (bsc#1181439)
+
+-------------------------------------------------------------------
+Thu Jan 14 15:02:07 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- update to 20.3.3
+  * third bugfix release for the 20.3 branch 
+
+-------------------------------------------------------------------
+Thu Dec 31 13:02:52 UTC 2020 - Michał Rostecki <mrostecki@suse.com>
+
+- update to 20.3.2
+  * second bugfix release for the 20.3 branch
+- drm and surfaceless are not specified as platforms anymore,
+  remove them from egl_platforms
+
+-------------------------------------------------------------------
 Mon Dec  7 11:09:59 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - update to 20.2.4

@@ -1,7 +1,7 @@
 #
 # spec file for package Mesa
 #
-# Copyright (c) 2020 SUSE LLC
+# Copyright (c) 2021 SUSE LLC
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -40,12 +40,12 @@
 
 %define glamor 1
 %define _name_archive mesa
-%define _version 20.2.4
+%define _version 21.2.3
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
 
-%ifarch %{ix86} x86_64 %{arm} aarch64 ppc64 ppc64le
+%ifarch %{ix86} x86_64 %{arm} aarch64 ppc64 ppc64le riscv64
   %define gallium_loader 1
 %else
   %define gallium_loader 0
@@ -55,7 +55,7 @@
 %define vdpau_nouveau 0
 %define vdpau_radeon 0
 
-%ifarch %{ix86} x86_64 aarch64 %{arm} ppc64 ppc64le
+%ifarch %{ix86} x86_64 aarch64 %{arm} ppc64 ppc64le riscv64
   %define xvmc_support 1
   %define vdpau_nouveau 1
   %define vdpau_radeon 1
@@ -69,6 +69,11 @@
   %define with_opencl 1
   %ifarch %{ix86} x86_64
     %define with_vulkan 1
+    %define vulkan_drivers swrast,amd,intel
+  %endif
+  %ifarch %{arm} aarch64
+    %define with_vulkan 1
+    %define vulkan_drivers swrast,amd,broadcom,freedreno
   %endif
 %endif
 
@@ -108,7 +113,7 @@
 %endif
 
 Name:           Mesa
-Version:        20.2.4
+Version:        21.2.3
 Release:        0
 Summary:        System for rendering 3-D graphics
 License:        MIT
@@ -126,7 +131,6 @@ Patch2:         n_add-Mesa-headers-again.patch
 # never to be upstreamed
 Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
 Patch58:        u_dep_xcb.patch
-Patch60:        buildfix-ppc64le.patch
 Patch100:       U_fix-mpeg1_2-decode-mesa-20.2.patch
 BuildRequires:  bison
 BuildRequires:  fdupes
@@ -488,7 +492,6 @@ compiling programs and libraries using the DRI API.
 Summary:        Mesa DRI plug-in for 3D acceleration via Nouveau
 Group:          System/Libraries
 Requires:       Mesa = %{version}
-Supplements:    xf86-video-nouveau
 
 %description -n Mesa-dri-nouveau
 This package contains nouveau_dri.so, which is necessary for
@@ -584,7 +587,8 @@ videos and artefacts all over.
 %package -n libvdpau_nouveau
 Summary:        XVMC state tracker for Nouveau
 Group:          System/Libraries
-Supplements:    xf86-video-nouveau
+Supplements:    modalias(pci:v000010DEd*sv*sd*bc03sc*i*)
+Supplements:    modalias(pci:v000012D2d*sv*sd*bc03sc*i*)
 
 %description -n libvdpau_nouveau
 This package contains the VDPAU state tracker for Nouveau.
@@ -616,7 +620,11 @@ This package contains the VDPAU state tracker for radeonsi.
 %package -n Mesa-libOpenCL
 Summary:        Mesa OpenCL implementation
 Group:          System/Libraries
+%if 0%{?suse_version} >= 1550 || 0%{?sle_version} >= 150300
+Requires:       libclc(llvm%{_llvm_sonum})
+%else
 Requires:       libclc
+%endif
 
 %description -n Mesa-libOpenCL
 This package contains the Mesa OpenCL implementation or GalliumCompute.
@@ -646,11 +654,41 @@ Supplements:    xf86-video-ati
 %description -n libvulkan_radeon
 This package contains the Vulkan parts for Mesa.
 
+%package -n libvulkan_lvp
+Summary:        Mesa vulkan driver for LVP
+Group:          System/Libraries
+
+%description -n libvulkan_lvp
+This package contains the Vulkan parts for Mesa.
+
+%ifarch %{arm} aarch64
+%package -n libvulkan_broadcom
+Summary:        Mesa vulkan driver for Broadcom
+Group:          System/Libraries
+
+%description -n libvulkan_broadcom
+This package contains the Vulkan parts for Mesa.
+
+%package -n libvulkan_freedreno
+Summary:        Mesa vulkan driver for Freedreno
+Group:          System/Libraries
+
+%description -n libvulkan_freedreno
+This package contains the Vulkan parts for Mesa.
+%endif
+
 %package -n Mesa-libVulkan-devel
 Summary:        Mesa's Vulkan development files
 Group:          Development/Libraries/C and C++
+%ifarch %{ix86} x86_64
 Requires:       libvulkan_intel = %{version}
+%endif
+Requires:       libvulkan_lvp = %{version}
 Requires:       libvulkan_radeon = %{version}
+%ifarch %arm} aarch64
+Requires:       libvulkan_broadcom = %{version}
+Requires:       libvulkan_freedreno = %{version}
+%endif
 
 %description -n Mesa-libVulkan-devel
 This package contains the development files for Mesa's Vulkan implementation.
@@ -658,8 +696,15 @@ This package contains the development files for Mesa's Vulkan implementation.
 %package -n Mesa-vulkan-device-select
 Summary:        Vulkan layer to select Vulkan devices provided by Mesa
 Group:          System/Libraries
+%ifarch %{ix86} x86_64
 Requires:       libvulkan_intel = %{version}
+%endif
+Requires:       libvulkan_lvp = %{version}
 Requires:       libvulkan_radeon = %{version}
+%ifarch %arm} aarch64
+Requires:       libvulkan_broadcom = %{version}
+Requires:       libvulkan_freedreno = %{version}
+%endif
 
 %description -n Mesa-vulkan-device-select
 This package contains the VK_MESA_device_select Vulkan layer
@@ -667,8 +712,15 @@ This package contains the VK_MESA_device_select Vulkan layer
 %package -n Mesa-vulkan-overlay
 Summary:        Mesa Vulkan Overlay layer
 Group:          System/Libraries
+%ifarch %{ix86} x86_64
 Requires:       libvulkan_intel = %{version}
+%endif
+Requires:       libvulkan_lvp = %{version}
 Requires:       libvulkan_radeon = %{version}
+%ifarch %arm} aarch64
+Requires:       libvulkan_broadcom = %{version}
+Requires:       libvulkan_freedreno = %{version}
+%endif
 
 %description -n Mesa-vulkan-overlay
 This package contains the VK_MESA_Overlay Vulkan layer
@@ -707,11 +759,11 @@ programs against the XA state tracker.
 rm -rf docs/README.{VMS,WIN32,OS2}
 
 %patch2 -p1
+# no longer needed since gstreamer-plugins-vaapi 1.18.4
+%if 0%{?suse_version} < 1550
 %patch54 -p1
-%patch58 -p1
-%ifarch ppc64le
-%patch60 -p1
 %endif
+%patch58 -p1
 %patch100 -p1
 
 # Remove requires to vulkan libs from baselibs.conf on platforms
@@ -728,7 +780,7 @@ sed -i -e s/cpp_std=gnu++11/cpp_std=gnu++14/g meson.build
 %endif
 
 %build
-egl_platforms=x11,drm,surfaceless,wayland
+egl_platforms=x11,wayland
 
 %meson \
             --auto-features=disabled \
@@ -737,13 +789,13 @@ egl_platforms=x11,drm,surfaceless,wayland
             -Dgles2=false \
             -Degl=true \
             -Dglx=disabled \
-            -Dosmesa=none \
+            -Dosmesa=false \
 %else
             -Dglvnd=true \
             -Dgles1=true \
             -Dgles2=true \
             -Degl=true \
-            -Dosmesa=classic \
+            -Dosmesa=true \
             -Dglx=auto \
             -Dllvm=false \
             -Dvulkan-drivers= \
@@ -776,21 +828,20 @@ egl_platforms=x11,drm,surfaceless,wayland
             -Dgallium-xa=true \
 %endif
 %if 0%{with_vulkan}
-            -Dvulkan-drivers=intel,amd \
-            -Dvulkan-device-select-layer=true \
-            -Dvulkan-overlay-layer=true \
+            -Dvulkan-drivers=%{?vulkan_drivers} \
+            -Dvulkan-layers=device-select,overlay \
 %else
             -Dvulkan-drivers= \
 %endif
   %ifarch %{ix86} x86_64
             -Ddri-drivers=i915,i965,nouveau,r100,r200 \
-            -Dgallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga,virgl,iris \
+            -Dgallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga,virgl,iris,crocus \
   %else
   %ifarch %{arm} aarch64
             -Ddri-drivers=nouveau \
             -Dgallium-drivers=r300,r600,radeonsi,nouveau,swrast,virgl,freedreno,vc4,etnaviv,lima,panfrost,kmsro,v3d \
   %else
-  %ifarch ppc64 ppc64le
+  %ifarch ppc64 ppc64le riscv64
             -Ddri-drivers=nouveau \
             -Dgallium-drivers=r300,r600,radeonsi,nouveau,swrast \
   %else
@@ -800,15 +851,19 @@ egl_platforms=x11,drm,surfaceless,wayland
   %endif
   %endif
 %else
-            -Ddri-drivers=swrast \
-            -Dgallium-drivers= \
+            -Ddri-drivers= \
+            -Dgallium-drivers=swrast \
 %endif
 %ifarch aarch64 %{ix86} x86_64 ppc64le s390x
             -Dvalgrind=true \
 %endif
             -Db_ndebug=true \
             -Dc_args="%{optflags}" \
+%ifarch %ix86
+            -Dcpp_args="$(echo %{optflags}|sed 's/-flto=auto//')"
+%else
             -Dcpp_args="%{optflags}"
+%endif
 
 %meson_build
 
@@ -860,9 +915,12 @@ rm -rf %{buildroot}/%{_includedir}/KHR
 # workaround needed since Mesa 19.0.2
 rm -f %{buildroot}/%{_libdir}/vdpau/libvdpau_gallium.so
 
+# dropped with Mesa 21.1.0
+mkdir -p -m 755 %{buildroot}/%{_includedir}/vulkan
+
 %else
 
-rm -rf %{buildroot}/%{_libdir}/dri/swrast_dri.so
+rm -f %{buildroot}/%{_libdir}/dri/*_dri.so
 
 rm -f %{buildroot}%{_libdir}/libGLES*
 # glvnd needs a default provider for indirect rendering where it cannot
@@ -940,7 +998,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_libdir}/pkgconfig/egl.pc
 
 %files KHR-devel
-%dir %{_includedir}/KHR
 %{_includedir}/KHR
 
 %files libGL1
@@ -984,7 +1041,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %endif
 
 %if %{drivers}
-%ifarch aarch64 %{ix86} x86_64 %{arm} ppc64 ppc64le
+%ifarch aarch64 %{ix86} x86_64 %{arm} ppc64 ppc64le riscv64
 %files -n libxatracker2
 %{_libdir}/libxatracker.so.2*
 
@@ -1024,7 +1081,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_libdir}/vdpau/libvdpau_r600.so.1.0.0
 %endif
 
-%ifarch %{ix86} x86_64 ppc64 ppc64le %{arm} aarch64
+%ifarch %{ix86} x86_64 ppc64 ppc64le %{arm} aarch64 riscv64
 %files -n libvdpau_radeonsi
 %{_libdir}/vdpau/libvdpau_radeonsi.so
 %{_libdir}/vdpau/libvdpau_radeonsi.so.1
@@ -1045,7 +1102,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %files -n Mesa-dri
 %dir %{_libdir}/dri
 %{_libdir}/dri/*_dri.so
-%ifarch %{ix86} x86_64 aarch64 %{arm} ppc64 ppc64le
+%ifarch %{ix86} x86_64 aarch64 %{arm} ppc64 ppc64le riscv64
 %exclude %{_libdir}/dri/nouveau_dri.so
 %exclude %{_libdir}/dri/nouveau_vieux_dri.so
 %endif
@@ -1060,7 +1117,7 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_libdir}/gallium-pipe/pipe_*.so
 %endif
 
-%ifarch %{ix86} x86_64 aarch64 %{arm} ppc64 ppc64le
+%ifarch %{ix86} x86_64 aarch64 %{arm} ppc64 ppc64le riscv64
 %files -n Mesa-dri-nouveau
 %{_libdir}/dri/nouveau_dri.so
 %{_libdir}/dri/nouveau_vieux_dri.so
@@ -1111,18 +1168,20 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %endif
 
 %if %{drivers}
-%ifarch %{ix86} x86_64 aarch64 %{arm} ppc64 ppc64le
+%ifarch %{ix86} x86_64 aarch64 %{arm} ppc64 ppc64le riscv64
 %files -n Mesa-libva
 %{_libdir}/dri/*_drv_video.so
 %endif
 %endif
 
 %if 0%{with_vulkan}
+%ifarch %{ix86} x86_64
 %files -n libvulkan_intel
 %dir %{_datadir}/vulkan
 %dir %{_datadir}/vulkan/icd.d
 %{_datadir}/vulkan/icd.d/intel_icd.*.json
 %{_libdir}/libvulkan_intel.so
+%endif
 
 %files -n libvulkan_radeon
 %{_libdir}/libvulkan_radeon.so
@@ -1130,9 +1189,28 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %dir %{_datadir}/vulkan/icd.d
 %{_datadir}/vulkan/icd.d/radeon_icd.*.json
 
+%files -n libvulkan_lvp
+%{_libdir}/libvulkan_lvp.so
+%dir %{_datadir}/vulkan
+%dir %{_datadir}/vulkan/icd.d
+%{_datadir}/vulkan/icd.d/lvp_icd.*.json
+
+%ifarch %{arm} aarch64
+%files -n libvulkan_broadcom
+%{_libdir}/libvulkan_broadcom.so
+%dir %{_datadir}/vulkan
+%dir %{_datadir}/vulkan/icd.d
+%{_datadir}/vulkan/icd.d/broadcom_icd.*.json
+
+%files -n libvulkan_freedreno
+%{_libdir}/libvulkan_freedreno.so
+%dir %{_datadir}/vulkan
+%dir %{_datadir}/vulkan/icd.d
+%{_datadir}/vulkan/icd.d/freedreno_icd.*.json
+%endif
+
 %files -n Mesa-libVulkan-devel
 %dir %{_includedir}/vulkan
-%{_includedir}/vulkan/*
 
 %files -n Mesa-vulkan-device-select
 %{_libdir}/libVkLayer_MESA_device_select.so
