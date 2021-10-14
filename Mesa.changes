@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Oct 14 10:30:57 UTC 2021 - Stefan Dirsch <sndirsch@suse.com>
+
+- try-to-fix-build-on-ppc64le.patch
+  * trying to fix build on ppc64le (boo#1191569) 
+
+-------------------------------------------------------------------
 Mon Oct  4 20:05:50 UTC 2021 - Aaron Puchert <aaronpuchert@alice-dsl.net>
 
 - Fix build with LLVM 13:
