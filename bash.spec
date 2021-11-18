@@ -139,6 +139,7 @@ Requires:       bash = %{version}
 %description sh
 Use bash as /bin/sh implementation.
 %endif
+
 %package devel
 Summary:        Include Files mandatory for Development of bash loadable builtins
 Group:          Development/Languages/C and C++
