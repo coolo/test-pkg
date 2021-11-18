@@ -134,6 +134,7 @@ Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
 Patch58:        u_dep_xcb.patch
 Patch100:       U_fix-mpeg1_2-decode-mesa-20.2.patch
 Patch200:       u_fix-build-on-ppc64le.patch
+Patch300:       n_buildfix-21.3.0.patch
 BuildRequires:  bison
 BuildRequires:  fdupes
 BuildRequires:  flex
@@ -768,6 +769,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %patch58 -p1
 %patch100 -p1
 %patch200 -p1
+%patch300 -p1
 
 # Remove requires to vulkan libs from baselibs.conf on platforms
 # where vulkan build is disabled; ugly ...
