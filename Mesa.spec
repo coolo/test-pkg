@@ -40,7 +40,11 @@
 
 %define glamor 1
 %define _name_archive mesa
+<<<<<<< .mine
+%define _version 21.3.1
+=======
 %define _version 21.3.0
+>>>>>>> .new
 %define with_opencl 0
 %define with_vulkan 0
 %define with_llvm 0
@@ -113,8 +117,13 @@
 %endif
 
 Name:           Mesa
+<<<<<<< .mine
+Version:        21.3.1
+Release:        0
+=======
 Version:        21.3.0
 Release:        0
+>>>>>>> .new
 Summary:        System for rendering 3-D graphics
 License:        MIT
 Group:          System/Libraries
