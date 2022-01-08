@@ -134,7 +134,7 @@ Patch58:        u_dep_xcb.patch
 Patch100:       U_fix-mpeg1_2-decode-mesa-20.2.patch
 Patch200:       u_fix-build-on-ppc64le.patch
 Patch300:       n_buildfix-21.3.0.patch
-Patch400:       n_no-sse2-on-ix86.patch
+Patch400:       n_no-sse2-on-ix86-except-for-intel-drivers.patch
 BuildRequires:  bison
 BuildRequires:  fdupes
 BuildRequires:  flex
