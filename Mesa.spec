@@ -791,7 +791,7 @@ sed -i -e s/cpp_std=gnu++11/cpp_std=gnu++14/g meson.build
 %build
 # try to avoid OOM on ppc64 (boo#1194739)
 %ifarch ppc64 ppc64le
-%limit_build -m 12000
+%limit_build -m 750
 %endif
 
 egl_platforms=x11,wayland
