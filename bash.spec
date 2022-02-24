@@ -54,6 +54,9 @@ Source8:        baselibs.conf
 # http://lists.gnu.org/archive/html/bug-bash/2011-03/msg00071.html
 # http://lists.gnu.org/archive/html/bug-bash/2011-03/msg00073.html
 Source9:        bash-4.2-history-myown.dif.bz2
+Source10:       https://ftp.gnu.org/gnu/bash/bash-%{bversion}%{bextend}.tar.gz.sig
+# GPG key 7C0135FB088AAF6C66C650B9BB5869F064EA74AB Chet Ramey
+Source11:       bash.keyring
 Patch0:         bash-%{bversion}.dif
 Patch1:         bash-2.03-manual.patch
 Patch3:         bash-4.3-2.4.4.patch
