@@ -230,8 +230,9 @@ echo -e '\033[1m\032[31mShift JIS support disabled\033[m'
 %setup -q -n bash-%{bversion}%{bextend} -b1
 typeset -i level
 set +x
-for patch in ../bash-%{bversion}-patches/*; do
+for patch in ../bash-%{bversion}-patches/*-*[0-9]; do
     test -e $patch || break
+
     let level=0 || true
     file=$(lsdiff --files=1 $patch)
     if test ! -e $file ; then
