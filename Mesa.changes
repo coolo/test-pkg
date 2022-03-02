@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Mar  2 13:32:42 UTC 2022 - Stefan Dirsch <sndirsch@suse.com>
+
+- raise memory limit to 1024 in the hope of avoiding OOM on ppc64
+  (boo#1196640)
+
+-------------------------------------------------------------------
 Tue Mar  1 17:20:19 UTC 2022 - Stefan Dirsch <sndirsch@suse.com>
 
 - autoselect libvulkan_intel package via hardware supplements on
