@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Mar  3 09:14:36 UTC 2022 - Stefan Dirsch <sndirsch@suse.com>
+
+- baselibs.conf: readded mistakenly removed packages
+  * Mesa-libVulkan-devel
+  * Mesa-vulkan-device-select
+  * Mesa-vulkan-overlay
+
+-------------------------------------------------------------------
 Wed Mar  2 13:32:42 UTC 2022 - Stefan Dirsch <sndirsch@suse.com>
 
 - raise memory limit to 1024 in the hope of avoiding OOM on ppc64
