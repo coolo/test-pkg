@@ -1094,7 +1094,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %{_libdir}/dri/*_dri.so
 %ifarch %{ix86} x86_64 aarch64 %{arm} ppc64 ppc64le riscv64
 %exclude %{_libdir}/dri/nouveau_dri.so
-%exclude %{_libdir}/dri/nouveau_vieux_dri.so
 %endif
 %ifarch %{arm} aarch64
 %exclude %{_libdir}/dri/vc4_dri.so
@@ -1110,7 +1109,6 @@ echo "The \"Mesa\" package does not have the ability to render, but is supplemen
 %ifarch %{ix86} x86_64 aarch64 %{arm} ppc64 ppc64le riscv64
 %files -n Mesa-dri-nouveau
 %{_libdir}/dri/nouveau_dri.so
-%{_libdir}/dri/nouveau_vieux_dri.so
 %endif
 
 %ifarch aarch64 %{arm}
