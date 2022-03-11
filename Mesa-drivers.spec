@@ -824,15 +824,15 @@ egl_platforms=x11,wayland
             -Dvulkan-drivers= \
 %endif
   %ifarch %{ix86} x86_64
-            -Ddri-drivers=i915,i965,nouveau,r100,r200 \
+            -Ddri-drivers= \
             -Dgallium-drivers=r300,r600,radeonsi,nouveau,swrast,svga,virgl,iris,crocus \
   %else
   %ifarch %{arm} aarch64
-            -Ddri-drivers=nouveau \
+            -Ddri-drivers= \
             -Dgallium-drivers=r300,r600,radeonsi,nouveau,swrast,virgl,freedreno,vc4,etnaviv,lima,panfrost,kmsro,v3d \
   %else
   %ifarch ppc64 ppc64le riscv64
-            -Ddri-drivers=nouveau \
+            -Ddri-drivers= \
             -Dgallium-drivers=r300,r600,radeonsi,nouveau,swrast \
   %else
             -Ddri-drivers= \

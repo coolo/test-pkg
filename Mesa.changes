@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Fri Mar 11 09:08:27 UTC 2022 - Stefan Dirsch <sndirsch@suse.com>
+
+- no longer try to build classic non-Gallium OpenGL drivers 
+  i915, i965, nouveau, r100 and r200, which have been dropped with
+  Mesa 22.0.0; see also some documentation on Phoronix
+  https://www.phoronix.com/scan.php?page=news_item&px=Mesa-Classic-Retired
+
+-------------------------------------------------------------------
 Thu Mar 10 18:39:34 UTC 2022 - Aaron Stern <ukbeast89@protonmail.com>
 
 - update to 22.0.0
