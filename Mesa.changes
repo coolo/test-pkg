@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Mar 14 10:43:10 UTC 2022 - Stefan Dirsch <sndirsch@suse.com>
+
+- U_meson-restore-private-requires-to-libdrm-in-dri.pc-f.patch 
+  * Due to a typo the private requires to libdrm were lost in dri.pc.
+    Fixed another typo (only comment).
+
+-------------------------------------------------------------------
 Sat Mar 12 20:04:00 UTC 2022 - Stefan Dirsch <sndirsch@suse.com>
 
 - enabled "i915" Gallium-based Intel Gen3 driver
