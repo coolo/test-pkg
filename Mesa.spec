@@ -127,7 +127,9 @@ Patch200:       u_fix-build-on-ppc64le.patch
 Patch300:       n_buildfix-21.3.0.patch
 Patch400:       n_no-sse2-on-ix86-except-for-intel-drivers.patch
 Patch500:       n_stop-iris-flicker.patch
+%ifarch %{ix86} x86_64
 BuildRequires:  DirectX-Headers
+%endif
 BuildRequires:  bison
 BuildRequires:  cmake
 BuildRequires:  fdupes
