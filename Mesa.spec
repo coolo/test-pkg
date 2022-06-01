@@ -123,6 +123,7 @@ Patch2:         n_add-Mesa-headers-again.patch
 Patch54:        n_drirc-disable-rgb10-for-chromium-on-amd.patch
 Patch58:        u_dep_xcb.patch
 Patch100:       U_fix-mpeg1_2-decode-mesa-20.2.patch
+Patch101:       U_llvmpipe-flush-resources-for-kms-swrast-path.patch
 Patch200:       u_fix-build-on-ppc64le.patch
 Patch300:       n_buildfix-21.3.0.patch
 Patch400:       n_no-sse2-on-ix86-except-for-intel-drivers.patch
@@ -741,6 +742,7 @@ rm -rf docs/README.{VMS,WIN32,OS2}
 %endif
 %patch58 -p1
 %patch100 -p1
+%patch101 -p1
 %patch200 -p1
 %patch300 -p1
 %ifarch %{ix86}
